@@ -1,7 +1,19 @@
 nav{
-    // position: fixed;
-    // top: 0;
-    // right: 0;
-    // left: 0;
-    // z-index: 1030;
+    color: white;
+    font-size: 22px;
+
+    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+    position: fixed;
+    width: 100%;
+}
+
+.buttons-menu{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    .buttons{
+        font-size: 20px;
+        // width: ;
+    }
 }

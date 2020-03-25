@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HEADER_MENU_OPTIONS } from './../../shared/constants/constants';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public menu = HEADER_MENU_OPTIONS;
+  constructor(
+    public login: LoginService
+  ) { }
 
   ngOnInit(): void {
   }

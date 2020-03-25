@@ -1,0 +1,1 @@
+export const HEADER_MENU_OPTIONS = ['Como Funciona', 'Anunciar Espaço', 'Ajuda']
