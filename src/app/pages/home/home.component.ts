@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   addName(){
     this.items.push({name: 'joao'})
-    console.log(this.items);
+    console.log(window.innerWidth);
   }
 
 }

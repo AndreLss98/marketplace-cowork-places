@@ -1,10 +1,20 @@
 nav{
-    color: white;
+    a{
+        color: #362d2a !important;
+        font-size: 30px;
+    }
+    span{
+        color: white !important;
+        font-size: 18px;
+    }
+
     font-size: 22px;
+    background-image: linear-gradient(to right, #ffffff6b, #000000ef);
 
     box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
     position: fixed;
     width: 100%;
+    z-index: 99;
 }
 
 .buttons-menu{
@@ -17,3 +27,30 @@ nav{
         // width: ;
     }
 }
+
+li{
+    margin: 0 5px 0 5px;
+    span{
+        border-bottom: 2px solid #ffffff00;
+    }
+}
+
+.show li{
+    border-bottom: none;
+}
+
+.collapsing li{
+    border-bottom: none;
+}
+
+.highlight{
+    border-bottom: 2px solid white !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255,255,255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+  
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.356);
+} 

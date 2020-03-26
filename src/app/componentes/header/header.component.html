@@ -1,17 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="#">PlaceEt</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" ></span>
     </button>
   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto my-dropdown">
-        <li class="nav-item" *ngFor="let item of menu" style="color: black;">
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
+        <li class="nav-item" *ngFor="let item of menu" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
           <span class="nav-link">{{ item }}</span>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" (click)="doLogin()" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
             <span class="nav-link">{{ login.logged_status ? 'Logado' : 'Entrar' }}</span>
-          </li>
+        </li>
       </ul>
     </div>
   </nav>

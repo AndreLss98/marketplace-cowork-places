@@ -7,6 +7,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { FooterComponent } from './componentes/footer/footer.component';
+import { LoginComponent } from './modal/login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -14,11 +18,14 @@ import { FooterComponent } from './componentes/footer/footer.component';
     HomeComponent,
     NotfoundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
