@@ -1,0 +1,40 @@
+header{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
+    padding-bottom: 2px;
+    margin-bottom: 15px;
+}
+
+footer{
+    border-top: 1px solid rgba(0, 0, 0, 0.096);
+    margin-top: 15px;
+}
+
+input{
+    width: 100%;
+    margin: 5px;
+    height: 45px;
+    border: 2px solid rgba(0, 0, 0, 0.178);
+    border-radius: 7px;
+    padding-left: 10px;
+
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 7px;
+}
+
+.login-social{
+    margin: 5px;
+    border: 1px solid #aaaaaa; 
+    border-radius: 7px;
+}
+
+.entrar{
+    width: 100%;
+    background-color: #44381f;
+    color: white;
+    margin: 5px;
+}
+

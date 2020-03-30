@@ -1,1 +1,41 @@
-<p>login works!</p>
+<header>
+    <div style="width: 100%; display: flex; flex-direction: row;">
+        <div style="width: 25%" (click)="close()"><span class="material-icons">clear</span></div>
+        <div style="width: 50%; display: flex; justify-content: center;">Entrar</div>
+        <div style="width: 25%;"></div>
+    </div>
+</header>
+
+<div class="container" style="width: 100%;">
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <input formControlName="user" type="text" placeholder="Usuário">
+        </div>
+        <div class="row">
+            <input formControlName="password" type="password" placeholder="Senha">
+        </div>
+        <div style="border: 1px solid #aaaaaa77; margin: 2px;"></div>
+        <div class="row">
+            <div class="col login-social d-flex align-items-center" (click)="signInWithGoogle()">
+                <img src="assets/google_signin_buttons/web/vector/btn_google_light_normal_ios.svg" style="height: 40px;">
+                <span>Entrar com o Google</span>
+            </div>
+            <div class="col login-social d-flex align-items-center" (click)="signInWithFB()">
+                <img src="assets/svg/facebook-icon.svg" style="height: 31px;">
+                <span style="padding-left: 2px;">Entrar com o Facebook</span>
+            </div>
+        </div>
+        <div style="height: 5px;"></div>
+        <div class="row d-flex align-items-center justify-content-end">
+            <button type="submit" class="btn entrar">Entrar</button>
+        </div>
+    </form>
+
+</div>
+
+<footer>
+    <div class="row d-flex align-items-center justify-content-start">
+        <button type="submit" class="btn entrar">Cadastrar</button>
+    </div>
+</footer>

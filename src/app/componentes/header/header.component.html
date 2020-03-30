@@ -10,7 +10,7 @@
           <span class="nav-link">{{ item }}</span>
         </li>
         <li class="nav-item" (click)="doLogin()" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
-            <span class="nav-link">{{ login.logged_status ? 'Logado' : 'Entrar' }}</span>
+            <span class="nav-link">{{ login.logged_status ? login.user_data.firstName : 'Entrar' }}</span>
         </li>
       </ul>
     </div>
