@@ -2,20 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { LoginComponent } from './modal/login/login.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import {MatDialogModule} from '@angular/material/dialog';
-
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { SignupComponent } from './modal/signup/signup.component';
+
 
 let config = new AuthServiceConfig([
   {
@@ -40,6 +41,7 @@ export function provideConfig() {
     HeaderComponent,
     FooterComponent,
     NotfoundComponent,
+    SignupComponent,
   ],
   imports: [
     FormsModule,

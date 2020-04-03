@@ -38,7 +38,14 @@ $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-app-login{
-    min-width: 60vw; 
-    max-width: 450px;
+
+::-webkit-scrollbar-thumb{
+    width: 5px;
+    background: linear-gradient(to bottom, #6efc76, #0afebf);
+}
+
+::-webkit-scrollbar
+{
+    background: black;
+	width: 5px;
 }

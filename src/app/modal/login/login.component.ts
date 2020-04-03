@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormGroup, FormControl } from '@angular/forms'
 
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-
-import { LoginResponse } from '../../interface/interface';
-import { from } from 'rxjs';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-login',
@@ -17,65 +13,30 @@ import { from } from 'rxjs';
 
 export class LoginComponent implements OnInit {
 
+  
   loginForm = new FormGroup({
     user: new FormControl(''),
     password: new FormControl('')
   })
-
-  private loginResponse: LoginResponse = {
-    status: false,
-    data: null
-  };
+  public authUrl:string = 'http://placeet.com.br:9011/oauth2/authorize?client_id=445ebce3-618a-42b5-b746-95ea441766e6&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fhome';
   
   constructor(
     private dialogRef: MatDialogRef<LoginComponent>,
-    private authService: AuthService
-    ) { 
-    }
-    
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( response => {
-      this.loginResponse.status = true;
-      this.loginResponse.data = response;
-      this.close();
-    }, err => {
-      console.log("Login canceled google", err);
-    });
-  }
- 
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response => {
-      this.loginResponse.status = true;
-      this.loginResponse.data = response;
-      this.close();
-    }, err => {
-      console.log("Login canceled facebook", err);
-    });
-  } 
- 
-  signOut(): void {
-    this.authService.signOut();
-  }
+    public login: LoginService
+    ) {}
 
   onSubmit(){
     console.log("Entrar")
   }
 
-  close(data: LoginResponse = this.loginResponse){
-    this.dialogRef.close(data)
+  close(){
+    this.dialogRef.close()
   }
   
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      
-    }, err => {
-      console.log("Algo errado", err)
-    });
-    
     this.dialogRef.backdropClick().subscribe(response => {
-      this.close(this.loginResponse)
+      this.close()
     })
-
   }
 
 }
