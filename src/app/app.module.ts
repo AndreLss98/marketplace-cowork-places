@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { SignupComponent } from './modal/signup/signup.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 let config = new AuthServiceConfig([
@@ -50,7 +52,8 @@ export function provideConfig() {
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {

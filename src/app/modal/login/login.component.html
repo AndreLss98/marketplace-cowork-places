@@ -7,7 +7,6 @@
 </header>
 
 <div class="container" style="width: 100%;">
-
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <input formControlName="user" type="text" placeholder="Usuário">
@@ -31,11 +30,10 @@
             <button type="submit" class="btn entrar">Entrar</button>
         </div>
     </form>
-
 </div>
 
 <footer>
-    <div class="row d-flex align-items-center justify-content-start">
-        <button type="submit" class="btn entrar">Cadastrar</button>
+    <div class="d-flex align-items-center justify-content-center">
+        <button (click)="openCadastrar()" class="btn cadastrar">Cadastrar</button>
     </div>
 </footer>
