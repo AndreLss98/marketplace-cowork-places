@@ -11,8 +11,13 @@ export class ModalService {
   ) { }
 
   private dialog;
-
-  openModal(content){
+  
+  /**
+   * @param  {} content Component
+   * @param  {boolean=false} closeAll
+   */
+  openModal(content, closeAll:boolean = false){
+    if(closeAll) this.modal.closeAll();
     this.dialog = this.modal.open(content)
   }
 
