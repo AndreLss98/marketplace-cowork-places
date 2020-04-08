@@ -18,6 +18,8 @@ import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { SignupComponent } from './modal/signup/signup.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { InfoComponent } from './componentes/info/info.component';
+import { FeatureComponent } from './componentes/feature/feature.component';
 
 
 let config = new AuthServiceConfig([
@@ -44,6 +46,8 @@ export function provideConfig() {
     FooterComponent,
     NotfoundComponent,
     SignupComponent,
+    InfoComponent,
+    FeatureComponent,
   ],
   imports: [
     FormsModule,
