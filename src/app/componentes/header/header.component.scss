@@ -1,4 +1,5 @@
 nav{
+    
     a{
         color: #362d2a !important;
         font-size: 30px;
@@ -10,13 +11,28 @@ nav{
     }
 
     font-size: 22px;
-    background-image: linear-gradient(to left, #6efc75a2, #0afebf);
-
-    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
-    border-bottom: 1px solid rgba(128, 128, 128, 0.178);
+    background: none;
     position: fixed;
     width: 100%;
     z-index: 99;
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+
+.sticky{
+
+    background-image: linear-gradient(to left, #6efc75, #0afebf);
+    -webkit-box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 20px 50px 0px rgba(0, 0, 0, 0.05);
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
 }
 
 .buttons-menu{

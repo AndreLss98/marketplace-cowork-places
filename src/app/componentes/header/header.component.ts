@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   
   ngOnInit(): void {
     $(document).ready(function () {
+
       $(document).click(function (event) {
           var clickover = $(event.target);
           console.log("algo");
@@ -47,6 +48,15 @@ export class HeaderComponent implements OnInit {
               $("button.navbar-toggler").click();
           }
       });
+
+      $(window).on('scroll', function (event) {
+        var scroll = $(window).scrollTop();
+        if (scroll < 20) {
+            $(".navbar").removeClass("sticky");
+        } else {
+            $(".navbar").addClass("sticky");
+        }
+    });
   });
   }
 }
