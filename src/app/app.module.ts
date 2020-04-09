@@ -19,7 +19,8 @@ import { SignupComponent } from './modal/signup/signup.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { InfoComponent } from './componentes/info/info.component';
-import { FeatureComponent } from './componentes/feature/feature.component';
+import { HighlightComponent } from './componentes/highlight/highlight.component';
+import { HighlightItemsComponent } from './componentes/highlight-items/highlight-items.component';
 
 
 let config = new AuthServiceConfig([
@@ -47,7 +48,8 @@ export function provideConfig() {
     NotfoundComponent,
     SignupComponent,
     InfoComponent,
-    FeatureComponent,
+    HighlightComponent,
+    HighlightItemsComponent,
   ],
   imports: [
     FormsModule,
