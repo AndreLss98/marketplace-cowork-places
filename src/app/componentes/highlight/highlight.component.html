@@ -1,0 +1,14 @@
+<div class="container content">
+    <div class="row">
+        <div [class]="cardClass" *ngFor="let space of spaces">
+            <app-highlight-items
+                [local]="space.local"
+                [description]="space.description"
+                [image]="space.image"
+                [cost]="space.cost"
+                [tax]="space.tax"
+                [rank]="space.rank"
+            ></app-highlight-items>
+        </div>
+    </div>
+</div>
