@@ -36,7 +36,7 @@ $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-
 //     min-height: 100vh;
 //   }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: linear-gradient(to right, #6efc76, #0afebf);}
 
 
 // ::-webkit-scrollbar-thumb{
