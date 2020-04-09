@@ -21,3 +21,12 @@ export interface User {
         username: string
     }
 }
+
+export interface highlightItem {
+    local: string,
+    description: string,
+    image: string,
+    cost: number,
+    tax: number,
+    rank: number
+}
