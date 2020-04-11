@@ -1,4 +1,4 @@
-import { HighlightService } from './../../service/highlight.service';
+import { HighlightService } from '../../../../service/highlight.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
@@ -10,6 +10,7 @@ export class HighlightComponent implements OnInit {
 
   public cardClass = "col-3";
   public spaces;
+  public rooms;
 
   @HostListener('window:resize', ['$event'])
   onResize(event){
@@ -20,6 +21,7 @@ export class HighlightComponent implements OnInit {
     public highlights: HighlightService
   ) { 
     this.spaces = this.highlights.spaces;
+    this.rooms = this.highlights.rooms;
   }
 
   ngOnInit(): void {
@@ -31,13 +33,16 @@ export class HighlightComponent implements OnInit {
     let width = $(window).width();
     if(width < 992){
       this.cardClass = "col-xl-6 d-flex justify-content-center";
-      this.spaces = this.highlights.getSome(1);
+      this.spaces = this.highlights.getSomeSpaces(1)
+      this.rooms = this.highlights.getSomeRooms(1)
     }else if(width < 1200){
       this.cardClass = "col-4";
-      this.spaces = this.highlights.getSome(2);
+      this.spaces = this.highlights.getSomeSpaces(2)
+      this.rooms = this.highlights.getSomeRooms(2)
     }else if(width > 1200){
       this.cardClass = "col-3";
-      this.spaces = this.highlights.spaces;
+      this.spaces = this.highlights.getSomeSpaces(3)
+      this.rooms = this.highlights.getSomeRooms(3)
     }
   }
 

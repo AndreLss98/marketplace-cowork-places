@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { highlightItem } from '../interface/interface'
+import { highlightItem } from '../shared/interface/interface'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,8 @@ export class HighlightService {
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
     {
       local: 'Escritorio Central',
@@ -22,7 +23,8 @@ export class HighlightService {
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
     {
       local: 'Escritorio Central',
@@ -30,47 +32,38 @@ export class HighlightService {
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
+  ]
+
+  private _rooms: highlightItem[] = [
     {
-      local: 'Escritorio Central',
+      local: 'Mesa Compartilhada',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
     {
-      local: 'Escritorio Central',
+      local: 'Mesa Compartilhada',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'https://picsum.photos/150',
+      image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
     {
-      local: 'Escritorio Central',
+      local: 'Mesa Compartilhada',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'https://picsum.photos/150',
+      image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
       tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
-    },
-    {
-      local: 'Escritorio Central',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'https://picsum.photos/150',
-      cost: ( (Math.random() + 1) * 150 ),
-      tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
-    },
-    {
-      local: 'Escritorio Central',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      image: 'https://picsum.photos/150',
-      cost: ( (Math.random() + 1) * 150 ),
-      tax: ( Math.random() * 10 ),
-      rank: ( Math.random() * 5 )
+      rank: ( Math.random() * 5 ),
+      id: Math.floor(Math.random() * 10001), 
     },
   ]
 
@@ -80,7 +73,7 @@ export class HighlightService {
      * @return {highlightItem[] }
      */
 	public get spaces(): highlightItem[]  {
-		return this.getSome(3);
+		return this._spaces;
 	}
 
     /**
@@ -91,10 +84,35 @@ export class HighlightService {
 		this._spaces = value;
   }
 
-  public getSome(quantity: number): highlightItem[]{
+  
+    /**
+     * Getter rooms
+     * @return {highlightItem[] }
+     */
+	public get rooms(): highlightItem[]  {
+		return this._rooms;
+	}
+
+    /**
+     * Setter rooms
+     * @param {highlightItem[] } value
+     */
+	public set rooms(value: highlightItem[] ) {
+		this._rooms = value;
+	}
+
+  public getSomeSpaces(quantity: number): highlightItem[]{
     let buffer: highlightItem[] = [];
     for (let index = 0; index < quantity; index++) {
       buffer.push(this._spaces[index]);
+    }
+    return buffer;
+  }
+
+  public getSomeRooms(quantity: number): highlightItem[]{
+    let buffer: highlightItem[] = [];
+    for (let index = 0; index < quantity; index++) {
+      buffer.push(this._rooms[index]);
     }
     return buffer;
   }

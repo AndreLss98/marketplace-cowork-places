@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/login.service';
 
-import { HEADER_MENU_OPTIONS } from './../../shared/constants/constants';
+import { HEADER_MENU_OPTIONS } from '../../constants/constants';
 import { ModalService } from 'src/app/service/modal.service';
-import { LoginComponent } from 'src/app/modal/login/login.component';
+import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import * as $ from 'jquery'
 

@@ -1,0 +1,47 @@
+<div class="content" id="highlight">
+    <div class="row">
+        <div class="{{cardClass}}" style="margin-bottom: 30px">
+            <div class="highlightInfo">
+                <h4>A melhor forma de trabalhar sem altos custos</h4>
+                <br>
+                <p>Trabalhar sossegado no espaço que você quiser e economiznado</p>
+                <br>
+                <button class="btn" style="background: linear-gradient( to right, #40f943, #09fe9d);" >Ver mais ofertas</button>
+            </div>
+        </div>
+        <div class="{{cardClass}} highlightCards" [id]='space.id' *ngFor="let space of spaces let i=index">
+            <app-highlight-items
+                [local]="space.local"
+                [description]="space.description"
+                [image]="space.image"
+                [cost]="space.cost"
+                [tax]="space.tax"
+                [rank]="space.rank"
+                [customId]="space.id"
+            ></app-highlight-items>
+        </div>
+    </div>
+    <div style="height: 60px;"></div>
+    <div class="row">
+        <div class="{{cardClass}}" style="margin-bottom: 30px">
+            <div class="highlightInfo">
+                <h4>Escolha onde trabalhar!</h4>
+                <br>
+                <p>Mesas compartilhadas com serviços que facilitam sua vida.</p>
+                <br>
+                <button class="btn" style="background-color: black; color: white;">Ver mais ofertas</button>
+            </div>
+        </div>
+        <div class="{{cardClass}} highlightCards" [id]='room.id' *ngFor="let room of rooms let i=index">
+            <app-highlight-items
+                [local]="room.local"
+                [description]="room.description"
+                [image]="room.image"
+                [cost]="room.cost"
+                [tax]="room.tax"
+                [rank]="room.rank"
+                [customId]="room.id"
+            ></app-highlight-items>
+        </div>
+    </div>
+</div>

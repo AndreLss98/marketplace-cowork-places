@@ -5,23 +5,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { NotfoundComponent } from './pages/notfound/notfound.component';
-import { HeaderComponent } from './componentes/header/header.component';
-import { FooterComponent } from './componentes/footer/footer.component';
-import { LoginComponent } from './modal/login/login.component';
+import { HomeComponent } from './modulos/home/home/home.component';
+import { NotfoundComponent } from './modulos/notfound/notfound/notfound.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { LoginComponent } from './shared/modal/login/login.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { SignupComponent } from './modal/signup/signup.component';
+import { SignupComponent } from './shared/modal/signup/signup.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { InfoComponent } from './componentes/info/info.component';
-import { HighlightComponent } from './componentes/highlight/highlight.component';
-import { HighlightItemsComponent } from './componentes/highlight-items/highlight-items.component';
-import { FindComponent } from './componentes/find/find.component';
+import { InfoComponent } from './modulos/home/components/info/info.component';
+import { HighlightComponent } from './modulos/home/components/highlight/highlight.component';
+import { HighlightItemsComponent } from './shared/components/highlight-items/highlight-items.component';
+import { FindComponent } from './modulos/home/components/find/find.component';
 
 
 let config = new AuthServiceConfig([

@@ -2,13 +2,20 @@
     padding-bottom: 100px;
     padding-top: 100px;
     overflow: hidden;
-    background: linear-gradient( to top, #09fe9d 50%, #f4f4f4 50%);
+    background: linear-gradient( to top, #09fe9d 33.25%, #f4f4f4 33.25%);
     width: 100%;
 }
 
 .description{
     width: 200px;
     margin: auto 100px;
+}
+
+.btn{
+    border-radius: 10px;
+    height: 45px;
+    width: 190px;
+    font-weight: bold;
 }
 
 @media all and (min-width: 1470px){
