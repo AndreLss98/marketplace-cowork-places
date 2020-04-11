@@ -36,9 +36,10 @@ $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-
 //     min-height: 100vh;
 //   }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: linear-gradient(to right, #6efc76, #0afebf);}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #ffffff;}
 
-
+$placeet-light-green:  #09fe9d;
+$placeet-dark-green: #40f943;
 // ::-webkit-scrollbar-thumb{
 //     width: 5px;
 //     background: linear-gradient(to bottom, #6efc76, #0afebf);

@@ -9,7 +9,7 @@ export class HighlightService {
 
   private _spaces: highlightItem[] = [
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
@@ -17,7 +17,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
@@ -25,7 +25,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
@@ -33,7 +33,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/200',
       cost: ( (Math.random() + 1) * 150 ),
@@ -41,7 +41,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/150',
       cost: ( (Math.random() + 1) * 150 ),
@@ -49,7 +49,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/150',
       cost: ( (Math.random() + 1) * 150 ),
@@ -57,7 +57,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/150',
       cost: ( (Math.random() + 1) * 150 ),
@@ -65,7 +65,7 @@ export class HighlightService {
       rank: ( Math.random() * 5 )
     },
     {
-      local: 'Goiânia - GO',
+      local: 'Escritorio Central',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://picsum.photos/150',
       cost: ( (Math.random() + 1) * 150 ),
@@ -80,7 +80,7 @@ export class HighlightService {
      * @return {highlightItem[] }
      */
 	public get spaces(): highlightItem[]  {
-		return this._spaces;
+		return this.getSome(3);
 	}
 
     /**

@@ -13,10 +13,18 @@ export class HighlightItemsComponent implements OnInit {
   @Input('cost') cost: number;
   @Input('tax') tax: number;
   @Input('rank') rank: number;
+  @Input('customId') customId: number;
+
+  public display = 'block'
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  carreguei(event: HighlightItemsComponent){
+    event.display = 'block'
+    // $(event).show();
   }
 
 }
