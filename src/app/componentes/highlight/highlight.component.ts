@@ -28,17 +28,17 @@ export class HighlightComponent implements OnInit {
   }
 
   private checkWidth(){
-    // let width = $(window).width();
-    // if(width < 992){
-    //   this.cardClass = "col-6";
-    //   this.spaces = this.highlights.getSome(4);
-    // }else if(width < 1200){
-    //   this.cardClass = "col-4";
-    //   this.spaces = this.highlights.getSome(6);
-    // }else if(width > 1200){
-    //   this.cardClass = "col-3";
-    //   this.spaces = this.highlights.spaces;
-    // }
+    let width = $(window).width();
+    if(width < 992){
+      this.cardClass = "col-xl-6 d-flex justify-content-center";
+      this.spaces = this.highlights.getSome(1);
+    }else if(width < 1200){
+      this.cardClass = "col-4";
+      this.spaces = this.highlights.getSome(2);
+    }else if(width > 1200){
+      this.cardClass = "col-3";
+      this.spaces = this.highlights.spaces;
+    }
   }
 
 

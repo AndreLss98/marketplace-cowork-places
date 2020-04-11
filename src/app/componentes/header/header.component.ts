@@ -41,6 +41,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     $(document).ready(function () {
 
+      if($(window).width() < 426){
+        $('#navTop').hide();
+        $('#navBottom').show();
+      }
+
       $(document).click(function (event) {
           var clickover = $(event.target);
           console.log("algo");
