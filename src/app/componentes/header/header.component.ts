@@ -15,6 +15,7 @@ import * as $ from 'jquery'
 export class HeaderComponent implements OnInit {
 
   public menu = HEADER_MENU_OPTIONS;
+  private mobile_mode = false;
 
   constructor(
     public login: LoginService,
@@ -32,13 +33,22 @@ export class HeaderComponent implements OnInit {
   
   doLogin(){
     if(!this.login.logged_status){
-      this.modalService.openModal(LoginComponent);
+      let config: any = {};
+      if(this.mobile_mode){
+        config = {
+          maxWidth: '100vw',
+          minHeight: '100vh'
+        }
+      }
+      this.modalService.openModal(LoginComponent, false, config);
 
       console.log("Go to login")
     } // else do nothing
   }
   
   ngOnInit(): void {
+    if($(window).width() < 426) this.mobile_mode = true;
+
     $(document).ready(function () {
 
       if($(window).width() < 426){

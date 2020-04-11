@@ -28,9 +28,9 @@
         <span class="material-icons" style="color: white; font-size: 30px;">favorite</span>
         <span style="font-size: 12px; color: white;">Favoritos</span>
       </div>
-      <div class="col-4 d-flex align-items-center justify-content-center flex-column">
+      <div class="col-4 d-flex align-items-center justify-content-center flex-column" (click)="doLogin()">
         <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
-        <span style="font-size: 12px; color: white;">Entrar</span>
+        <span style="font-size: 12px; color: white;">{{ login.logged_status ? login.user_data.firstName : 'Entrar' }}</span>
       </div>
     </div>
   </div>

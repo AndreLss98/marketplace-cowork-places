@@ -13,12 +13,14 @@ export class ModalService {
   private dialog;
   
   /**
-   * @param  {} content Component
+   * @param  {} content
    * @param  {boolean=false} closeAll
+   * @param  {MatDialogConfig={}} config
    */
-  openModal(content, closeAll:boolean = false){
+  openModal(content, closeAll:boolean = false, config:MatDialogConfig = {}){
+    console.log("peguei", config)
     if(closeAll) this.modal.closeAll();
-    this.dialog = this.modal.open(content)
+    this.dialog = this.modal.open(content, config)
   }
 
   closeAllModals(){
