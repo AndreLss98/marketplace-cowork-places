@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { InfoComponent } from './componentes/info/info.component';
 import { HighlightComponent } from './componentes/highlight/highlight.component';
 import { HighlightItemsComponent } from './componentes/highlight-items/highlight-items.component';
+import { FindComponent } from './componentes/find/find.component';
 
 
 let config = new AuthServiceConfig([
@@ -50,6 +51,7 @@ export function provideConfig() {
     InfoComponent,
     HighlightComponent,
     HighlightItemsComponent,
+    FindComponent,
   ],
   imports: [
     FormsModule,
