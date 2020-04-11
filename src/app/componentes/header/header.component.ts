@@ -32,7 +32,14 @@ export class HeaderComponent implements OnInit {
   }
   
   doLogin(){
+    
+    setTimeout(() => {     
+      $('#navBottom').addClass('down');
+      $('#navBottom').removeClass('up');
+    }, 100);
+
     if(!this.login.logged_status){
+
       let config: any = {};
       if(this.mobile_mode){
         config = {
@@ -64,6 +71,23 @@ export class HeaderComponent implements OnInit {
               $("button.navbar-toggler").click();
           }
       });
-  });
+
+      var position = $(window).scrollTop(); 
+
+      $(window).scroll(function() {
+          var scroll = $(window).scrollTop();
+          if(scroll > position + 30) {
+              console.log('scrollDown', scroll, position);
+              $('#navBottom').removeClass('up');
+              $('#navBottom').addClass('down');
+              position = scroll;
+          } else if (scroll < position){
+              console.log('scrollUp', scroll, position);
+              $('#navBottom').removeClass('down');
+              $('#navBottom').addClass('up');
+              position = scroll;
+          }
+      });
+    });
   }
 }

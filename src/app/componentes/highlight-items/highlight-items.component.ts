@@ -15,16 +15,10 @@ export class HighlightItemsComponent implements OnInit {
   @Input('rank') rank: number;
   @Input('customId') customId: number;
 
-  public display = 'block'
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  carreguei(event: HighlightItemsComponent){
-    event.display = 'block'
-    // $(event).show();
-  }
 
 }

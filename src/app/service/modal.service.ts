@@ -1,5 +1,5 @@
-import { Injectable, Component } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { Injectable } from '@angular/core';
+import { MatDialogConfig, MatDialog, MatDialogRef, MatDialogState } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ModalService {
     private modal: MatDialog,
   ) { }
 
-  private dialog;
+  private dialog:MatDialogRef<unknown, any>;
   
   /**
    * @param  {} content
@@ -18,9 +18,19 @@ export class ModalService {
    * @param  {MatDialogConfig={}} config
    */
   openModal(content, closeAll:boolean = false, config:MatDialogConfig = {}){
-    console.log("peguei", config)
-    if(closeAll) this.modal.closeAll();
+
+    if(closeAll){
+      this.modal.closeAll();
+      this.dialog = undefined;
+    } 
+    
+    if (this.dialog) return;
+
     this.dialog = this.modal.open(content, config)
+
+    this.dialog.afterClosed().subscribe( () => {
+      this.dialog = undefined;
+    })
   }
 
   closeAllModals(){
