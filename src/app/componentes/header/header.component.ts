@@ -4,7 +4,8 @@ import { LoginService } from 'src/app/service/login.service';
 import { HEADER_MENU_OPTIONS } from './../../shared/constants/constants';
 import { ModalService } from 'src/app/service/modal.service';
 import { LoginComponent } from 'src/app/modal/login/login.component';
-import * as $ from 'jquery';
+
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-header',
@@ -22,11 +23,11 @@ export class HeaderComponent implements OnInit {
 
   mouse_over(element){
     // console.log(element.target)
-    element.target.classList.add("highlight")
+    // element.target.classList.add("highlight")
   }
   
   mouse_out(element){
-    element.target.classList.remove("highlight")
+    // element.target.classList.remove("highlight")
   }
   
   doLogin(){
@@ -48,15 +49,6 @@ export class HeaderComponent implements OnInit {
               $("button.navbar-toggler").click();
           }
       });
-
-      $(window).on('scroll', function (event) {
-        var scroll = $(window).scrollTop();
-        if (scroll < 20) {
-            $(".navbar").removeClass("sticky");
-        } else {
-            $(".navbar").addClass("sticky");
-        }
-    });
   });
   }
 }
