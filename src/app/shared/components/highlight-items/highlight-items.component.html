@@ -1,4 +1,4 @@
-<div class="card" style="width: 277px;  margin-bottom: 10px;">
+<div class="card" style="margin-bottom: 10px;" [ngStyle]="{'width': width}">
 
     <div id="Carousel{{customId}}" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" role="listbox" style="height: 190px; border-radius: 25px 25px 0 0;">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-4"></div>
             </div>
-            <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 10px; border-bottom: 1px solid #858585;">
+            <div class="row" style="padding-bottom: 10px;">
                 <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
                     <span class="material-icons">aspect_ratio</span>
                     <p style="color: gray; font-size: 11px;">15m2</p>
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="row" style="margin-left: 7px; margin-right: 7px;">
+        <div class="row" style="margin-left: 7px; margin-right: 7px; border-top: 1px solid #858585;">
             <div class="col d-flex flex-row" style="padding: 5px 0 5px 0">
                 <span style="font-size: 14px; font-weight: bold;">ALUGUEL</span>
             </div>

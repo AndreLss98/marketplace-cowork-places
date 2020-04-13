@@ -14,6 +14,7 @@ export class HighlightItemsComponent implements OnInit {
   @Input('tax') tax: number;
   @Input('rank') rank: number;
   @Input('customId') customId: number;
+  @Input('width') width:string = '277px'
 
   constructor() { }
 
