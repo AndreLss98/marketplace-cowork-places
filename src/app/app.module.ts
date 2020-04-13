@@ -10,18 +10,21 @@ import { NotfoundComponent } from './modulos/notfound/notfound/notfound.componen
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoginComponent } from './shared/modal/login/login.component';
+import { InfoComponent } from './modulos/home/components/info/info.component';
+import { HighlightComponent } from './modulos/home/components/highlight/highlight.component';
+import { HighlightItemsComponent } from './shared/components/highlight-items/highlight-items.component';
+import { FindComponent } from './modulos/home/components/find/find.component';
+import { SearchComponent } from './modulos/search/search/search.component';
+import { SearchboxComponent } from './modulos/search/components/searchbox/searchbox.component';
+import { SignupComponent } from './shared/modal/signup/signup.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { SignupComponent } from './shared/modal/signup/signup.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { environment } from '../environments/environment';
-import { InfoComponent } from './modulos/home/components/info/info.component';
-import { HighlightComponent } from './modulos/home/components/highlight/highlight.component';
-import { HighlightItemsComponent } from './shared/components/highlight-items/highlight-items.component';
-import { FindComponent } from './modulos/home/components/find/find.component';
 
 
 let config = new AuthServiceConfig([
@@ -52,6 +55,8 @@ export function provideConfig() {
     HighlightComponent,
     HighlightItemsComponent,
     FindComponent,
+    SearchComponent,
+    SearchboxComponent,
   ],
   imports: [
     FormsModule,
@@ -61,6 +66,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SocialLoginModule,
+    InfiniteScrollModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
