@@ -9,7 +9,7 @@
                 <button class="btn" style="background: linear-gradient( to right, #40f943, #09fe9d);" >Ver mais ofertas</button>
             </div>
         </div>
-        <div class="{{cardClass}} highlightCards" [id]='space.id' *ngFor="let space of spaces let i=index">
+        <div class="{{cardClass}} highlightCards" [id]='space.id' *ngFor="let space of spaces">
             <app-highlight-items
                 [local]="space.local"
                 [description]="space.description"
@@ -32,7 +32,7 @@
                 <button class="btn" style="background-color: black; color: white;">Ver mais ofertas</button>
             </div>
         </div>
-        <div class="{{cardClass}} highlightCards" [id]='room.id' *ngFor="let room of rooms let i=index">
+        <div class="{{cardClass}} highlightCards" [id]='room.id' *ngFor="let room of rooms">
             <app-highlight-items
                 [local]="room.local"
                 [description]="room.description"

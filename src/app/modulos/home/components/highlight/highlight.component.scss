@@ -56,6 +56,10 @@
         .highlightInfo{
             margin-left: 30px;
             margin-right: 30px; 
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
         }
     }
 }

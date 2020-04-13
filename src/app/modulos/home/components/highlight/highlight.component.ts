@@ -20,8 +20,6 @@ export class HighlightComponent implements OnInit {
   constructor(
     public highlights: HighlightService
   ) { 
-    this.spaces = this.highlights.spaces;
-    this.rooms = this.highlights.rooms;
   }
 
   ngOnInit(): void {
