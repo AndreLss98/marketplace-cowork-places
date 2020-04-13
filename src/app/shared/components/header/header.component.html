@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
         <li class="nav-item" *ngFor="let item of menu" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
-          <span class="nav-link">{{ item }}</span>
+          <a  [routerLink]="item.rout" class="nav-link">{{ item.name }}</a>
         </li>
         <li class="nav-item" (click)="doLogin()" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
             <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.firstName : 'Entrar' }}</button>
@@ -25,7 +25,7 @@
         <span style="font-size: 12px; color: white;">Buscar</span>
       </div>
       <div class="col-4 d-flex align-items-center justify-content-center flex-column">
-        <span class="material-icons" style="color: white; font-size: 30px;">favorite</span>
+        <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
         <span style="font-size: 12px; color: white;">Favoritos</span>
       </div>
       <div class="col-4 d-flex align-items-center justify-content-center flex-column" (click)="doLogin()">

@@ -44,12 +44,10 @@ export class HeaderComponent implements OnInit {
       if(this.mobile_mode){
         config = {
           maxWidth: '100vw',
-          minHeight: '100vh'
+          minHeight: '90vh'
         }
       }
       this.modalService.openModal(LoginComponent, false, config);
-
-      console.log("Go to login")
     } // else do nothing
   }
   
@@ -65,7 +63,6 @@ export class HeaderComponent implements OnInit {
 
       $(document).click(function (event) {
           var clickover = $(event.target);
-          console.log("algo");
           var _opened = $(".navbar-collapse").hasClass("show");
           if (_opened === true && !clickover.hasClass("navbar-toggler")) {
               $("button.navbar-toggler").click();
@@ -77,12 +74,10 @@ export class HeaderComponent implements OnInit {
       $(window).scroll(function() {
           var scroll = $(window).scrollTop();
           if(scroll > position + 30) {
-              console.log('scrollDown', scroll, position);
               $('#navBottom').removeClass('up');
               $('#navBottom').addClass('down');
               position = scroll;
           } else if (scroll < position){
-              console.log('scrollUp', scroll, position);
               $('#navBottom').removeClass('down');
               $('#navBottom').addClass('up');
               position = scroll;
