@@ -104,7 +104,15 @@ export class HighlightService {
   public getSomeSpaces(quantity: number): highlightItem[]{
     let buffer: highlightItem[] = [];
     for (let index = 0; index < quantity; index++) {
-      buffer.push(this._spaces[index]);
+      buffer.push({
+        local: 'Escritorio Central',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        image: 'https://picsum.photos/200',
+        cost: ( (Math.random() + 1) * 150 ),
+        tax: ( Math.random() * 10 ),
+        rank: ( Math.random() * 5 ),
+        id: Math.floor(Math.random() * 10001), 
+      });
     }
     return buffer;
   }
@@ -112,7 +120,15 @@ export class HighlightService {
   public getSomeRooms(quantity: number): highlightItem[]{
     let buffer: highlightItem[] = [];
     for (let index = 0; index < quantity; index++) {
-      buffer.push(this._rooms[index]);
+      buffer.push({
+        local: 'Mesa Compartilhada',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        image: 'https://picsum.photos/200',
+        cost: ( (Math.random() + 1) * 150 ),
+        tax: ( Math.random() * 10 ),
+        rank: ( Math.random() * 5 ),
+        id: Math.floor(Math.random() * 10001), 
+      });
     }
     return buffer;
   }
