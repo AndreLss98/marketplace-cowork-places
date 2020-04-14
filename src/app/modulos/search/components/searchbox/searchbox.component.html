@@ -1,56 +1,65 @@
 <div id="searchBox" class="container">
-    <div class="row">
-        <div class="col-6"><span>LOCALIZAÇÃO</span></div>
-        <div class="col-6 d-flex justify-content-end"><a style="color: white; font-size: 14px;">LIMPAR FILTRO</a></div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <input type="text" placeholder="Busque por cidade ou bairro." class="inputCidade" maxlength="100">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col d-flex justify-content-start"><span>LOCALIZAÇÃO</span></div>
         </div>
-    </div>
-    <div class="row" style="padding-bottom: 0; padding-top: 10px;">
-        <div class="col">
-            <span>TIPO DE SERVIÇO</span>
+        <div class="row">
+            <div class="col">
+                <input formControlName="location" type="text" placeholder="Busque por cidade ou bairro." class="inputCidade" maxlength="100">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Selecione
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button">Action</button>
-                  <button class="dropdown-item" type="button">Another action</button>
-                  <button class="dropdown-item" type="button">Something else here</button>
+        <div class="row" style="padding-bottom: 0; padding-top: 10px;">
+            <div class="col">
+                <span>TIPO DE SERVIÇO</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Selecione
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Action</button>
+                    <button class="dropdown-item" type="button">Another action</button>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
-    </div>
-    <div class="row" style="padding-bottom: 0; padding-top: 10px;">
-        <div class="col">
-            <span>VALOR</span>
+        <div class="row" style="padding-bottom: 0; padding-top: 10px;">
+            <div class="col">
+                <span>VALOR</span>
+            </div>
         </div>
-    </div>
-    <div class="row" id="searchBoxValue">
-        <div class="col-6">
-            <input style="width: 100%;" type="text" placeholder="mín" class="btn" maxlength="10">
+        <div class="row" id="searchBoxValue">
+            <div class="col-6">
+                <input formControlName="minValue" style="width: 100%;" type="text" placeholder="mín" class="btn" maxlength="10">
+            </div>
+            <div class="col-6">
+                <input formControlName="maxValue" style="width: 100%;" type="text" placeholder="máx" class="btn" maxlength="10">
+            </div>
         </div>
-        <div class="col-6">
-            <input style="width: 100%;" type="text" placeholder="máx" class="btn" maxlength="10">
+        <div class="row" style="padding-bottom: 0; padding-top: 10px;">
+            <div class="col">
+                <span>ÁREA</span>
+            </div>
         </div>
-    </div>
-    <div class="row" style="padding-bottom: 0; padding-top: 10px;">
-        <div class="col">
-            <span>ÁREA</span>
+        <div class="row" id="searchBoxArea">
+            <div class="col-6">
+                <input formControlName="minArea" style="width: 100%;" type="text" placeholder="mín" class="btn" maxlength="4">
+            </div>
+            <div class="col-6">
+                <input formControlName="maxArea" style="width: 100%;" type="text" placeholder="máx" class="btn" maxlength="4">
+            </div>
         </div>
-    </div>
-    <div class="row" id="searchBoxArea">
-        <div class="col-6">
-            <input style="width: 100%;" type="text" placeholder="mín" class="btn" maxlength="4">
+        <div class="row" style="padding-top: 15px;">
+            <div class="col-6 d-flex justify-content-start align-items-center">
+                <button class="btn limpar">Limpar</button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button class="btn submit" type="submit">Aplicar</button>
+            </div>
         </div>
-        <div class="col-6">
-            <input style="width: 100%;" type="text" placeholder="máx" class="btn" maxlength="4">
-        </div>
-    </div>
+    </form>
 </div>
