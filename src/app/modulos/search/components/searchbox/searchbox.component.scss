@@ -1,7 +1,127 @@
 #searchBox{
+
     width: 330px;
     height: 375px;
     background-color: #fabb27;
     border-radius: 20px;
     position: fixed;
+    padding: 30px 20px 15px 20px;
+
+    span{
+
+        color: white;
+        font-size: 16px;
+    }
+
+    a:hover{
+        border-bottom: 1px solid white;
+    }
+
+    .row{
+
+        // padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .inputCidade{
+
+        color: white;
+        font-size: 14px;
+        background-color: #fabb27;
+        border: none;
+        padding-bottom: 6px;
+        border-bottom: 2px solid white;
+        width: 100%;   
+    }
+
+    .inputCidade::placeholder{
+        font-size: 14px;
+        color: white;
+    }
+
+    .inputCidade:focus{
+        outline: none;
+    }
+
+    .dropdown{
+        
+        .dropdown-toggle{
+
+            width: 100%;
+            text-align: start;
+            background-color: #fabb27;
+            border: none;
+            border-radius: 0;
+            border-bottom: 2px solid white;
+            color: white;
+            font-size: 14px;
+            padding-left: 0;
+        }
+        
+        .dropdown-toggle:focus{
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .dropdown-toggle::after{
+        float: right;
+        font-size: 20px;
+        margin-top: 8px;
+    }
+
+    #searchBoxValue{
+
+        .btn{
+
+            height: 45px;
+            color: #fabb27;
+            background-color: white;
+            padding-right: 5px;
+            padding-left: 5px;
+            border-radius: 7px;
+        }
+
+        input::placeholder{
+
+            color: #fabb27;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .btn:focus{
+
+            outline: 0;
+            box-shadow: none;
+            // border: 0;
+        }
+    }
+
+    #searchBoxArea{
+
+        .btn{
+
+            height: 45px;
+            color: #fabb27;
+            background-color: white;
+            padding-right: 5px;
+            padding-left: 5px;
+            border-radius: 7px;
+        }
+
+        input::placeholder{
+
+            color: #fabb27;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .btn:focus{
+
+            outline: 0;
+            box-shadow: none;
+            // border: 0;
+        }
+    }
 }
+
