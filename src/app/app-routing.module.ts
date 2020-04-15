@@ -1,3 +1,4 @@
+import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
 import { SearchComponent } from './modulos/search/search/search.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,13 +7,16 @@ import { NotfoundComponent } from './modulos/notfound/notfound/notfound.componen
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'search', component: SearchComponent , resolve: { source: SearchResolver }},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    SearchResolver
+  ]
 })
 export class AppRoutingModule { }

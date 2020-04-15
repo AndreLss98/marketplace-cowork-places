@@ -41,13 +41,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
 $placeet-light-green:  #09fe9d;
 $placeet-dark-green: #40f943;
 $placeet-yellow: #fabb27;
-// ::-webkit-scrollbar-thumb{
-//     width: 5px;
-//     background: linear-gradient(to bottom, #6efc76, #0afebf);
-// }
 
-// ::-webkit-scrollbar
-// {
-//     background: black;
-// 	width: 5px;
-// }
+// Remove input type numbers arrows
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+-moz-appearance: textfield;
+}
+
