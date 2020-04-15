@@ -1,5 +1,7 @@
-import { HighlightService } from './../../../service/highlight.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { HighlightService } from './../../../service/highlight.service';
 
 @Component({
   selector: 'app-search',
@@ -12,11 +14,18 @@ export class SearchComponent implements OnInit {
   private quantity:number = 20;
 
   constructor(
-    public highlight: HighlightService
+    private route: ActivatedRoute,
+    private highlight: HighlightService
   ) { }
 
   ngOnInit(): void {
-    this.result = this.highlight.getSomeSpaces(this.quantity)
+    this.result = this.route.snapshot.data.source;
+    this.route.queryParams.subscribe( (data) => {
+      console.log("Tem algo aqui", data)
+      if(data.location){
+        this.result = this.highlight.getSomeSpaces(20)
+      }
+    })
   }
 
   onScroll(){
