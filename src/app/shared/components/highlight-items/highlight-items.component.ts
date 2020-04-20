@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -16,9 +17,15 @@ export class HighlightItemsComponent implements OnInit {
   @Input('customId') customId: number;
   @Input('width') width:string = '277px'
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  goToSpace(){
+    this.router.navigateByUrl("/spaces/"+this.customId)
   }
 
 
