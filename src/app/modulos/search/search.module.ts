@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 @NgModule({
-  declarations: [SearchComponent, SearchboxComponent ],
+  declarations: [SearchComponent, SearchboxComponent, FilterComponent ],
   imports: [
     SharedModule,
     CommonModule,

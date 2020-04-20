@@ -1,15 +1,20 @@
 <div id="content" class="container-fluid">
     <div class="row">
         <div style="flex: 0 0 28%; max-width: 28%; padding-right: 15px;padding-left: 15px; min-height: 375px;">
-            <app-searchbox></app-searchbox>
+            <div id="searchScroll" style="position: fixed;">
+                <cdk-virtual-scroll-viewport [itemSize]="" style="width: 340px; min-height: 100vh;">
+                    <app-searchbox></app-searchbox>
+                    <app-filter></app-filter>
+                </cdk-virtual-scroll-viewport>
+            </div>
         </div>
         <div    class="h-100 d-flex align-items-start flex-row flex-wrap justify-content-sm-between" 
-                style="flex: 0 0 72%; max-width: 72%; padding-right: 15px;padding-left: 15px;"
+                style="flex: 0 0 72%; max-width: 72%; padding-right: 15px;padding-left: 15px; scroll-margin-top: 200px;"
                 infiniteScroll
                 [infiniteScrollDistance]="2"
                 (scrolled)="onScroll()">
 
-            <app-highlight-items  *ngFor="let space of result" style="padding-bottom: 15px;"
+            <app-highlight-items  *ngFor="let space of result" style="padding-bottom: 15px;" (click)="doSearch()"
                 [local]="space.local"
                 [description]="space.description"
                 [image]="space.image"
