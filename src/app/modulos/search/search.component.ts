@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { HighlightService } from './../../../service/highlight.service';
+import { HighlightService } from 'src/app/service/highlight.service';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +8,7 @@ import { HighlightService } from './../../../service/highlight.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
+  
   public result;
   private quantity:number = 20;
 
@@ -34,4 +33,5 @@ export class SearchComponent implements OnInit {
     }
     this.result = this.highlight.getSomeSpaces(this.quantity)
   }
+
 }
