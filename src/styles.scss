@@ -11,7 +11,7 @@ $place-et-primary: mat-palette($md-verde);
 $place-et-accent: mat-palette($md-verdeescuro);
 
 // The warn palette is optional (defaults to red).
-$place-et-warn: mat-palette($mat-red);
+$place-et-warn: mat-palette($md-amarelo);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-warn);
