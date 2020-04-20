@@ -28,6 +28,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 import { NgModule } from '@angular/core';
 
 
@@ -37,6 +39,7 @@ import { NgModule } from '@angular/core';
   declarations: [],
   bootstrap: [],
   exports: [
+    ScrollingModule,
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
