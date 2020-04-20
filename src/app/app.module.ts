@@ -25,6 +25,7 @@ import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { environment } from '../environments/environment';
+import { MaterialModule } from './materia.module';
 
 
 let config = new AuthServiceConfig([
@@ -59,6 +60,7 @@ export function provideConfig() {
     SearchboxComponent,
   ],
   imports: [
+    MaterialModule,
     FormsModule,
     BrowserModule,
     MatDialogModule,
