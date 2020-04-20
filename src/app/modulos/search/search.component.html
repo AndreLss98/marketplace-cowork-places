@@ -12,9 +12,9 @@
                 style="flex: 0 0 72%; max-width: 72%; padding-right: 15px;padding-left: 15px; scroll-margin-top: 200px;"
                 infiniteScroll
                 [infiniteScrollDistance]="2"
-                (scrolled)="onScroll()">
+                (scrolled)="onScrollContent()">
 
-            <app-highlight-items  *ngFor="let space of result" style="padding-bottom: 15px;" (click)="doSearch()"
+            <app-highlight-items  *ngFor="let space of result" style="padding-bottom: 15px;"
                 [local]="space.local"
                 [description]="space.description"
                 [image]="space.image"
