@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormGroup, FormControl, Validators  } from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
-  styleUrls: ['./searchbox.component.scss']
+  styleUrls: ['./searchbox.component.scss'],
 })
 export class SearchboxComponent implements OnInit {
 
@@ -18,21 +18,36 @@ export class SearchboxComponent implements OnInit {
     maxArea: '',
   }
 
-  public searchForm = new FormGroup({
-    location: new FormControl('', [Validators.pattern(/([a-z]|[A-Z])/g)]),
-    minValue: new FormControl('', [Validators.pattern(/[^\D]/g)]),
-    maxValue: new FormControl('', [Validators.pattern(/[^\D]/g)]),
-    minArea: new FormControl('', [Validators.pattern(/[^\D]/g)]),
-    maxArea: new FormControl('', [Validators.pattern(/[^\D]/g)]),
-  })
+  public searchForm: FormGroup;
+  location = new FormControl('', [Validators.pattern(/([a-z]|[A-Z])/g)]);
+  minValue = new FormControl('', [Validators.pattern(/[^\D]/g)]);
+  maxValue = new FormControl('', [Validators.pattern(/[^\D]/g)]);
+  minArea = new FormControl('', [Validators.pattern(/[^\D]/g)]);
+  maxArea = new FormControl('', [Validators.pattern(/[^\D]/g)]);
+
   
+  options: string[] = ['One', 'Two', 'Three'];
 
   constructor(
-    private route: Router
-  ) { }
+    private route: Router,
+    private form: FormBuilder
+    ) { 
 
+     this.searchForm = this.form.group({
+        location: this.location,
+        minValue: this.minValue,
+        maxValue: this.maxValue,
+        minArea: this.minArea,
+        maxArea: this.maxArea,
+      })
+    }
+    
   ngOnInit(): void {
+
     this.jquery();
+    this.location.valueChanges.subscribe(data=>{
+      console.log(data)
+    })
   }
 
   checkText(element){

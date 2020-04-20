@@ -3,18 +3,12 @@
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
 @import 'material-design-icons/iconfont/material-icons.css';
-// Plus imports for other components in your app.
+@import './place-et-theme.scss';
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$place-et-primary: mat-palette($mat-indigo);
-$place-et-accent: mat-palette($mat-pink, A200, A100, A400);
+$place-et-primary: mat-palette($md-verde);
+$place-et-accent: mat-palette($md-verdeescuro);
 
 // The warn palette is optional (defaults to red).
 $place-et-warn: mat-palette($mat-red);
@@ -22,25 +16,11 @@ $place-et-warn: mat-palette($mat-red);
 // Create the theme object (a Sass map containing all of the palettes).
 $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-warn);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include angular-material-theme($place-et-theme);
 
-/* You can add global styles to this file, and also import other style files */
-// @import '~bootstrap/dist/css/bootstrap.min.css';
-// @import '~bootstrap/dist/js/bootstrap.min.js';
-
-// router-outlet + * {
-//     position: relative;
-//     min-height: 100vh;
-//   }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #ffffff;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #ffffff; caret-color: map-get($map: $md-verde, $key: 500);}
 
-$placeet-light-green:  #09fe9d;
-$placeet-dark-green: #40f943;
-$placeet-yellow: #fabb27;
 
 // Remove input type numbers arrows
 /* Chrome, Safari, Edge, Opera */
@@ -54,4 +34,45 @@ margin: 0;
 input[type=number] {
 -moz-appearance: textfield;
 }
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: map-get($map: $md-verde, $key: 500);
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.container-fluid{
+  max-width: 1520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 

@@ -7,11 +7,12 @@
     border-radius: 20px;
     position: fixed;
     padding: 30px 20px 15px 20px;
+    
 
     .row{
 
         // padding-top: 10px;
-        padding-bottom: 10px;
+        // padding-bottom: 10px;
     }
 
     // Titulos
@@ -22,8 +23,9 @@
     }
 
     // Localização
-    .inputCidade{
 
+    .inputCidade{
+        
         color: white;
         font-size: 14px;
         background-color: #fabb27;

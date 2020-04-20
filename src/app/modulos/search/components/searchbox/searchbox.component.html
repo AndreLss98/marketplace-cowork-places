@@ -5,10 +5,18 @@
         </div>
         <div class="row">
             <div class="col">
-                <input formControlName="location" type="text" placeholder="Busque por cidade ou bairro." class="inputCidade" maxlength="40">
+                <mat-form-field appearance="none" style="width: 100%;">
+                    <mat-label style="color: white;">Busque por cidade ou bairro.</mat-label>
+                    <input type="text" matInput formControlName="location" class="inputCidade" [matAutocomplete]="auto" placeholder="Ex: Goiânia"  maxlength="40">
+                    <mat-autocomplete #auto="matAutocomplete"> 
+                        <mat-option *ngFor="let option of options" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
             </div>
         </div>
-        <div class="row" style="padding-bottom: 0; padding-top: 10px;">
+        <div class="row" style="padding-bottom: 0; padding-top: 0;">
             <div class="col">
                 <span>TIPO DE SERVIÇO</span>
             </div>

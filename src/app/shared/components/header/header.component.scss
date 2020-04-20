@@ -14,7 +14,9 @@ nav{
         color: white !important;
         font-size: 18px;
     }
-    background: linear-gradient( to bottom, black 90%, rgba(0, 0, 0, 0.068) 10%);
+
+    background-color: black;
+    max-height: 80px;
 }
 
 .tabs{
@@ -33,16 +35,17 @@ nav{
 
 
 .title{
-    border-radius: 0 20px 85px 0; 
+    border-radius: 0 50px 85px 0; 
     background-color: white; 
-    height: 104px; width: 220px; 
+    height: 100px; width: 220px; 
     display: flex; 
     align-items: center; 
     justify-content: center;
 
-    box-shadow: 3px 1px 3px 0px rgba(0,0,0,0.46);
+    // box-shadow: 3px 1px 3px 0px rgba(0,0,0,0.46);
 
 }
+
 
 .btn-entrar{
     background-color: #09fe9d;
