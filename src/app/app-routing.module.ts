@@ -12,10 +12,12 @@ const routes: Routes = [
       source: SearchResolver
     }
   },
+  { path: 'spaces', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
+  { path: 'spaces/:id', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [
     SearchResolver
