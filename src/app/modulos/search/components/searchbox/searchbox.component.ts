@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms'
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
@@ -25,7 +24,6 @@ export class SearchboxComponent implements OnInit {
   minArea = new FormControl('', [Validators.pattern(/[^\D]/g)]);
   maxArea = new FormControl('', [Validators.pattern(/[^\D]/g)]);
 
-  
   options: string[] = ['One', 'Two', 'Three'];
 
   constructor(
@@ -33,7 +31,8 @@ export class SearchboxComponent implements OnInit {
     private form: FormBuilder
     ) { 
 
-     this.searchForm = this.form.group({
+      // Inicia o formulario
+      this.searchForm = this.form.group({
         location: this.location,
         minValue: this.minValue,
         maxValue: this.maxValue,
