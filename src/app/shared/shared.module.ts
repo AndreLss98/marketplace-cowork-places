@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule
   ],
-  exports: [MaterialModule, ReactiveFormsModule, HighlightItemsComponent]
+  exports: [FormsModule, MaterialModule, ReactiveFormsModule, HighlightItemsComponent]
 })
 export class SharedModule { }

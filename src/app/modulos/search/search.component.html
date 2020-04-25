@@ -1,6 +1,9 @@
 <div id="content" class="container-fluid">
+    <div class="row" id="searchBoxAndFilterMobile">
+        <app-search-box-mobile></app-search-box-mobile>
+    </div>
     <div class="row">
-        <div style="flex: 0 0 28%; max-width: 28%; padding-right: 15px;padding-left: 15px; min-height: 375px;">
+        <div id="searchBoxAndFilter" style="padding-right: 15px;padding-left: 15px; min-height: 375px;">
             <div id="searchScroll" style="position: fixed;">
                 <cdk-virtual-scroll-viewport [itemSize]="" style="width: 340px; min-height: 100vh;">
                     <app-searchbox></app-searchbox>
@@ -8,8 +11,8 @@
                 </cdk-virtual-scroll-viewport>
             </div>
         </div>
-        <div    class="h-100 d-flex align-items-start flex-row flex-wrap justify-content-sm-between" 
-                style="flex: 0 0 72%; max-width: 72%; padding-right: 15px;padding-left: 15px; scroll-margin-top: 200px;"
+        <div    class="h-100 d-flex align-items-start flex-row flex-wrap" id="searchHighlight" 
+                style="padding-right: 15px;padding-left: 15px; scroll-margin-top: 200px;"
                 infiniteScroll
                 [infiniteScrollDistance]="2"
                 (scrolled)="onScrollContent()">

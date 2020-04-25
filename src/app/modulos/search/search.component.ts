@@ -42,8 +42,11 @@ export class SearchComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   scrollEvent(event) {
+
     this.checkOffset();
+
     var scroll = $(window).scrollTop();
+    
     // scroll to bottom
     if(scroll > this.position + 30) {  
         $('#navTop').removeClass('up');
