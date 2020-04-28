@@ -17,6 +17,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 let config = new AuthServiceConfig([
@@ -51,7 +52,8 @@ export function provideConfig() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SocialLoginModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgbModule
   ],
   providers: [
     {
