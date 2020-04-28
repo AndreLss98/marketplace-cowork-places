@@ -1,4 +1,29 @@
 /* For use in src/lib/core/theming/_palette.scss */
+
+/* Paleta de cores */
+$pl-verde-claro: #00fd00;
+$pl-verde-escuro: #00ffab;
+$pl-amarelo: #ffcd00;
+$pl-laranja: #ff8b00;
+$pl-preto: #241e20;
+
+.color-preto{
+    color: $pl-preto;
+}
+
+.color-verde{
+    color: $pl-verde-claro;
+}
+
+.back-preto{
+    background-color: $pl-preto;
+}
+
+.back-verde{
+    background-color: $pl-verde-claro;
+}
+
+
 $md-verde: (
     50 : #e1fff3,
     100 : #b5ffe2,

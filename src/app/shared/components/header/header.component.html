@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm fixed-top container-fluid" style="min-width: 85%;" id="navTop">
-    <div class="title" style="margin: -16px auto auto -16px">
+    <div class="title" style="margin: -16px auto auto -16px" (click)="goTo('/home')">
       <h4>placeet</h4>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,10 +8,10 @@
   
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
-        <li class="nav-item" *ngFor="let item of menu" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
+        <li class="nav-item" *ngFor="let item of menu">
           <a  [routerLink]="item.rout" class="nav-link">{{ item.name }}</a>
         </li>
-        <li class="nav-item" (click)="doLogin()" (mouseover)="mouse_over($event)" (mouseout)="mouse_out($event)">
+        <li class="nav-item" (click)="doLogin()">
             <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.firstName : 'Entrar' }}</button>
         </li>
       </ul>

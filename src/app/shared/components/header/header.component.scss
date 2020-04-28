@@ -1,9 +1,11 @@
+@import '../../../../place-et-theme.scss';
+
 nav{
     
     a{
         color: white !important;
         font-size: 18px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $pl-preto;
     }
 
     a:hover{
@@ -15,12 +17,12 @@ nav{
         font-size: 18px;
     }
 
-    background-color: black;
+    background-color: $pl-preto;
     max-height: 80px;
 }
 
 .tabs{
-    background-color: black;
+    background-color: $pl-preto;
     
 }
 
@@ -46,14 +48,14 @@ nav{
     display: flex; 
     align-items: center; 
     justify-content: center;
-
+    cursor: pointer;
     // box-shadow: 3px 1px 3px 0px rgba(0,0,0,0.46);
 
 }
 
 
 .btn-entrar{
-    background-color: #09fe9d;
+    background-color: $pl-verde-escuro;
     width: 95px;
     height: 40px;
     border-radius: 10px;

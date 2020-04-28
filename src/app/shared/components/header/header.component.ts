@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/login.service';
 
@@ -19,16 +20,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public login: LoginService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private router: Router
   ) { }
 
-  mouse_over(element){
-    // console.log(element.target)
-    // element.target.classList.add("highlight")
-  }
-  
-  mouse_out(element){
-    // element.target.classList.remove("highlight")
+  goTo(path: string){
+    this.router.navigateByUrl(path);
+    console.log(path)
   }
   
   doLogin(){
