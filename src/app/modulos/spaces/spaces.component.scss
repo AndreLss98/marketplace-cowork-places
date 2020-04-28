@@ -1,0 +1,23 @@
+#content{
+    
+    padding-bottom: 100px;
+    padding-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: #f4f4f4;
+
+    .myCarousel{
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .endereco{
+        background-color: white;
+        margin-top: 15px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+        border-radius: 15px;
+        // height: 100%;
+    }
+}

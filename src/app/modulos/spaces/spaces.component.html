@@ -1,3 +1,87 @@
-<div class="h-100">
-    algo
+<div id="content" class="container-fluid">
+    
+    <!-- Titulo do anúncio -->
+    <div class="row">
+        <div class="col d-flex flex-row align-items-center justify-content-start">
+            <div class="d-flex justify-content-center flex-column">
+                <span style="font-size: 25px; font-weight: bold;">Escritório Central</span>
+                <span style="font-weight: bold; font-size: 12px;">SALA COMERCIAL</span>
+            </div>
+            <div class="d-flex justify-content-around" style="margin-left: 50px;">
+                <span class="material-icons" style="font-size: 50px; color: #09fe9d">face</span>
+                <span style="font-weight: bold; margin:auto; display:table; padding-left: 5px">Página do Locador</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 40px;"></div>
+
+    <!-- 1º Card - Imagens e detalhes -->
+    <div class="row">
+        <div class="col-sm-9">
+
+            <!-- Carousel -->
+            <div class="row">
+                <div class="col">
+                    <div id="spacesCarousel" class="carousel slide myCarousel" data-ride="carousel" style="max-height: 430px;">
+                        <ol class="carousel-indicators">
+                            <li *ngFor="let image of data.images; let i=index" 
+                                data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" *ngFor="let image of data.images; let i=index">
+                                <img class="d-block w-100" [src]="image.url" >
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{image.title}}</h5>
+                                    <span>{{image.description}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Proximo</span>
+                        </a>
+                        <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Anterior</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço -->
+            <div class="row endereco" style="height: 100px;">
+                <div class="col-3 d-flex align-items-center">
+                    <span style="font-size: 20px; padding: 5px 10px 5px 10px; border-radius: 7px; color: white; background-color: black;">{{data.dadosCompra.avaliacao.nota | number:'1.1'}}</span>
+                    <span class="material-icons" *ngFor="let item of countStars()" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
+                </div>
+                <div class="col-4 d-flex align-items-center">
+                    <span style="color: black; font-size: 20px; font-weight: 500;">{{data.dadosCompra.dadosEspaco.localizacao}}</span>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-4 d-flex flex-row align-items-center">
+                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                        <span class="material-icons">aspect_ratio</span>
+                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.m2}} m2</p>
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                        <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
+                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.mesas}} mesas</p>
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                        <img src="assets/svg/car.svg" style="width: 24px;" alt="">
+                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.vagas}} vagas</p>
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="data.dadosCompra.dadosEspaco.wifi">
+                        <span class="material-icons">wifi</span>
+                        <p style="color: gray; font-size: 11px;">Wi-Fi</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-sm-3">
+            <app-card-reservar [data]="data.dadosCompra"></app-card-reservar>
+        </div>
+    </div>
 </div>
