@@ -10,7 +10,7 @@ import { HighlightService } from 'src/app/service/highlight.service';
 export class SearchComponent implements OnInit {
   
   public result;
-  private quantity:number = 20;
+  private quantity:number = 50;
   private offset = 'auto';
   private position;
 

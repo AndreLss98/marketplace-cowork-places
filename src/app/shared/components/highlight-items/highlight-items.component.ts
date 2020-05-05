@@ -28,5 +28,27 @@ export class HighlightItemsComponent implements OnInit {
     this.router.navigateByUrl("/spaces/"+this.customId)
   }
 
+  countStars(): string[] {
+    let n:number = this.rank;
+    let array = [];
+    let j = 0;
+
+    for (let index = 0; index < Math.floor(n); index++) {
+      j++
+      array.push('start');
+      console.log("entrei",j)
+    }
+
+    if(n-j){
+      array.push('star_half');
+    }
+
+    while(array.length < 5){
+      array.push('star_outline')
+    }
+   
+    return array;
+  }
+
 
 }
