@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/login.service';
 
-import { HEADER_MENU_OPTIONS } from '../../constants/constants';
+import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
 import { ModalService } from 'src/app/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
@@ -15,8 +15,9 @@ import * as $ from 'jquery'
 })
 export class HeaderComponent implements OnInit {
 
-  public menu = HEADER_MENU_OPTIONS;
+  public menu = HEADER_NAV_OPTIONS;
   private mobile_mode = false;
+  public options = HEADER_MENU_OPTIONS;
 
   constructor(
     public login: LoginService,
