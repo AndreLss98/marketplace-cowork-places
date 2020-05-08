@@ -5,7 +5,8 @@ $pl-verde-claro: #00fd00;
 $pl-verde-escuro: #00ffab;
 $pl-amarelo: #ffcd00;
 $pl-laranja: #ff8b00;
-$pl-preto: #241e20;
+// $pl-preto: #241e20;
+$pl-preto: black;
 
 .color-preto{
     color: $pl-preto;
@@ -14,6 +15,9 @@ $pl-preto: #241e20;
 .color-verde{
     color: $pl-verde-claro;
 }
+.color-verde-escuro{
+    color: $pl-verde-escuro;
+}
 
 .back-preto{
     background-color: $pl-preto;
@@ -21,6 +25,10 @@ $pl-preto: #241e20;
 
 .back-verde{
     background-color: $pl-verde-claro;
+}
+
+.back-verde-escuro{
+    background-color: $pl-verde-escuro;
 }
 
 
