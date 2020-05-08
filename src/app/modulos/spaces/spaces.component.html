@@ -18,7 +18,7 @@
 
     <!-- 1º Card - Imagens e detalhes -->
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-lg-9">
 
             <!-- Carousel -->
             <div class="row">
@@ -30,7 +30,7 @@
                         </ol>
                         <div class="carousel-inner">
                             <div [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" *ngFor="let image of data.images; let i=index">
-                                <img class="d-block w-100" [src]="image.url" >
+                                <img class="d-block w-100" [src]="image.url || 'assets/imgs/logo/logo1x.png'" >
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{image.title}}</h5>
                                     <span>{{image.description}}</span>
@@ -50,29 +50,29 @@
             </div>
 
             <!-- Endereço -->
-            <div class="row endereco" style="height: 100px;">
-                <div class="col-3 d-flex align-items-center">
+            <div class="row endereco" style="margin-bottom: 15px;">
+                <div class="col-xl-3 d-flex align-items-center">
                     <span style="font-size: 20px; padding: 5px 10px 5px 10px; border-radius: 7px; color: white; background-color: black;">{{data.dadosCompra.avaliacao.nota | number:'1.1'}}</span>
-                    <span class="material-icons" *ngFor="let item of countStars()" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
+                    <span class="material-icons" *ngFor="let item of countStars(data.dadosCompra.avaliacao.nota)" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
                 </div>
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-xl-4 d-flex align-items-center">
                     <span style="color: black; font-size: 20px; font-weight: 500;">{{data.dadosCompra.dadosEspaco.localizacao}}</span>
                 </div>
-                <div class="col-1"></div>
-                <div class="col-4 d-flex flex-row align-items-center">
-                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                <div class="col-xl-1"></div>
+                <div class="col-xl-4 d-flex flex-row align-items-center">
+                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <span class="material-icons">aspect_ratio</span>
                         <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.m2}} m2</p>
                     </div>
-                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
                         <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.mesas}} mesas</p>
                     </div>
-                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <img src="assets/svg/car.svg" style="width: 24px;" alt="">
                         <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.vagas}} vagas</p>
                     </div>
-                    <div class="col-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="data.dadosCompra.dadosEspaco.wifi">
+                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="data.dadosCompra.dadosEspaco.wifi">
                         <span class="material-icons">wifi</span>
                         <p style="color: gray; font-size: 11px;">Wi-Fi</p>
                     </div>
@@ -80,8 +80,138 @@
             </div>
             
         </div>
-        <div class="col-sm-3">
+        <div class="col-lg-3">
             <app-card-reservar [data]="data.dadosCompra"></app-card-reservar>
         </div>
     </div>
+
+    <!-- Informaçõe do anuncio -->
+    <div class="row" style="padding-right: 10%; margin-top: 40px;">
+        <div class="col">
+
+            <!-- Descrição do proprietario -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; padding-bottom: 10px;">Descrição do proprietário</span>
+                <span>{{data.dadosCompra.descProprietario}}</span>
+            </div>
+
+            <!-- Disponivel -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Disponível</span>
+                <div class="d-flex flex-row" *ngFor="let item of data.dadosCompra.itemsDisponiveis">
+                    <span class="material-icons color-verde">check</span>
+                    <span> {{item}}</span>
+                </div>
+            </div>
+
+            <!-- Funcionamento -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Funcionamento</span>
+                <div class="d-flex flex-row"  *ngFor="let item of data.dadosCompra.itemsDisponiveis">
+                    <span class="material-icons color-verde">check</span>
+                    <span> {{item}}</span>
+                </div>
+                <span>. O prazo começa após a confirmação do pagamento</span>
+            </div>
+
+            <!-- linha -->
+            <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
+
+            <!-- Condições -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Condições</span>
+                <span *ngFor="let item of data.dadosCompra.dadosEspaco.condicoes">. {{item}}</span>
+            </div>
+
+            <!-- linha -->
+            <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
+
+            <!-- Informações adicionais -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Informações adicionais</span>
+                <span *ngFor="let item of data.dadosCompra.dadosEspaco.adicionais">. {{item}}</span>
+            </div>
+
+            <!-- linha -->
+            <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
+
+            <!-- Duvida -->
+            <div class="d-flex flex-column">
+                <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px; font-size: 20px;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</span>
+                <mat-form-field appearance="outline">
+                    <mat-label style="font-size: 15px;">Deixe sua dúvida aqui.</mat-label>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="5"
+                              cdkAutosizeMaxRows="5"
+                              maxlength="350"></textarea>
+                </mat-form-field>
+                <button mat-flat-button color="primary">ENVIAR</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- Avaliações -->
+<div id='avaliacoes' class="container-fluid">
+
+    <!-- Estrelas -->
+    <div class="row" style="margin-top: 40px;">
+        <div class="col d-flex flex-row align-items-center justify-content-start flex-wrap">
+            <div class="d-flex justify-content-center">
+                <span style="font-size: 31px;">Avaliações</span>
+            </div>
+            <div class="d-flex justify-content-around" style="margin-left: 50px;">
+                <span class="material-icons color-verde" *ngFor="let item of countStars(data.dadosCompra.avaliacao.nota)" style="font-size: 50px ;margin-left: 5px; width: 50px;">{{item}}</span>
+                <span style="margin:auto; display:table; font-size: 35px; padding-left: 5px; font-weight: bold;">{{data.dadosCompra.avaliacao.nota | number:'1.1'}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="row" style="margin-top: 20px; margin-right: 20%;">
+        <div class="col" style="margin-bottom: 15px;" *ngFor="let item of data.dadosCompra.avaliacao.comentarios">
+
+            <!-- Nome -->
+            <div class="d-flex justify-content-start">
+                <span class="material-icons color-verde-escuro" style="font-size: 50px">account_circle</span>
+                <span style="font-weight: 500; margin-top: auto; margin-bottom: auto; display:table; padding-left: 10px; font-size: 15px;">{{item.autor}}</span>
+            </div>
+
+            <!-- Titulo -->
+            <div class="d-flex "> 
+                <span class="material-icons color-verde" *ngFor="let item of countStars(item.nota)" style="font-size: 20px ;margin-left: 5px; width: 20px; margin-top: auto; margin-bottom: auto;">{{item}}</span>
+                <span style="margin-top: auto; margin-bottom: auto; padding-left: 5px;">{{item.titulo}}</span>
+            </div>
+            <div><span style="margin-left: 5px;">{{item.data}}</span></div>
+
+
+            <!-- Comentario -->
+            <div class="d-flex" style="margin-top: 15px;">
+                <span style="padding-left: 5px; text-align: justify;">{{item.comentario}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Espaçamento -->
+    <div style="height: 45px;"></div>
+
+    <!-- Veja mais comentarios -->
+    <div style="padding-left: 15px;">
+        <a href="" style="font-weight: bold; font-size: 20px; color: black;">Veja mais avaliações ></a>
+    </div>
+
+    <!-- Espaçamento -->
+    <div style="height: 45px;"></div>
+
+    <!-- Espaços similares -->
+    <div class="row back-verde-escuro" style="padding-right: 10%; padding-left: 10%; padding-top: 30px; padding-bottom: 30px;">
+        <span style="width: 100%; color: black; font-size: 20px; font-weight: bold; margin-bottom: 20px;">Espaços similares</span>
+        <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-between">
+            <app-highlight-items *ngFor="let item of espacos_similares" [data]="item" width="240px"></app-highlight-items>
+        </div>
+    </div>
+
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { HighlightService } from 'src/app/service/highlight.service';
 
 @Component({
   selector: 'app-spaces',
@@ -48,17 +48,17 @@ export class SpacesComponent implements OnInit {
           sex: true, 
           sab: false
         },
-        condiçoes: [
-          'Para locacoes com prazo superior a 30 dias',
-          'Poderá ser dividido em até 10x a 1ª locação. Limitada a cada usuario',
-          'Caso o prazo se estenda por mais de 30 dias, o locador poderá aprovar ou não a solicitação'
+        condicoes: [
+          'Para locações com prazo superior a 30 dias é necessário a utilização de um contrato e contratação de um seguro.',
+          'Poderá ser dividido em até 10x a 1ª locação. Limitada a cada usuario.',
+          'Caso o prazo se estenda por mais de 30 dias, o locador poderá aprovar ou não a solicitação.'
         ],
         adicionais: [
           'Proibido animais',
           'Proibido fumar',
           'Limite de convidados',
-          'Proibido aceso de crianças',
-          'Não é permitdo o consumo de bebidas alcoolicas',
+          'Proibido acesso de crianças',
+          'Não é permitdo o consumo de bebidas alcoólicas',
           'Refeições somente na copa'
         ]
       },
@@ -78,14 +78,14 @@ export class SpacesComponent implements OnInit {
           autor: 'Paulo Jose',
           data: '28 de março de 2020',
           titulo: 'Incrivel! Gostei muito!',
-          nota: 5,
+          nota: 2.5,
           comentario: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using'
           },
           {
             autor: 'Paulo Jose',
             data: '28 de março de 2020',
             titulo: 'Incrivel! Gostei muito!',
-            nota: 5,
+            nota: 3.5,
             comentario: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using'
           }
         ]
@@ -97,21 +97,24 @@ export class SpacesComponent implements OnInit {
     }
   }
 
-  constructor(config: NgbCarouselConfig) { }
+  public espacos_similares;
+
+  constructor(
+    private highlight: HighlightService,
+  ) { }
 
   /**
    * Retorna um array com os nomes dos icones, para as estrelas da avalição
    * pode ser star, star_half, star_outline
    */
-  countStars(): string[] {
-    let n:number = this.data.dadosCompra.avaliacao.nota;
+  countStars(n: number): string[] {
+    // let n:number = ;
     let array = [];
     let j = 0;
 
     for (let index = 0; index < Math.floor(n); index++) {
       j++
       array.push('start');
-      console.log("entrei",j)
     }
 
     if(n-j){
@@ -126,7 +129,16 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.countStars());
+
+    if(window.innerWidth <= 600){
+      this.espacos_similares = this.highlight.getSomeSpaces(1);
+    } else if(window.innerWidth <= 900){
+      this.espacos_similares = this.highlight.getSomeSpaces(2);
+    } else if(window.innerWidth <= 1224){
+      this.espacos_similares = this.highlight.getSomeSpaces(3);
+    } else {
+      this.espacos_similares = this.highlight.getSomeSpaces(4);
+    }
   }
 
 }
