@@ -58,6 +58,7 @@ export class HeaderComponent implements OnInit {
       if($(window).width() < 426){
         $('#navTop').hide();
         $('#navBottom').show();
+        $("#menuHeader").hide();
       }
 
       $(document).click(function (event) {

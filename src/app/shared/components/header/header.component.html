@@ -16,7 +16,7 @@
     </div>
   </nav>
   
-  <div style="margin-top: 70px; height: 196px;" class="options container-fluid">
+  <div style="margin-top: 70px; height: 196px;" class="options container-fluid" id="menuHeader">
     <div class="row h-100 d-flex justify-content-around align-items-center" style="padding-left: 50px; padding-right: 50px;">
       <div class="col d-flex flex-column justify-content-center align-items-center" *ngFor="let item of options" (click)="goTo(item.rout)">
         <img [src]="item.img" style="width: 70px; height: 70px;">
