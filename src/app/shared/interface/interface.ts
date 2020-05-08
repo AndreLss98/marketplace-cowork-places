@@ -29,5 +29,5 @@ export interface highlightItem {
     cost: number,
     tax: number,
     rank: number,
-    id: number
+    id: number,
 }

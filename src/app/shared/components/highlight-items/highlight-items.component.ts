@@ -1,3 +1,4 @@
+import { highlightItem } from './../../interface/interface';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -8,13 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HighlightItemsComponent implements OnInit {
 
-  @Input('local') local: string;
-  @Input('description') description: string;
-  @Input('image') image: string;
-  @Input('cost') cost: number;
-  @Input('tax') tax: number;
-  @Input('rank') rank: number;
-  @Input('customId') customId: number;
+  @Input('data') data: highlightItem;
   @Input('width') width:string = '277px'
 
   constructor(
@@ -25,11 +20,11 @@ export class HighlightItemsComponent implements OnInit {
   }
 
   goToSpace(){
-    this.router.navigateByUrl("/spaces/"+this.customId)
+    this.router.navigateByUrl("/spaces/"+this.data.id)
   }
 
   countStars(): string[] {
-    let n:number = this.rank;
+    let n:number = this.data.rank;
     let array = [];
     let j = 0;
 

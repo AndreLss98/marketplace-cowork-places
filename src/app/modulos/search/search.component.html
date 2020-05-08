@@ -18,13 +18,7 @@
                 (scrolled)="onScrollContent()">
 
             <app-highlight-items  *ngFor="let space of result" style="padding-bottom: 15px;"
-                [local]="space.local"
-                [description]="space.description"
-                [image]="space.image"
-                [cost]="space.cost"
-                [tax]="space.tax"
-                [rank]="space.rank"
-                [customId]="space.id"
+                [data]="space"
                 width="210px"
             ></app-highlight-items>
         </div>

@@ -11,13 +11,7 @@
         </div>
         <div class="{{cardClass}} highlightCards" [id]='space.id' *ngFor="let space of spaces">
             <app-highlight-items
-                [local]="space.local"
-                [description]="space.description"
-                [image]="space.image"
-                [cost]="space.cost"
-                [tax]="space.tax"
-                [rank]="space.rank"
-                [customId]="space.id"
+                [data] = "space"
             ></app-highlight-items>
         </div>
     </div>
@@ -34,13 +28,7 @@
         </div>
         <div class="{{cardClass}} highlightCards" [id]='room.id' *ngFor="let room of rooms">
             <app-highlight-items
-                [local]="room.local"
-                [description]="room.description"
-                [image]="room.image"
-                [cost]="room.cost"
-                [tax]="room.tax"
-                [rank]="room.rank"
-                [customId]="room.id"
+                [data] = "room"
             ></app-highlight-items>
         </div>
     </div>
