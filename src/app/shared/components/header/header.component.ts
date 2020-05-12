@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit {
   
   ngOnInit(): void {
     if($(window).width() < 426) this.mobile_mode = true;
+    if($(window).width() < 860) this.options.length = 3;
 
     $(document).ready(function () {
 
