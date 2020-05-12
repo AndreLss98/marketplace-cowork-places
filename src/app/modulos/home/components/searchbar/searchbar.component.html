@@ -1,0 +1,37 @@
+<div class="container-fluid" id="searchHome">
+    <form>
+    <div class="row d-flex justify-content-end" style="padding-top: 70px; padding-bottom: 70px;">
+
+        <!-- Search -->
+        <div class="d-flex justify-content-start align-items-center flex-column" style="z-index: 2;">
+            <div class="w-100" style="padding-bottom: 10px;">
+                <span style="font-weight: bold; font-size: 35px;" class="title">Seu negócio livre <br> para evoluir!</span>
+            </div>
+            <!-- Bairro ou Cidade -->
+            <div class="w-100 buscaCidade">
+                <input type="text" name="city" list="cityname" placeholder="Bairro ou Cidade">
+                <datalist id="cityname">
+                   <option [value]="option" *ngFor="let option of options"> 
+                </datalist>
+                <!-- <button>Buscar</button> -->
+            </div>
+            <!-- Filtros -->
+            <div class="w-100 filtros" style="margin-top: 15px">
+                <input type="text" name="entrada" placeholder="Entrada">
+                <input type="text" name="saida" placeholder="Saída">
+                <input type="text" name="pessoas" placeholder="Pessoas">
+                <button>Buscar</button>
+            </div>
+            <div class="w-100" style="margin-top: 15px;">
+                <span style="font-weight: 500;">A liberdade de usar o espaço quando quiser e por quanto <br> 
+                    tempo precisar. Sem barreiras para o seu crescimento. <br>
+                    O espaço certo pra sua necessidade, seja trabalho, descanso,<br>
+                    estudo ou diversão. Você escolhe!</span>
+            </div>    
+        </div>
+
+        <!-- Img EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -->
+        <img src="assets/imgs/home/e.png" style="position: absolute; z-index: 1; height: 500px;" alt="">
+    </div>
+    </form>
+</div>
