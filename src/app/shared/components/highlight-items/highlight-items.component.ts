@@ -31,7 +31,6 @@ export class HighlightItemsComponent implements OnInit {
     for (let index = 0; index < Math.floor(n); index++) {
       j++
       array.push('start');
-      console.log("entrei",j)
     }
 
     if(n-j){
