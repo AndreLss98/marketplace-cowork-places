@@ -4,4 +4,34 @@
     padding-right: 0px;
     padding-left: 0px;
     background-color: rgb(255, 255, 255);
+
+    .como_funciona{
+
+        background-image: url("/assets/imgs/home/como_funciona_bg.png");
+        background-position: left;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        justify-content: flex-end !important;
+
+        .content{
+            width: 50%;
+        }
+    }
+
+
+    @media(max-width: 920px) {
+        .como_funciona{
+
+            justify-content: center !important;
+            background-image: none;
+
+            .content{
+                width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    }
+
 }
