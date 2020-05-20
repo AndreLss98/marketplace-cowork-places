@@ -14,6 +14,7 @@ const routes: Routes = [
   },
   { path: 'spaces', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
   { path: 'spaces/:id', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
+  { path: 'about', loadChildren: () => import('./modulos/about/about.module').then(m => m.AboutModule) },
 ];
 
 @NgModule({
