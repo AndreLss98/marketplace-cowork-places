@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/service/login.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
-import { ModalService } from 'src/app/service/modal.service';
+import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import * as $ from 'jquery'
@@ -43,7 +43,14 @@ export class HeaderComponent implements OnInit {
       if(this.mobile_mode){
         config = {
           maxWidth: '100vw',
-          minHeight: '90vh'
+          minWidth: '90vw',
+          // minHeight: '90vh'
+        }
+      }else{
+        config = {
+          // maxWidth: '100vw',
+          minWidth: '30vw',
+          // minHeight: '90vh'
         }
       }
       this.modalService.openModal(LoginComponent, false, config);

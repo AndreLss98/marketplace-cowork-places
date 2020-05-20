@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HighlightService } from 'src/app/service/highlight.service';
+import { HighlightService } from 'src/app/shared/service/highlight.service';
 
 @Component({
   selector: 'app-spaces',

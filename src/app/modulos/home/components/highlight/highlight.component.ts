@@ -1,4 +1,4 @@
-import { HighlightService } from '../../../../service/highlight.service';
+import { HighlightService } from '../../../../shared/service/highlight.service';
 import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({

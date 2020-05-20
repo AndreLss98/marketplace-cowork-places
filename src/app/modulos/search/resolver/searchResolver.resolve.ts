@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
 import { of } from 'rxjs';
-import { HighlightService } from './../../../service/highlight.service';
+import { HighlightService } from '../../../shared/service/highlight.service';
 
 @Injectable({
   providedIn: 'root'

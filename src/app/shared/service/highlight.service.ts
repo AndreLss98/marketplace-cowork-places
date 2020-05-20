@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { highlightItem } from '../shared/interface/interface'
+import { highlightItem } from '../interface/interface'
 
 @Injectable({
   providedIn: 'root'

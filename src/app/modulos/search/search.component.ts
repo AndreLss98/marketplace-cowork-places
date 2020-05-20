@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HighlightService } from 'src/app/service/highlight.service';
+import { HighlightService } from 'src/app/shared/service/highlight.service';
 
 @Component({
   selector: 'app-search',

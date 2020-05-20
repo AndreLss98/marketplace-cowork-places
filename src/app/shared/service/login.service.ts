@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { SocialUser } from 'angularx-social-login/lib/entities/user'
 
-import { USER_SESSION } from '../shared/constants/constants'
+import { USER_SESSION } from '../constants/constants'
 
 
 @Injectable({
@@ -9,10 +11,11 @@ import { USER_SESSION } from '../shared/constants/constants'
 })
 export class LoginService {
 
-  private _user_data: SocialUser = null;
+  private _user_data = null;
   private _logged_status: boolean = JSON.parse(localStorage.getItem(USER_SESSION)) || false;
 
   constructor(
+    private http: HttpClient
   ) { }
 
     /**
@@ -63,7 +66,16 @@ export class LoginService {
     sessionStorage.removeItem(USER_SESSION);
   }
 
-  public signInWithEmail(): any {
-    return null;
+  public signInWithEmail(form): any {
+    console.log(form);
+    this.http.post(`${environment.apiUrl}/auth` , form)
+      .subscribe( response => {
+
+        this.user_data = response['user'];
+        console.log(this.user_data);
+        this.setLoggedIn();
+      }, err => {
+        console.log(err)
+      });
   }
 }
