@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SocialUser } from 'angularx-social-login/lib/entities/user'
 
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-
 import { USER_SESSION } from '../shared/constants/constants'
 
 
@@ -16,7 +13,6 @@ export class LoginService {
   private _logged_status: boolean = JSON.parse(localStorage.getItem(USER_SESSION)) || false;
 
   constructor(
-    private authService: AuthService,
   ) { }
 
     /**
@@ -51,36 +47,6 @@ export class LoginService {
 		this._logged_status = value;
 	}
 
-  
-  /**
-   * Login com o google
-   * @returns void
-   */
-  public signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( response => {
-      
-      this._user_data = response;
-      this.setLoggedIn()
-
-    }, err => {
-      console.log("Login canceled google", err);
-    });
-
-    return null;
-  }
-
-  public signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response => {
-      
-      this._user_data = response;
-      this.setLoggedIn()
-
-    }, err => {
-      console.log("Login canceled facebook", err);
-    });
-
-    return null;
-  }
 
   private setLoggedIn(){
     this.logged_status = true;
@@ -100,9 +66,4 @@ export class LoginService {
   public signInWithEmail(): any {
     return null;
   }
-
-  public signOut(): void {
-    this.authService.signOut();
-  }
-
 }
