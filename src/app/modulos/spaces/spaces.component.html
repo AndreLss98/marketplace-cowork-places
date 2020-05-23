@@ -23,7 +23,7 @@
             <!-- Carousel -->
             <div class="row">
                 <div class="col">
-                    <div id="spacesCarousel" class="carousel slide myCarousel" data-ride="carousel" style="max-height: 430px;">
+                    <div id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 430px;">
                         <ol class="carousel-indicators">
                             <li *ngFor="let image of data.images; let i=index" 
                                 data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
