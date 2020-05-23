@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm fixed-top container-fluid" id="navTop">
+<nav class="navbar navbar-expand-sm container-fluid" id="navTop">
     <img src="assets/imgs/logo/logo1x.png" class="navbar-brand title" (click)="goTo('/home')">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" ></span>
@@ -7,16 +7,15 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
         <li class="nav-item" *ngFor="let item of menu">
-          <a  [routerLink]="item.rout" class="nav-link">{{ item.name }}</a>
+          <a [href]="item.rout" class="nav-link">{{ item.name }}</a>
         </li>
         <li class="nav-item" (click)="doLogin()">
-            <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.firstName : 'Entrar' }}</button>
+            <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.nome : 'Entrar' }}</button>
         </li>
       </ul>
     </div>
   </nav>
-  
-  <div style="margin-top: 70px;" class="options container-fluid" id="menuHeader">
+  <div class="options container-fluid" id="menuHeader">
     <div class="row h-100 d-flex justify-content-around align-items-center" style="padding-left: 100px; padding-right: 100px;">
       <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo(item.rout)">
         <div class="imgs">
