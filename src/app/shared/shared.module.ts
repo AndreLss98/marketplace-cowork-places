@@ -1,7 +1,5 @@
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from './materia.module';
-
-
 import { NgModule } from '@angular/core';
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { CommonModule } from '@angular/common';

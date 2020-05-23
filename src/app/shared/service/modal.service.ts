@@ -17,13 +17,29 @@ export class ModalService {
    * @param  {boolean=false} closeAll
    * @param  {MatDialogConfig={}} config
    */
-  openModal(content, closeAll:boolean = false, config:MatDialogConfig = {}){
+  openModal(content, closeAll:boolean = false, config:MatDialogConfig = undefined){
 
     if(closeAll){
       this.modal.closeAll();
       this.dialog = undefined;
     } 
+
+    if(window.innerWidth < 500){
+      if(config = {}){
+        config = {
+          minWidth: '90vw',
+        }
+      }
+    }else{
+      if(config = {}){
+        config = {
+          minWidth: '500px',
+        }
+      }
+    }
+
     
+
     if (this.dialog) return;
 
     this.dialog = this.modal.open(content, config)

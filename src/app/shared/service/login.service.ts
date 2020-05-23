@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { SocialUser } from 'angularx-social-login/lib/entities/user'
 
-import { USER_SESSION } from '../constants/constants'
+import { USER_SESSION, USER_TOKEN } from '../constants/constants'
 
 
 @Injectable({
@@ -11,8 +10,10 @@ import { USER_SESSION } from '../constants/constants'
 })
 export class LoginService {
 
-  private _user_data = null;
+  private _user_data: any;
+  private _login_data: any;
   private _logged_status: boolean = JSON.parse(localStorage.getItem(USER_SESSION)) || false;
+  private _userToken: string;
 
   constructor(
     private http: HttpClient
@@ -20,10 +21,34 @@ export class LoginService {
 
     /**
      * Getter user_data
-     * @return {SocialUser }
+     * @return {any}
      */
-	public get user_data(): SocialUser  {
+	public get user_data(): any {
 		return this._user_data;
+	}
+
+    /**
+     * Getter userToken
+     * @return {string}
+     */
+	public get userToken(): string {
+		return this._userToken;
+	}
+
+    /**
+     * Setter user_data
+     * @param {any} value
+     */
+	public set user_data(value: any) {
+		this._user_data = value;
+	}
+
+    /**
+     * Setter userToken
+     * @param {string} value
+     */
+	public set userToken(value: string) {
+		this._userToken = value;
 	}
 
     /**
@@ -35,14 +60,6 @@ export class LoginService {
 	}
 
     /**
-     * Setter user_data
-     * @param {SocialUser } value
-     */
-	public set user_data(value: SocialUser ) {
-		this._user_data = value;
-	}
-
-    /**
      * Setter logged_status
      * @param {boolean } value
      */
@@ -50,32 +67,43 @@ export class LoginService {
 		this._logged_status = value;
 	}
 
-
   private setLoggedIn(){
     this.logged_status = true;
-    localStorage.setItem(USER_SESSION, JSON.stringify(this.user_data))
+    localStorage.setItem(USER_SESSION, JSON.stringify(this.user_data));
+    // localStorage.setItem(USER_TOKEN, this.userToken);
   }
 
   public getUserSession(){
-    if(sessionStorage.getItem(USER_SESSION)){
-      this._user_data = JSON.parse(sessionStorage.getItem(USER_SESSION));
+    if(localStorage.getItem(USER_SESSION)){
+      console.log("Sessão encontrada")
+      this._user_data = JSON.parse(localStorage.getItem(USER_SESSION));
     }
   }
 
   public clearUserSession(){
-    sessionStorage.removeItem(USER_SESSION);
+    localStorage.removeItem(USER_SESSION);
+    // localStorage.removeItem(USER_TOKEN)
+    this.userToken = undefined;
+    this.user_data = undefined;
+    this.logged_status = false;
   }
 
-  public signInWithEmail(form): any {
-    console.log(form);
+  public signInWithEmail(email: string, senha: string): any {
+
+    let form = {
+      email: email,
+      senha: senha
+    }
+
     this.http.post(`${environment.apiUrl}/auth` , form)
       .subscribe( response => {
 
         this.user_data = response['user'];
-        console.log(this.user_data);
+        this.userToken = response['token'];
+        console.log("Dados de usuario: ",this.user_data, this.userToken);
         this.setLoggedIn();
       }, err => {
-        console.log(err)
+        return false;
       });
   }
 }

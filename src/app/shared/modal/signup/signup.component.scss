@@ -1,0 +1,21 @@
+@import '../../../../place-et-theme.scss';
+
+input{
+    height: 45px;
+    padding-left: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+input:focus{
+    border: 2px solid $pl-verde-claro;
+}
+
+.entrar{
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+.entrar:hover{
+    border-bottom: 1px solid black;
+}

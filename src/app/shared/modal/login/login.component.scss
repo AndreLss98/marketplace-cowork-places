@@ -1,3 +1,5 @@
+@import '../../../../place-et-theme.scss';
+
 header{
     border-bottom: 1px solid rgba(0, 0, 0, 0.096);
     padding-bottom: 2px;
@@ -33,18 +35,19 @@ input:focus, textarea:focus, select:focus{
 
 .entrar{
     width: 100%;
-    background-color: #6efc76;
+    background-color: $pl-verde-escuro;
     color: rgb(0, 0, 0);
     margin: 5px;
     font-weight: bolder;
 }
 
 .cadastrar{
-    width: 90%;
-    background-color: #0afebf;
-    color: rgb(0, 0, 0);
-    margin: 5px;
-    font-weight: bolder;
+    font-size: 17px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+.cadastrar:hover{
+    border-bottom: 1px solid black;
 }
 
 

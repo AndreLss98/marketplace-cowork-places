@@ -18,6 +18,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MaterialModule } from './shared/materia.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
   imports: [
     FormsModule,
     BrowserModule,
+    MaterialModule,
     MatDialogModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -41,6 +43,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoginComponent, SignupComponent]
 })
 export class AppModule { }

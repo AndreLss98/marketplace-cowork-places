@@ -1,6 +1,95 @@
-<h2 mat-dialog-title>Cadastrar</h2>
-<div mat-dialog-content>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col"><span mat-dialog-close class="material-icons">close</span></div>
+    <div class="col d-flex justify-content-center"><span mat-dialog-title>Cadastrar</span></div>
+    <div class="col"></div>
+</div>
 
-    </form>
+<div mat-dialog-content>
+    <mat-vertical-stepper linear="true" #stepper>
+        <mat-step [stepControl]="primeiroPasso">
+            <form [formGroup]="primeiroPasso">
+                <ng-template matStepLabel>Preencha o seu email!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" name="email" placeholder="Email" formControlName="email" required email>
+                </mat-form-field>
+                <div class="d-flex">
+                    <button mat-button mat-raised-button color="primary" matStepperNext>Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="segundoPasso">
+            <form [formGroup]="segundoPasso">
+                <ng-template matStepLabel>Preencha o seus dados pessoais!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" name="fname" autocomplete="given-name"  placeholder="Nome" formControlName="nome" required>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Sobrenome</mat-label>
+                    <input matInput type="text" name="mname" autocomplete="additional-name" placeholder="sobrenome" formControlName="sobrenome" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <!-- <mat-label>Data de nascimento</mat-label> -->
+                    <input style="color: black;" matInput [matDatepicker]="picker" placeholder="Data de nascimento" formControlName="data_nascimento" disabled required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false" format></mat-datepicker>
+                </mat-form-field>
+                <span>Selecione uma data.</span>
+                <div>
+                    <button mat-button mat-raised-button color="primary" matStepperNext>Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="terceiroPasso">
+            <form [formGroup]="terceiroPasso">
+                <ng-template matStepLabel>Preencha o seus dados para contato!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Telefone 1</mat-label>
+                    <input matInput type="tel" name="phone" autocomplete="tel-national" placeholder="(62) 99999-9999" minlength="14" maxlength="15"
+                        formControlName="tel1" required (keyup)="formatarFone('tel1')">
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Telefone 2</mat-label>
+                    <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999" minlength="14" maxlength="15"
+                    formControlName="tel2" (keyup)="formatarFone('tel2')">
+                </mat-form-field>
+                <div>
+                    <button mat-button mat-raised-button color="primary" matStepperNext>Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="quartoPasso">
+            <form [formGroup]="quartoPasso">
+                <ng-template matStepLabel>Crie uma senha!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" placeholder="*********" 
+                    formControlName="senha" required minlength="6" maxlength="16">
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Confirme a senha</mat-label>
+                    <input matInput type="password" placeholder="*********" 
+                    formControlName="confirmar_senha" required minlength="6" maxlength="16">
+                </mat-form-field>
+                <div>
+                    <button mat-button mat-raised-button color="primary" matStepperNext>Finalizar cadastro</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Finalizado</ng-template>
+            <div class="alert alert-success" role="alert">
+                Sua conta foi criada com sucesso!
+            </div>
+            <div>
+                <button mat-button mat-raised-button mat-dialog-close  color="accent" matStepperNext>Fechar</button>
+            </div>
+        </mat-step>
+
+    </mat-vertical-stepper>
+    <div class="d-flex justify-content-center" (click)="entrar()"
+        style="margin-top: 10px; border-top: 1px solid rgb(196, 196, 196); padding-top: 10px;">
+        <span style="font-size: 17px;" class="entrar">Já tem uma conta? <b>Entrar.</b></span>
+    </div>
 </div>
