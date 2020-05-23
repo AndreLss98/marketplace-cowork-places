@@ -1,5 +1,5 @@
 export const HEADER_NAV_OPTIONS = [
-    {name: 'Como funciona', rout: '/home'},
+    {name: 'Como funciona', rout: '/home#homeComoFunciona'},
     {name: 'Anuncie', rout: '/home'},
     {name: 'Ajuda', rout: '/home'}, 
     ]
@@ -14,3 +14,4 @@ export const HEADER_MENU_OPTIONS = [
 ]
 
 export const USER_SESSION = 'user_data';
+export const USER_TOKEN = 'user_token';
