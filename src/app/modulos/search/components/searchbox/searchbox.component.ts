@@ -63,7 +63,6 @@ export class SearchboxComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.searchForm.valid, this.searchForm.get('minValue').errors, typeof this.searchForm.value.minValue)
     if(!this.searchForm.valid) return;
     let { location, minValue, maxValue, minArea, maxArea } = this.searchForm.controls
     this.route.navigate(['/search'], 
