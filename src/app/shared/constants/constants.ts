@@ -15,3 +15,12 @@ export const HEADER_MENU_OPTIONS = [
 
 export const USER_SESSION = 'user_data';
 export const USER_TOKEN = 'user_token';
+
+export const enum Passos {
+    Primeiro = 0,
+    Segundo = 1,
+    Terceiro = 2,
+    Quarto = 3
+}
+
+export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

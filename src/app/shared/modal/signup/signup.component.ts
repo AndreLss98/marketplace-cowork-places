@@ -1,11 +1,24 @@
+import { LoginService } from 'src/app/shared/service/login.service';
+import { User } from './../../interface/interface';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { SignupService } from './../../service/signup.service';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms'
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, ErrorStateMatcher } from '@angular/material/core';
 import { LoginComponent } from '../login/login.component';
+import { MatStepper } from '@angular/material/stepper';
+import { Passos, emailPattern } from '../../constants/constants';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
+  }
+}
 
 @Component({
   selector: 'app-signup',
@@ -21,10 +34,16 @@ import { LoginComponent } from '../login/login.component';
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ]
 })
+
 export class SignupComponent implements OnInit {
 
+  @ViewChild('signupStepper') stepper: MatStepper;
+  public loader:boolean = false;
+  public editavel:boolean = true;
+  matcher = new MyErrorStateMatcher();
+
   public primeiroPasso: FormGroup;
-  email = new FormControl('', Validators.required);
+  email = new FormControl('', [Validators.required, Validators.pattern(emailPattern)]);
 
   public segundoPasso: FormGroup;
   nome = new FormControl('', [Validators.required, Validators.pattern('')]);
@@ -43,7 +62,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private signup: SignupService,
     private form: FormBuilder,
-    private modal: ModalService
+    private modal: ModalService,
+    private login: LoginService
   ){
     
     // Inicia o formulario.
@@ -65,15 +85,63 @@ export class SignupComponent implements OnInit {
     this.quartoPasso = this.form.group({
       senha: this.senha,
       confirmar_senha: this.confirmar_senha
-    });
+    }, {validators: this.verificaSenhas});
 
    }
+
+  verificaSenhas(group: FormGroup){
+    let pass = group.controls.senha.value;
+    let confirmPass = group.controls.confirmar_senha.value;
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
   ngOnInit(): void {
   }
 
-  onSubmit(){
+  nextStep(stepper: MatStepper){
+    switch (stepper.selectedIndex) {
+      case Passos.Primeiro:
+        // Verificar se o email já existe 
+        nextStep();
+        break;
+      case Passos.Quarto:
+        // Valida Senha
+        this.editavel = false;
+        this.loader = true;
+        this.signup.cadastrar(this.criarUsuario()).subscribe( response => {
+          this.login.signInAfterSignup(response);
+          nextStep();
+        }, error => {
+          console.log("Cadastro invalido",error)
+          this.editavel = true;
+          this.loader = false;
+        })
+        break;
+      default:
+        nextStep();
+        break;
+    }
+
+    function nextStep(){
+      setTimeout(() => {
+        stepper.next();
+      }, 1);
+    }
   }
+
+  criarUsuario(): User{
+    let user: User = {
+      email: this.primeiroPasso.value.email,
+      nome: this.segundoPasso.value.nome,
+      sobrenome: this.segundoPasso.value.sobrenome,
+      data_nascimento: this.segundoPasso.value.data_nascimento,
+      numero: this.terceiroPasso.value.tel1,
+      senha: this.quartoPasso.value.senha,
+      img_perfil: 'perfil.png'
+    }
+    return user;
+  }
+
 
   formatarFone(campo: string){
 

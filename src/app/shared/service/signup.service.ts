@@ -1,3 +1,4 @@
+import { User, authUser } from './../interface/interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,7 +13,7 @@ export class SignupService {
     private http: HttpClient
   ) { }
 
-  public cadastrar(form: any): Observable<any>{
-    return this.http.post<any>(environment.apiUrl + '/usuarios/create', form);
+  public cadastrar(form: User): Observable<authUser>{
+    return this.http.post<authUser>(environment.apiUrl + '/usuarios/create', form);
   }
 }

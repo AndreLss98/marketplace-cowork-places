@@ -4,22 +4,13 @@ export interface LoginResponse {
 }
 
 export interface User {
-    registration: {
-        applicationId: string,
-        data: Object,
-        username: string
-    },
-    user: {
-        birthDate: string,
-        data: object,
-        email: string,
-        firstName: string,
-        fullName: string,
-        lastName: string,
-        mobilePhone: string,
-        password: string,
-        username: string
-    }
+    email: string,
+    nome: string,
+    sobrenome: string,
+    data_nascimento: Date,
+    numero: string,
+    img_perfil: string,
+    senha: string
 }
 
 export interface highlightItem {
@@ -30,4 +21,21 @@ export interface highlightItem {
     tax: number,
     rank: number,
     id: number,
+}
+
+export interface authUser {
+    user:{
+        id: number,
+        perfil_id: number,
+        email: string,
+        nome: string,
+        sobrenome: string,
+        data_nascimento: any,
+        numero: string,
+        img_perfil: string,
+        google_id: string,
+        saldo: string
+    },
+    token: string,
+    expires_at: number
 }
