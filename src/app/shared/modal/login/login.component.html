@@ -21,6 +21,9 @@
         <div class="row d-flex align-items-center justify-content-end">
             <button type="submit" mat-button mat-raised-button class="entrar">Entrar</button>
         </div>
+        <div class="w-100" [ngStyle]="{'display': showLoading ? 'block': 'none'}">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
     </form>
 </div>
 
