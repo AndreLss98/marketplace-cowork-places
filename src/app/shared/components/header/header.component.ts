@@ -54,7 +54,9 @@ export class HeaderComponent implements OnInit {
         }
       }
       this.modalService.openModal(LoginComponent, false, config);
-    } // else do nothing
+    } else {
+      this.goTo('/user/' + this.login.user_data.id);
+    }
   }
   
   ngOnInit(): void {
