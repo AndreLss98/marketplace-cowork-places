@@ -15,7 +15,7 @@ export class AppComponent {
   ){}
 
   ngOnInit(){
-    this.login.getUserSession();
+    // this.login.getUserSession();
   }
 
 }

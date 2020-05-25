@@ -1,3 +1,4 @@
+import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './shared/materia.module';
 
 @NgModule({
@@ -42,7 +43,13 @@ import { MaterialModule } from './shared/materia.module';
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent]
 })
