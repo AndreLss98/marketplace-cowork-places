@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://206.189.168.26',
+  apiUrl: 'https://spotted-br.com',
   token: ''
 };
