@@ -81,6 +81,13 @@ export class LoginService {
       return false
   }
 
+  public signInWithGoogle(){
+    window.location.href = environment.apiUrl + '/auth/google';
+    // this.http.post(environment.apiUrl + '/auth/google', {}).subscribe(response =>{
+    //   console.log(response);
+    // })
+  }
+
     /**
      * Getter user_token
      * @return {string}

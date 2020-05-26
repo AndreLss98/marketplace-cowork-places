@@ -18,11 +18,17 @@
             <input formControlName="password" autocomplete="current-password" type="password" placeholder="Senha" (focus)="inputFocus('senha')">
         </div>
         <div style="border: 1px solid #aaaaaa77; margin: 2px;"></div>
-        <div class="row d-flex align-items-center justify-content-end">
+        <div class="w-100 d-flex align-items-center justify-content-end">
             <button type="submit" mat-button mat-raised-button class="entrar">Entrar</button>
         </div>
         <div class="w-100" [ngStyle]="{'display': showLoading ? 'block': 'none'}">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="w-100">
+            <div  class="google-button d-flex justify-content-center" (click)="loginGoogle()">
+                <img src="assets/svg/google.svg" style="width: 50px; padding: 5px 10px 5px 10px;">
+                <span style="margin-top: auto; margin-bottom: auto; font-weight: 500;">Entrar com o Google!</span>
+            </div>
         </div>
     </form>
 </div>

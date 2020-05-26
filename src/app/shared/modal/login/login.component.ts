@@ -30,6 +30,10 @@ export class LoginComponent implements OnInit {
     private modal: ModalService
     ) {}
 
+  loginGoogle(){
+    this.login.signInWithGoogle();
+  }
+
   onSubmit(){
     this.showLoading = true
 
