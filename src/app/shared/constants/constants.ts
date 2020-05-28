@@ -5,12 +5,12 @@ export const HEADER_NAV_OPTIONS = [
     ]
 
 export const HEADER_MENU_OPTIONS = [
-    {name:'Sala de Reunião' , img: 'assets/imgs/header/sala_reuniao.png', rout: '/home'},
-    {name:'Mesas' , img: 'assets/imgs/header/mesas.png', rout: '/home'},
-    {name:'Salas Privativas' , img: 'assets/imgs/header/salas_privativas.png', rout: '/home'},
-    {name:'Auditórios' , img: 'assets/imgs/header/auditorios.png', rout: '/home'},
-    {name:'Serviços' , img: 'assets/imgs/header/servicos.png', rout: '/home'},
-    {name:'Palestras e Cursos' , img: 'assets/imgs/header/palestras.png', rout: '/home'},
+    {name:'Sala de Reunião' , img: 'assets/imgs/header/sala_reuniao.jpg', rout: '/home'},
+    {name:'Mesas' , img: 'assets/imgs/header/mesas.jpg', rout: '/home'},
+    {name:'Salas Privativas' , img: 'assets/imgs/header/salas_privativas.jpg', rout: '/home'},
+    {name:'Auditórios' , img: 'assets/imgs/header/auditorios.jpg', rout: '/home'},
+    {name:'Serviços' , img: 'assets/imgs/header/servicos.jpg', rout: '/home'},
+    {name:'Palestras e Cursos' , img: 'assets/imgs/header/palestras.jpg', rout: '/home'},
 ]
 
 export const USER_SESSION = 'user_data';
