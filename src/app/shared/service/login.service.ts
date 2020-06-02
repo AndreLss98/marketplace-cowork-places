@@ -1,11 +1,13 @@
+import { RefreshTokenService } from './refresh-token.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 
-import { USER_SESSION, USER_TOKEN } from '../constants/constants'
+import { USER_SESSION, EXPIRE_AT } from '../constants/constants'
 import { Router } from '@angular/router';
 import { authUser } from '../interface/interface';
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -16,11 +18,12 @@ export class LoginService {
   private _user_data: any;
   private _logged_status: boolean;
   private _user_token: string;
-  private _expires_at: any;
+  private _expires_at: any = undefined;
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private refresh: RefreshTokenService
   ) { 
     this.logged_status = this.checkLogedIn();
   }
@@ -34,14 +37,29 @@ export class LoginService {
     this.logged_status = false;
     this.userToken = undefined,
     this.expires_at = undefined;
+    localStorage.removeItem(EXPIRE_AT);
     this.router.navigateByUrl('/home')
   }
 
-  public signInAfterSignup(response: authUser){
+  public login(response: authUser){
     this.userToken = response.token;
     this.user_data = response.user;
     this.expires_at = response.expires_at;
+    localStorage.setItem(EXPIRE_AT, this.expires_at);
     this.logged_status = this.checkLogedIn();
+  }
+
+  public verifySession(){
+    
+    let expire: number = + localStorage.getItem(EXPIRE_AT);
+    if(expire > moment().unix()){
+      this.refresh.refreshToken()
+        .subscribe( response => {
+          this.login(response);
+        }, err => {
+          this.logout();
+        });
+    }
   }
 
   public getUserSession(){
@@ -59,26 +77,13 @@ export class LoginService {
     this.logged_status = false;
   }
 
-  public async signInWithEmail(email: string, senha: string): Promise<boolean> {
-
+  public signInWithEmail(email: string, senha: string): Observable<authUser>{
     let form = {
       email: email,
       senha: senha
     }
-
-    await this.http.post<authUser>(`${environment.apiUrl}/auth` , form)
-      .subscribe( response => {
-
-        this.user_data = response.user;
-        this.userToken = response.token;
-        this.expires_at = response.expires_at
-        this.logged_status = this.checkLogedIn();
-        return true
-      }, err => {
-        return false;
-      });
-
-      return false
+    return this.http.post<authUser>(`${environment.apiUrl}/auth` , form);
+      // return false
   }
 
   public signInWithGoogle(){
