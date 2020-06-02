@@ -11,8 +11,10 @@
                 <ng-template matStepLabel>Preencha o seu email!</ng-template>
                 <mat-form-field class="w-100">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" name="email" placeholder="Email" formControlName="email" required email>
-                    <mat-error>Preencha o campo corretamente!</mat-error>
+                    <input matInput type="email" name="email" 
+                    placeholder="Email" formControlName="email" required email [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="!primeiroPasso.hasError('existe')">Preencha o campo corretamente!</mat-error>
+                    <mat-error *ngIf="primeiroPasso.hasError('existe')">Email já utilizado!</mat-error>
                 </mat-form-field>
                 <div class="d-flex">
                     <button mat-button mat-raised-button color="primary" (click)="nextStep(signupStepper)">Proximo</button>
@@ -32,14 +34,16 @@
                     <input matInput type="text" name="mname" autocomplete="additional-name" placeholder="sobrenome" formControlName="sobrenome" required>
                     <mat-error>Preencha o campo corretamente!</mat-error>
                 </mat-form-field>
-                <mat-form-field>
-                    <input style="color: black;" matInput [matDatepicker]="picker" placeholder="Data de nascimento" formControlName="data_nascimento" disabled required>
-                    <mat-error>Selecione uma data válida!</mat-error>
+                <mat-form-field class="w-50">
+                    <input style="color: black;" matInput [matDatepicker]="picker" placeholder="Data de nascimento" 
+                        formControlName="data_nascimento" disabled required [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
+                    <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker disabled="false" format></mat-datepicker>
                 </mat-form-field>
                 <span>Selecione uma data.</span>
-                <div>
+                <div style="margin-top: 5px;">
                     <button mat-button mat-raised-button color="primary" (click)="nextStep(signupStepper)">Proximo</button>
                 </div>
             </form>
@@ -71,14 +75,20 @@
                     <mat-label>Senha</mat-label>
                     <input matInput type="password" placeholder="*********" 
                     formControlName="senha" required minlength="6" maxlength="16">
+                    <mat-error *ngIf="quartoPasso.hasError('lengthMax')">
+                        Senha muito grande!
+                    </mat-error>
+                    <mat-error *ngIf="quartoPasso.hasError('lengthMin')">
+                        Senha muito curta!
+                    </mat-error>
                 </mat-form-field>
-                <mat-form-field class="w-100">
+                <mat-form-field class="w-100" style="margin-top: 5px;">
                     <mat-label>Confirme a senha</mat-label>
                     <input matInput type="password" placeholder="*********" [errorStateMatcher]="matcher"
                     formControlName="confirmar_senha" required minlength="6" maxlength="16">
                     <mat-error *ngIf="quartoPasso.hasError('notSame')">
                         Senhas não conferem!
-                    </mat-error> 
+                    </mat-error>
                 </mat-form-field>
                 <div>
                     <button mat-button mat-raised-button color="primary" type="submit">Finalizar cadastro</button>
