@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://206.189.168.26',
+  // apiUrl: 'http://206.189.168.26',
+  apiUrl: 'http://localhost',
   token: ''
 };
 
