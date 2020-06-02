@@ -20,29 +20,39 @@ export class AuthInterceptorService implements HttpInterceptor {
     private refresh: RefreshTokenService
   ) { }
 
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log("Cai no interceptor!");
+    return next.handle(this.addToken(req, this.login.userToken), ).pipe(
+      catchError( (err: HttpErrorResponse) => {
+        if(err.status == 401){
+          return this.handle401Error(req, next);
+        }
+
+        return throwError(err);
+      }),
+    )
+  }
+
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
-    return req.clone({ setHeaders: { Authorization: 'Bearer ' + token }})
+    if(req.url.includes('/auth') || req.url.includes('/usuarios/create')){
+      console.log('com with credentials')
+      return req.clone(
+        {  
+          withCredentials: true
+        })
+    }
+    console.log("Sem with credentials")
+    return req.clone(
+    { 
+      setHeaders: { Authorization: 'Bearer ' + token }, 
+      // withCredentials: true
+    })
   }
 
   logoutUser() {
     // Route to the login page (implementation up to you)
     this.login.logout()
     return throwError("Usuario deslogado")
-  }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-
-    return next.handle(this.addToken(req, this.login.userToken), ).pipe(
-      catchError( (err: HttpErrorResponse) => {
-        
-        if(err.status == 401){
-          return this.handle401Error(req, next);
-        }
-
-        return throwError(err);
-      })
-    )
   }
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
@@ -58,6 +68,7 @@ export class AuthInterceptorService implements HttpInterceptor {
               console.log("Peguei o user", user, "no refresh token");
                 if (user.token) {
                     this.tokenSubject.next(user.token);
+                    this.login.login(user);
                     return next.handle(this.addToken(req, user.token));
                 }
                 console.log("não peguei nenhum token")
