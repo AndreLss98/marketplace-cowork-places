@@ -38,21 +38,19 @@ export class LoginComponent implements OnInit {
     this.showLoading = true
 
     if(this.loginForm.valid){
-      let sucess = this.login.signInWithEmail(this.loginForm.value.user, this.loginForm.value.password);
-      console.log('peguei', sucess)
-      if(!sucess){
-        this.loginError = true;
-        this.errorMessage = "Senha errada, ou email não cadastrado!";
-        this.showLoading = false;
-      }else{
-        this.loginError = false;
-        setTimeout(() => {
+      this.login.signInWithEmail(this.loginForm.value.user, this.loginForm.value.password)
+        .subscribe(response=>{
+          this.login.login(response);
           this.modal.closeAllModals();
-        }, 250);
-      }
+        }, err => {
+          this.loginError = true;
+          this.errorMessage = "Senha errada, ou email não cadastrado.";
+          this.showLoading = false;
+        })
+
     }else{
       this.loginError = true;
-      this.errorMessage = "Preencha os campos corretamente!";
+      this.errorMessage = "Alguns dados informados estão incorretos. Tente novamente.";
       this.showLoading = false;
     }
   }

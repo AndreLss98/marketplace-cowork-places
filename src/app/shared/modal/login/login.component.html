@@ -7,8 +7,8 @@
 </header>
 
 <div class="container" style="width: 100%;">
-    <div class="alert alert-danger w-100" style="text-align: center;" [ngStyle]="{'display': loginError ? 'block' : 'none'}">
-        {{errorMessage}}
+    <div class="alert alert-danger row d-flex justify-content-center" *ngIf="loginError">
+        <span style="max-width: 400px; text-align: center;">{{errorMessage}}</span>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="row">
