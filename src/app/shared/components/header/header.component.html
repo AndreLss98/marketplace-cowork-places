@@ -10,7 +10,7 @@
           <a [href]="item.rout" class="nav-link">{{ item.name }}</a>
         </li>
         <li class="nav-item" (click)="doLogin()">
-            <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.nome : 'Entrar' }}</button>
+            <button class="btn btn-entrar">{{ login.logged_status ? login.user_data.nome.split(' ')[0] : 'Entrar' }}</button>
         </li>
       </ul>
     </div>
