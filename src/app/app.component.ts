@@ -1,6 +1,5 @@
 import { LoginService } from './shared/service/login.service';
 import { Component } from '@angular/core';
-import { USER_SESSION } from './shared/constants/constants';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +11,8 @@ export class AppComponent {
 
   constructor(
     private login: LoginService
-  ){}
-
-  ngOnInit(){
-    // this.login.getUserSession();
+  ){
+    this.login.verifySession();
   }
 
 }
