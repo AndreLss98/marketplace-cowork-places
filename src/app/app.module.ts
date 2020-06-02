@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NotfoundComponent } from './modulos/notfound/notfound/notfound.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoginComponent } from './shared/modal/login/login.component';
@@ -27,7 +26,6 @@ import { MaterialModule } from './shared/materia.module';
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    NotfoundComponent,
     SignupComponent,
   ],
   imports: [
