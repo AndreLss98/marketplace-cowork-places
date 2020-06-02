@@ -1,3 +1,4 @@
+import { LoginService } from 'src/app/shared/service/login.service';
 import { UserService } from './../../shared/service/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,13 +12,18 @@ export class UserComponent implements OnInit {
   public user:any;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private login: LoginService,
   ) { }
 
   ngOnInit(): void {
     this.userService.getUserById(1).subscribe(result => {
       console.log(result);
     })
+  }
+
+  logout(){
+    this.login.logout();
   }
 
 
