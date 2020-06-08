@@ -136,9 +136,9 @@ export class SignupComponent implements OnInit {
       case Passos.Quarto:
         // Valida Senha
         console.log(this.quartoPasso.errors, this.quartoPasso.valid)
-        this.editavel = false;
-        this.loader = true;
         if(this.quartoPasso.valid){
+          this.editavel = false;
+          this.loader = true;
           this.signup.cadastrar(this.criarUsuario()).subscribe( response => {
             this.login.login(response);
             nextStep();

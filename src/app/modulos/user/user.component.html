@@ -1,2 +1,44 @@
-<p>user works!</p>
-<button mat-button (click)="logout()">Logout</button>
+<div style="margin-top: 5px; height: 45px; background-color: white; margin-bottom: 5px;"
+    class="d-flex align-items-center">
+    <div class="w-100 d-flex justify-content-start">
+        <button mat-icon-button color="primary" *ngIf="!opened"
+            (click)="opened = !opened">
+            <mat-icon style="font-size: 35px;">menu</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-sidenav-container class="container-fluid h-100">
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <div class="w-100 d-flex justify-content-end">
+            <button mat-icon-button color="warn" *ngIf="opened"
+                (click)="opened = !opened">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Algo
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+                    <div>
+                        asd
+                    </div>
+                    <div> asd</div>
+        </mat-expansion-panel>
+        <div style="height: 30px;"></div>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Algo
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+                    <div>
+                        asd
+                    </div>
+                    <div> asd</div>
+        </mat-expansion-panel>
+    </mat-sidenav>
+    <button mat-button (click)="logout()">Logout</button>
+</mat-sidenav-container>
+

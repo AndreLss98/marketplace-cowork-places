@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   public loginError: boolean = false;
   public errorMessage: string = '';
+  private startLogin: boolean = false;
 
   public showLoading = false;
   
@@ -35,6 +36,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+
+    if(this.startLogin){
+      return;
+    }
+    this.startLogin = true;
     this.showLoading = true
 
     if(this.loginForm.valid){
@@ -46,12 +52,14 @@ export class LoginComponent implements OnInit {
           this.loginError = true;
           this.errorMessage = "Senha errada, ou email não cadastrado.";
           this.showLoading = false;
+          this.startLogin = false;
         })
 
     }else{
       this.loginError = true;
       this.errorMessage = "Alguns dados informados estão incorretos. Tente novamente.";
       this.showLoading = false;
+      this.startLogin = false;
     }
   }
 

@@ -1,3 +1,4 @@
+import { MdePopoverModule } from '@material-extended/mde';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
@@ -40,6 +41,7 @@ import { NgModule } from '@angular/core';
   declarations: [],
   bootstrap: [],
   exports: [
+    MdePopoverModule,
     ScrollingModule,
     MatButtonModule,
     MatCheckboxModule,

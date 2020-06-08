@@ -11,9 +11,6 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  public getUserById(id: number){
-    return this.http.get(environment.apiUrl + '/usuarios/' + id);
-  }
 
   public verifyUserEmail(email: string){
     let params = new HttpParams();
