@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/shared/service/login.service';
 
 import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     console.log(path)
   }
   
-  doLogin(){
+  doLogin(popover?){
     
     setTimeout(() => {     
       $('#navBottom').addClass('down');
@@ -54,8 +54,12 @@ export class HeaderComponent implements OnInit {
         }
       }
       this.modalService.openModal(LoginComponent, false, config);
-    } else {
-      this.goTo('/user/' + this.login.user_data.id);
+    }else{
+      if(popover.isOpen()){
+        popover.close();
+      } else {
+        popover.open();
+      }
     }
   }
   
