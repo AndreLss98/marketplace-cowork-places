@@ -1,0 +1,15 @@
+@import '../../../../../../place-et-theme.scss';
+
+.myCard{
+    width: 277px;
+    height: 463px;
+    border-radius: 25px;
+}
+
+.myCard:hover{
+    transition: linear 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    color: $pl-verde-escuro;
+    -webkit-box-shadow: 0px 0px 5px 1px $pl-verde-escuro;
+    -moz-box-shadow: 0px 0px 5px 1px $pl-verde-escuro;
+    box-shadow: 0px 0px 5px 1px $pl-verde-escuro;   
+}

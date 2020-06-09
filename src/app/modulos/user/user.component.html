@@ -1,44 +1,89 @@
 <div style="margin-top: 5px; height: 45px; background-color: white; margin-bottom: 5px;"
     class="d-flex align-items-center">
-    <div class="w-100 d-flex justify-content-start">
+    <div class="w-25 d-flex justify-content-start">
         <button mat-icon-button color="primary" *ngIf="!opened"
             (click)="opened = !opened">
             <mat-icon style="font-size: 35px;">menu</mat-icon>
         </button>
     </div>
+    <div class="w-75 d-flex justify-content-center">
+        <span class="currentSelection">{{currentSelection}}</span>
+    </div>
 </div>
 <mat-sidenav-container class="container-fluid h-100">
-    <mat-sidenav [(opened)]="opened" mode="side">
-        <div class="w-100 d-flex justify-content-end">
+    <mat-sidenav [(opened)]="opened" mode="side" class="a">
+
+        <div class="w-100 d-flex justify-content-between">
+            <span style="margin-top: auto; margin-bottom: auto; padding-left: 5px; font-weight: 501;">Menu</span>
             <button mat-icon-button color="warn" *ngIf="opened"
                 (click)="opened = !opened">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Algo
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-                    <div>
-                        asd
-                    </div>
-                    <div> asd</div>
-        </mat-expansion-panel>
-        <div style="height: 30px;"></div>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Algo
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-                    <div>
-                        asd
-                    </div>
-                    <div> asd</div>
-        </mat-expansion-panel>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Conta</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item  (click)="updateSelection('Conta > Informações Pessoais')"
+                        class="border-bottom"> Informações Pessoais </mat-list-item>
+                    <mat-list-item  (click)="updateSelection('Conta > Login e Segurança')"
+                        class="border-bottom"> Login e Segurança </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Conta > Pagamentos recebidos')"
+                        class="border-bottom"> Pagamentos recebidos</mat-list-item>
+                    <mat-list-item (click)="updateSelection('Conta > Pagamentos realizados')"
+                        class="border-bottom"> Pagamentos realizados </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+
+            <div style="height: 5px;"></div>
+
+            <button mat-button mat-raised-button class="panelItem"
+                (click)="updateSelection('Espaços salvos')" routerLink="espacos/salvos"
+                >Espaços salvos</button>
+
+            <div style="height: 5px;"></div>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Aluguéis
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item (click)="updateSelection('Aluguéis > Meus aluguéis')"
+                        class="border-bottom"> Meus aluguéis </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Aluguéis > Pagamentos enviados')"
+                        class="border-bottom"> Pagamentos enviados</mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        
+            <div style="height: 5px;"></div>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Anúncios
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item (click)="updateSelection('Anúncios > Meus anúncios')"
+                        class="border-bottom" routerLink="anuncios/meusanuncios"> Meus anúncios </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Anúncios > Editar anúncio')"
+                        class="border-bottom"> Editar anúncio </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Anúncios > Criar anúncio')"
+                        class="border-bottom" routerLink="anuncios/criaranuncio"> Criar anúncio </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Anúncios > Pagamentos recebidos')"
+                        class="border-bottom"> Pagamentos recebidos </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+
+            <div style="height: 5px;"></div>
+        </mat-accordion>
     </mat-sidenav>
-    <button mat-button (click)="logout()">Logout</button>
+    <div style="margin-left: 5px; margin-top: 5px;">
+        <router-outlet></router-outlet>
+    </div>
 </mat-sidenav-container>
 

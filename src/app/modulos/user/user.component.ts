@@ -11,12 +11,16 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public user:any;
   public opened: boolean = true;
+  public currentSelection: string = '';
 
   constructor(
     private userService: UserService,
     private login: LoginService,
   ) { }
 
+  updateSelection(path: string){
+    this.currentSelection = path;
+  }
   
   ngOnInit(): void {
     $('#menuHeader').hide();
@@ -24,6 +28,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     $('#menuHeader').show();
+    console.log("Sai daqui pai")
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     
