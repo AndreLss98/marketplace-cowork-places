@@ -27,6 +27,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatTreeModule} from '@angular/material/tree'; 
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -44,6 +45,7 @@ import { NgModule } from '@angular/core';
     MdePopoverModule,
     ScrollingModule,
     MatButtonModule,
+    MatTreeModule,
     MatCheckboxModule,
     MatInputModule,
     MatAutocompleteModule,
