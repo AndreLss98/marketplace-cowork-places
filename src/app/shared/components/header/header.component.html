@@ -19,11 +19,11 @@
   </nav>
   <div class="options container-fluid" id="menuHeader">
     <div class="row h-100 d-flex justify-content-around align-items-center" style="padding-left: 100px; padding-right: 100px;">
-      <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo(item.rout)">
+      <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo(item.id)">
         <div class="imgs">
-          <img [src]="item.img" style="width: 25px; height: 25px;">
+          <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
         </div>
-        <span style=" white-space: nowrap">{{item.name}}</span>
+        <span style=" white-space: nowrap">{{item.nome}}</span>
       </div>
     </div>
   </div>

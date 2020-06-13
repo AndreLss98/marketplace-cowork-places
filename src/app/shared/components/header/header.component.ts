@@ -7,6 +7,7 @@ import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import * as $ from 'jquery'
+import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +18,18 @@ export class HeaderComponent implements OnInit {
 
   public menu = HEADER_NAV_OPTIONS;
   private mobile_mode = false;
-  public options = HEADER_MENU_OPTIONS;
+  public options = [];
 
   constructor(
     public login: LoginService,
     public modalService: ModalService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private menuService: MenuService
+  ) { 
+    menuService.getAllHome().subscribe((response: any) => {
+      this.options = response.filter(tipo => tipo.disponivel);
+    });
+  }
 
   goTo(path: string){
     this.router.navigateByUrl(path);
