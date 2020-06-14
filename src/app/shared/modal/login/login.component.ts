@@ -49,15 +49,21 @@ export class LoginComponent implements OnInit {
           this.login.login(response);
           this.modal.closeAllModals();
         }, err => {
-          this.loginError = true;
-          this.errorMessage = "Senha errada, ou email não cadastrado.";
-          this.showLoading = false;
-          this.startLogin = false;
-        })
-
+          if(err.name && err.name == 'TimeoutError'){
+            this.loginError = true;
+            this.errorMessage = "Verifique a conexão! Tente novamente.";
+            this.showLoading = false;
+            this.startLogin = false;
+          }else{
+            this.loginError = true;
+            this.errorMessage = "Senha errada, ou email não cadastrado.";
+            this.showLoading = false;
+            this.startLogin = false;
+          }
+        });
     }else{
       this.loginError = true;
-      this.errorMessage = "Alguns dados informados estão incorretos. Tente novamente.";
+      this.errorMessage = "Alguns dados informados estão incorretos.";
       this.showLoading = false;
       this.startLogin = false;
     }
