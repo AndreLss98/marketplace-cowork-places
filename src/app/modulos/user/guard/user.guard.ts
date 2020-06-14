@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
@@ -19,6 +20,7 @@ export class UserGuard implements CanLoad {
 
     console.log(route);
 
+    if(!environment.production) return true; 
     let status:boolean = this.login.checkLogedIn()
 
     // Se status == true
