@@ -1,5 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-about',
@@ -17,7 +18,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.post = './assets/markdown/' +  params['nome'] + '.md';
+      this.post = `${environment.apiUrl}/md/${params['nome']}`;
     });
   }
 
