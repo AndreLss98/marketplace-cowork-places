@@ -40,7 +40,7 @@
             <div style="height: 5px;"></div>
 
             <button mat-button mat-raised-button class="panelItem"
-                (click)="updateSelection('Espaços salvos')" routerLink="espacos/salvos"
+                (click)="updateSelection('Espaços salvos')" routerLink="/user/espacossalvos"
                 >Espaços salvos</button>
 
             <div style="height: 5px;"></div>
@@ -58,7 +58,7 @@
                         class="border-bottom"> Pagamentos enviados</mat-list-item>
                 </mat-list>
             </mat-expansion-panel>
-        
+
             <div style="height: 5px;"></div>
 
             <mat-expansion-panel>
@@ -69,11 +69,11 @@
                 </mat-expansion-panel-header>
                 <mat-list>
                     <mat-list-item (click)="updateSelection('Anúncios > Meus anúncios')"
-                        class="border-bottom" routerLink="anuncios/meusanuncios"> Meus anúncios </mat-list-item>
+                        class="border-bottom" routerLink="/user/anuncios/meusanuncios"> Meus anúncios </mat-list-item>
                     <mat-list-item (click)="updateSelection('Anúncios > Editar anúncio')"
                         class="border-bottom"> Editar anúncio </mat-list-item>
                     <mat-list-item (click)="updateSelection('Anúncios > Criar anúncio')"
-                        class="border-bottom" routerLink="anuncios/criaranuncio"> Criar anúncio </mat-list-item>
+                        class="border-bottom" routerLink="/user/anuncios/criaranuncio"> Criar anúncio </mat-list-item>
                     <mat-list-item (click)="updateSelection('Anúncios > Pagamentos recebidos')"
                         class="border-bottom"> Pagamentos recebidos </mat-list-item>
                 </mat-list>

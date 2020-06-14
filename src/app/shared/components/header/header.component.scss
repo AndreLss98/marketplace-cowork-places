@@ -1,7 +1,7 @@
 @import '../../../../place-et-theme.scss';
 
 nav{
-    
+
     .nav-link{
         color: black !important;
         font-size: 18px;
@@ -38,9 +38,9 @@ nav{
     background: linear-gradient(to right, $pl-verde-claro, $pl-verde-escuro);
     font-weight: 500;
     span{
-        cursor: pointer; 
+        cursor: pointer;
     }
-    
+
     .imgs{
         cursor: pointer;
         background-color: white;
@@ -48,9 +48,11 @@ nav{
         padding: 15px;
         border: 2px solid #00000000;
     }
-    
+
     .imgs:hover{
-        border: 2px solid rgba(0, 0, 0, 0.432);
+      transition: linear 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+      border: 2px solid rgba(0, 0, 0, 0.432);
+      box-shadow: inset 0px 0px 5px 1px rgba(153,153,153,1);
     }
 }
 
@@ -74,7 +76,7 @@ li{
 
 .navbar-toggler {
     border-color: #000000;
-} 
+}
 .up{
     transition: -ms-transform .2s cubic-bezier(0.455, 0.030, 0.515, 0.955),
     -webkit-transform .2s cubic-bezier(0.455, 0.030, 0.515, 0.955),
@@ -85,14 +87,14 @@ li{
     transform: translateY(100%) !important;
     transition: -ms-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
     -webkit-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s, visibility 0.2s ease 0s !important;  
+    transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s, visibility 0.2s ease 0s !important;
 }
 
 .hide{
     transform: translateY(-120%) !important;
     transition: -ms-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
     -webkit-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s, transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    visibility 0.2s ease 0s !important;  
+    visibility 0.2s ease 0s !important;
 }
 
 .list-item{

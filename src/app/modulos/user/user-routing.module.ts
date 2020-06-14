@@ -8,12 +8,12 @@ import { UserComponent } from './user.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 
 const routes: Routes = [
-  { path: '', component: UserComponent, 
+  { path: '', component: UserComponent,
   children:  [
     { path: 'payments', component: PaymentsComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
-    { path: 'espacos/salvos', component: EspacosSalvosComponent},
+    { path: 'espacossalvos', component: EspacosSalvosComponent},
   ]
   },
 ];
