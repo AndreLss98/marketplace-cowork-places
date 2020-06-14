@@ -12,11 +12,19 @@ export class UserComponent implements OnInit, OnDestroy {
   public user:any;
   public opened: boolean = true;
   public currentSelection: string = '';
+  public isAdmin: boolean = false;
 
   constructor(
-    private userService: UserService,
     private login: LoginService,
-  ) { }
+    private userService: UserService,
+  ) {
+    this.userService.checkPermission().subscribe((response: any) => {
+      this.isAdmin = true;
+    }, (error) => {
+      console.log(error);
+      this.isAdmin = false;
+    });
+  }
 
   updateSelection(path: string){
     this.currentSelection = path;

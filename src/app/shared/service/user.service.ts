@@ -18,4 +18,8 @@ export class UserService {
     params = params.append('email', email);
     return this.http.post(environment.apiUrl + '/usuarios/email', {email: email});
   }
+
+  public checkPermission() {
+    return this.http.post(`${environment.apiUrl}/usuarios/check-admin`, {});
+  }
 }

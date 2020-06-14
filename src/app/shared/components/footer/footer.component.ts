@@ -18,7 +18,6 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.politicasService.getAll().subscribe((response: any) => {
       this.politicas = response.filter(politica => politica.aprovado);
-      console.log('Politicas: ', this.politicas);
     });
   }
 

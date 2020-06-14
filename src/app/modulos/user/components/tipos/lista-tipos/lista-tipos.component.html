@@ -1,0 +1,82 @@
+<mat-table [dataSource]="tipos" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="icone">
+    <mat-header-cell *matHeaderCellDef> Icone </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.icone}}</mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="disponivel">
+    <mat-header-cell *matHeaderCellDef> Disponivel? </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.disponivel? 'Sim':'Não' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setEditComponent(row)"></mat-row>
+</mat-table>
+
+<div id="cards-container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Novo Tipo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="createForm" (ngSubmit)="createTipo()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input formControlName="nome" matInput placeholder="Nome">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Icones</mat-label>
+            <mat-select formControlName="icone">
+              <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <div>
+            <mat-checkbox formControlName="disponivel">Disponivel</mat-checkbox>
+        </div>
+        <button mat-flat-button color="primary" type="submit">Criar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="tipo" class="example-card">
+    <mat-card-header>
+      <mat-card-title>Editar Tipo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="updateTipo()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" placeholder="Nome" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Icones</mat-label>
+            <mat-select formControlName="icone" required>
+              <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <div>
+            <mat-checkbox formControlName="disponivel">Disponivel</mat-checkbox>
+        </div>
+        <button mat-flat-button color="primary" type="submit">Atualizar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
