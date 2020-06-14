@@ -8,6 +8,7 @@ import { USER_SESSION, EXPIRE_AT } from '../constants/constants'
 import { Router } from '@angular/router';
 import { authUser } from '../interface/interface';
 import * as moment from 'moment';
+import { timeout } from 'rxjs/operators';
 
 
 @Injectable({
@@ -82,7 +83,7 @@ export class LoginService {
       email: email,
       senha: senha
     }
-    return this.http.post<authUser>(`${environment.apiUrl}/auth` , form);
+    return this.http.post<authUser>(`${environment.apiUrl}/auth` , form).pipe(timeout(10000));
       // return false
   }
 

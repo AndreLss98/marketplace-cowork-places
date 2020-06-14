@@ -36,10 +36,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     $('#menuHeader').show();
-    console.log("Sai daqui pai")
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    
   }
 
   logout(){

@@ -1,6 +1,12 @@
-<mat-horizontal-stepper>
+<mat-horizontal-stepper [linear]="true">
     <mat-step>
-        <ng-template matStepLabel>Passo 1</ng-template>
+        <ng-template matStepLabel>Termos de responsabilidade</ng-template>
+        <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+            <button mat-button mat-raised-button matStepperNext>Aceitar e prosseguir</button>
+        </div>
+        <div class="d-flex justify-content-center align-content-center">
+            <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso#markdown" frameborder="0"></iframe>
+        </div>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Passo 2</ng-template>

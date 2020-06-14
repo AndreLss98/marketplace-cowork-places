@@ -19,3 +19,8 @@ mat-list-item:hover{
     background-color: #f5f5f5;
     cursor: pointer;
 }
+
+button:focus, button:active:focus, button.active:focus {
+  outline: none !important;
+  outline-style: none !important;
+  }

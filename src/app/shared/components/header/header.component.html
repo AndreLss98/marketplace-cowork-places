@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" ></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
         <li class="nav-item" *ngFor="let item of menu">
@@ -44,13 +44,13 @@
       </div>
     </div>
   </div>
-  
+
   <ng-template #popContent>
     <span class="popoverTitle">Olá {{login.user_data.nome.split(' ')[0]}}</span>
     <div style="margin-bottom: 5px;">
       <mat-list>
         <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user')">Minha Conta</mat-list-item>
-        <mat-list-item class="list-item border-bottom">Espaços salvos</mat-list-item>
+        <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
         <mat-list-item class="list-item">Aluguéis</mat-list-item>
         <mat-list-item class="list-item border-bottom">Anúncios</mat-list-item>
       </mat-list>

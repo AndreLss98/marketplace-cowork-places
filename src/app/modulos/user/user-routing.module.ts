@@ -9,13 +9,13 @@ import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 
 const routes: Routes = [
-  { path: '', component: UserComponent, 
+  { path: '', component: UserComponent,
   children:  [
+    { path: 'tipos', component: ListaTiposComponent},
     { path: 'payments', component: PaymentsComponent},
+    { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
-    { path: 'espacos/salvos', component: EspacosSalvosComponent},
-    { path: 'tipos', component: ListaTiposComponent}
   ]
   },
 ];
