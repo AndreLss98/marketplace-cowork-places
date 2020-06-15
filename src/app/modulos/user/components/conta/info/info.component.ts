@@ -56,6 +56,7 @@ export class InfoComponent implements OnInit {
           console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
           this.imgName = `${environment.apiUrl}/imgs/${event.body.image_name}`;
+          this.selectedFile = null;
         }
       }, (error) => {
         console.log("Error: ", error);
