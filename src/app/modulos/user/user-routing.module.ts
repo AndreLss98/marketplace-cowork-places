@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
+import { InfoComponent } from './components/conta/info/info.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { ListaTiposComponent } from './components/tipos/lista-tipos/lista-tipos.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
+    { path: 'conta/info', component: InfoComponent},
   ]
   },
 ];

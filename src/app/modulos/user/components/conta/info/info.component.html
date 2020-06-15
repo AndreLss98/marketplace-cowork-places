@@ -1,0 +1,51 @@
+<mat-card>
+    <div id="img-perfil">
+        <img [src]="imgName" alt="imagem de perfil do usuario">
+    </div>
+    <input type="file" (change)="onFileSelected($event)">
+    <button (click)="updateNewImage()">Enviar</button>
+    <mat-card-title>Dados Pessoais</mat-card-title>
+    <mat-card-content>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput value="{{ loginService.user_data.nome + ' ' + loginService.user_data.sobrenome}}" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Nascimento</mat-label>
+                    <input matInput value="{{ dataNascimento }}" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput value="{{ loginService.user_data.email }}" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 1</mat-label>
+                    <input matInput value="{{ loginService.user_data.numero_1 }}" readonly />
+                </mat-form-field>
+            </td>
+            <td *ngIf="loginService.user_data.numero_2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 2</mat-label>
+                    <input matInput value="{{ loginService.user_data.numero_2 }}" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-title>Documentos Pessoais</mat-card-title>
+    <mat-card-content>
+
+    </mat-card-content>
+</mat-card>
