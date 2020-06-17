@@ -21,7 +21,6 @@ export class AuthInterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Cai no interceptor!");
     return next.handle(this.addToken(req, this.login.userToken), ).pipe(
       catchError( (err: HttpErrorResponse) => {
         if(err.status == 401){
@@ -35,13 +34,11 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     if(req.url.includes('/auth') || req.url.includes('/usuarios/create')){
-      console.log('com with credentials')
       return req.clone(
         {  
           withCredentials: true
         })
     }
-    console.log("Sem with credentials")
     return req.clone(
     { 
       setHeaders: { Authorization: 'Bearer ' + token }, 
@@ -58,30 +55,25 @@ export class AuthInterceptorService implements HttpInterceptor {
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshingToken) {
         this.isRefreshingToken = true;
-        console.log("entrei no handle401error");
         // Reset here so that the following requests wait until the token
         // comes back from the refreshToken call.
         this.tokenSubject.next(null);
 
         return this.refresh.refreshToken().pipe(
             switchMap((user: any) => {
-              console.log("Peguei o user", user, "no refresh token");
                 if (user.token) {
                     this.tokenSubject.next(user.token);
                     this.login.login(user);
                     return next.handle(this.addToken(req, user.token));
                 }
-                console.log("não peguei nenhum token")
                 // If we don't get a new token, we are in trouble so logout.
                 return this.logoutUser();
             }),
             catchError(error => {
-              console.log("peguei errro: ", error);
                 // If there is an exception calling 'refreshToken', bad news so logout.
                 return this.logoutUser();
             }),
             finalize(() => {
-              console.log("finalizei! ");
                 this.isRefreshingToken = false;
             }));
     } else {

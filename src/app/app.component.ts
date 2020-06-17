@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { LoginService } from './shared/service/login.service';
 import { Component } from '@angular/core';
 
@@ -9,11 +10,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'place-et';
 
+  public hideHeader = false;
+  public hideFooter = false;
+
   constructor(
-    private login: LoginService
+    private login: LoginService,
+    private route: ActivatedRoute
   ){
     this.login.verifySession();
-  }
 
+    this.route.queryParams.subscribe( params => {
+      console.log("meus params: ",params);
+      this.hideFooter = params["hideFooter"] || false;
+      this.hideHeader = params["hideHeader"] || false;
+    })
+  }
 }
 

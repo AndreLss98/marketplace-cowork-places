@@ -2,17 +2,85 @@
     <mat-step>
         <ng-template matStepLabel>Termos de responsabilidade</ng-template>
         <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-            <button mat-button mat-raised-button matStepperNext>Aceitar e prosseguir</button>
+            <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
         </div>
         <div class="d-flex justify-content-center align-content-center">
-            <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso#markdown" frameborder="0"></iframe>
+            <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe>
         </div>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Passo 2</ng-template>
+        <ng-template matStepLabel>Dados cadastrais</ng-template>
+        <div style="height: 30px;"></div>
+        <form>
+            <div class="d-flex flex-column w-100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Título</mat-label>
+                    <input matInput>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select>
+                        <mat-option value="algo">opções</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label style="font-size: 15px;">Descrição. Limite 500 caracteres</mat-label>
+                    <textarea matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="5"
+                              cdkAutosizeMaxRows="5"
+                              maxlength="500"></textarea>
+                </mat-form-field>
+
+                <!-- Endereço -->
+                <div class="w-100 d-flex flex-row flex-wrap"> 
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>CEP</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Rua</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Complemento</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-25">
+                        <mat-label>Numero</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-75">
+                        <mat-label>Bairro</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Cidade</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Estado</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                <button mat-button mat-raised-button matStepperNext color="primary">Prosseguir</button>
+            </div>
+        </form>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Passo 3</ng-template>
+        <ng-template matStepLabel>Dados sobre o espaço</ng-template>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Passo 4</ng-template>
