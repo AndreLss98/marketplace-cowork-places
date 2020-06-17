@@ -1,8 +1,5 @@
 <mat-card>
-    <input #fileInput style="display: none;" type="file" (change)="onFileSelected($event)">
-    <div id="img-perfil" (click)="fileInput.click()">
-        <img [src]="imgName" alt="imagem de perfil do usuario">
-    </div>
+    <div id="img-perfil">{{ loginService.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
@@ -10,7 +7,8 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
-                    <input matInput value="{{ loginService.user_data.nome + ' ' + loginService.user_data.sobrenome}}" readonly />
+                    <input matInput value="{{ loginService.user_data.nome + ' ' + loginService.user_data.sobrenome}}"
+                        readonly />
                 </mat-form-field>
             </td>
             <td>
@@ -43,10 +41,31 @@
     </mat-card-content>
 </mat-card>
 
-<mat-card>
+<mat-card *ngIf="documentos && documentos.length > 0">
     <mat-card-title>Documentos Pessoais</mat-card-title>
     <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>
     <mat-card-content>
+        <table mat-table [dataSource]="documentos">
+            <ng-container matColumnDef="Nome">
+                <th mat-header-cell *matHeaderCellDef>Documento</th>
+                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+            </ng-container>
 
+            <ng-container matColumnDef="Arquivo">
+                <th mat-header-cell *matHeaderCellDef>Arquivo</th>
+                <td mat-cell *matCellDef="let element">{{ element.arquivo }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <input #fileInput style="display: none;" type="file" (change)="updateDocument($event, element)">
+                    <button mat-button color="primary" (click)="fileInput.click()">Enviar</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
     </mat-card-content>
 </mat-card>
