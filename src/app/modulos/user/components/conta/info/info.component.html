@@ -41,6 +41,41 @@
     </mat-card-content>
 </mat-card>
 
+<mat-card>
+    <mat-card-title>Dados Bancários</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()">
+            <table>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Banco</mat-label>
+                        <input matInput formControlName="banco" required />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tipo</mat-label>
+                        <input matInput formControlName="tipo" required />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Agência</mat-label>
+                        <input matInput formControlName="agencia" required />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Número da conta</mat-label>
+                        <input matInput formControlName="numero" required />
+                    </mat-form-field>
+                </td>
+            </table>
+            <button mat-raised-button color="primary" type="submit" [disabled]="editBankAccountForm.invalid || editBankAccountForm.pristine">Atualizar dados Bancários</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+
 <mat-card *ngIf="documentos && documentos.length > 0">
     <mat-card-title>Documentos Pessoais</mat-card-title>
     <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>

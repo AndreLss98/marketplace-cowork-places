@@ -1,10 +1,12 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 
 import { LoginService } from 'src/app/shared/service/login.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
+import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
 
 @Component({
   selector: 'app-info',
@@ -21,16 +23,30 @@ export class InfoComponent implements OnInit {
   public documentos = [];
   public displayedColumns = [ 'Nome', 'Action' ];
 
+  public editBankAccountForm: FormGroup;
+
   constructor(
     private http: HttpClient,
+    public formBuilder: FormBuilder,
     public loginService: LoginService,
-    public documentosService: DocumentosService
+    public documentosService: DocumentosService,
+    private contaBancariaService: ContaBancariaService,
   ) {
-
+    this.editBankAccountForm = formBuilder.group({
+      banco: ["", Validators.required],
+      tipo: ["", Validators.required],
+      agencia: ["", Validators.required],
+      numero: ["", Validators.required]
+    });
   }
 
   ngOnInit(): void {
+    console.log("User: ", this.loginService.user_data);
     this.dataNascimento = this.formatDate(new Date(this.loginService.user_data.data_nascimento));
+
+    if (this.loginService.user_data.conta_bancaria) {
+      this.resetBankAccountForm();
+    }
 
     this.configDocumentsTable();
   }
@@ -97,6 +113,26 @@ export class InfoComponent implements OnInit {
         const documentosEnviados = response.map(documento => documento.documento_id);
         this.documentos = this.documentos.filter(documento => !documentosEnviados.includes(documento.id));
       });
+    });
+  }
+
+  public actionBankAccountForm() {
+    if (this.editBankAccountForm.status === "VALID") {
+      this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value).subscribe((response: any) => {
+        this.loginService.user_data.conta_bancaria = response;
+        this.resetBankAccountForm();
+      }, (error) => {
+        console.log("Update account error: ", error);
+      })
+    }
+  }
+
+  private resetBankAccountForm() {
+    this.editBankAccountForm.reset({
+      banco: this.loginService.user_data.conta_bancaria.banco,
+      tipo: this.loginService.user_data.conta_bancaria.tipo,
+      agencia: this.loginService.user_data.conta_bancaria.agencia,
+      numero: this.loginService.user_data.conta_bancaria.numero,
     });
   }
 

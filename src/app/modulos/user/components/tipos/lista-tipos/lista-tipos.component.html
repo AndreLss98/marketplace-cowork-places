@@ -1,23 +1,19 @@
 <mat-table [dataSource]="tipos" class="mat-elevation-z8">
-  <!-- Position Column -->
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="nome">
     <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
     <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="icone">
     <mat-header-cell *matHeaderCellDef> Icone </mat-header-cell>
     <mat-cell *matCellDef="let element">{{element.icone}}</mat-cell>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container matColumnDef="disponivel">
     <mat-header-cell *matHeaderCellDef> Disponivel? </mat-header-cell>
     <mat-cell *matCellDef="let element">{{ element.disponivel? 'Sim':'Não' }}</mat-cell>
