@@ -17,6 +17,10 @@ export class IbgeService {
   }
 
   getCidadesPorEstado(uf:number){
-    return this.http.get(this.baseUrl + 'estados/' + uf + '/distritos');
+    return this.http.get(this.baseUrl + 'estados/' + uf + '/distritos?orderBy=nome');
+  }
+
+  getCidadePorId(id){
+    return this.http.get(this.baseUrl + 'municipios/' + id);
   }
 }
