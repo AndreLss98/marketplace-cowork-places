@@ -10,7 +10,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, ErrorStateMatcher } from '@angular/material/core';
 import { LoginComponent } from '../login/login.component';
 import { MatStepper } from '@angular/material/stepper';
-import { Passos, emailPattern } from '../../constants/constants';
+import { Passos_signup as Passos, emailPattern } from '../../constants/constants';
 import * as moment from 'moment';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {

@@ -17,7 +17,7 @@ export const USER_SESSION = 'user_data';
 export const USER_TOKEN = 'user_token';
 export const EXPIRE_AT = 'expire_at'
 
-export const enum Passos {
+export const enum Passos_signup {
     Primeiro = 0,
     Segundo = 1,
     Terceiro = 2,
