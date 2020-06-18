@@ -1,0 +1,82 @@
+<mat-table [dataSource]="politicas" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="versao">
+        <mat-header-cell *matHeaderCellDef> Versão </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.versao}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="aprovado">
+        <mat-header-cell *matHeaderCellDef> Aprovado </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.aprovado? 'Sim': 'Não'}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setEditForm(row)"></mat-row>
+</mat-table>
+
+<div id="cards-container">
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>Nova Politica</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="saveForm" (ngSubmit)="savePolitica($event)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input formControlName="nome" matInput placeholder="Nome" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Arquivo</mat-label>
+                    <input #fileInput style="display: none;" type="file" (change)="changeFileSelected($event)" />
+                    <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required />
+                </mat-form-field>
+                    <table>
+                        <td>
+                            <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid">Criar</button>
+                        </td>
+                    </table>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="politica" class="card">
+        <mat-card-header>
+            <mat-card-title>Atualizar Politica</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="editForm" (ngSubmit)="updatePolitica($event)">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input formControlName="nome" matInput placeholder="Nome" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Arquivo</mat-label>
+                    <input #fileInput style="display: none;" type="file" (change)="updateFileSelected($event)" />
+                    <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Versão</mat-label>
+                    <input formControlName="versao" matInput placeholder="Versão" required />
+                </mat-form-field>
+
+                <div>
+                    <mat-checkbox formControlName="aprovado">Aprovado</mat-checkbox>
+                </div>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

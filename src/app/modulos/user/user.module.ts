@@ -11,10 +11,11 @@ import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salv
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { InfoComponent } from './components/conta/info/info.component';
+import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 
 
 @NgModule({
-  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent],
+  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
