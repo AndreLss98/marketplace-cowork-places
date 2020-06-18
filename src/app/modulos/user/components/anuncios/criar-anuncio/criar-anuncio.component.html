@@ -5,71 +5,81 @@
             <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
         </div>
         <div class="d-flex justify-content-center align-content-center">
-            <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe>
+            <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+            <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
         </div>
     </mat-step>
-    <mat-step>
+    <mat-step [stepControl]='dados_cadastrais'>
         <ng-template matStepLabel>Dados cadastrais</ng-template>
         <div style="height: 30px;"></div>
-        <form>
+        <form [formGroup]='dados_cadastrais'>
             <div class="d-flex flex-column w-100">
                 <mat-form-field appearance="outline">
                     <mat-label>Título</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="titulo">
+                    <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
     
                 <mat-form-field appearance="outline">
                     <mat-label>Categoria</mat-label>
-                    <mat-select>
+                    <mat-select formControlName="tipo">
                         <mat-option value="algo">opções</mat-option>
                     </mat-select>
+                    <mat-error>Selecione uma categoria</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label style="font-size: 15px;">Descrição. Limite 500 caracteres</mat-label>
+                    <mat-label style="font-size: 15px;">Descrição. Limite 500 caracteres.</mat-label>
                     <textarea matInput
-                              cdkTextareaAutosize
-                              #autosize="cdkTextareaAutosize"
-                              cdkAutosizeMinRows="5"
-                              cdkAutosizeMaxRows="5"
-                              maxlength="500"></textarea>
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="5"
+                            cdkAutosizeMaxRows="5"
+                            formControlName="descricao"
+                            maxlength="500">
+                    </textarea>
+                    <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <!-- Endereço -->
                 <div class="w-100 d-flex flex-row flex-wrap"> 
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>CEP</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="cep">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Rua</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="rua">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Complemento</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="complemento">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="w-25">
                         <mat-label>Numero</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="numero">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-75">
                         <mat-label>Bairro</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-    
-                    <mat-form-field appearance="outline" class="w-50">
-                        <mat-label>Cidade</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="bairro">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Estado</mat-label>
-                        <input matInput>
+                        <mat-select formControlName="estado">
+                            <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Cidade</mat-label>
+                        <mat-select formControlName="cidade">
+                            <mat-option value="algo">opções</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
@@ -81,6 +91,27 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Dados sobre o espaço</ng-template>
+        <form>
+            <div class="w-50 d-flex flex-column flex-wrap">
+                <span>Custo e taxa de serviço</span>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Custo por dia</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+            <div class="w-100 d-flex flex-column flex-wrap">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nº de pessoas</mat-label>
+                    <input matInput>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>Título</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </form>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Passo 4</ng-template>
