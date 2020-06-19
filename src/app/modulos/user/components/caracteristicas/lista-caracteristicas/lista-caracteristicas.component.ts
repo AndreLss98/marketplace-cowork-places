@@ -12,22 +12,31 @@ export class ListaCaracteristicasComponent implements OnInit {
 
   public caracteristicas = [];
   public caracteristica;
-  public displayedColumns = [ 'id', 'nome' ];
+  public displayedColumns = [ 'id', 'nome', 'icone' ];
 
   public editForm: FormGroup;
   public createForm: FormGroup;
+
+  public icones = [
+    'car.svg',
+    'desk.svg',
+    'wifi',
+    'aspect_ratio'
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private caracteristicasService: CaracteristicasService
   ) {
     this.createForm = formBuilder.group({
-      nome: ["", Validators.required]
+      nome: ["", Validators.required],
+      icone: [""]
     });
 
     this.editForm = formBuilder.group({
       id: [null, Validators.required],
-      nome: ["", Validators.required]
+      nome: ["", Validators.required],
+      icone: [""],
     });
   }
 
@@ -72,7 +81,8 @@ export class ListaCaracteristicasComponent implements OnInit {
     this.caracteristica = caracteristica;
     this.editForm.reset({
       id: this.caracteristica.id,
-      nome: this.caracteristica.nome
+      nome: this.caracteristica.nome,
+      icone: this.caracteristica.icone? this.caracteristica.icone : ""
     })
   }
 

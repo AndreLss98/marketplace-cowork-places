@@ -9,6 +9,11 @@
         <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="icone">
+        <mat-header-cell *matHeaderCellDef> Icone </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.icone}}</mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCaracteristica(row)"></mat-row>
 </mat-table>
@@ -22,7 +27,14 @@
             <form [formGroup]="createForm" (ngSubmit)="saveCaracteristica()">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
-                    <input formControlName="nome" matInput placeholder="Nome">
+                    <input formControlName="nome" matInput placeholder="Nome" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Icones</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option value="">Sem icone</mat-option>
+                        <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button>
             </form>
@@ -38,6 +50,13 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input matInput formControlName="nome" placeholder="Nome" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Icones</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option value="">Sem icone</mat-option>
+                        <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
             </form>
