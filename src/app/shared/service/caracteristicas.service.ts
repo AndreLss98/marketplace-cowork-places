@@ -24,7 +24,6 @@ export class CaracteristicasService {
   public update(politica) {
     const id = politica.id;
     delete politica.id;
-    console.log('Id: ', id);
     return this.http.put(`${environment.apiUrl}/caracteristicas/${id}`, politica);
   }
 }
