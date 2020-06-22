@@ -5,6 +5,7 @@ import { environment } from './../../../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -46,12 +47,18 @@ export class CriarAnuncioComponent implements OnInit {
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.required]);
+  proprietario = new FormControl(true, [Validators.required]);
+  escritura = new FormControl('', [Validators.required]);
+  contrato_locacao = new FormControl('', [Validators.required]);
+  documento_proprietario = new FormControl('', [Validators.required]);
+
 
   constructor(
     private form: FormBuilder,
     private ibge: IbgeService,
     private viacep: ViacepService,
-    private tipos: TiposService
+    private tipos: TiposService,
+    private snackBar: MatSnackBar
   ) {
 
     this.dados_cadastrais = this.form.group({
@@ -65,7 +72,11 @@ export class CriarAnuncioComponent implements OnInit {
       numero: this.numero,
       cidade: this.cidade,
       estado: this.estado,
-      complemento: this.complemento
+      complemento: this.complemento,
+      proprietario: this.proprietario,
+      escritura: this.escritura,
+      contrato_locacao: this.contrato_locacao,
+      documento_proprietario: this.documento_proprietario
     })
   }
 
@@ -107,6 +118,20 @@ export class CriarAnuncioComponent implements OnInit {
     let v = this[campo].value;
     v=v.replace(/\D/g,"");
     this[campo].setValue(v);
+  }
+
+  fileChange(event, field){
+    var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
+   
+    if (!allowedExtensions.exec(event.target.files.item(0).name)) { 
+      this[field].value = '';
+      // event.target.files = [];
+      this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
+      return false; 
+    }else{
+      // console.log(this.files); 
+      // this.files.push(event.target.files.item(0))
+    }       
   }
 
 }

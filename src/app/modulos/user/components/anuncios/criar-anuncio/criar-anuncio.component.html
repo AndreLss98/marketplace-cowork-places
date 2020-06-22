@@ -1,6 +1,6 @@
 <mat-horizontal-stepper [linear]="true">
     <mat-step>
-        <ng-template matStepLabel>Termos de responsabilidade</ng-template>
+        <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
         <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
             <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
         </div>
@@ -75,27 +75,84 @@
     
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Estado</mat-label>
-                        <mat-select formControlName="estado" [disabled]="estados == undefined" (selectionChange)="loadDistritoByEstado()">
+                        <mat-select formControlName="estado" [disabled]="estados == undefined" (selectionChange)="loadDistritoByEstado()" matInput>
                             <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
                         </mat-select>
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Cidade</mat-label>
-                        <mat-select formControlName="cidade" [disabled]="distritos == undefined">
+                        <mat-select formControlName="cidade" [disabled]="distritos == undefined" matInput>
                             <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
+
+                <!-- Documentos -->
+                <span class="w-100 text-center" style="margin-bottom: 5px;">Documentos do espaço</span>
+                <div class="w-100 d-flex flex-row flex-wrap">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Você é o proprietário do espaço ?</mat-label>
+                        <mat-select formControlName="proprietario" matInput>
+                            <mat-option value="true">Sim</mat-option>
+                            <mat-option value="false">Não</mat-option>
+                          </mat-select>
+                    </mat-form-field>
+
+                    <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de alienação</span>
+                    <div class="w-100 input-group">
+                        <div class="custom-file">
+                            <input type="file" required class="custom-file-input" 
+                                id="escritura" formControlName='escritura' (change)="fileChange($event, 'escritura')">
+                            <label class="custom-file-label" for="escritura" aria-describedby="escrituraAddon0">
+                                {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
+                            </label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="escrituraAddon0">Upload</span>
+                        </div>
+                    </div>
+
+                    <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
+                        <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
+                        <div class="custom-file">
+                            <input type="file" [required]="proprietario.value == 'false'" (change)="fileChange($event, 'contrato_locacao')"
+                                class="custom-file-input" id="contrato_locacao" formControlName='contrato_locacao'>
+                            <label class="custom-file-label" for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
+                                {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
+                            </label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="contrato_locacaoAddon0">Upload</span>
+                        </div>
+                    </div>
+
+                    <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
+                        <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do proprietário</span>
+                        <div class="custom-file">
+                            <input type="file" [required]="proprietario.value == 'false'" (change)="fileChange($event, 'documento_proprietario')"
+                                class="custom-file-input" id="documento_proprietario" formControlName='documento_proprietario'>
+                            <label class="custom-file-label" for="documento_proprietario" 
+                                aria-describedby="documento_proprietarioAddon0">
+                                {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
+                            </label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="documento_proprietarioAddon0">Upload</span>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 15px;">
                 <button mat-button mat-raised-button matStepperNext color="primary">Prosseguir</button>
             </div>
         </form>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Dados sobre o espaço</ng-template>
+        <ng-template matStepLabel style="word-wrap: break-word;">Caracteristicas do espaço</ng-template>
         <form>
             <div class="w-50 d-flex flex-column flex-wrap">
                 <span>Custo e taxa de serviço</span>
@@ -119,9 +176,9 @@
         </form>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Passo 4</ng-template>
+        <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Finalizar!</ng-template>
+        <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
     </mat-step>
 </mat-horizontal-stepper>
