@@ -1,17 +1,19 @@
+import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from './../../../../../shared/service/viacep.service';
 import { IbgeService } from './../../../../../shared/service/ibge.service';
 import { environment } from './../../../../../../environments/environment';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
+import { INFORMACOES_ADICIONAIS_LIMITE } from 'src/app/shared/constants/constants';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
     const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
     return (invalidCtrl || invalidParent);
   }
 }
@@ -26,6 +28,9 @@ export class CriarAnuncioComponent implements OnInit {
   // Custom erro matcher
   matcher = new MyErrorStateMatcher();
 
+  // stepper
+  @ViewChild('stepper') stepper: MatStepper;
+
   // Tipos 
   public categorias;
   // Estados e distritos
@@ -33,6 +38,8 @@ export class CriarAnuncioComponent implements OnInit {
   public distritos;
   // Politica de uso
   public politica_de_uso = environment.apiUrl + '/md/politica_de_uso.md';
+  // Item para ser adicionado a lista de info
+  public info_text = new FormControl('');
 
   // Dados cadastrais
   public dados_cadastrais: FormGroup;
@@ -49,16 +56,26 @@ export class CriarAnuncioComponent implements OnInit {
   complemento = new FormControl('', [Validators.required]);
   proprietario = new FormControl(true, [Validators.required]);
   escritura = new FormControl('', [Validators.required]);
-  contrato_locacao = new FormControl('', [Validators.required]);
-  documento_proprietario = new FormControl('', [Validators.required]);
+  contrato_locacao = new FormControl('');
+  documento_proprietario = new FormControl('');
 
+  // Caracteristicas do espaço
+  public caracteristicas_espaco: FormGroup;
+  area = new FormControl('', [Validators.required]);
+  numero_pessoas = new FormControl('', [Validators.required]);
+  quantidade_mesas = new FormControl('', [Validators.required]);
+  vagas = new FormControl('', [Validators.required]);
+  internet = new FormControl('', [Validators.required]);
+  caracteristicas =  new FormArray([]);
+  info =  new FormArray([]);
 
   constructor(
     private form: FormBuilder,
     private ibge: IbgeService,
     private viacep: ViacepService,
     private tipos: TiposService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private caracService: CaracteristicasService 
   ) {
 
     this.dados_cadastrais = this.form.group({
@@ -77,6 +94,15 @@ export class CriarAnuncioComponent implements OnInit {
       escritura: this.escritura,
       contrato_locacao: this.contrato_locacao,
       documento_proprietario: this.documento_proprietario
+    });
+
+    this.caracteristicas_espaco = this.form.group({
+      area: this.area,
+      numero_pessoas: this.numero_pessoas,
+      quantidade_mesas: this.quantidade_mesas,
+      vagas: this.vagas,
+      internet: this.internet,
+      info_text: this.info_text
     })
   }
 
@@ -84,8 +110,22 @@ export class CriarAnuncioComponent implements OnInit {
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
     });
+
     this.tipos.getAll().subscribe( response => {
       this.categorias = response;
+    });
+    
+    this.carregarCaracteristicas();
+
+  }
+
+  carregarCaracteristicas(){
+    this.caracService.getAll().subscribe(response => {
+      response.forEach(element => {
+        if(element.nome != 'Vagas' && element.nome != 'Mesas' && element.nome != 'Internet' && element.nome != 'Area'){
+          console.log("Iei")
+        }
+      });
     })
   }
 
@@ -132,6 +172,41 @@ export class CriarAnuncioComponent implements OnInit {
       // console.log(this.files); 
       // this.files.push(event.target.files.item(0))
     }       
+  }
+
+  nextStep(step: MatStepper){
+    switch (step.selectedIndex) {
+      case 1:
+        if(!environment.production) nextStep();
+        if(this.dados_cadastrais.valid){
+          nextStep();
+        }else{
+          console.log(this.dados_cadastrais.valid, this.dados_cadastrais.controls);
+        }
+        break;
+    
+      default:
+        break;
+    }
+
+    function nextStep(){
+      setTimeout(() => {
+        step.next();
+      }, 1);
+    }
+  }
+  
+  addInfo(){
+    if(this.info.length >= INFORMACOES_ADICIONAIS_LIMITE){
+      this.snackBar.open('Limite alcançado!', 'Ok', {duration: 5000});
+      return;
+    }
+    this.info.push(new FormControl(this.info_text.value));
+    this.info_text.setValue('');
+  }
+
+  removeInfo(index){
+    this.info.removeAt(index);
   }
 
 }
