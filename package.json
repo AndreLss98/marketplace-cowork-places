@@ -34,6 +34,7 @@
     "material-design-icons": "^3.0.1",
     "moment": "^2.26.0",
     "ngx-bootstrap": "^5.6.1",
+    "ngx-image-compress": "^8.0.4",
     "ngx-infinite-scroll": "^8.0.2",
     "ngx-markdown": "^9.1.1",
     "popper.js": "^1.16.1",
