@@ -16,14 +16,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   constructor(
     private login: LoginService,
-    private userService: UserService,
+    public userService: UserService,
   ) {
-    this.userService.checkPermission().subscribe((response: any) => {
-      this.isAdmin = true;
-    }, (error) => {
-      console.log(error);
-      this.isAdmin = false;
-    });
+
   }
 
   updateSelection(path: string){
@@ -32,6 +27,15 @@ export class UserComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     $('#menuHeader').hide();
+
+    this.userService.checkPermission().subscribe((response: any) => {
+      this.isAdmin = true;
+      this.userService.isAdmin = true;
+    }, (error) => {
+      console.log(error);
+      this.userService.isAdmin = false;
+      this.isAdmin = false;
+    });
   }
 
   ngOnDestroy(): void {

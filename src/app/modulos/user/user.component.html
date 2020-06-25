@@ -7,7 +7,7 @@
         </button>
     </div>
     <div class="w-75 d-flex justify-content-center">
-        <span class="currentSelection">{{currentSelection}}</span>
+        <!-- <span class="currentSelection">{{currentSelection}}</span> -->
     </div>
 </div>
 <mat-sidenav-container class="container-fluid" style="min-height: 100vh;">
@@ -79,7 +79,7 @@
 
             <div style="height: 5px;"></div>
 
-            <mat-expansion-panel *ngIf="isAdmin">
+            <mat-expansion-panel *ngIf="userService.isAdmin">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Administrador
