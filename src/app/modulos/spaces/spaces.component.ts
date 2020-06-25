@@ -11,17 +11,17 @@ export class SpacesComponent implements OnInit {
   public data = {
     images: [
       {
-        url: 'https://i.picsum.photos/id/237/1000/500.jpg',
+        url: 'https://picsum.photos/seed/picsum/200/300',
         title: 'Titulo 1',
         description: 'Descrição sobre a imagem'
       },
       {
-        url: 'https://i.picsum.photos/id/238/1000/500.jpg',
+        url: 'https://picsum.photos/seed/picsum/200/300',
         title: 'Titulo 2',
         description: 'Descrição sobre a imagem'
       },
       {
-        url: 'https://i.picsum.photos/id/239/1000/500.jpg',
+        url: 'https://picsum.photos/seed/picsum/200/300',
         title: 'Titulo 3',
         description: 'Descrição sobre a imagem'
       }
