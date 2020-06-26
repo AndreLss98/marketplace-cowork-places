@@ -9,6 +9,7 @@ import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salv
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
+import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'conta/info', component: InfoComponent},
     { path: 'politicas', component: ListaPoliticasComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
+    { path: 'questionario', component: ListaPerguntasComponent},
   ]
   },
 ];

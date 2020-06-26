@@ -13,10 +13,11 @@ import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar
 import { InfoComponent } from './components/conta/info/info.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
+import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 
 
 @NgModule({
-  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent],
+  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
