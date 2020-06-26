@@ -2,12 +2,12 @@
 
     <mat-step>
         <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
-        <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-            <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
-        </div>
         <div class="d-flex justify-content-center align-content-center">
             <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
             <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
+        </div>
+        <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+            <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
         </div>
     </mat-step>
 
@@ -68,7 +68,7 @@
 
                     <mat-form-field appearance="outline" class="w-25">
                         <mat-label>Numero</mat-label>
-                        <input matInput formControlName="numero">
+                        <input matInput formControlName="numero" (keyup)="formatarNumerio('numero')">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-75">
@@ -159,18 +159,47 @@
         <form [formGroup]='caracteristicas_espaco'>
             <ng-template matStepLabel style="word-wrap: break-word;">Características do espaço</ng-template>
 
+            <mat-expansion-panel style="margin-bottom: 5px;">
+                <mat-expansion-panel-header>Fotos do espaço</mat-expansion-panel-header>
+                <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
+                    <mat-card class="myCard" (click)="compressFile()">
+                        <div class="d-flex h-100 align-items-center justify-content-center flex-column">
+                            <mat-icon>add</mat-icon>
+                            <span>Adicionar uma imagem</span>  
+                        </div>
+                    </mat-card>
+
+                    <mat-card class="myCard" *ngFor="let foto of fotos; index as i">
+                        <button type="button" mat-mini-fab (click)="removeFoto(i)"
+                            color="warn" style="position: absolute; top: 0; right: 0;">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        <img class="w-100 h-100" [src]="foto.base64">
+                        <button type="button" *ngIf="i > 0" mat-mini-fab (click)="changeOrder(i, i - 1)"
+                            style="position: absolute; top: 50%; left: 0; background-color: white;">
+                            <mat-icon>keyboard_arrow_left</mat-icon>
+                          </button>
+                          <button type="button" *ngIf="fotos.length > 1 && i < fotos.length - 1" mat-mini-fab (click)="changeOrder(i, i + 1)"
+                            style="position: absolute; top: 50%; right: 0; background-color: white;">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                          </button>
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+
             <div class="w-100 d-flex flex-row flex-wrap">
                 <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Área do espaço</mat-label>
-                    <input matInput formControlName="area" placeholder="m²">
+                    <mat-label>Área</mat-label>
+                    <input matInput formControlName="area" placeholder="m²" (keyup)="formatarNumerio('area')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Vagas de estacionamento</mat-label>
-                    <input matInput formControlName="vagas" placeholder="Quantidade">
+                    <mat-label>Quantidade de Vagas de estacionamento</mat-label>
+                    <input matInput formControlName="vagas" placeholder="Quantidade" (keyup)="formatarNumerio('vagas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
+
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Internet</mat-label>
                     <mat-select matInput formControlName='internet'>
@@ -179,6 +208,33 @@
                     </mat-select>
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50">
+                    <mat-label>Quantidade de Mesas</mat-label>
+                    <input matInput formControlName='quantidade_mesas' (keyup)="formatarNumerio('quantidade_mesas')">
+                    <mat-error>Preencha o campo corretamente</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50">
+                    <mat-label>Numero de pessoas</mat-label>
+                    <input matInput formControlName='numero_pessoas' (keyup)="formatarNumerio('numero_pessoas')">
+                    <mat-error>Preencha o campo corretamente</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50">
+                    <mat-label>Horário de Funcionamento</mat-label>
+                    <input matInput formControlName='horario_funcionamento' placeholder="Ex.: 24 horas / 7 dias por semana">
+                    <mat-error>Preencha o campo corretamente</mat-error>
+                </mat-form-field>
+
+                <div class="w-100 input-group mb-3">
+                    <span class="w-100 text-left" style="margin-top: 5px;">Itens disponíveis</span>
+                    <div class="w-25 input-group mb-3" *ngFor="let control of caracteristicas; index as i">
+                        <div class="custom-file">
+                            <mat-checkbox (change)="checkBoxChange(control)" >{{control.nome}}</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="w-100 input-group mb-3">
                     <span class="w-100 text-left" style="margin-top: 5px;">Informações adicionais</span>
@@ -197,16 +253,70 @@
                         <button class="input-group-text alert-danger" type="button" (click)="removeInfo(i)">Remover</button>    
                     </div>
                 </div>
-
                 
-
+                <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 15px;">
+                    <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
+                </div>
             </div>
-
         </form>
     </mat-step>
-    <mat-step>
-        <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
+
+    <mat-step [stepControl]='valores'>
+        <form [formGroup]='valores'>
+            <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
+    
+            <div class="row">
+                <div class="col">
+                    
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Custo por dia</mat-label>
+                        <input matInput formControlName='custo_dia' (keyup)="formatarNumerio('custo_dia')">
+                    </mat-form-field>
+    
+                    <div class="w-100">
+                        <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de serviço</span>
+                        <mat-slider class="w-100" thumbLabel [step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
+                    </div>
+    
+                </div>
+                <div class="col">
+                    <mat-card>
+                        <mat-card-title class="text-center">Simulação de valores</mat-card-title>
+                        <!-- <mat-card-subtitle class="text-center">Assumindo um periodo de 1 mês</mat-card-subtitle> -->
+                        <mat-card-content>
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
+                                        <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerEntrada" disabled (dateChange)="addEvent('entrada', $event)">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field style="width: 100%">
+                                        <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
+                                        <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerSaida" disabled (dateChange)="addEvent('saida', $event)">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <span style="font-size: 20px; font-weight: 500;">Custo por dia: R$ {{ calculaCustoDia().toFixed(2) }}</span>
+                                <span style="font-size: 20px; font-weight: 500;">Taxa de servico: R$ {{ calculaTaxa().toFixed(2) }}</span>
+                                <span style="font-size: 20px; font-weight: 500;">Total por dia: R$ {{ calculaTotal().toFixed(2) }}</span>
+                                <span style="font-size: 20px; font-weight: 500; margin-top: 5px;">Total no periodo: R$ {{ calculaTotalPeriodo().toFixed(2)}}</span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 15px;">
+                <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
+            </div>
+        </form>
+
     </mat-step>
+
     <mat-step>
         <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
     </mat-step>

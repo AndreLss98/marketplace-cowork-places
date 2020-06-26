@@ -17,8 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HttpClient, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './shared/materia.module';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MaterialModule } from './shared/materia.module';
       useClass: AuthInterceptorService,
       multi: true
     },
+    NgxImageCompressService
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent]

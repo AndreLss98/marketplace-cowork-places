@@ -1,3 +1,4 @@
+import { UserService } from './shared/service/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from './shared/service/login.service';
 import { Component } from '@angular/core';
@@ -15,9 +16,12 @@ export class AppComponent {
 
   constructor(
     private login: LoginService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ){
     this.login.verifySession();
+
+    this.userService.checkPermission().subscribe(response => this.userService.isAdmin = true);
 
     this.route.queryParams.subscribe( params => {
       console.log("meus params: ",params);

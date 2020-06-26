@@ -7,9 +7,27 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
+  private _isAdmin:boolean = false;
+
   constructor(
     private http: HttpClient
   ) { }
+
+      /**
+     * Getter isAdmin
+     * @return {boolean}
+     */
+	public get isAdmin(): boolean {
+		return this._isAdmin;
+	}
+
+    /**
+     * Setter isAdmin
+     * @param {boolean} value
+     */
+	public set isAdmin(value: boolean) {
+		this._isAdmin = value;
+	}
 
 
   public verifyUserEmail(email: string){
