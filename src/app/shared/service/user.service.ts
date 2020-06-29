@@ -8,10 +8,27 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   private _isAdmin:boolean = false;
+  private _user_data: any;
 
   constructor(
     private http: HttpClient
   ) { }
+
+      /**
+     * Getter user_data
+     * @return {any}
+     */
+	public get user_data(): any {
+		return this._user_data;
+	}
+
+    /**
+     * Setter user_data
+     * @param {any} value
+     */
+	public set user_data(value: any) {
+		this._user_data = value;
+	}
 
       /**
      * Getter isAdmin

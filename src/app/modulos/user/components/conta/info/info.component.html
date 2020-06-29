@@ -1,5 +1,5 @@
 <mat-card>
-    <div id="img-perfil">{{ loginService.user_data.nome[0] }}</div>
+    <div id="img-perfil">{{ user.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
@@ -7,7 +7,7 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
-                    <input matInput value="{{ loginService.user_data.nome + ' ' + loginService.user_data.sobrenome}}"
+                    <input matInput value="{{ user.user_data.nome + ' ' + user.user_data.sobrenome}}"
                         readonly />
                 </mat-form-field>
             </td>
@@ -20,7 +20,7 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput value="{{ loginService.user_data.email }}" readonly />
+                    <input matInput value="{{ user.user_data.email }}" readonly />
                 </mat-form-field>
             </td>
         </table>
@@ -28,13 +28,13 @@
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>Telefone 1</mat-label>
-                    <input matInput value="{{ loginService.user_data.numero_1 }}" readonly />
+                    <input matInput value="{{ user.user_data.numero_1 }}" readonly />
                 </mat-form-field>
             </td>
-            <td *ngIf="loginService.user_data.numero_2">
+            <td *ngIf="user.user_data.numero_2">
                 <mat-form-field appearance="outline">
                     <mat-label>Telefone 2</mat-label>
-                    <input matInput value="{{ loginService.user_data.numero_2 }}" readonly />
+                    <input matInput value="{{ user.user_data.numero_2 }}" readonly />
                 </mat-form-field>
             </td>
         </table>
