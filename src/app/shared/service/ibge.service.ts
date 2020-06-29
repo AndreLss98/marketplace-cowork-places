@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -20,7 +21,11 @@ export class IbgeService {
     return this.http.get(this.baseUrl + 'estados/' + uf + '/distritos?orderBy=nome');
   }
 
-  getCidadePorId(id){
-    return this.http.get(this.baseUrl + 'municipios/' + id);
+  getCidadePorId(id):Observable<any>{
+    return this.http.get<any>(this.baseUrl + 'municipios/' + id);
+  }
+
+  getEstadoPorId(id):Observable<any>{
+    return this.http.get<any>(this.baseUrl + 'estados/' + id);
   }
 }

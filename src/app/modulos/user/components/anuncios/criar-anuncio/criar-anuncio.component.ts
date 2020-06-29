@@ -1,5 +1,8 @@
-import { AlugavelService } from './../../../../../shared/service/alugavel.service';
 import { element } from 'protractor';
+import { UserService } from './../../../../../shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
+import { Alugavel } from './../../../../../shared/interface/interface';
+import { AlugavelService } from './../../../../../shared/service/alugavel.service';
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from './../../../../../shared/service/viacep.service';
@@ -97,12 +100,16 @@ export class CriarAnuncioComponent implements OnInit {
   taxa = new FormControl(7, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required]);
   
-  // Fotos
-  public fotos = [];
+  // imagens
+  public imagens = [];
+
+  // Documentos
+  private documentos = [];
 
   constructor(
     private form: FormBuilder,
     private ibge: IbgeService,
+    private user: UserService,
     private tipos: TiposService,
     private snackBar: MatSnackBar,
     private viacep: ViacepService,
@@ -204,7 +211,7 @@ export class CriarAnuncioComponent implements OnInit {
     this[campo].setValue(v);
   }
 
-  fileChange(event, field){
+  carregarDocumento(event, field){
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
    
     if (!allowedExtensions.exec(event.target.files.item(0).name)) { 
@@ -213,6 +220,15 @@ export class CriarAnuncioComponent implements OnInit {
       this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
       return false; 
     }else{
+      this.alugavel.saveDoc(event.target.files.item(0), field)
+        .subscribe(response=>{
+          console.log(response);
+          let doc = {
+            nome: field,
+            id: response.id
+          }
+          this.documentos.push(doc);
+      })
       // console.log(this.files); 
       // this.files.push(event.target.files.item(0))
     }       
@@ -234,24 +250,29 @@ export class CriarAnuncioComponent implements OnInit {
 
   compressFile() {
     this.imageCompress.uploadFile().then(({image}) => {
-      console.log(image)
       this.imageCompress.compressFile(image, 100, 50).then(
         result => {
           let image = {
             base64: result,
+            id: ''
           }
-          this.fotos.push(image);
+          this.alugavel.saveImage(image.base64).subscribe(response => {
+            image.id = response.img.id
+            this.imagens.push(image);
+          }, err => {
+            this.snackBar.open('Ocorreu algum erro!', 'Ok', {duration: 5000})
+          });
         }
       );
     });
   }
 
   removeFoto(index){
-    this.fotos.splice(index, 1);
+    this.imagens.splice(index, 1);
   }
 
   changeOrder(currentPosition, newPosition){
-    this.fotos.splice(newPosition, 0, this.fotos.splice(currentPosition, 1)[0]);
+    this.imagens.splice(newPosition, 0, this.imagens.splice(currentPosition, 1)[0]);
   }
 
   calculaCustoDia(): number{
@@ -326,6 +347,68 @@ export class CriarAnuncioComponent implements OnInit {
 
   removeInfo(index){
     this.info.removeAt(index);
+  }
+
+  finalizarCadastro(){
+    let alugavel_infos = [];
+    this.info.value.forEach(element => {
+      alugavel_infos.push({descricao: element})
+    });
+
+    let alugavel_caracteristicas = [];
+    this.caracteristicas.forEach(element => {
+      alugavel_caracteristicas.push({caracteristica_id: element.id, valor: element.value.toString()})
+    });
+
+    let alugavel_doc = [];
+    this.documentos.forEach(element => {
+      alugavel_doc.push(element.id);
+    });
+    
+    let alugavel_imagens = [];
+    this.imagens.forEach(element => {
+      alugavel_imagens.push(element.id);
+    });
+
+    let alugavel_cidade = '';
+    this.ibge.getCidadePorId(this.cidade.value).subscribe(response=> {
+      alugavel_cidade = response.nome
+    });
+
+    let alugavel_estado = '';
+    this.ibge.getEstadoPorId(this.estado.value).subscribe(response => {
+      alugavel_estado = response.nome
+    })
+
+    let alugavel: Alugavel = {
+      anunciante_id : this.user.user_data.id,
+      tipo_id: this.tipo.value,
+      taxa: this.taxa.value,
+      descricao: this.descricao.value,
+      valor: this.custo_dia.value,
+      titulo: this.titulo.value,
+      proprietario: this.proprietario.value,
+      local: {
+        cep: this.cep.value,
+        pais: this.pais.value,
+        rua: this.rua.value,
+        cidade: alugavel_cidade,
+        estado: alugavel_estado,
+        bairro: this.bairro.value,
+        numero: this.numero.value,
+        complemento: this.complemento.value
+      },
+      caracteristicas: alugavel_caracteristicas,
+      infos: alugavel_infos,
+      imagens: alugavel_imagens,
+      documentos: alugavel_doc
+    }
+
+    console.log(alugavel);
+
+    this.alugavel.createAlugavel(alugavel).subscribe(response => {
+      console.log("Cadastro criado: ", response);
+    })
   }
 
 }
