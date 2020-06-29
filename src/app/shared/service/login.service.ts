@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { RefreshTokenService } from './refresh-token.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +17,6 @@ import { timeout } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private _user_data: any;
   private _logged_status: boolean;
   private _user_token: string;
   private _expires_at: any = undefined;
@@ -24,7 +24,8 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private refresh: RefreshTokenService
+    private refresh: RefreshTokenService,
+    private user: UserService
   ) { 
     this.logged_status = this.checkLogedIn();
   }
@@ -34,7 +35,7 @@ export class LoginService {
   }
   
   public logout(){
-    this.user_data = undefined;
+    this.user.user_data = undefined
     this.logged_status = false;
     this.userToken = undefined,
     this.expires_at = undefined;
@@ -44,7 +45,7 @@ export class LoginService {
 
   public login(response: authUser){
     this.userToken = response.token;
-    this.user_data = response.user;
+    this.user.user_data = response.user
     this.expires_at = response.expires_at;
     localStorage.setItem(EXPIRE_AT, this.expires_at);
     this.logged_status = this.checkLogedIn();
@@ -66,7 +67,7 @@ export class LoginService {
   public getUserSession(){
     if(localStorage.getItem(USER_SESSION)){
       console.log("Sessão encontrada")
-      this._user_data = JSON.parse(localStorage.getItem(USER_SESSION));
+      this.user.user_data = JSON.parse(localStorage.getItem(USER_SESSION));
     }
   }
 
@@ -74,7 +75,7 @@ export class LoginService {
     localStorage.removeItem(USER_SESSION);
     // localStorage.removeItem(USER_TOKEN)
     this.userToken = undefined;
-    this.user_data = undefined;
+    this.user.user_data = undefined;
     this.logged_status = false;
   }
 
@@ -127,27 +128,11 @@ export class LoginService {
 	}
 
     /**
-     * Getter user_data
-     * @return {any}
-     */
-	public get user_data(): any {
-		return this._user_data;
-	}
-
-    /**
      * Getter userToken
      * @return {string}
      */
 	public get userToken(): string {
 		return this._user_token;
-	}
-
-    /**
-     * Setter user_data
-     * @param {any} value
-     */
-	public set user_data(value: any) {
-		this._user_data = value;
 	}
 
     /**

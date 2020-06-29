@@ -27,7 +27,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Categoria</mat-label>
                     <mat-select formControlName="tipo">
-                        <mat-option *ngFor="let tipo of categorias" [value]="tipo.nome">{{tipo.nome}}</mat-option>
+                        <mat-option *ngFor="let tipo of categorias" [value]="tipo.id">{{tipo.nome}}</mat-option>
                     </mat-select>
                     <mat-error>Selecione uma categoria</mat-error>
                 </mat-form-field>
@@ -106,43 +106,43 @@
                     <div class="w-100 input-group">
                         <div class="custom-file">
                             <input type="file" required class="custom-file-input" 
-                                id="escritura" formControlName='escritura' (change)="fileChange($event, 'escritura')">
+                                id="escritura" formControlName='escritura' (change)="carregarDocumento($event, 'escritura')">
                             <label class="custom-file-label" for="escritura" aria-describedby="escrituraAddon0">
                                 {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
                             </label>
                         </div>
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                             <span class="input-group-text" id="escrituraAddon0">Upload</span>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
                         <div class="custom-file">
-                            <input type="file" [required]="proprietario.value == 'false'" (change)="fileChange($event, 'contrato_locacao')"
+                            <input type="file" [required]="proprietario.value == 'false'" (change)="carregarDocumento($event, 'contrato_locacao')"
                                 class="custom-file-input" id="contrato_locacao" formControlName='contrato_locacao'>
                             <label class="custom-file-label" for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
                                 {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
                             </label>
                         </div>
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                             <span class="input-group-text" id="contrato_locacaoAddon0">Upload</span>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do proprietário</span>
                         <div class="custom-file">
-                            <input type="file" [required]="proprietario.value == 'false'" (change)="fileChange($event, 'documento_proprietario')"
+                            <input type="file" [required]="proprietario.value == 'false'" (change)="carregarDocumento($event, 'documento_proprietario')"
                                 class="custom-file-input" id="documento_proprietario" formControlName='documento_proprietario'>
                             <label class="custom-file-label" for="documento_proprietario" 
                                 aria-describedby="documento_proprietarioAddon0">
                                 {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
                             </label>
                         </div>
-                        <div class="input-group-append">
+                        <!-- <div class="input-group-append">
                             <span class="input-group-text" id="documento_proprietarioAddon0">Upload</span>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -169,7 +169,7 @@
                         </div>
                     </mat-card>
 
-                    <mat-card class="myCard" *ngFor="let foto of fotos; index as i">
+                    <mat-card class="myCard" *ngFor="let foto of imagens; index as i">
                         <button type="button" mat-mini-fab (click)="removeFoto(i)"
                             color="warn" style="position: absolute; top: 0; right: 0;">
                             <mat-icon>close</mat-icon>
@@ -179,7 +179,7 @@
                             style="position: absolute; top: 50%; left: 0; background-color: white;">
                             <mat-icon>keyboard_arrow_left</mat-icon>
                           </button>
-                          <button type="button" *ngIf="fotos.length > 1 && i < fotos.length - 1" mat-mini-fab (click)="changeOrder(i, i + 1)"
+                          <button type="button" *ngIf="imagens.length > 1 && i < imagens.length - 1" mat-mini-fab (click)="changeOrder(i, i + 1)"
                             style="position: absolute; top: 50%; right: 0; background-color: white;">
                             <mat-icon>keyboard_arrow_right</mat-icon>
                           </button>
@@ -319,5 +319,6 @@
 
     <mat-step>
         <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
+        <button mat-button mat-raised-button (click)="finalizarCadastro()">Finalizar cadastro</button>
     </mat-step>
 </mat-horizontal-stepper>

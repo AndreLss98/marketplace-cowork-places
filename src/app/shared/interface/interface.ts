@@ -40,3 +40,27 @@ export interface authUser {
     token: string,
     expires_at: number
 }
+
+export interface Alugavel {
+	anunciante_id: number,
+	tipo_id: number,
+	taxa: number,
+	descricao: string,
+	valor: number,
+    titulo: string,
+    proprietario : boolean,
+	local: {
+		cep: number,
+		pais: string,
+		rua: string,
+		cidade: string,
+		estado: string,
+		bairro: string,
+		numero: number,
+		complemento: string
+	},
+	caracteristicas: any,
+	infos: any,
+	imagens: any,
+	documentos: any
+}

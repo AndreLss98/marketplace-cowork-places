@@ -1,3 +1,4 @@
+import { UserService } from './../../../shared/service/user.service';
 import { environment } from 'src/environments/environment';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,8 @@ export class UserGuard implements CanLoad {
 
   constructor(
     private login: LoginService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ){}
 
   canLoad(
@@ -20,7 +22,10 @@ export class UserGuard implements CanLoad {
 
     console.log(route);
 
-    if(!environment.production) return true; 
+    if(!environment.production){
+      this.userService.isAdmin = true;
+      return true;
+    } 
     let status:boolean = this.login.checkLogedIn()
 
     // Se status == true

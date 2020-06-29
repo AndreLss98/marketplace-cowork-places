@@ -1,3 +1,4 @@
+import { UserService } from './../../service/user.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/shared/service/login.service';
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public login: LoginService,
+    public user: UserService,
     public modalService: ModalService,
     private router: Router,
     private menuService: MenuService

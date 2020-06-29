@@ -1,3 +1,4 @@
+import { UserService } from './../../../../../shared/service/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
@@ -28,7 +29,7 @@ export class InfoComponent implements OnInit {
   constructor(
     private http: HttpClient,
     public formBuilder: FormBuilder,
-    public loginService: LoginService,
+    public user: UserService,
     public documentosService: DocumentosService,
     private contaBancariaService: ContaBancariaService,
   ) {
@@ -41,10 +42,10 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("User: ", this.loginService.user_data);
-    this.dataNascimento = this.formatDate(new Date(this.loginService.user_data.data_nascimento));
+    console.log("User: ", this.user.user_data);
+    this.dataNascimento = this.formatDate(new Date(this.user.user_data.data_nascimento));
 
-    if (this.loginService.user_data.conta_bancaria) {
+    if (this.user.user_data.conta_bancaria) {
       this.resetBankAccountForm();
     }
 
@@ -119,7 +120,7 @@ export class InfoComponent implements OnInit {
   public actionBankAccountForm() {
     if (this.editBankAccountForm.status === "VALID") {
       this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value).subscribe((response: any) => {
-        this.loginService.user_data.conta_bancaria = response;
+        this.user.user_data.conta_bancaria = response;
         this.resetBankAccountForm();
       }, (error) => {
         console.log("Update account error: ", error);
@@ -129,10 +130,10 @@ export class InfoComponent implements OnInit {
 
   private resetBankAccountForm() {
     this.editBankAccountForm.reset({
-      banco: this.loginService.user_data.conta_bancaria.banco,
-      tipo: this.loginService.user_data.conta_bancaria.tipo,
-      agencia: this.loginService.user_data.conta_bancaria.agencia,
-      numero: this.loginService.user_data.conta_bancaria.numero,
+      banco: this.user.user_data.conta_bancaria.banco,
+      tipo: this.user.user_data.conta_bancaria.tipo,
+      agencia: this.user.user_data.conta_bancaria.agencia,
+      numero: this.user.user_data.conta_bancaria.numero,
     });
   }
 

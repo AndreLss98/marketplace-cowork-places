@@ -1,5 +1,5 @@
+import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
-import { LoginService } from './login.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ContaBancariaService {
 
-  constructor(private http: HttpClient, private loginService: LoginService) { }
+  constructor(private http: HttpClient, private user: UserService) { }
 
   public updateOrSaveAccount(account) {
-    if (!this.loginService.user_data.conta_bancaria) {
+    if (!this.user.user_data.conta_bancaria) {
       return this.http.post(`${environment.apiUrl}/usuarios/conta-bancaria`, account);
     }
     return this.http.put(`${environment.apiUrl}/usuarios/conta-bancaria`, account);
