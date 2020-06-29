@@ -1,4 +1,4 @@
 <div class="d-flex flex-wrap flex-row justify-content-around">
-    <app-highlight-items [data]="space"></app-highlight-items>
-    <app-highlight-items [data]="space"></app-highlight-items>
+    <app-highlight-items *ngFor="let favorito of favoritos" [data]="favorito"></app-highlight-items>
+    <!-- <app-highlight-items [data]="space"></app-highlight-items> -->
 </div>

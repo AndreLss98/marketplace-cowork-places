@@ -2,14 +2,8 @@
 
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner" role="listbox" style="height: 190px; border-radius: 25px 25px 0 0;">
-            <div class="carousel-item active">
-                <img [src]="data.image" class="card-img-top d-block w-100">
-            </div>
-            <div class="carousel-item">
-                <img [src]="data.image" class="card-img-top d-block w-100">
-            </div>
-            <div class="carousel-item">
-                <img [src]="data.image" class="card-img-top d-block w-100">
+            <div *ngFor="let image of data.imagens; let i = index" class="carousel-item" [class.active]="i == 0">
+                <img [src]="backUrl + '/imgs/' + image.url" class="card-img-top d-block w-100">
             </div>
         </div>
         <a class="carousel-control-prev" href="#Carousel{{data.id}}" role="button" data-slide="prev">
@@ -25,60 +19,48 @@
     <div class="card-body" (click)="goToSpace()">
         <div class="card-title d-flex flex-column w-100">
             <div>
-                <p style="margin-bottom: 0; font-size: 11px; font-weight: bold;">SALA COMERCIAL</p>
-                <h5 style="font-weight: bold;">{{ data.local }}</h5>
+                <p style="margin-bottom: 0; font-size: 11px; font-weight: bold;">{{ data.tipo.nome }}</p>
+                <h5 style="font-weight: bold;">{{ data.titulo }}</h5>
             </div>
-            <div class="d-flex flex-row w-100">
+            <!-- <div class="d-flex flex-row w-100">
                 <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0;  padding: 5px; margin-right: 5px;">{{ data.rank.toFixed(2)}}</p>
                 <span *ngFor="let item of countStars()" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
-            </div>
+            </div> -->
         </div>
         <div>
             <div class="row">
                 <div class="col-8">
-                    <p style="font-size: 11px;">{{ data.description }}</p>
+                    <p style="font-size: 11px;">{{ data.descricao }}</p>
                 </div>
                 <div class="col-4"></div>
             </div>
             <div class="row" style="padding-bottom: 10px;">
-                <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
-                    <span class="material-icons">aspect_ratio</span>
-                    <p style="color: gray; font-size: 11px;">15m2</p>
+                <div *ngFor="let caracteristica of data.caracteristicas" class="col-3 d-flex flex-column align-items-center" style="padding: 0">
+                    <span *ngIf="caracteristica.icone && caracteristica.icone.substring(caracteristica.icone.length - 4) !== '.svg'" class="material-icons">{{ caracteristica.icone }}</span>
+                    <img *ngIf="caracteristica.icone && caracteristica.icone.substring(caracteristica.icone.length - 4) === '.svg'" [src]="'assets/svg/' + caracteristica.icone" style="width: 24px;" alt="">
+                    <p *ngIf="caracteristica.icone" style="color: gray; font-size: 11px;">{{ caracteristica.valor }}</p>
                 </div>
-                <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
-                    <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
-                    <p style="color: gray; font-size: 11px;">2 mesas</p>
-                </div>
-                <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
-                    <img src="assets/svg/car.svg" style="width: 24px;" alt="">
-                    <p style="color: gray; font-size: 11px;">2 vagas</p>
-                </div>
-                <div class="col-3 d-flex flex-column align-items-center" style="padding: 0">
-                    <span class="material-icons">wifi</span>
-                    <p style="color: gray; font-size: 11px;">Wi-Fi</p>
-                </div>
-            </div>
         </div>
 
-        <!-- <div class="row" style="margin-left: 7px; margin-right: 7px; border-top: 1px solid #858585;">
+<!--         <div class="row" style="margin-left: 7px; margin-right: 7px; border-top: 1px solid #858585;">
             <div class="col d-flex flex-row" style="padding: 5px 0 5px 0">
                 <span style="font-size: 14px; font-weight: bold;">ALUGUEL</span>
             </div>
             <div class="col d-flex justify-content-end" style="padding: 5px 0 5px 0">
-                <span style="font-size: 14px; font-weight: bold;">R$: {{ data.cost.toFixed(2)}}</span>
+                <span style="font-size: 14px; font-weight: bold;">R$: {{ data.valor.toFixed(2)}}</span>
             </div>
-        </div> -->
-        <!-- <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 10px; border-bottom: 1px solid #858585;">
+        </div>
+        <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 10px; border-bottom: 1px solid #858585;">
             <div class="col d-flex justify-content-end" style="padding: 0;">
                 <span style="font-size: 14px; font-weight: bold;">+Taxas</span>
             </div>
         </div> -->
         <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 15px; padding-top: 7px; border-top: 1px solid #858585;">
             <div class="col d-flex justify-content-start" style="padding: 0;">
-                <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO</span>
+                <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
             </div>
             <div class="col d-flex justify-content-end" style="padding: 0;">
-                <span style="font-size: 14px; font-weight: bold;">R$: {{( data.cost * 1.2).toFixed(2)}}</span>
+                <span style="font-size: 14px; font-weight: bold;">R$: {{( data.valor).toFixed(2)}}</span>
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 import { highlightItem } from './../../interface/interface';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-highlight-items',
@@ -9,18 +10,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HighlightItemsComponent implements OnInit {
 
-  @Input('data') data: highlightItem;
+  @Input('data') data: any;
   @Input('width') width:string = '277px'
+  public backUrl = environment.apiUrl;
 
   constructor(
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    console.log('Data: ', this.data);
+    this.data.valor = Number(this.data.valor)
   }
 
-  goToSpace(){
-    this.router.navigateByUrl("/spaces/"+this.data.id)
+  goToSpace() {
+    this.router.navigateByUrl("/spaces/" + this.data.id)
   }
 
   countStars(): string[] {
@@ -40,9 +44,7 @@ export class HighlightItemsComponent implements OnInit {
     while(array.length < 5){
       array.push('star_outline')
     }
-   
+    
     return array;
   }
-
-
 }
