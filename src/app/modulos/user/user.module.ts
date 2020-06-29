@@ -14,10 +14,11 @@ import { InfoComponent } from './components/conta/info/info.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
+import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 
 
 @NgModule({
-  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent],
+  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent, PessoaisComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
