@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { PaymentsComponent } from './components/payments/payments.component';
+import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 import { ListaTiposComponent } from './components/tipos/lista-tipos/lista-tipos.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
@@ -17,13 +18,14 @@ const routes: Routes = [
   children:  [
     { path: 'tipos', component: ListaTiposComponent},
     { path: 'payments', component: PaymentsComponent},
+    { path: 'conta/info', component: InfoComponent},
+    { path: 'documentos', component: PessoaisComponent},
+    { path: 'politicas', component: ListaPoliticasComponent},
+    { path: 'questionario', component: ListaPerguntasComponent},
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
-    { path: 'conta/info', component: InfoComponent},
-    { path: 'politicas', component: ListaPoliticasComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
-    { path: 'questionario', component: ListaPerguntasComponent},
   ]
   },
 ];

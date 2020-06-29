@@ -12,11 +12,24 @@ export class DocumentosService {
   }
 
   public getAll() {
-    return this.http.get(`${environment.apiUrl}/documentos`);
+    return this.http.get<any>(`${environment.apiUrl}/documentos`);
   }
 
   public getAllSended() {
-    return this.http.get(`${environment.apiUrl}/usuarios/doc`);
+    return this.http.get<any>(`${environment.apiUrl}/usuarios/doc`);
   }
 
+  public save(documento) {
+    return this.http.post<any>(`${environment.apiUrl}/documentos`, documento);
+  }
+
+
+  public update(id, documento) {
+    delete documento.id;
+    return this.http.put<any>(`${environment.apiUrl}/documentos/${id}`, documento);
+  }
+
+  public deletar(id) {
+    return this.http.delete<any>(`${environment.apiUrl}/documentos/${id}`);
+  }
 }
