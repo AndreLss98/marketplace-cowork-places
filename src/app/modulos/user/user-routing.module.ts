@@ -13,6 +13,8 @@ import { ListaPoliticasComponent } from './components/politicas/lista-politicas/
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
+import { DetalhesUsuarioResolverService } from './resolvers/detalhes-usuario-resolver.service';
+import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -28,6 +30,13 @@ const routes: Routes = [
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     { path: 'usuarios', component: ListaUsuariosComponent},
+    { 
+      path: 'usuarios/:id',
+      resolve: {
+        user: DetalhesUsuarioResolverService
+      },
+      component: DetalhesUsuariosComponent
+    },
   ]
   },
 ];

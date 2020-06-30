@@ -1,1 +1,96 @@
-<p>detalhes-usuarios works!</p>
+<mat-card>
+    <div id="img-perfil">{{ user.nome[0] }}</div>
+    <mat-card-title>Dados Pessoais</mat-card-title>
+    <mat-card-content>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput value="{{ user.nome + ' ' + user.sobrenome }}"
+                        readonly />
+                </mat-form-field>
+            </td>
+            <td *ngIf="dataNascimento">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Nascimento</mat-label>
+                    <input matInput [value]="dataNascimento " readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput value="{{ user.email }}" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 1</mat-label>
+                    <input matInput value="{{ user.numero_1 }}" readonly />
+                </mat-form-field>
+            </td>
+            <td *ngIf="user.numero_2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 2</mat-label>
+                    <input matInput value="{{ user.numero_2 }}" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="user.conta_bancaria">
+    <mat-card-title>Dados Bancários</mat-card-title>
+    <mat-card-content>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Banco</mat-label>
+                    <input matInput [value]="user.conta_bancaria.banco" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <input matInput [value]="user.conta_bancaria.tipo"  readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Agência</mat-label>
+                    <input matInput [value]="user.conta_bancaria.agencia" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Número da conta</mat-label>
+                    <input matInput [value]="user.conta_bancaria.numero" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="documentos && documentos.length > 0">
+    <mat-card-title>Documentos Pessoais</mat-card-title>
+    <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>
+    <mat-card-content>
+        <table mat-table [dataSource]="documentos">
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef>Documento</th>
+                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <input #fileInput style="display: none;" type="file">
+                    <a mat-flat-button color="primary" target="_blank" [href]="backBaseUrl + element.url">Visualizar</a>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="documentsTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: documentsTableColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>

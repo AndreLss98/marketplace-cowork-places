@@ -58,7 +58,6 @@ export class UserService {
   }
 
   public getAll(page: number, pageSize: number, fitlers = {}) {
-
     const params =
     new HttpParams()
     .set('page', page.toString())
@@ -66,5 +65,9 @@ export class UserService {
     .set('filters', JSON.stringify(fitlers));
 
     return this.http.get<any>(`${environment.apiUrl}/usuarios`, { params });
+  }
+
+  public getById(id) {
+    return this.http.get(`${environment.apiUrl}/usuarios/${id}`);
   }
 }

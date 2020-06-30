@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { UserService } from 'src/app/shared/service/user.service';
 import { MatPaginator } from '@angular/material/paginator';
+
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -31,7 +33,8 @@ export class ListaUsuariosComponent implements OnInit {
   public pageSizes = [5, 10, 20, 25];
 
   constructor(
-    private userService: UserService
+    private router: Router,
+    private userService: UserService,
   ) {
 
   }
@@ -83,5 +86,10 @@ export class ListaUsuariosComponent implements OnInit {
   public previousPageOfAlloweds() {
     --this.allowedCurrentPage;
     this.fetchAllAllowed();
+  }
+
+  public viewUserDetails(user) {
+    console.log('Usuario: ', user);
+    this.router.navigate([`user/usuarios/${user.id}`]);
   }
 }
