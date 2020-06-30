@@ -75,7 +75,7 @@ export class CriarAnuncioComponent implements OnInit {
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
   rua = new FormControl('', [Validators.required]);
   bairro = new FormControl('', [Validators.required]);
-  numero = new FormControl('');
+  numero = new FormControl(null);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.required]);
