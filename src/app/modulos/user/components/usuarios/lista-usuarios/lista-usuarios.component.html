@@ -1,0 +1,80 @@
+<div id="tables-container">
+    <div class="table-container mat-elevation-z8">
+        <mat-table [dataSource]="usersNotAllowed">
+            <caption>Validar cadastros</caption>
+            <ng-container matColumnDef="nome">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nome + ' ' + element.sobrenome}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
+                <mat-cell *matCellDef="let element" style="display: contents;">
+                    <span class="material-icons">create</span>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsNotAllowedTable"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsNotAllowedTable;"></mat-row>
+        </mat-table>
+        <div class="paginator">
+            <select [(ngModel)]="notAllowedCurrentPageSize" (change)="fetchAllNotAllowed()">
+                <option *ngFor="let size of pageSizes" [value]="size">
+                    {{ size }}
+                </option>
+            </select>
+
+            <button mat-icon-button (click)="previousPageOfNotAlloweds()" [disabled]="!hasPreviousNotAlloweds">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="nextPageOfNotAlloweds()" [disabled]="!hasNextNotAlloweds">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="table-container mat-elevation-z8">
+        <mat-table [dataSource]="usersAllowed">
+            <caption>Cadastros validados</caption>
+            <ng-container matColumnDef="nome">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nome + ' ' + element.sobrenome}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
+                <mat-cell *matCellDef="let element" style="display: contents;">
+                    <span class="material-icons">create</span>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsAllowedTable"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsAllowedTable;"></mat-row>
+        </mat-table>
+        <div class="paginator">
+            <select [(ngModel)]="allowedCurrentPageSize" (change)="fetchAllAllowed()">
+                <option *ngFor="let size of pageSizes" [value]="size">
+                    {{ size }}
+                </option>
+            </select>
+
+            <button mat-icon-button (click)="previousPageOfAlloweds()" [disabled]="!hasPreviousAlloweds">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="nextPageOfAlloweds()" [disabled]="!hasNextAlloweds">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

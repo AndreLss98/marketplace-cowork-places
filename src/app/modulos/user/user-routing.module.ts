@@ -12,6 +12,7 @@ import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
+import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
+    { path: 'usuarios', component: ListaUsuariosComponent},
   ]
   },
 ];

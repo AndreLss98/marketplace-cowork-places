@@ -1,0 +1,24 @@
+#tables-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+div.table-container {
+    width: 40%;
+    margin-bottom: 25px;
+    padding: 25px;
+    caption {
+        display: block;
+    }
+}
+
+div.paginator {
+    padding-top: 15px;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: red !important;
+}
