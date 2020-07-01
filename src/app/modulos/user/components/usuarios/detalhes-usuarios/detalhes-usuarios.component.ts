@@ -1,8 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { environment } from 'src/environments/environment';
+
+import { UserService } from 'src/app/shared/service/user.service';
+import { DocumentosService } from 'src/app/shared/service/documentos.service';
 
 @Component({
   selector: 'app-detalhes-usuarios',
@@ -22,7 +24,8 @@ export class DetalhesUsuariosComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private documentosService: DocumentosService
+    private userService: UserService,
+    private documentosService: DocumentosService,
   ) {
     
   }
@@ -30,7 +33,6 @@ export class DetalhesUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDocuments();
     this.user = this.route.snapshot.data.user;
-    console.log('Detalhes usuario: ', this.user)
     if (this.user.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.user.data_nascimento));
   }
 
@@ -49,7 +51,14 @@ export class DetalhesUsuariosComponent implements OnInit {
       this.documentos.forEach(document => {
         document.url = this.user.documentos.find(temp => temp.documento_id === document.id).url;
       });
-      console.log(this.documentos)
+    });
+  }
+
+  onChangeValidate() {
+    this.userService.validarPerfil(this.user.id, this.user.cadastro_validado).subscribe(response => {
+      console.log("Alterou status");
+    }, (error) => {
+      this.user.cadastro_validado = !this.user.cadastro_validado;
     });
   }
 

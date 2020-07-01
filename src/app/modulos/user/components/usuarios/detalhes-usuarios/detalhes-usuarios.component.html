@@ -1,5 +1,10 @@
 <mat-card>
     <div id="img-perfil">{{ user.nome[0] }}</div>
+    <div>
+        <ng-container>
+            <mat-checkbox [(ngModel)]="user.cadastro_validado" (change)="onChangeValidate()">Perfil verificado?</mat-checkbox>
+        </ng-container>
+    </div>
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
         <table>
@@ -84,7 +89,7 @@
 
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let element" style="padding-left: 15px">
                     <input #fileInput style="display: none;" type="file">
                     <a mat-flat-button color="primary" target="_blank" [href]="backBaseUrl + element.url">Visualizar</a>
                 </td>
