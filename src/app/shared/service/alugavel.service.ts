@@ -68,4 +68,8 @@ export class AlugavelService {
   createAlugavel(alugavel: Alugavel):Observable<any>{
     return this.http.post<any>(environment.apiUrl+'/alugaveis', alugavel);
   }
+
+  public alterAvailable(id, disponivel) {
+    return this.http.put(`${environment.apiUrl}/alugaveis/${id}`, { disponivel });
+  }
 }

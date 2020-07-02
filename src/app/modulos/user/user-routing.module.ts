@@ -15,27 +15,38 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
 import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
 import { DetalhesUsuarioResolverService } from './resolvers/detalhes-usuario-resolver.service';
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
+import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
+import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-resolver.service';
+import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
   children:  [
+    { path: 'conta/info', component: InfoComponent},
     { path: 'tipos', component: ListaTiposComponent},
     { path: 'payments', component: PaymentsComponent},
-    { path: 'conta/info', component: InfoComponent},
     { path: 'documentos', component: PessoaisComponent},
+    { path: 'usuarios', component: ListaUsuariosComponent},
+    { path: 'anuncios', component: ListaAlugaveisComponent},
     { path: 'politicas', component: ListaPoliticasComponent},
     { path: 'questionario', component: ListaPerguntasComponent},
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
-    { path: 'usuarios', component: ListaUsuariosComponent},
     { 
       path: 'usuarios/:id',
       resolve: {
         user: DetalhesUsuarioResolverService
       },
       component: DetalhesUsuariosComponent
+    },
+    { 
+      path: 'anuncios/:id',
+      resolve: {
+        alugavel: DetalhesAlugavelResolverService
+      },
+      component: DetalhesAlugaveisComponent
     },
   ]
   },
