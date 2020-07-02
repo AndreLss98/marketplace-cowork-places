@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="false"  #stepper>
+<mat-horizontal-stepper [linear]="true"  #stepper>
 
     <mat-step>
         <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
@@ -96,7 +96,7 @@
                 <div class="w-100 d-flex flex-row flex-wrap">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Você é o proprietário do espaço ?</mat-label>
-                        <mat-select formControlName="proprietario" matInput>
+                        <mat-select formControlName="proprietario" matInput required>
                             <mat-option value="true">Sim</mat-option>
                             <mat-option value="false">Não</mat-option>
                           </mat-select>
@@ -111,9 +111,6 @@
                                 {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
                             </label>
                         </div>
-                        <!-- <div class="input-group-append">
-                            <span class="input-group-text" id="escrituraAddon0">Upload</span>
-                        </div> -->
                     </div>
 
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
@@ -125,9 +122,6 @@
                                 {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
                             </label>
                         </div>
-                        <!-- <div class="input-group-append">
-                            <span class="input-group-text" id="contrato_locacaoAddon0">Upload</span>
-                        </div> -->
                     </div>
 
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
@@ -140,9 +134,6 @@
                                 {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
                             </label>
                         </div>
-                        <!-- <div class="input-group-append">
-                            <span class="input-group-text" id="documento_proprietarioAddon0">Upload</span>
-                        </div> -->
                     </div>
 
                 </div>

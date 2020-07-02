@@ -79,7 +79,7 @@ export class CriarAnuncioComponent implements OnInit {
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.required]);
-  proprietario = new FormControl(true, [Validators.required]);
+  proprietario = new FormControl('', [Validators.required]);
   escritura = new FormControl('', [Validators.required]);
   contrato_locacao = new FormControl('');
   documento_proprietario = new FormControl('');
@@ -239,11 +239,9 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(moment(event.value));
     if(type == 'entrada'){
       this.entrada = moment(event.value)
     }else if(type == 'saida'){
-      console.log('entrei');
       this.saida = moment(event.value)
     }
   }
@@ -308,24 +306,23 @@ export class CriarAnuncioComponent implements OnInit {
   nextStep(step: MatStepper){
     switch (step.selectedIndex) {
       case 1:
-        if(this.dados_cadastrais.valid || !environment.production){
+        if(this.dados_cadastrais.valid){
           this.carregarCaracteristicas();
           nextStep();
-        }else{
-          console.log(this.dados_cadastrais.valid, this.dados_cadastrais.controls);
         }
         break;
       case 2:
-        if(this.caracteristicas_espaco.valid || !environment.production){
+        if(this.caracteristicas_espaco.valid){
           nextStep();
         }
         break;
       case 3:
-        if(this.valores.valid || !environment.production){
+        if(this.valores.valid){
           nextStep();
         }
         break;
       default:
+        console.log(step);
         break;
     }
 
