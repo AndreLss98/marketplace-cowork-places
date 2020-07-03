@@ -1,3 +1,4 @@
+import { CheckoutGuardGuard } from './modulos/checkout/guard/checkout-guard.guard';
 import { UserGuard } from './modulos/user/guard/user.guard';
 import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,6 @@ const routes: Routes = [
     loadChildren: () => import('./modulos/user/user.module').then(m => m.UserModule),
     canLoad: [UserGuard]
   },
-  { path: '**', loadChildren: () => import('./modulos/notfound/notfound.module').then(m => m.NotfoundModule) },
   { 
     path: 'search', 
     loadChildren: () => import('./modulos/search/search.module').then(m => m.SearchModule),
@@ -21,6 +21,12 @@ const routes: Routes = [
       source: SearchResolver
     }
   },
+  { 
+    path: 'checkout', 
+    loadChildren: () => import('./modulos/checkout/checkout.module').then(m => m.CheckoutModule),
+    canLoad: [CheckoutGuardGuard]
+  },
+  { path: '**', loadChildren: () => import('./modulos/notfound/notfound.module').then(m => m.NotfoundModule) },
 ];
 
 @NgModule({
@@ -28,7 +34,8 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     SearchResolver,
-    UserGuard
+    UserGuard,
+    CheckoutGuardGuard
   ]
 })
 export class AppRoutingModule { }
