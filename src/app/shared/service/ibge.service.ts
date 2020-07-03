@@ -21,8 +21,12 @@ export class IbgeService {
     return this.http.get(this.baseUrl + 'estados/' + uf + '/distritos?orderBy=nome');
   }
 
-  getCidadePorId(id):Observable<any>{
+  getMunicipioPorId(id):Observable<any>{
     return this.http.get<any>(this.baseUrl + 'municipios/' + id);
+  }
+
+  getCidadePorId(id):Observable<any>{
+    return this.http.get<any>(this.baseUrl + 'distritos/' + id);
   }
 
   getEstadoPorId(id):Observable<any>{
