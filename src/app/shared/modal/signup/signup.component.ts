@@ -102,18 +102,23 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkAge(){
+    let nascimento = this.segundoPasso.controls.data_nascimento.value;
+      let age = moment().diff(nascimento, 'years')
+      
+      if(age < 18){
+        this.segundoPasso.setErrors({age: true})
+      }
+  }
+
   nextStep(stepper: MatStepper){
     switch (stepper.selectedIndex) {
       case Passos.Primeiro:
 
         let email = this.primeiroPasso.value.email;
-        console.log(this.primeiroPasso.valid)
-      
         this.user.verifyUserEmail(email)
           .subscribe( response => {
-            console.log(response)
             this.primeiroPasso.setErrors({existe: true});
-            console.log(this.primeiroPasso.valid)
           }, err => {
             if(err.status == 404){
               this.primeiroPasso.setErrors(null)
@@ -135,7 +140,6 @@ export class SignupComponent implements OnInit {
       break;
       case Passos.Quarto:
         // Valida Senha
-        console.log(this.quartoPasso.errors, this.quartoPasso.valid)
         if(this.quartoPasso.valid){
           this.editavel = false;
           this.loader = true;
@@ -143,7 +147,6 @@ export class SignupComponent implements OnInit {
             this.login.login(response);
             nextStep();
           }, error => {
-            console.log("Cadastro invalido",error)
             this.editavel = true;
             this.loader = false;
           })

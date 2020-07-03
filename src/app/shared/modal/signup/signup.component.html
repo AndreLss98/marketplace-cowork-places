@@ -36,7 +36,7 @@
                 </mat-form-field>
                 <mat-form-field class="w-50">
                     <input style="color: black;" matInput [matDatepicker]="picker" placeholder="Data de nascimento" 
-                        formControlName="data_nascimento" disabled required [errorStateMatcher]="matcher">
+                        formControlName="data_nascimento" disabled required [errorStateMatcher]="matcher" (dateChange)='checkAge()'>
                     <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
                     <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
