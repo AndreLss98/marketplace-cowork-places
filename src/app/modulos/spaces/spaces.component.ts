@@ -1,3 +1,6 @@
+import { element } from 'protractor';
+import { environment } from './../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HighlightService } from 'src/app/shared/service/highlight.service';
 
@@ -8,6 +11,9 @@ import { HighlightService } from 'src/app/shared/service/highlight.service';
 })
 export class SpacesComponent implements OnInit {
 
+  public backUrl = environment.apiUrl;
+  public espaco;
+  public caracteristicas = []; 
   public data = {
     images: [
       {
@@ -101,13 +107,14 @@ export class SpacesComponent implements OnInit {
 
   constructor(
     private highlight: HighlightService,
+    private route: ActivatedRoute
   ) { }
 
   /**
    * Retorna um array com os nomes dos icones, para as estrelas da avalição
    * pode ser star, star_half, star_outline
    */
-  countStars(n: number): string[] {
+  public countStars(n: number): string[] {
     // let n:number = ;
     let array = [];
     let j = 0;
@@ -129,6 +136,10 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.espaco = this.route.snapshot.data['data'];
+
+    console.log('Resolver: ', this.espaco);
 
     if(window.innerWidth <= 600){
       this.espacos_similares = this.highlight.getSomeSpaces(1);

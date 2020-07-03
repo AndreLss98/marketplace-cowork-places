@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col d-flex flex-row align-items-center justify-content-start">
             <div class="d-flex justify-content-center flex-column">
-                <span style="font-size: 25px; font-weight: bold;">Escritório Central</span>
-                <span style="font-weight: bold; font-size: 12px;">SALA COMERCIAL</span>
+                <span style="font-size: 25px; font-weight: bold;">{{espaco.titulo}}</span>
+                <span style="font-weight: bold; font-size: 15px;">{{espaco.tipo.nome}}</span>
             </div>
             <div class="d-flex justify-content-around" style="margin-left: 50px;">
                 <span class="material-icons" style="font-size: 50px; color: #09fe9d">face</span>
@@ -25,16 +25,12 @@
                 <div class="col">
                     <div id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 430px;">
                         <ol class="carousel-indicators">
-                            <li *ngFor="let image of data.images; let i=index" 
+                            <li *ngFor="let image of espaco.imagens; let i=index" 
                                 data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
                         </ol>
                         <div class="carousel-inner">
-                            <div [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" *ngFor="let image of data.images; let i=index">
-                                <img class="d-block w-100" [src]="image.url || 'assets/imgs/logo/logo_preta-min.png'" >
-                                <!-- <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{image.title}}</h5>
-                                    <span>{{image.description}}</span>
-                                </div> -->
+                            <div [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" *ngFor="let image of espaco.imagens; let i=index">
+                                <img class="d-block w-100" [src]="backUrl + '/imgs/' + image.url || 'assets/imgs/logo/logo_preta-min.png'" >
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
@@ -56,23 +52,23 @@
                     <span class="material-icons" *ngFor="let item of countStars(data.dadosCompra.avaliacao.nota)" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
                 </div>
                 <div class="col-xl-4 d-flex align-items-center">
-                    <span style="color: black; font-size: 20px; font-weight: 500;">{{data.dadosCompra.dadosEspaco.localizacao}}</span>
+                    <span style="color: black; font-size: 20px; font-weight: 500;">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
                 </div>
                 <div class="col-xl-1"></div>
                 <div class="col-xl-4 d-flex flex-row align-items-center">
                     <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <span class="material-icons">aspect_ratio</span>
-                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.m2}} m2</p>
+                        <p style="color: gray; font-size: 11px;" >{{espaco.caracteristicas[0].valor}} m2</p>
                     </div>
                     <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
-                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.mesas}} mesas</p>
+                        <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[2].valor}} mesas</p>
                     </div>
                     <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
                         <img src="assets/svg/car.svg" style="width: 24px;" alt="">
-                        <p style="color: gray; font-size: 11px;">{{data.dadosCompra.dadosEspaco.vagas}} vagas</p>
+                        <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[4].valor}} vagas</p>
                     </div>
-                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="data.dadosCompra.dadosEspaco.wifi">
+                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="espaco.caracteristicas[1].valor == 'true'">
                         <span class="material-icons">wifi</span>
                         <p style="color: gray; font-size: 11px;">Wi-Fi</p>
                     </div>
@@ -81,7 +77,7 @@
             
         </div>
         <div class="col-lg-3">
-            <app-card-reservar [data]="data.dadosCompra"></app-card-reservar>
+            <app-card-reservar [data]="espaco"></app-card-reservar>
         </div>
     </div>
 
@@ -92,25 +88,24 @@
             <!-- Descrição do proprietario -->
             <div class="d-flex flex-column">
                 <span style="font-weight: 500; padding-bottom: 10px;">Descrição do proprietário</span>
-                <span>{{data.dadosCompra.descProprietario}}</span>
+                <span>{{espaco.descricao}}</span>
             </div>
 
             <!-- Disponivel -->
             <div class="d-flex flex-column">
                 <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Disponível</span>
-                <div class="d-flex flex-row" *ngFor="let item of data.dadosCompra.itemsDisponiveis">
-                    <span class="material-icons color-verde">check</span>
-                    <span> {{item}}</span>
+                <div class="d-flex flex-row" *ngFor="let item of espaco.caracteristicas; index as i" >
+                    <div *ngIf="item.id > 6 && item.valor == 'true'">
+                        <span class="material-icons color-verde">check</span>
+                        <span> {{item.nome}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Funcionamento -->
             <div class="d-flex flex-column">
                 <span style="font-weight: 500; margin-top: 30px; padding-bottom: 10px;">Funcionamento</span>
-                <div class="d-flex flex-row"  *ngFor="let item of data.dadosCompra.itemsDisponiveis">
-                    <span class="material-icons color-verde">check</span>
-                    <span> {{item}}</span>
-                </div>
+                <span>. {{espaco.caracteristicas[5].valor}}</span>
                 <span>. O prazo começa após a confirmação do pagamento</span>
             </div>
 
