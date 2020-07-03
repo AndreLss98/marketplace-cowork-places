@@ -135,6 +135,34 @@ export class SpacesComponent implements OnInit {
     return array;
   }
 
+  calculaCustoDia(taxa, custo_dia): number{
+    if(taxa == 7){
+      return Number(custo_dia);
+    }else if(taxa == 3.5){
+      return Number(custo_dia * (taxa/100 + 1))
+    }else{
+      return Number(custo_dia * 1.07)
+    }
+  }
+
+  calculaTaxa(taxa, custo_dia): number{
+    return Number(custo_dia * (taxa/100))
+  }
+
+  calculaTotal(taxa, custo_dia): number{
+    return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
+  }
+
+  calculaTotalPeriodo(taxa, custo_dia):number{
+    let b = undefined;
+    let a = undefined;
+    if(a == undefined || b == undefined){ 
+      return Number(30 * this.calculaTotal(taxa, custo_dia));
+    }else{
+      return Number(a.diff(b, 'days') * this.calculaTotal(taxa, custo_dia));
+    }
+  }
+
   ngOnInit(): void {
 
     this.espaco = this.route.snapshot.data['data'];

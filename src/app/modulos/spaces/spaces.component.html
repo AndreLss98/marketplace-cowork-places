@@ -19,65 +19,131 @@
     <!-- 1º Card - Imagens e detalhes -->
     <div class="row">
         <div class="col-lg-9">
-
-            <!-- Carousel -->
-            <div class="row">
-                <div class="col">
-                    <div id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 430px;">
-                        <ol class="carousel-indicators">
-                            <li *ngFor="let image of espaco.imagens; let i=index" 
-                                data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" *ngFor="let image of espaco.imagens; let i=index">
-                                <img class="d-block w-100" [src]="backUrl + '/imgs/' + image.url || 'assets/imgs/logo/logo_preta-min.png'" >
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Proximo</span>
-                        </a>
-                        <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Anterior</span>
-                        </a>
+            <div id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 572px;">
+                <ol class="carousel-indicators">
+                    <li *ngFor="let image of espaco.imagens; let i=index" 
+                        data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div *ngFor="let image of espaco.imagens; let i=index" [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" >
+                        <div class="bg-image" [ngStyle]="{'background-image': 'url('+ backUrl + '/imgs/' + image.url +')'}"></div>
+                        <img class="d-block carouselImage" [src]="backUrl + '/imgs/' + image.url || 'assets/imgs/logo/logo_preta-min.png'" >
                     </div>
                 </div>
+                <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Proximo</span>
+                </a>
+                <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
             </div>
-
-            <!-- Endereço -->
-            <div class="row endereco" style="margin-bottom: 15px;">
-                <div class="col-xl-3 d-flex align-items-center">
-                    <span style="font-size: 20px; padding: 5px 10px 5px 10px; border-radius: 7px; color: white; background-color: black;">{{data.dadosCompra.avaliacao.nota | number:'1.1'}}</span>
-                    <span class="material-icons" *ngFor="let item of countStars(data.dadosCompra.avaliacao.nota)" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
-                </div>
-                <div class="col-xl-4 d-flex align-items-center">
-                    <span style="color: black; font-size: 20px; font-weight: 500;">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
-                </div>
-                <div class="col-xl-1"></div>
-                <div class="col-xl-4 d-flex flex-row align-items-center">
-                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
-                        <span class="material-icons">aspect_ratio</span>
-                        <p style="color: gray; font-size: 11px;" >{{espaco.caracteristicas[0].valor}} m2</p>
-                    </div>
-                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
-                        <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
-                        <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[2].valor}} mesas</p>
-                    </div>
-                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
-                        <img src="assets/svg/car.svg" style="width: 24px;" alt="">
-                        <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[4].valor}} vagas</p>
-                    </div>
-                    <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="espaco.caracteristicas[1].valor == 'true'">
-                        <span class="material-icons">wifi</span>
-                        <p style="color: gray; font-size: 11px;">Wi-Fi</p>
-                    </div>
-                </div>
-            </div>
-            
         </div>
         <div class="col-lg-3">
-            <app-card-reservar [data]="espaco"></app-card-reservar>
+            <div class="myCard col">
+                <form> 
+                    <!-- Entrada / Saida -->
+                    <div class="d-flex flex-column">
+                        <div>
+                            <mat-form-field style="width: 100%">
+                                <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
+                                <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerEntrada" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field style="width: 100%">
+                                <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
+                                <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerSaida" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
+                                <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+            
+                    <!-- Valores -->
+                    <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+                        <span>Nº de pessoas</span>
+                        <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[5].valor}}</span>
+                    </div>
+                    <div style="border-bottom: 1px solid black; height: 20px; margin-bottom: 10px;"></div>
+                    <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+                        <span>CUSTO POR DIA</span>
+                        <span style="text-align: right; padding-right: 6px;">R$ {{calculaCustoDia(espaco.taxa, espaco.valor).toFixed(2)}}</span>
+                    </div>
+                    <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+                        <span>TAXAS</span>
+                        <span style="text-align: right; padding-right: 6px;">R$ {{calculaTaxa(espaco.taxa, espaco.valor).toFixed(2)}}</span>
+                    </div>
+                    <div class="d-flex" style="color: black; justify-content: space-between; font-weight: bold;">
+                        <span>TOTAL</span>
+                        <span style="text-align: right; padding-right: 6px;">R$ {{calculaTotalPeriodo(espaco.taxa, espaco.valor)}}</span>
+                    </div>
+            
+                    <!-- botão reservar -->
+                    <div class="d-flex align-items-center justify-content-center" style="padding: 20px;">
+                        <button class="btn btn-reservar" type="submit">RESERVAR</button>
+                    </div>
+            
+                    <!-- Adicionar mais itens à sua reserva. -->
+                    <div class="d-flex align-items-center justify-content-center">
+                        <a style="color: black; font-weight: 500;" href="">Adicione mais itens à sua reserva.</a>
+                    </div>
+            
+                    <!-- Botões Compartilhar Salvar Localização -->
+                    <div class="d-flex align-items-center justify-content-around flex-wrap"
+                        style="padding-top: 20px; padding-right: auto; padding-left: auto;">
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">share</span>
+                            <span style="font-size: 12px; font-weight: bold;">Compartilhar</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">favorite</span>
+                            <span style="font-size: 12px; font-weight: bold;">Salvar</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">location_on</span>
+                            <span style="font-size: 12px; font-weight: bold;">Localização</span>
+                        </div>
+                    </div>
+            
+                    <!-- Politica de cancelamento -->
+                    <div class="d-flex align-items-center justify-content-center" style="padding: 40px 20px 10px 20px">
+                        <a style="color: black; font-weight: 500;" href="">*POLÍTICA DE CANCELAMENTO.</a>
+                    </div>
+                </form>
+            </div>
+            <!-- <app-card-reservar [data]="espaco"></app-card-reservar> -->
+        </div>
+    </div>
+    <div class="row endereco" style="margin-bottom: 15px;">
+        <div class="col-xl-3 d-flex align-items-center">
+            <span style="font-size: 20px; padding: 5px 10px 5px 10px; border-radius: 7px; color: white; background-color: black;">{{data.dadosCompra.avaliacao.nota | number:'1.1'}}</span>
+            <span class="material-icons" *ngFor="let item of countStars(data.dadosCompra.avaliacao.nota)" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
+        </div>
+        <div class="col-xl-4 d-flex align-items-center">
+            <span style="color: black; font-size: 20px; font-weight: 500;">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
+        </div>
+        <div class="col-xl-1"></div>
+        <div class="col-xl-4 d-flex flex-row align-items-center">
+            <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
+                <span class="material-icons">aspect_ratio</span>
+                <p style="color: gray; font-size: 11px;" >{{espaco.caracteristicas[0].valor}} m2</p>
+            </div>
+            <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
+                <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
+                <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[2].valor}} mesas</p>
+            </div>
+            <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0">
+                <img src="assets/svg/car.svg" style="width: 24px;" alt="">
+                <p style="color: gray; font-size: 11px;">{{espaco.caracteristicas[4].valor}} vagas</p>
+            </div>
+            <div class="col-xl-3 d-flex flex-column align-items-center" style="padding: 0" *ngIf="espaco.caracteristicas[1].valor == 'true'">
+                <span class="material-icons">wifi</span>
+                <p style="color: gray; font-size: 11px;">Wi-Fi</p>
+            </div>
         </div>
     </div>
 
