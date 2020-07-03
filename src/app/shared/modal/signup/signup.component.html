@@ -40,7 +40,7 @@
                     <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
                     <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker disabled="false" format></mat-datepicker>
+                    <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
                 </mat-form-field>
                 <span>Selecione uma data.</span>
                 <div style="margin-top: 5px;">
