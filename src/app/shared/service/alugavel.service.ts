@@ -13,24 +13,24 @@ export class AlugavelService {
     private http: HttpClient,
   ) { }
 
-  getTaxa(): Observable<any>{
+  public getTaxa(): Observable<any>{
     return this.http.get<any>(environment.apiUrl+'/alugaveis/taxa');
   }
 
-  saveImage(base64): Observable<any>{
+  public saveImage(base64): Observable<any>{
     let file = this.base64toBlobtoFile(base64);
     let headers = new HttpHeaders();
 
     headers.append('Content-Type', 'multipart/form-data');
-
+    
     let upload = new FormData();
     upload.append('file', file);
-
+    
     console.log
     return this.http.post<any>(environment.apiUrl+'/alugaveis/imagem', upload, {headers});
   }
-
-  saveDoc(doc, field): Observable<any>{
+  
+  public saveDoc(doc, field): Observable<any>{
     let headers = new HttpHeaders();
 
     headers.append('Content-Type', 'multipart/form-data');
@@ -65,7 +65,7 @@ export class AlugavelService {
     return imageFile;
   }
 
-  createAlugavel(alugavel: Alugavel):Observable<any>{
+  public createAlugavel(alugavel: Alugavel):Observable<any>{
     return this.http.post<any>(environment.apiUrl+'/alugaveis', alugavel);
   }
 
