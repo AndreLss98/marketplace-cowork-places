@@ -38,13 +38,13 @@
     "ngx-infinite-scroll": "^8.0.2",
     "ngx-markdown": "^9.1.1",
     "popper.js": "^1.16.1",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.6.0",
     "tslib": "^1.13.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
-    "@angular/cli": "^9.1.9",
+    "@angular/cli": "^9.1.10",
     "@angular/compiler-cli": "~9.0.7",
     "@angular/language-service": "~9.0.7",
     "@types/jasmine": "^3.5.11",

@@ -47,7 +47,7 @@
                     <div>
                         <mat-form-field style="width: 100%">
                             <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
-                            <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerEntrada" (dateChange)="selecionaData('entrada', $event)">
+                            <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerEntrada" [min]='hoje' [max]='saida' (dateChange)="selecionaData('entrada', $event)">
                             <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
                             <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
                         </mat-form-field>
@@ -55,7 +55,7 @@
                     <div>
                         <mat-form-field style="width: 100%">
                             <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
-                            <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerSaida" (dateChange)="selecionaData('saida', $event)">
+                            <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerSaida" [min]='entrada' (dateChange)="selecionaData('saida', $event)">
                             <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
                             <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
                         </mat-form-field>
@@ -88,7 +88,7 @@
         
                 <!-- Adicionar mais itens à sua reserva. -->
                 <div class="d-flex align-items-center justify-content-center">
-                    <a style="color: black; font-weight: 500;" href="">Adicione mais itens à sua reserva.</a>
+                    <!-- <a style="color: black; font-weight: 500;" href="">Adicione mais itens à sua reserva.</a> -->
                 </div>
         
                 <!-- Botões Compartilhar Salvar Localização -->

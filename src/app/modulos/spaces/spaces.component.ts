@@ -27,7 +27,8 @@ export class SpacesComponent implements OnInit {
   // Datas de entrada e saida
   public entrada;
   public saida;
-  
+  public hoje = moment().format();
+
   public backUrl = environment.apiUrl;
   public espaco;
   public data = {
@@ -41,7 +42,6 @@ export class SpacesComponent implements OnInit {
       },
     }
   }
-
   
   constructor(
     private highlight: HighlightService,
@@ -49,7 +49,7 @@ export class SpacesComponent implements OnInit {
     ) { }
     
     ngOnInit(): void {
-  
+      console.log(this.hoje);
       this.espaco = this.route.snapshot.data['data'];
   
       console.log('Resolver: ', this.espaco);
