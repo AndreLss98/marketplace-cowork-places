@@ -3,128 +3,82 @@ import { environment } from './../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HighlightService } from 'src/app/shared/service/highlight.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-spaces',
   templateUrl: './spaces.component.html',
-  styleUrls: ['./spaces.component.scss']
+  styleUrls: ['./spaces.component.scss'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ]
 })
 export class SpacesComponent implements OnInit {
 
+  // Datas de entrada e saida
+  public entrada;
+  public saida;
+  
   public backUrl = environment.apiUrl;
   public espaco;
-  public caracteristicas = []; 
   public data = {
-    images: [
-      {
-        url: 'https://picsum.photos/seed/picsum/200/300',
-        title: 'Titulo 1',
-        description: 'Descrição sobre a imagem'
-      },
-      {
-        url: 'https://picsum.photos/seed/picsum/200/300',
-        title: 'Titulo 2',
-        description: 'Descrição sobre a imagem'
-      },
-      {
-        url: 'https://picsum.photos/seed/picsum/200/300',
-        title: 'Titulo 3',
-        description: 'Descrição sobre a imagem'
-      }
-    ],
     dadosCompra: {
-      valores: {
-        valor: '1000.00',
-        taxa: '100.00',
-        total: '1100.00',
-      },
       dadosEspaco: {
-        npessoas: 2,
-        localizacao: 'Rua Central - Goiânia - Goiás',
-        m2: 100,
-        vagas: 2,
-        mesas: 2,
-        wifi: true,
-        funcionamento: {
-          domg: false,
-          seg: true,
-          terc: true,
-          qua: true,
-          qui: true,
-          sex: true, 
-          sab: false
-        },
         condicoes: [
           'Para locações com prazo superior a 30 dias é necessário a utilização de um contrato e contratação de um seguro.',
           'Poderá ser dividido em até 10x a 1ª locação. Limitada a cada usuario.',
           'Caso o prazo se estenda por mais de 30 dias, o locador poderá aprovar ou não a solicitação.'
-        ],
-        adicionais: [
-          'Proibido animais',
-          'Proibido fumar',
-          'Limite de convidados',
-          'Proibido acesso de crianças',
-          'Não é permitdo o consumo de bebidas alcoólicas',
-          'Refeições somente na copa'
         ]
       },
-      descProprietario: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-      itemsDisponiveis: [
-        'Internet Wi-Fi',
-        'Impressora A4 com Scanner',
-        'Serviços de copa (água e café)',
-        'Revistaria',
-        'Estacionamento',
-        'Ar condicionado'
-      ],
-      avaliacao: {
-        nota: 4.5,
-        comentarios: [
-          {
-          autor: 'Paulo Jose',
-          data: '28 de março de 2020',
-          titulo: 'Incrivel! Gostei muito!',
-          nota: 2.5,
-          comentario: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using'
-          },
-          {
-            autor: 'Paulo Jose',
-            data: '28 de março de 2020',
-            titulo: 'Incrivel! Gostei muito!',
-            nota: 3.5,
-            comentario: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using'
-          }
-        ]
-      },
-      disponibilidade: {
-        min: '20200427',
-        max: '20200527'
-      }
     }
   }
 
-  public espacos_similares;
-
+  
   constructor(
     private highlight: HighlightService,
     private route: ActivatedRoute
-  ) { }
-
-  /**
-   * Retorna um array com os nomes dos icones, para as estrelas da avalição
-   * pode ser star, star_half, star_outline
-   */
-  public countStars(n: number): string[] {
-    // let n:number = ;
-    let array = [];
-    let j = 0;
-
-    for (let index = 0; index < Math.floor(n); index++) {
-      j++
-      array.push('start');
+    ) { }
+    
+    ngOnInit(): void {
+  
+      this.espaco = this.route.snapshot.data['data'];
+  
+      console.log('Resolver: ', this.espaco);
+  
+      // if(window.innerWidth <= 600){
+      //   this.espacos_similares = this.highlight.getSomeSpaces(1);
+      // } else if(window.innerWidth <= 900){
+      //   this.espacos_similares = this.highlight.getSomeSpaces(2);
+      // } else if(window.innerWidth <= 1224){
+      //   this.espacos_similares = this.highlight.getSomeSpaces(3);
+      // } else {
+      //   this.espacos_similares = this.highlight.getSomeSpaces(4);
+      // }
     }
-
-    if(n-j){
+    /**
+     * Retorna um array com os nomes dos icones, para as estrelas da avalição
+     * pode ser star, star_half, star_outline
+     */
+    public countStars(n: number): string[] {
+      // let n:number = ;
+      let array = [];
+      let j = 0;
+      
+      for (let index = 0; index < Math.floor(n); index++) {
+        j++
+        array.push('start');
+      }
+      
+      if(n-j){
       array.push('star_half');
     }
 
@@ -135,7 +89,7 @@ export class SpacesComponent implements OnInit {
     return array;
   }
 
-  calculaCustoDia(taxa, custo_dia): number{
+  public calculaCustoDia(taxa, custo_dia): number{
     if(taxa == 7){
       return Number(custo_dia);
     }else if(taxa == 3.5){
@@ -145,39 +99,31 @@ export class SpacesComponent implements OnInit {
     }
   }
 
-  calculaTaxa(taxa, custo_dia): number{
+  public calculaTaxa(taxa, custo_dia): number{
     return Number(custo_dia * (taxa/100))
   }
 
-  calculaTotal(taxa, custo_dia): number{
+  public calculaTotal(taxa, custo_dia): number{
     return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
   }
 
-  calculaTotalPeriodo(taxa, custo_dia):number{
-    let b = undefined;
-    let a = undefined;
+  public calculaTotalPeriodo(taxa, custo_dia):number{
+    let b = this.entrada;
+    let a = this.saida;
     if(a == undefined || b == undefined){ 
-      return Number(30 * this.calculaTotal(taxa, custo_dia));
+      return Number(this.calculaTotal(taxa, custo_dia));
     }else{
       return Number(a.diff(b, 'days') * this.calculaTotal(taxa, custo_dia));
     }
   }
 
-  ngOnInit(): void {
-
-    this.espaco = this.route.snapshot.data['data'];
-
-    console.log('Resolver: ', this.espaco);
-
-    if(window.innerWidth <= 600){
-      this.espacos_similares = this.highlight.getSomeSpaces(1);
-    } else if(window.innerWidth <= 900){
-      this.espacos_similares = this.highlight.getSomeSpaces(2);
-    } else if(window.innerWidth <= 1224){
-      this.espacos_similares = this.highlight.getSomeSpaces(3);
-    } else {
-      this.espacos_similares = this.highlight.getSomeSpaces(4);
+  selecionaData(type: string, event: MatDatepickerInputEvent<Date>) {
+    if(type == 'entrada'){
+      this.entrada = moment(event.value)
+    }else if(type == 'saida'){
+      this.saida = moment(event.value)
     }
   }
+
 
 }
