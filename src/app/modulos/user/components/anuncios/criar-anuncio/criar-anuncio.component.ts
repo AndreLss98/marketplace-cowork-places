@@ -196,7 +196,8 @@ export class CriarAnuncioComponent implements OnInit {
       this.rua.setValue(response['logradouro']);
       this.bairro.setValue(response['bairro']);
 
-      this.ibge.getCidadePorId(response['ibge']).subscribe( data => {
+      this.ibge.getMunicipioPorId(response['ibge']).subscribe( data => {
+        console.log("Peguei", data);
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.loadDistritoByEstado();
       })
@@ -248,6 +249,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   compressFile() {
     this.imageCompress.uploadFile().then(({image}) => {
+      console.log(image);
       this.imageCompress.compressFile(image, 100, 50).then(
         result => {
           let image = {
@@ -353,9 +355,16 @@ export class CriarAnuncioComponent implements OnInit {
     });
 
     let alugavel_caracteristicas = [];
+    alugavel_caracteristicas.push({caracteristica_id: 1, valor: this.area.value});
+    alugavel_caracteristicas.push({caracteristica_id: 2, valor: this.internet.value});
+    alugavel_caracteristicas.push({caracteristica_id: 3, valor: this.quantidade_mesas.value});
+    alugavel_caracteristicas.push({caracteristica_id: 4, valor: this.vagas.value});
+    alugavel_caracteristicas.push({caracteristica_id: 5, valor: this.horario_funcionamento.value});
+    alugavel_caracteristicas.push({caracteristica_id: 6, valor: this.numero_pessoas.value});
     this.caracteristicas.forEach(element => {
       alugavel_caracteristicas.push({caracteristica_id: element.id, valor: element.value.toString()})
     });
+
 
     let alugavel_doc = [];
     this.documentos.forEach(element => {
@@ -367,15 +376,8 @@ export class CriarAnuncioComponent implements OnInit {
       alugavel_imagens.push(element.id);
     });
 
-    let alugavel_cidade = '';
-    this.ibge.getCidadePorId(this.cidade.value).subscribe(response=> {
-      alugavel_cidade = response.nome
-    });
-
-    let alugavel_estado = '';
-    this.ibge.getEstadoPorId(this.estado.value).subscribe(response => {
-      alugavel_estado = response.nome
-    })
+    let alugavel_cidade = this.distritos.find(element => element.id = this.cidade.value).nome;
+    let alugavel_estado = this.estados.find(element => element.id = this.estado.value).nome;
 
     let alugavel: Alugavel = {
       anunciante_id : this.user.user_data.id,
@@ -404,8 +406,9 @@ export class CriarAnuncioComponent implements OnInit {
     console.log(alugavel);
 
     this.alugavel.createAlugavel(alugavel).subscribe(response => {
+      alert("Deu bom")
       console.log("Cadastro criado: ", response);
-    })
+    }, err => console.log("Deu erro: ", err));
   }
 
 }

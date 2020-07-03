@@ -68,7 +68,7 @@
 
                     <mat-form-field appearance="outline" class="w-25">
                         <mat-label>Numero</mat-label>
-                        <input matInput formControlName="numero" type="number" (keyup)="formatarNumerio('numero')">
+                        <input matInput formControlName="numero" (keyup)="formatarNumerio('numero')">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-75">
@@ -150,7 +150,7 @@
         <form [formGroup]='caracteristicas_espaco'>
             <ng-template matStepLabel style="word-wrap: break-word;">Características do espaço</ng-template>
 
-            <mat-expansion-panel style="margin-bottom: 5px;">
+            <mat-expansion-panel [expanded]='true' style="margin-bottom: 5px;">
                 <mat-expansion-panel-header>Fotos do espaço</mat-expansion-panel-header>
                 <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
                     <mat-card class="myCard" (click)="compressFile()">
