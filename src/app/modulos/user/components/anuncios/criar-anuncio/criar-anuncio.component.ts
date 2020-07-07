@@ -97,7 +97,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Preço e taxa
   public valores: FormGroup;
-  taxa = new FormControl(7, [Validators.required]);
+  taxa = new FormControl(0, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required]);
   
   // imagens
@@ -277,12 +277,12 @@ export class CriarAnuncioComponent implements OnInit {
 
   calculaCustoDia(): number{
     let total = 0;
-    if(this.taxa.value == 7){
+    if(this.taxa.value == this.max_taxa){
       return Number(this.custo_dia.value);
-    }else if(this.taxa.value == 3.5){
+    }else if(this.taxa.value == (this.max_taxa / 2)){
       return Number(this.custo_dia.value * (this.taxa.value/100 + 1))
     }else{
-      return Number(this.custo_dia.value * 1.07)
+      return Number(this.custo_dia.value * (this.max_taxa/ 100 + 1))
     }
   }
 
@@ -298,9 +298,9 @@ export class CriarAnuncioComponent implements OnInit {
     let b = this.entrada;
     let a = this.saida;
     if(a == undefined || b == undefined){ 
-      return Number(30 * this.calculaTotal());
+      return Number(1 * this.calculaTotal());
     }else{
-      return Number(a.diff(b, 'days') * this.calculaTotal());
+      return Number((a.diff(b, 'days')+1) * this.calculaTotal());
     }
   }
 
@@ -350,8 +350,8 @@ export class CriarAnuncioComponent implements OnInit {
 
   finalizarCadastro(){
     let alugavel_infos = [];
-    this.info.value.forEach(element => {
-      alugavel_infos.push({descricao: element})
+    this.info.controls.forEach(element => {
+      alugavel_infos.push({descricao: element.value})
     });
 
     let alugavel_caracteristicas = [];
