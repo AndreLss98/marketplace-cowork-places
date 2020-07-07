@@ -19,7 +19,9 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './shared/materia.module';
-import {NgxImageCompressService} from 'ngx-image-compress';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings, 
+  RECAPTCHA_SETTINGS, RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     MaterialModule,
     MatDialogModule,
     AppRoutingModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -48,7 +52,15 @@ import {NgxImageCompressService} from 'ngx-image-compress';
       useClass: AuthInterceptorService,
       multi: true
     },
-    NgxImageCompressService
+    NgxImageCompressService,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: { siteKey: '6LeXn64ZAAAAAO0pJSBggJaitNSWisc2N5fp8SD6' } as RecaptchaSettings,
+    },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'pt-BR',
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent]
