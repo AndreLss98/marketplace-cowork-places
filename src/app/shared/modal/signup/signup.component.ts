@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './../../service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { User } from './../../interface/interface';
@@ -40,6 +41,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class SignupComponent implements OnInit {
 
   @ViewChild('signupStepper') stepper: MatStepper;
+  public input_nascimento;
+
   public loader:boolean = false;
   public editavel:boolean = true;
   matcher = new MyErrorStateMatcher();
@@ -61,12 +64,18 @@ export class SignupComponent implements OnInit {
   senha = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)])
   confirmar_senha = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]);
 
+  public confirmar: FormGroup;
+  termo_servico = new FormControl('', [Validators.requiredTrue]);
+  termo_privacidae = new FormControl('', [Validators.requiredTrue]);
+  recaptcha = new FormControl('', [Validators.required]);
+
   constructor(
     private signup: SignupService,
     private form: FormBuilder,
     private modal: ModalService,
     private login: LoginService,
-    private user: UserService
+    private user: UserService,
+    private snack: MatSnackBar
   ){
     
     // Inicia o formulario.
@@ -90,19 +99,25 @@ export class SignupComponent implements OnInit {
       confirmar_senha: this.confirmar_senha
     }, {validators: this.verificaSenhas});
 
+    this.confirmar = this.form.group({
+      termo_privacidae: this.termo_privacidae,
+      termo_servico: this.termo_servico,
+      recaptcha: this.recaptcha
+    })
    }
 
-  verificaSenhas(group: FormGroup){
+  ngOnInit(): void {
+  }
+
+  public verificaSenhas(group: FormGroup){
     let pass = group.controls.senha.value;
     let confirmPass = group.controls.confirmar_senha.value;
     if ( pass.length < 6) return {lengthMin: true}
     if ( pass.length > 16) return {lengthMax: true}
     return pass === confirmPass ? null : { notSame: true }
   }
-  ngOnInit(): void {
-  }
 
-  checkAge(){
+  public checkAge(){
     let nascimento = this.segundoPasso.controls.data_nascimento.value;
       let age = moment().diff(nascimento, 'years')
       
@@ -111,7 +126,7 @@ export class SignupComponent implements OnInit {
       }
   }
 
-  nextStep(stepper: MatStepper){
+  public nextStep(stepper: MatStepper){
     switch (stepper.selectedIndex) {
       case Passos.Primeiro:
 
@@ -152,6 +167,15 @@ export class SignupComponent implements OnInit {
           })
         }
         break;
+      case 4:
+
+        if(this.confirmar.valid){
+          setTimeout(() => {
+            this.modal.closeAllModals();
+          }, 250);
+        }else{
+          this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000})
+        }
       default:
         nextStep();
         break;
@@ -164,7 +188,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  criarUsuario(): User{
+  public criarUsuario(): User{
     let user: User = {
       email: this.primeiroPasso.value.email,
       nome: this.segundoPasso.value.nome,
@@ -179,7 +203,7 @@ export class SignupComponent implements OnInit {
   }
 
 
-  formatarFone(campo: string){
+  public formatarFone(campo: string){
 
     let v = this.terceiroPasso.value[campo];
     
@@ -189,7 +213,7 @@ export class SignupComponent implements OnInit {
     this.terceiroPasso.controls[campo].setValue(v);
   }
 
-  entrar(){
+  public entrar(){
     this.modal.openModal(LoginComponent, true)
   }
 }
