@@ -28,7 +28,7 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     $('#menuHeader').hide();
 
-    this.userService.checkPermission().subscribe((response: any) => {
+    this.userService.checkPermission().subscribe(() => {
       this.isAdmin = true;
       this.userService.isAdmin = true;
     }, (error) => {

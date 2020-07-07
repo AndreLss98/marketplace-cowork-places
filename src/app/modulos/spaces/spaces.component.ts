@@ -109,9 +109,25 @@ export class SpacesComponent implements OnInit {
       this.checkoutService.data_saida = this.saida;
       this.checkoutService.espaco = this.espaco;
   
-      this.router.navigate(['/checkout']);
+      // this.router.navigate(['/checkout']);
+      
+      const aluguel = {
+        dias_reservados: {
+          data_entrada: this.formatDate(new Date(this.entrada)),
+          data_saida: this.formatDate(new Date(this.saida))
+        },
+        valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
+        alugavel_id: this.espaco.id
+      }
+      
+      this.checkoutService.checkout(aluguel).subscribe(response => {
+        console.log('Response: ', response);
+        window.open(response.paymentUrl, "_blank");
+      }, (error) => {
+        console.log("Aluguel error: ", error);
+      });
     }else{
-      this.snackBar.open('Selecione as datas de entrada e saída', 'OK', {duration: 3000})
+      this.snackBar.open('Selecione as datas de entrada e saída', 'OK', { duration: 3000 })
     }
   }
 
@@ -136,9 +152,9 @@ export class SpacesComponent implements OnInit {
   public calculaTotalPeriodo(taxa, custo_dia):number{
     let b = this.entrada;
     let a = this.saida;
-    if(a == undefined || b == undefined){ 
+    if(a == undefined || b == undefined) {
       return Number(this.calculaTotal(taxa, custo_dia));
-    }else{
+    } else {
       return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
     }
   }
@@ -148,18 +164,21 @@ export class SpacesComponent implements OnInit {
     let a = this.saida;
     if(a == undefined || b == undefined){ 
       return Number(1);
-    }else{
+    }else {
       return Number(a.diff(b, 'days') + 1);
     }
   }
 
   selecionaData(type: string, event: MatDatepickerInputEvent<Date>) {
-    if(type == 'entrada'){
+    if(type == 'entrada') {
       this.entrada = moment(event.value)
-    }else if(type == 'saida'){
+    }else if(type == 'saida') {
       this.saida = moment(event.value)
     }
   }
 
+  private formatDate(date: Date) {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
 
 }

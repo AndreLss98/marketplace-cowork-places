@@ -1,43 +1,51 @@
 <mat-card>
-    <div id="img-perfil">{{ user.user_data.nome[0] }}</div>
+    <div id="img-perfil">{{ userService.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
-        <table>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nome</mat-label>
-                    <input matInput value="{{ user.user_data.nome + ' ' + user.user_data.sobrenome}}"
-                        readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Data Nascimento</mat-label>
-                    <input matInput value="{{ dataNascimento }}" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput value="{{ user.user_data.email }}" readonly />
-                </mat-form-field>
-            </td>
-        </table>
-        <table>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Telefone 1</mat-label>
-                    <input matInput value="{{ user.user_data.numero_1 }}" readonly />
-                </mat-form-field>
-            </td>
-            <td *ngIf="user.user_data.numero_2">
-                <mat-form-field appearance="outline">
-                    <mat-label>Telefone 2</mat-label>
-                    <input matInput value="{{ user.user_data.numero_2 }}" readonly />
-                </mat-form-field>
-            </td>
-        </table>
+        <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
+            <table>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nome</mat-label>
+                        <input matInput value="{{ userService.user_data.nome + ' ' + userService.user_data.sobrenome}}" readonly />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Data Nascimento</mat-label>
+                        <input matInput value="{{ dataNascimento }}" readonly />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput value="{{ userService.user_data.email }}" readonly />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>CPF</mat-label>
+                        <input formControlName="cpf" matInput value="" placeholder="Opcional" />
+                    </mat-form-field>
+                </td>
+            </table>
+            <table>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefone 1</mat-label>
+                        <input matInput formControlName="numero_1" required />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefone 2</mat-label>
+                        <input matInput formControlName="numero_2" placeholder="Opcional" />
+                    </mat-form-field>
+                </td>
+            </table>
+            <button mat-raised-button color="primary" type="submit" [disabled]="editInfoForm.invalid || editInfoForm.pristine">Atualizar</button>
+        </form>
     </mat-card-content>
 </mat-card>
 

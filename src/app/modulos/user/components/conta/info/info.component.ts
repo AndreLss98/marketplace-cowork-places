@@ -24,12 +24,13 @@ export class InfoComponent implements OnInit {
   public documentos = [];
   public displayedColumns = [ 'Nome', 'Action' ];
 
+  public editInfoForm: FormGroup;
   public editBankAccountForm: FormGroup;
 
   constructor(
     private http: HttpClient,
     public formBuilder: FormBuilder,
-    public user: UserService,
+    public userService: UserService,
     public documentosService: DocumentosService,
     private contaBancariaService: ContaBancariaService,
   ) {
@@ -39,13 +40,21 @@ export class InfoComponent implements OnInit {
       agencia: ["", Validators.required],
       numero: ["", Validators.required]
     });
+
+    this.editInfoForm = formBuilder.group({
+      id: [null, Validators.required],
+      cpf: ["", []],
+      numero_1: ["", [Validators.required]],
+      numero_2: ["", []]
+    });
   }
 
   ngOnInit(): void {
-    console.log("User: ", this.user.user_data);
-    this.dataNascimento = this.formatDate(new Date(this.user.user_data.data_nascimento));
+    console.log("User: ", this.userService.user_data);
+    this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
+    this.resetInfoForm();
 
-    if (this.user.user_data.conta_bancaria) {
+    if (this.userService.user_data.conta_bancaria) {
       this.resetBankAccountForm();
     }
 
@@ -118,22 +127,37 @@ export class InfoComponent implements OnInit {
   }
 
   public actionBankAccountForm() {
-    if (this.editBankAccountForm.status === "VALID") {
-      this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value).subscribe((response: any) => {
-        this.user.user_data.conta_bancaria = response;
-        this.resetBankAccountForm();
-      }, (error) => {
-        console.log("Update account error: ", error);
-      })
-    }
+    this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value).subscribe((response: any) => {
+      this.userService.user_data.conta_bancaria = response;
+      this.resetBankAccountForm();
+    }, (error) => {
+      console.log("Update account error: ", error);
+    });
+  }
+
+  public actionInfoForm() {
+    this.userService.atualizarDadosPessoais(this.editInfoForm.value).subscribe(response => {
+      this.editInfoForm.markAsPristine()
+    }, (error) => {
+      console.log("Edit info error: ", error);
+    });
   }
 
   private resetBankAccountForm() {
     this.editBankAccountForm.reset({
-      banco: this.user.user_data.conta_bancaria.banco,
-      tipo: this.user.user_data.conta_bancaria.tipo,
-      agencia: this.user.user_data.conta_bancaria.agencia,
-      numero: this.user.user_data.conta_bancaria.numero,
+      banco: this.userService.user_data.conta_bancaria.banco,
+      tipo: this.userService.user_data.conta_bancaria.tipo,
+      agencia: this.userService.user_data.conta_bancaria.agencia,
+      numero: this.userService.user_data.conta_bancaria.numero,
+    });
+  }
+
+  private resetInfoForm() {
+    this.editInfoForm.reset({
+      id: this.userService.user_data.id,
+      cpf: this.userService.user_data.cpf,
+      numero_1: this.userService.user_data.numero_1,
+      numero_2: this.userService.user_data.numero_2
     });
   }
 
