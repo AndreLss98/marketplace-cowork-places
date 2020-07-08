@@ -5,4 +5,4 @@ services:
         volumes: 
             - ../placeet-app-angular/dist/place-et:/usr/share/nginx/html
         ports: 
-            - 8082:80
+            - 40:80

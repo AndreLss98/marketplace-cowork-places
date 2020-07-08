@@ -49,6 +49,9 @@ export class CriarAnuncioComponent implements OnInit {
   // stepper
   @ViewChild('stepper') stepper: MatStepper;
 
+  // Flag de controle de campos de endereço,
+  public cep_validado:boolean = false;
+
   // Entrada e saida para simular valor
   public entrada;
   public saida;
@@ -66,19 +69,22 @@ export class CriarAnuncioComponent implements OnInit {
   // Valor maximo da taxa
   public max_taxa;
 
+  // Termos
+  public termos: FormGroup;
+
   // Dados cadastrais
   public dados_cadastrais: FormGroup;
-  titulo = new FormControl('', [Validators.required]);
+  titulo = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   tipo = new FormControl('', [Validators.required]); // id
-  descricao = new FormControl('', [Validators.required]);
+  descricao = new FormControl('', [Validators.required, Validators.maxLength(500), Validators.minLength(2)]);
   cep = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{8}$/), Validators.minLength(8), Validators.maxLength(8)]);
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
-  rua = new FormControl('', [Validators.required]);
-  bairro = new FormControl('', [Validators.required]);
+  rua = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
+  bairro = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   numero = new FormControl(null);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
-  complemento = new FormControl('', [Validators.required]);
+  complemento = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   proprietario = new FormControl('', [Validators.required]);
   escritura = new FormControl('', [Validators.required]);
   contrato_locacao = new FormControl('');
@@ -166,7 +172,7 @@ export class CriarAnuncioComponent implements OnInit {
     })
   }
 
-  carregarCaracteristicas(){
+  public carregarCaracteristicas(){
     this.caracService.getAll().subscribe(response => {
       console.log(response);
       response.forEach(element => {
@@ -180,39 +186,48 @@ export class CriarAnuncioComponent implements OnInit {
     });
   }
 
-  loadDistritoByEstado(){
+  public loadDistritoByEstado(){
     let uf_id = this.estado.value;
     this.ibge.getCidadesPorEstado(uf_id).subscribe( response => {
       this.distritos = response;
-    })
+    });
   }
 
-  validarCep(){
+  public verificaCidade(){
+    if(this.cidade.value != 520870705){
+      this.cidade.setErrors({nao_disponivel: true});
+    }
+  }
+
+  public validarCep(){
     this.viacep.validaCep(this.cep.value).subscribe( response => {
       if(response['erro'] == true){
         this.cep.setErrors({'notfound': true})
         return;
       }
+      this.cep_validado = true;
+      console.log(this.cep_validado);
       this.rua.setValue(response['logradouro']);
       this.bairro.setValue(response['bairro']);
+      this.complemento.enable();
 
       this.ibge.getMunicipioPorId(response['ibge']).subscribe( data => {
-        console.log("Peguei", data);
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.loadDistritoByEstado();
+        this.estado.disable();
       })
     }, err => {
       console.log(err);
     })
   }
 
-  formatarNumerio(campo){
+  public formatarNumerio(campo){
     let v = this[campo].value;
     v=v.replace(/\D/g,"");
     this[campo].setValue(v);
   }
 
-  carregarDocumento(event, field){
+  public carregarDocumento(event, field){
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
    
     if (!allowedExtensions.exec(event.target.files.item(0).name)) { 
@@ -235,11 +250,11 @@ export class CriarAnuncioComponent implements OnInit {
     }       
   }
 
-  checkBoxChange(elemento){
+  public checkBoxChange(elemento){
     elemento.value = !elemento.value;
   }
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+  public addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     if(type == 'entrada'){
       this.entrada = moment(event.value)
     }else if(type == 'saida'){
@@ -247,7 +262,7 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-  compressFile() {
+  public compressFile() {
     this.imageCompress.uploadFile().then(({image}) => {
       console.log(image);
       this.imageCompress.compressFile(image, 100, 50).then(
@@ -267,15 +282,15 @@ export class CriarAnuncioComponent implements OnInit {
     });
   }
 
-  removeFoto(index){
+  public removeFoto(index){
     this.imagens.splice(index, 1);
   }
 
-  changeOrder(currentPosition, newPosition){
+  public changeOrder(currentPosition, newPosition){
     this.imagens.splice(newPosition, 0, this.imagens.splice(currentPosition, 1)[0]);
   }
 
-  calculaCustoDia(): number{
+  public calculaCustoDia(): number{
     let total = 0;
     if(this.taxa.value == this.max_taxa){
       return Number(this.custo_dia.value);
@@ -286,15 +301,15 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-  calculaTaxa(): number{
+  public calculaTaxa(): number{
     return Number(this.custo_dia.value * (this.taxa.value/100))
   }
 
-  calculaTotal(): number{
+  public calculaTotal(): number{
     return Number(this.calculaCustoDia() + this.calculaTaxa());
   }
 
-  calculaTotalPeriodo():number{
+  public calculaTotalPeriodo():number{
     let b = this.entrada;
     let a = this.saida;
     if(a == undefined || b == undefined){ 
@@ -305,7 +320,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
 
-  nextStep(step: MatStepper){
+  public nextStep(step: MatStepper){
     switch (step.selectedIndex) {
       case 1:
         if(this.dados_cadastrais.valid){
@@ -335,7 +350,7 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
   
-  addInfo(){
+  public addInfo(){
     if(this.info.length >= INFORMACOES_ADICIONAIS_LIMITE){
       this.snackBar.open('Limite alcançado!', 'Ok', {duration: 5000});
       return;
@@ -344,11 +359,11 @@ export class CriarAnuncioComponent implements OnInit {
     this.info_text.setValue('');
   }
 
-  removeInfo(index){
+  public removeInfo(index){
     this.info.removeAt(index);
   }
 
-  finalizarCadastro(){
+  public finalizarCadastro(){
     let alugavel_infos = [];
     this.info.controls.forEach(element => {
       alugavel_infos.push({descricao: element.value})
