@@ -93,9 +93,6 @@
                 <div>
                     <button mat-button mat-raised-button color="primary" type="submit">Finalizar cadastro</button>
                 </div>
-                <div class="w-100" style="margin-top: 10px;" [ngStyle]="{'display': loader ? 'block' : 'none'}">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div>
             </form>
         </mat-step>
         <mat-step [stepControl]='confirmar'>
@@ -107,6 +104,9 @@
                 <div class="w-100" style="margin-top: 10px;">
                     <button class="w-100" style="font-weight: 500;" type="submit"
                     mat-button mat-raised-button color="accent" (click)="nextStep(signupStepper)">Concordar e concluir</button>
+                </div>
+                <div class="w-100" style="margin-top: 10px;" [ngStyle]="{'display': loader ? 'block' : 'none'}">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                 </div>
             </form>
         </mat-step>

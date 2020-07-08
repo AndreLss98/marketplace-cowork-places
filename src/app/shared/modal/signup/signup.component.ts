@@ -127,6 +127,7 @@ export class SignupComponent implements OnInit {
   }
 
   public nextStep(stepper: MatStepper){
+
     switch (stepper.selectedIndex) {
       case Passos.Primeiro:
 
@@ -141,8 +142,8 @@ export class SignupComponent implements OnInit {
             }
           })
         break;
-      case Passos.Segundo:
 
+      case Passos.Segundo:
       let nascimento = this.segundoPasso.controls.data_nascimento.value;
       let age = moment().diff(nascimento, 'years')
       
@@ -156,26 +157,27 @@ export class SignupComponent implements OnInit {
       case Passos.Quarto:
         // Valida Senha
         if(this.quartoPasso.valid){
+          nextStep();
+        }
+        break;
+
+      case 4:
+        if(this.confirmar.valid){
           this.editavel = false;
           this.loader = true;
           this.signup.cadastrar(this.criarUsuario()).subscribe( response => {
             this.login.login(response);
-            nextStep();
+            this.modal.closeAllModals();
           }, error => {
             this.editavel = true;
             this.loader = false;
-          })
+            this.snack.open("Ocorreu um erro!", 'OK', {duration: 2000});
+          });
+        }else{
+          this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000});
         }
         break;
-      case 4:
-
-        if(this.confirmar.valid){
-          setTimeout(() => {
-            this.modal.closeAllModals();
-          }, 250);
-        }else{
-          this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000})
-        }
+        
       default:
         nextStep();
         break;
