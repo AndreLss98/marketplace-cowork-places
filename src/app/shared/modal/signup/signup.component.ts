@@ -156,26 +156,26 @@ export class SignupComponent implements OnInit {
       case Passos.Quarto:
         // Valida Senha
         if(this.quartoPasso.valid){
-          this.editavel = false;
-          this.loader = true;
-          this.signup.cadastrar(this.criarUsuario()).subscribe( response => {
-            this.login.login(response);
-            nextStep();
-          }, error => {
-            this.editavel = true;
-            this.loader = false;
-          })
+          nextStep();
         }
         break;
       case 4:
 
         if(this.confirmar.valid){
-          setTimeout(() => {
+          this.editavel = false;
+          this.loader = true;
+          this.signup.cadastrar(this.criarUsuario()).subscribe( response => {
+            this.login.login(response);
             this.modal.closeAllModals();
-          }, 250);
+          }, error => {
+            this.editavel = true;
+            this.loader = false;
+            this.snack.open("Ocorreu um erro!", 'OK', {duration: 2000});
+          });
         }else{
-          this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000})
+          this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000});
         }
+        break;
       default:
         nextStep();
         break;
