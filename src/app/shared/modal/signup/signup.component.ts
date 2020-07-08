@@ -127,6 +127,7 @@ export class SignupComponent implements OnInit {
   }
 
   public nextStep(stepper: MatStepper){
+
     switch (stepper.selectedIndex) {
       case Passos.Primeiro:
 
@@ -141,8 +142,8 @@ export class SignupComponent implements OnInit {
             }
           })
         break;
-      case Passos.Segundo:
 
+      case Passos.Segundo:
       let nascimento = this.segundoPasso.controls.data_nascimento.value;
       let age = moment().diff(nascimento, 'years')
       
@@ -159,8 +160,8 @@ export class SignupComponent implements OnInit {
           nextStep();
         }
         break;
-      case 4:
 
+      case 4:
         if(this.confirmar.valid){
           this.editavel = false;
           this.loader = true;
@@ -176,6 +177,7 @@ export class SignupComponent implements OnInit {
           this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', {duration: 5000});
         }
         break;
+        
       default:
         nextStep();
         break;
