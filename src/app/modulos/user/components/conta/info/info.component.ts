@@ -77,6 +77,7 @@ export class InfoComponent implements OnInit {
     if (this.selectedFile) {
       let form = new FormData();
       form.append('file', this.selectedFile, this.selectedFile.name);
+      
       this.http.post(`${environment.apiUrl}/usuarios/img-perfil`, form, {
         reportProgress: true,
         observe: 'events'

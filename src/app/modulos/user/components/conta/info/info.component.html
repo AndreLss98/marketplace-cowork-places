@@ -1,6 +1,7 @@
 <mat-card>
     <div id="img-perfil">{{ userService.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
+    
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
         <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
