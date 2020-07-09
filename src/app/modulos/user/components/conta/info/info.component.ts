@@ -43,7 +43,6 @@ export class InfoComponent implements OnInit {
 
     this.editInfoForm = formBuilder.group({
       id: [null, Validators.required],
-      cpf: ["", []],
       numero_1: ["", [Validators.required]],
       numero_2: ["", []]
     });
@@ -156,7 +155,6 @@ export class InfoComponent implements OnInit {
   private resetInfoForm() {
     this.editInfoForm.reset({
       id: this.userService.user_data.id,
-      cpf: this.userService.user_data.cpf,
       numero_1: this.userService.user_data.numero_1,
       numero_2: this.userService.user_data.numero_2
     });

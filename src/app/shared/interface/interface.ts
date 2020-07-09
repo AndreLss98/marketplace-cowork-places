@@ -8,9 +8,10 @@ export interface User {
     nome: string,
     sobrenome: string,
     data_nascimento: Date,
+    cpf: string,
     numero_1: string,
     numero_2?: string
-    img_perfil: string,
+    img_perfil?: string,
     senha: string
 }
 

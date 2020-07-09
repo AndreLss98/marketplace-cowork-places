@@ -34,7 +34,8 @@
                     <input matInput type="text" name="mname" autocomplete="additional-name" placeholder="sobrenome" formControlName="sobrenome" required>
                     <mat-error>Preencha o campo corretamente!</mat-error>
                 </mat-form-field>
-                <mat-form-field class="w-50" >
+
+                <mat-form-field>
                     <mat-label>Data de nascimento</mat-label>
                     <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
                         formControlName="data_nascimento" required [errorStateMatcher]="matcher" (dateChange)='checkAge()'>
@@ -42,6 +43,12 @@
                     <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field style="margin-left: 10px">
+                    <mat-label>CPF</mat-label>
+                    <input #cpf matInput type="text" name="cpf" maxlength="14" placeholder="xxx.xxx.xxx-xx" formControlName="cpf" (keyup)=formatarCPF(cpf.value) required />
+                    <mat-error>Preencha o campo corretamente!</mat-error>
                 </mat-form-field>
                 <div style="margin-top: 5px;">
                     <button mat-button mat-raised-button color="primary" type="button" (click)="nextStep(signupStepper)">Proximo</button>

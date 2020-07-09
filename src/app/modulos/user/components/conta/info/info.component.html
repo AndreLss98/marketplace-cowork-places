@@ -27,7 +27,7 @@
                 <td>
                     <mat-form-field appearance="outline">
                         <mat-label>CPF</mat-label>
-                        <input formControlName="cpf" matInput value="" placeholder="Opcional" />
+                        <input matInput value="{{ userService.user_data.cpf }}" readonly />
                     </mat-form-field>
                 </td>
             </table>
