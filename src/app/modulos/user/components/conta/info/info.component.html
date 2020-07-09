@@ -27,7 +27,7 @@
                 <td>
                     <mat-form-field appearance="outline">
                         <mat-label>CPF</mat-label>
-                        <input matInput value="{{ userService.user_data.cpf }}" readonly />
+                        <input #cpf formControlName="cpf" maxlength="14" matInput (keyup)="formatarCPF(cpf.value)" [readonly]="!canEditCPF" [required]="canEditCPF" />
                     </mat-form-field>
                 </td>
             </table>

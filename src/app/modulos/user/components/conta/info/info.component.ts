@@ -27,6 +27,8 @@ export class InfoComponent implements OnInit {
   public editInfoForm: FormGroup;
   public editBankAccountForm: FormGroup;
 
+  public canEditCPF = false;
+
   constructor(
     private http: HttpClient,
     public formBuilder: FormBuilder,
@@ -43,6 +45,7 @@ export class InfoComponent implements OnInit {
 
     this.editInfoForm = formBuilder.group({
       id: [null, Validators.required],
+      cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]],
       numero_1: ["", [Validators.required]],
       numero_2: ["", []]
     });
@@ -51,6 +54,7 @@ export class InfoComponent implements OnInit {
   ngOnInit(): void {
     console.log("User: ", this.userService.user_data);
     this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
+    this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
 
     if (this.userService.user_data.conta_bancaria) {
@@ -155,9 +159,20 @@ export class InfoComponent implements OnInit {
   private resetInfoForm() {
     this.editInfoForm.reset({
       id: this.userService.user_data.id,
+      cpf: this.userService.user_data.cpf,
       numero_1: this.userService.user_data.numero_1,
       numero_2: this.userService.user_data.numero_2
     });
+  }
+
+  public formatarCPF(cpf: string) {
+    let formatted = cpf;
+    formatted = formatted.replace(/\D/g, "")
+    .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
+    .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
+    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
+    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
+    this.editInfoForm.controls['cpf'].setValue(formatted);
   }
 
 }
