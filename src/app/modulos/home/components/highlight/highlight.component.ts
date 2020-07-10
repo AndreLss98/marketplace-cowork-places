@@ -9,21 +9,21 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class HighlightComponent implements OnInit {
 
   public cardClass = "col-3";
-  public spaces;
-  public rooms;
+  public rooms = [];
+  public spaces = [];
 
   @HostListener('window:resize', ['$event'])
-  onResize(event){
+  onResize(event) {
     this.checkWidth();
   }
 
   constructor(
     public highlights: HighlightService
-  ) { 
+  ) {
+
   }
 
   ngOnInit(): void {
-    
     this.checkWidth();
   }
 
@@ -31,17 +31,23 @@ export class HighlightComponent implements OnInit {
     let width = $(window).width();
     if(width < 992){
       this.cardClass = "col-xl-6 d-flex justify-content-center";
-      this.spaces = this.highlights.getSomeSpaces(1)
-      this.rooms = this.highlights.getSomeRooms(1)
+      this.fetchAlugaveis(1);
     }else if(width < 1200){
       this.cardClass = "col-4";
-      this.spaces = this.highlights.getSomeSpaces(2)
-      this.rooms = this.highlights.getSomeRooms(2)
+      this.fetchAlugaveis(2);
     }else if(width > 1200){
       this.cardClass = "col-3";
-      this.spaces = this.highlights.getSomeSpaces(3)
-      this.rooms = this.highlights.getSomeRooms(3)
+      this.fetchAlugaveis(3);
     }
+  }
+
+  private fetchAlugaveis(quantity: number) {
+    this.highlights.getSome(quantity, 1).subscribe(response => {
+      this.rooms = response.results;
+    });
+    this.highlights.getSome(quantity, 2).subscribe(response => {
+      this.spaces = response.results;
+    });
   }
 
 

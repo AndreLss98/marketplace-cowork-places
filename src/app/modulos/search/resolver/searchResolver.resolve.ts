@@ -12,6 +12,6 @@ export class SearchResolver implements Resolve<any> {
   constructor(private highlight: HighlightService) {}
 
   resolve() {
-    return of(this.highlight.getSomeSpaces(20))
+    return of(this.highlight.getSome(20))
   }
 }

@@ -9,7 +9,7 @@ import { HighlightService } from 'src/app/shared/service/highlight.service';
 })
 export class SearchComponent implements OnInit {
   
-  public result;
+  public result = [];
   private quantity:number = 50;
   private offset = 'auto';
   private position;
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
     this.route.queryParams.subscribe( (data) => {
       console.log("Tem algo aqui", data)
       if(data.location){
-        this.result = this.highlight.getSomeSpaces(20)
+        // this.result = this.highlight.getSome(20)
       }
     })
   }
@@ -77,7 +77,7 @@ export class SearchComponent implements OnInit {
     if(this.quantity < 20){
       this.quantity = this.quantity + 10;
     }
-    this.result = this.highlight.getSomeSpaces(this.quantity)
+    // this.result = this.highlight.getSomeSpaces(this.quantity)
   }
 
   private checkOffset() {

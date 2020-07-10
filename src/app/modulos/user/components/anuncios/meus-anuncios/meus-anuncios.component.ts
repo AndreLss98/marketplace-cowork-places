@@ -11,12 +11,10 @@ export class MeusAnunciosComponent implements OnInit {
 
   public space: highlightItem;
 
-  constructor(
-    private spaces: HighlightService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.space = this.spaces.getSomeSpaces(1)[0];
+
   }
 
 }

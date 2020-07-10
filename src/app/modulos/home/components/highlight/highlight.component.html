@@ -11,9 +11,7 @@
             </div>
         </div>
         <div class="{{cardClass}} highlightCards" [id]='space.id' *ngFor="let space of spaces">
-            <app-highlight-items
-                [data] = "space"
-            ></app-highlight-items>
+            <app-highlight-items [data]="space"></app-highlight-items>
         </div>
     </div>
     <div style="height: 60px;"></div>
@@ -28,9 +26,7 @@
             </div>
         </div>
         <div class="{{cardClass}} highlightCards" [id]='room.id' *ngFor="let room of rooms">
-            <app-highlight-items
-                [data] = "room"
-            ></app-highlight-items>
+            <app-highlight-items [data]="room"></app-highlight-items>
         </div>
     </div>
 </div>
