@@ -1,13 +1,17 @@
 <mat-horizontal-stepper [linear]="true"  #stepper>
 
-    <mat-step>
-        <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
-        <div class="d-flex justify-content-center align-content-center">
-            <!-- <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer> -->
-            <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
-        </div>
+    <mat-step [stepControl]='termos'>
+        <form [formGroup]='termos'>
+            <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
+            <div class="d-flex justify-content-center align-content-center">
+                <mat-checkbox formControlName='termo1' required>Termo 1</mat-checkbox>
+                <mat-checkbox formControlName='termo2' required>Termo 1</mat-checkbox>
+                <!-- <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer> -->
+                <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
+            </div>
+        </form>
         <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-            <button mat-button mat-raised-button matStepperNext color="primary">Aceitar e prosseguir</button>
+            <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e prosseguir</button>
         </div>
     </mat-step>
 
@@ -53,7 +57,10 @@
                         <input matInput formControlName="cep"
                             (keyup)="formatarNumerio('cep')" (blur)="validarCep()" maxlength="8">
                         <mat-error *ngIf="cep.hasError('notfound')">CEP não encontrado</mat-error>
-                        <mat-error *ngIf="!cep.hasError('notfound')">Preencha o campo corretamente</mat-error>
+                        <mat-error *ngIf="!cep.hasError('notfound') && !this.cep.hasError('nao_disponivel')">Preencha o campo corretamente</mat-error>
+                        <mat-error *ngIf="this.cep.hasError('nao_disponivel')">
+                            Os nosso serviços ainda não estão disponíveis nessa cidade. Aguarde!
+                        </mat-error>
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-100">
@@ -85,12 +92,9 @@
     
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Cidade</mat-label>
-                        <mat-select formControlName="cidade" [disabled]="distritos == undefined" matInput (selectionChange)="verificaCidade()">
+                        <mat-select formControlName="cidade" matInput (selectionChange)="verificaCidade()">
                             <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="this.cidade.hasError('nao_disponivel')">
-                            Os nosso serviços ainda não estão disponíveis nessa cidade. Aguarde!
-                        </mat-error>
                     </mat-form-field>
                 </div>
 
