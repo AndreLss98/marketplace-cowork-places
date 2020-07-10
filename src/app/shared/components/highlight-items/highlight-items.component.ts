@@ -19,7 +19,6 @@ export class HighlightItemsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('Data: ', this.data);
     this.data.valor = Number(this.data.valor)
   }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ALUGAVEL_STATUS } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class HighlightService {
 
   public getSome(quantity: number, type?: number) {
     let filters: any = {
-      limit: quantity
+      limit: quantity,
+      status: ALUGAVEL_STATUS.APPROVED.value
     }
 
     if (type) filters.tipo_id = type;
