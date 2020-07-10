@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { ALUGAVEL_STATUS } from './../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class AlugaveisService {
     const params = new HttpParams()
     .set('page', page.toString())
     .set('limit', size.toString())
-    .set('filters', JSON.stringify({disponivel: true}));
+    .set('filters', JSON.stringify({status: ALUGAVEL_STATUS.APPROVED.value}));
 
     return this.http.get<any>(`${environment.apiUrl}/alugaveis`, { params });
   }
@@ -25,7 +27,7 @@ export class AlugaveisService {
     const params = new HttpParams()
     .set('page', page.toString())
     .set('limit', size.toString())
-    .set('filters', JSON.stringify({disponivel: false}));
+    .set('filters', JSON.stringify({status: ALUGAVEL_STATUS.WAITING.value}));
 
     return this.http.get<any>(`${environment.apiUrl}/alugaveis`, { params });
   }

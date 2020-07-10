@@ -45,12 +45,14 @@ export class ListaAlugaveisComponent implements OnInit {
 
   public fetchAllNotAvailable() {
     this.alugaveisService.getAllNotAvailable(this.notAvailablesPage, this.notAvailablesPageSize).subscribe(response => {
+      console.log('Not Available: ', response);
       this.alugaveisNaoDisponiveis = response.results;
     });
   }
 
   public fetchAllAvailable() {
     this.alugaveisService.getAllAvailable(this.availablesPage, this.availablesPageSize).subscribe(response => {
+      console.log('Available: ', response);
       this.alugaveisDisponiveis = response.results;
     });
   }

@@ -25,6 +25,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput value="{{ user.email }}" readonly />
+                    <mat-hint *ngIf="!user.email_validado" align="end" style="color: red; font-size: 15px;">Email não verificado!</mat-hint>
                 </mat-form-field>
             </td>
         </table>

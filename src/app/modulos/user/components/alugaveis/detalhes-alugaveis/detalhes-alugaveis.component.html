@@ -1,7 +1,18 @@
 <mat-card>
     <mat-card-title>{{ alugavel.titulo}}</mat-card-title>
     <mat-card-subtitle>{{ alugavel.tipo.nome }}</mat-card-subtitle>
-    <mat-checkbox [(ngModel)]="alugavel.disponivel" (change)="onAvailableChange()">Disponível?</mat-checkbox>
+    <!-- <mat-checkbox [(ngModel)]="alugavel.disponivel" (change)="onStatusChange()">Disponível?</mat-checkbox> -->
+    <form [formGroup]="statusForm" (ngSubmit)="statusChange()">
+        <mat-form-field appearance="fill">
+            <mat-label>Status Alugavel</mat-label>
+            <mat-select formControlName="status" (change)="statusChange()">
+                <mat-option *ngFor="let stat of status" [value]="stat.value">
+                    {{ stat.name | uppercase }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button style="margin-left: 10px;" mat-raised-button color="accent" type="submit" [disabled]="statusForm.invalid || statusForm.pristine">Atualizar</button>
+    </form>
     <mat-card-content>
         <p>{{alugavel.descricao}}</p>
         <table>
@@ -75,12 +86,12 @@
                 <mat-header-cell *matHeaderCellDef> Caracteristicas </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
             </ng-container>
-        
+
             <ng-container matColumnDef="valor">
                 <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.valor}}</mat-cell>
             </ng-container>
-        
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
@@ -106,14 +117,15 @@
                 <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
             </ng-container>
-        
+
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <a mat-stroked-button color="primary" target="_blank" [href]="backURL + 'docs/' + element.url">Visualizar</a>
+                    <a mat-stroked-button color="primary" target="_blank"
+                        [href]="backURL + 'docs/' + element.url">Visualizar</a>
                 </mat-cell>
             </ng-container>
-        
+
             <mat-header-row *matHeaderRowDef="displayedDocumentsColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedDocumentsColumns;"></mat-row>
         </mat-table>

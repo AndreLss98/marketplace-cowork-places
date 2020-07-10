@@ -69,7 +69,7 @@ export class AlugavelService {
     return this.http.post<any>(environment.apiUrl+'/alugaveis', alugavel);
   }
 
-  public alterAvailable(id, disponivel) {
-    return this.http.put(`${environment.apiUrl}/alugaveis/${id}`, { disponivel });
+  public alterStatus(id, status) {
+    return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, { status });
   }
 }

@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
+import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_STATUS } from './../../../../../shared/constants/constants';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-detalhes-alugaveis',
   templateUrl: './detalhes-alugaveis.component.html',
@@ -17,23 +20,39 @@ export class DetalhesAlugaveisComponent implements OnInit {
   public displayedColumns = [ 'caracteristica', 'valor' ];
   public displayedDocumentsColumns = [ 'documento', 'action' ];
 
+  public status = Object.values(ALUGAVEL_STATUS);
+
+  public statusForm: FormGroup;
+  
   constructor(
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private alugavelService: AlugavelService
   ) {
-
+    this.statusForm = formBuilder.group({
+      status: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data.alugavel;
+    this.resetStatusForm();
     console.log('Alugavel: ', this.alugavel);
   }
 
-  onAvailableChange() {
-    this.alugavelService.alterAvailable(this.alugavel.id, this.alugavel.disponivel).subscribe(response => {
+  statusChange() {
+    this.alugavel.status = this.statusForm.value.status;
+    this.alugavelService.alterStatus(this.alugavel.id, this.alugavel.status).subscribe(response => {
       console.log('Alterado');
+      this.resetStatusForm()
     }, (error) => {
       this.alugavel.disponivel = !this.alugavel.disponivel;
+    })
+  }
+
+  private resetStatusForm() {
+    this.statusForm.reset({
+      status: this.alugavel.status
     })
   }
 
