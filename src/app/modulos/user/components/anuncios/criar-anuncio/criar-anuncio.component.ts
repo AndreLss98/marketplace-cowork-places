@@ -71,6 +71,8 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Termos
   public termos: FormGroup;
+  termo1 = new FormControl('', [Validators.required]);
+  termo2 = new FormControl('', [Validators.required]);
 
   // Dados cadastrais
   public dados_cadastrais: FormGroup;
@@ -123,6 +125,11 @@ export class CriarAnuncioComponent implements OnInit {
     private caracService: CaracteristicasService,
     private imageCompress: NgxImageCompressService
   ) {
+
+    this.termos = this.form.group({
+      termo1: this.termo1,
+      termo2: this.termo2
+    })
 
     this.dados_cadastrais = this.form.group({
       titulo: this.titulo,
@@ -321,8 +328,20 @@ export class CriarAnuncioComponent implements OnInit {
 
 
   public nextStep(step: MatStepper){
+    console.log(step.selectedIndex);
     switch (step.selectedIndex) {
+      case 0: 
+        if(!this.termos.valid){
+          this.snackBar.open("Para prosseguir aceite os termos", "Ok", {duration: 5000})
+        }else{
+          nextStep();
+        }
+        break;
       case 1:
+        if(!this.escritura.valid) {
+          this.snackBar.open("Insira todos os documentos necessarios", "OK", {duration: 5000});
+          return;
+        }
         if(this.dados_cadastrais.valid){
           this.carregarCaracteristicas();
           nextStep();
