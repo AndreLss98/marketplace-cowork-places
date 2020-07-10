@@ -24,6 +24,13 @@
         <mat-step [stepControl]="segundoPasso" [editable]="editavel">
             <form [formGroup]="segundoPasso">
                 <ng-template matStepLabel>Preencha o seus dados pessoais!</ng-template>
+                
+                <mat-form-field class="w-100">
+                    <mat-label>CPF</mat-label>
+                    <input #cpf matInput type="text" name="cpf" maxlength="14" placeholder="xxx.xxx.xxx-xx" formControlName="cpf" (keyup)=formatarCPF(cpf.value) required />
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+
                 <mat-form-field class="w-100">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" name="fname" autocomplete="given-name"  placeholder="Nome" formControlName="nome" required>
@@ -45,11 +52,6 @@
                     <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
                 </mat-form-field>
 
-                <mat-form-field style="margin-left: 10px">
-                    <mat-label>CPF</mat-label>
-                    <input #cpf matInput type="text" name="cpf" maxlength="14" placeholder="xxx.xxx.xxx-xx" formControlName="cpf" (keyup)=formatarCPF(cpf.value) required />
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
                 <div style="margin-top: 5px;">
                     <button mat-button mat-raised-button color="primary" type="button" (click)="nextStep(signupStepper)">Proximo</button>
                 </div>
