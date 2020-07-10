@@ -1,6 +1,6 @@
-import { element } from 'protractor';
+import { CURRENCY_PATTERN } from './../../../../../shared/constants/constants';
+import { Router } from '@angular/router';
 import { UserService } from './../../../../../shared/service/user.service';
-import { LoginService } from 'src/app/shared/service/login.service';
 import { Alugavel } from './../../../../../shared/interface/interface';
 import { AlugavelService } from './../../../../../shared/service/alugavel.service';
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
@@ -45,6 +45,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Custom erro matcher
   matcher = new MyErrorStateMatcher();
+  public valor;
 
   // stepper
   @ViewChild('stepper') stepper: MatStepper;
@@ -106,7 +107,7 @@ export class CriarAnuncioComponent implements OnInit {
   // Preço e taxa
   public valores: FormGroup;
   taxa = new FormControl(0, [Validators.required]);
-  custo_dia = new FormControl('', [Validators.required]);
+  custo_dia = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
   
   // imagens
   public imagens = [];
@@ -123,7 +124,8 @@ export class CriarAnuncioComponent implements OnInit {
     private viacep: ViacepService,
     private alugavel: AlugavelService,
     private caracService: CaracteristicasService,
-    private imageCompress: NgxImageCompressService
+    private imageCompress: NgxImageCompressService,
+    private router: Router
   ) {
 
     this.termos = this.form.group({
@@ -179,11 +181,15 @@ export class CriarAnuncioComponent implements OnInit {
     })
   }
 
+  public getFormattedPrice(campo) {
+    let v = this[campo].value;
+    v=v.replace(/[&\/\\#,+()$~%'":*?<>{} A-Za-z]/g,"");
+    this[campo].setValue(v);
+  }
+
   public carregarCaracteristicas(){
     this.caracService.getAll().subscribe(response => {
-      console.log(response);
       response.forEach(element => {
-        console.log(element);
         if(element.id > 6){
           element.value = false;
           this.caracteristicas.push(element);
@@ -219,14 +225,12 @@ export class CriarAnuncioComponent implements OnInit {
       this.complemento.enable();
 
       this.ibge.getMunicipioPorId(response['ibge']).subscribe( data => {
-        console.log("Data:", data);
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
         this.cidade.setValue(data['microrregiao'].id);
         this.verificaCidade();
         this.estado.disable();
         this.cidade.disable();
-        console.log(this.cidade.value);
       })
     }, err => {
       // console.log(err);
@@ -250,7 +254,6 @@ export class CriarAnuncioComponent implements OnInit {
     }else{
       this.alugavel.saveDoc(event.target.files.item(0), field)
         .subscribe(response=>{
-          console.log(response);
           let doc = {
             nome: field,
             id: response.id
@@ -276,7 +279,6 @@ export class CriarAnuncioComponent implements OnInit {
 
   public compressFile() {
     this.imageCompress.uploadFile().then(({image}) => {
-      console.log(image);
       this.imageCompress.compressFile(image, 100, 50).then(
         result => {
           let image = {
@@ -353,13 +355,18 @@ export class CriarAnuncioComponent implements OnInit {
         }
         break;
       case 2:
+        console.log(this.imagens);
+        if(this.imagens.length == 0){
+          this.snackBar.open("Adicione imagens ao seu espaço", "OK", {duration: 5000});
+          return;
+        }
         if(this.caracteristicas_espaco.valid){
           nextStep();
         }
         break;
       case 3:
         if(this.valores.valid){
-          nextStep();
+          this.finalizarCadastro( nextStep() );
         }
         break;
       default:
@@ -375,6 +382,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
   
   public addInfo(){
+    if(this.info_text.value == '' || this.info_text.value == undefined) return;
     if(this.info.length >= INFORMACOES_ADICIONAIS_LIMITE){
       this.snackBar.open('Limite alcançado!', 'Ok', {duration: 5000});
       return;
@@ -387,7 +395,7 @@ export class CriarAnuncioComponent implements OnInit {
     this.info.removeAt(index);
   }
 
-  public finalizarCadastro(){
+  public finalizarCadastro(callback){
     let alugavel_infos = [];
     this.info.controls.forEach(element => {
       alugavel_infos.push({descricao: element.value})
@@ -445,8 +453,7 @@ export class CriarAnuncioComponent implements OnInit {
     console.log(alugavel);
 
     this.alugavel.createAlugavel(alugavel).subscribe(response => {
-      alert("Deu bom")
-      console.log("Cadastro criado: ", response);
+      callback();
     }, err => console.log("Deu erro: ", err));
   }
 

@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="true"  #stepper>
+<mat-horizontal-stepper [linear]="false"  #stepper>
 
     <mat-step [stepControl]='termos'>
         <form [formGroup]='termos'>
@@ -268,7 +268,8 @@
                     
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Custo por dia</mat-label>
-                        <input matInput formControlName='custo_dia' (keyup)="formatarNumerio('custo_dia')">
+                        <input matInput formControlName='custo_dia' (keyup)="getFormattedPrice('custo_dia')" maxlength="10">
+                        <mat-error>Formato invalido</mat-error>
                     </mat-form-field>
     
                     <div class="w-100">
@@ -317,6 +318,11 @@
 
     <mat-step>
         <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
-        <button mat-button mat-raised-button (click)="finalizarCadastro()">Finalizar cadastro</button>
+        <div class="w-100 d-flex justify-content-center align-items-center flex-column">
+            <img src="assets/svg/checkmark.svg" class="checkmark">
+            <span style="font-weight: 500; font-size: 30px;">Cadastro finalizado!</span>
+            <span>Aguarde a avaliação do seu espaço antes da publicação.</span>
+        </div>
+        <button mat-button mat-raised-button routerLink="/home">Home</button>
     </mat-step>
 </mat-horizontal-stepper>
