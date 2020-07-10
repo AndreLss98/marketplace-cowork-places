@@ -1,5 +1,6 @@
+import { CriarAnuncioGuard } from './guard/criar-anuncio.guard';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
@@ -33,9 +34,13 @@ const routes: Routes = [
     { path: 'questionario', component: ListaPerguntasComponent},
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
-    { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     { path: 'condicoes', component: CondicoesComponent},
+        { 
+          path: 'anuncios/criaranuncio', 
+          component: CriarAnuncioComponent,
+          canActivate: [CriarAnuncioGuard]
+        },
     { 
       path: 'usuarios/:id',
       resolve: {
