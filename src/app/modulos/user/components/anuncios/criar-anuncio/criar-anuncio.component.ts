@@ -201,8 +201,9 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public verificaCidade(){
-    if(this.cidade.value != 520870705){
-      this.cidade.setErrors({nao_disponivel: true});
+    // 520870705 = GOIANIA
+    if(this.cidade.value != 52010){
+      this.cep.setErrors({nao_disponivel: true});
     }
   }
 
@@ -213,18 +214,22 @@ export class CriarAnuncioComponent implements OnInit {
         return;
       }
       this.cep_validado = true;
-      console.log(this.cep_validado);
       this.rua.setValue(response['logradouro']);
       this.bairro.setValue(response['bairro']);
       this.complemento.enable();
 
       this.ibge.getMunicipioPorId(response['ibge']).subscribe( data => {
+        console.log("Data:", data);
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
-        this.loadDistritoByEstado();
+        this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
+        this.cidade.setValue(data['microrregiao'].id);
+        this.verificaCidade();
         this.estado.disable();
+        this.cidade.disable();
+        console.log(this.cidade.value);
       })
     }, err => {
-      console.log(err);
+      // console.log(err);
     })
   }
 
