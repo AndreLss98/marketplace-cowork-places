@@ -18,6 +18,7 @@ import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuari
 import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
 import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-resolver.service';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
+import { CondicoesComponent } from './components/condicoes/condicoes.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -34,6 +35,7 @@ const routes: Routes = [
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'anuncios/criaranuncio', component: CriarAnuncioComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
+    { path: 'condicoes', component: CondicoesComponent},
     { 
       path: 'usuarios/:id',
       resolve: {
