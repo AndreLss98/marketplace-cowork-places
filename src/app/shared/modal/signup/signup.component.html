@@ -107,8 +107,10 @@
         <mat-step [stepControl]='confirmar'>
             <ng-template matStepLabel>Finalizar</ng-template>
             <form [formGroup]='confirmar'>
-                <mat-checkbox required formControlName='termo_privacidae'>Eu aceito os <a href="">Termos de Uso e serviço da Placeet</a>.</mat-checkbox>
-                <mat-checkbox required formControlName='termo_servico'>Eu aceito e dou meu consentimento quanto a <a>Política de Privacidade e Dados da Placeet</a>.</mat-checkbox>
+                <div class="d-flex flex-column">
+                    <mat-checkbox required formControlName='termo_privacidae'>Eu aceito os <a href="">Termos de Uso e serviço da Placeet</a>.</mat-checkbox>
+                    <mat-checkbox required formControlName='termo_servico'>Eu aceito e dou meu consentimento quanto a <a>Política de Privacidade e Dados da Placeet</a>.</mat-checkbox>
+                </div>
                 <re-captcha formControlName='recaptcha'></re-captcha>
                 <div class="w-100" style="margin-top: 10px;">
                     <button class="w-100" style="font-weight: 500;" type="submit"
