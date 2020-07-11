@@ -3,16 +3,24 @@
     <mat-step [stepControl]='termos'>
         <form [formGroup]='termos'>
             <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
-            <div class="d-flex justify-content-center align-content-center">
-                <mat-checkbox formControlName='termo1' required>Termo 1</mat-checkbox>
-                <mat-checkbox formControlName='termo2' required>Termo 1</mat-checkbox>
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e prosseguir</button>
+            </div>
+            <div class="d-flex justify-content-center align-content-center flex-column">
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo1' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Pagamento, Cancelamento e Reembolso</a>.</mat-checkbox>
+                </mat-expansion-panel>
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo2' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Uso e Responsabilidades</a>.</mat-checkbox>
+                </mat-expansion-panel>
                 <!-- <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer> -->
                 <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
             </div>
         </form>
-        <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-            <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e prosseguir</button>
-        </div>
     </mat-step>
 
     <!-- Dados cadastrais -->
