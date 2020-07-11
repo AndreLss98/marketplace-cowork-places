@@ -431,8 +431,8 @@ export class CriarAnuncioComponent implements OnInit {
       alugavel_imagens.push(element.id);
     });
 
-    let alugavel_cidade = this.distritos.find(element => element.id = this.cidade.value).nome;
-    let alugavel_estado = this.estados.find(element => element.id = this.estado.value).nome;
+    let alugavel_cidade = this.distritos.find(element => element.id == this.cidade.value).nome;
+    let alugavel_estado = this.estados.find(element => element.id == this.estado.value).nome;
 
     let alugavel: Alugavel = {
       anunciante_id : this.user.user_data.id,
