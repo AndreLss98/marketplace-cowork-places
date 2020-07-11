@@ -27,7 +27,7 @@ export class AppComponent {
       console.log("meus params: ",params);
       this.hideFooter = params["hideFooter"] || false;
       this.hideHeader = params["hideHeader"] || false;
-    })
+    }).unsubscribe();
   }
 }
 
