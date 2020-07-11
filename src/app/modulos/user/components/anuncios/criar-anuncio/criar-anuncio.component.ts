@@ -65,7 +65,7 @@ export class CriarAnuncioComponent implements OnInit {
   // Politica de uso
   public politica_de_uso = environment.apiUrl + '/md/politica_de_uso.md';
   // Item para ser adicionado a lista de info
-  public info_text = new FormControl('');
+  public info_text = new FormControl('', [Validators.minLength(2), Validators.maxLength(50)]);
 
   // Valor maximo da taxa
   public max_taxa;
@@ -84,7 +84,7 @@ export class CriarAnuncioComponent implements OnInit {
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
   rua = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   bairro = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-  numero = new FormControl(null);
+  numero = new FormControl(null, [Validators.maxLength(20)]);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
@@ -95,12 +95,12 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Caracteristicas do espaço
   public caracteristicas_espaco: FormGroup;
-  area = new FormControl('', [Validators.required]);
-  numero_pessoas = new FormControl('', [Validators.required]);
+  area = new FormControl('', [Validators.required, Validators.maxLength(10)]);
+  numero_pessoas = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   quantidade_mesas = new FormControl('', [Validators.required]);
-  vagas = new FormControl('', [Validators.required]);
+  vagas = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   internet = new FormControl('', [Validators.required]);
-  horario_funcionamento = new FormControl('', [Validators.required])
+  horario_funcionamento = new FormControl('', [Validators.required, Validators.maxLength(100)])
   caracteristicas = [];
   info =  new FormArray([]);
 

@@ -75,7 +75,8 @@
 
                     <mat-form-field appearance="outline" class="w-25">
                         <mat-label>Numero</mat-label>
-                        <input matInput formControlName="numero" (keyup)="formatarNumerio('numero')">
+                        <input matInput maxlength="20"
+                            formControlName="numero" (keyup)="formatarNumerio('numero')">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-75">
@@ -188,13 +189,15 @@
             <div class="w-100 d-flex flex-row flex-wrap">
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Área</mat-label>
-                    <input matInput formControlName="area" placeholder="m²" (keyup)="formatarNumerio('area')">
+                    <input matInput  maxlength="10"
+                        formControlName="area" placeholder="m²" (keyup)="formatarNumerio('area')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Quantidade de Vagas de estacionamento</mat-label>
-                    <input matInput formControlName="vagas" placeholder="Quantidade" (keyup)="formatarNumerio('vagas')">
+                    <input matInput  maxlength="10"
+                        formControlName="vagas" placeholder="Quantidade" (keyup)="formatarNumerio('vagas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
@@ -209,19 +212,22 @@
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Quantidade de Mesas</mat-label>
-                    <input matInput formControlName='quantidade_mesas' (keyup)="formatarNumerio('quantidade_mesas')">
+                    <input matInput  maxlength="10"
+                        formControlName='quantidade_mesas' (keyup)="formatarNumerio('quantidade_mesas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Numero de pessoas</mat-label>
-                    <input matInput formControlName='numero_pessoas' (keyup)="formatarNumerio('numero_pessoas')">
+                    <input matInput  maxlength="10"
+                        formControlName='numero_pessoas' (keyup)="formatarNumerio('numero_pessoas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Horário de Funcionamento</mat-label>
-                    <input matInput formControlName='horario_funcionamento' placeholder="Ex.: 24 horas / 7 dias por semana">
+                    <input matInput maxlength="100"
+                        formControlName='horario_funcionamento' placeholder="Ex.: 24 horas / 7 dias por semana">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
@@ -237,7 +243,8 @@
                 <div class="w-100 input-group mb-3">
                     <span class="w-100 text-left" style="margin-top: 5px;">Informações adicionais</span>
                     <div class="custom-file">
-                        <input formControlName="info_text" placeholder="Ex.: Proibido fumar" class="form-control">
+                        <input formControlName="info_text" maxlength="50" minlength="2"
+                            placeholder="Ex.: Proibido fumar" class="form-control">
                     </div>
                     <div class="input-group-append">
                         <button class="input-group-text alert-success" type="button" (click)="addInfo()">Adicionar</button>    
