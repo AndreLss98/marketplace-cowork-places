@@ -35,7 +35,7 @@ export class MeusAnunciosComponent implements OnInit {
 
   editSpace(idSpace){
     console.log(idSpace);
-    this.router.navigate(['/user/anuncios/editaranuncio'], {queryParams: {id: idSpace} , skipLocationChange: true});
+    this.router.navigate(['/user/anuncios/editaranuncio'], {queryParams: {id: idSpace, edit: true} , skipLocationChange: true});
   }
 
 }

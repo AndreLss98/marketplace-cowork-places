@@ -1,5 +1,5 @@
 import { CURRENCY_PATTERN } from './../../../../../shared/constants/constants';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './../../../../../shared/service/user.service';
 import { Alugavel } from './../../../../../shared/interface/interface';
 import { AlugavelService } from './../../../../../shared/service/alugavel.service';
@@ -42,6 +42,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class CriarAnuncioComponent implements OnInit {
+
+  private editMode = false;
 
   // Custom erro matcher
   matcher = new MyErrorStateMatcher();
@@ -125,7 +127,7 @@ export class CriarAnuncioComponent implements OnInit {
     private alugavel: AlugavelService,
     private caracService: CaracteristicasService,
     private imageCompress: NgxImageCompressService,
-    private router: Router
+    private route: ActivatedRoute
   ) {
 
     this.termos = this.form.group({
@@ -168,6 +170,12 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(response => {
+      if(response.edit){
+        this.editMode = response.edit;
+      }
+    }).unsubscribe();
+
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
     });
