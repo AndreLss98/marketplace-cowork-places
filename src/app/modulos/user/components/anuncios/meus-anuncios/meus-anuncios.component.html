@@ -1,5 +1,5 @@
 <mat-tab-group class="w-100 myTabGroup" mat-align-tabs="center">
-    <mat-tab [label]="'Aprovados '+espacos_aprovado.length">
+    <mat-tab [label]="'Aprovados '+espacos_aprovados.length">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <mat-card class="myCard" routerLink="/user/anuncios/criaranuncio" style="margin: 5px">
                 <div class="d-flex h-100 align-items-center justify-content-center flex-column">
@@ -7,9 +7,21 @@
                     <span>Adicionar um espaço</span>  
                 </div>
             </mat-card>
-
+            <div style="margin: 5px; position: relative;" *ngFor="let aprovados of espacos_aprovados">
+                <button type="button" mat-mini-fab color="warn" (click)="editSpace(aprovados.id)"
+                    style="position: absolute; top: 5px; right: 5px; z-index: 99;">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <app-highlight-items [data]='aprovados'></app-highlight-items>
+            </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Em avaliação '+ espacos_em_avaliaco.length" style="margin-bottom: 10px;"> Content 2 </mat-tab>
+    <mat-tab [label]="'Em avaliação '+ espacos_em_avaliaco.length" style="margin-bottom: 10px;">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+            <div style="margin: 5px;" *ngFor="let aguardando of espacos_em_avaliaco">
+                <app-highlight-items [data]='aguardando'></app-highlight-items>
+            </div>
+        </div>
+    </mat-tab>
     <mat-tab [label]="'Reprovados '+ espacos_reprovados.length" style="margin-bottom: 10px;"> Content 3 </mat-tab>
 </mat-tab-group>
