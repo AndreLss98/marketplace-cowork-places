@@ -5,13 +5,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <mat-form-field appearance="none" style="width: 100%;">
-                    <mat-label style="color: white;">Busque por cidade ou bairro.</mat-label>
-                    <input type="text" matInput formControlName="location" class="inputCidade" [matAutocomplete]="auto" placeholder="Ex: Goiânia"  maxlength="40">
-                    <mat-autocomplete #auto="matAutocomplete"> 
-                        <mat-option *ngFor="let option of options" [value]="option">
-                            {{ option }}
-                        </mat-option>
+                <mat-form-field appearance="none" class="w-100">
+                    <input type="text" matInput formControlName="location" class="inputCidade" [matAutocomplete]="auto" placeholder="Busque por bairro Ex: Marista" maxlength="40">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option }}</mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
             </div>
@@ -23,16 +20,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Selecione
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button">Action</button>
-                    <button class="dropdown-item" type="button">Another action</button>
-                    <button class="dropdown-item" type="button">Something else here</button>
-                    </div>
-                </div>
+                <mat-select formControlName="tipo" placeholder="Busque por tipo de anúncio" >
+                    <mat-option>Todos</mat-option>
+                    <mat-option *ngFor="let tipo of tiposServico" [value]="tipo.id">{{ tipo.nome }}</mat-option>
+                </mat-select>
             </div>
         </div>
         <div class="row" style="padding-bottom: 0; padding-top: 10px;">
@@ -42,12 +33,12 @@
         </div>
         <div class="row" id="searchBoxValue">
             <div class="col-6">
-                <input [(ngModel)]="searchInputs.minValue" formControlName="minValue" style="width: 100%;" 
-                    type="text" placeholder="mín" class="btn" maxlength="10" (keyup)="checkText('minValue')">
+                <input formControlName="minValue" style="width: 100%;" type="text"
+                    placeholder="mín" class="btn" maxlength="10" (keyup)="checkText('minValue')">
             </div>
             <div class="col-6">
-                <input [(ngModel)]="searchInputs.maxValue" formControlName="maxValue" style="width: 100%;" 
-                    type="text" placeholder="máx" class="btn" maxlength="10" (keyup)="checkText('maxValue')">
+                <input formControlName="maxValue" style="width: 100%;" type="text"
+                    placeholder="máx" class="btn" maxlength="10" (keyup)="checkText('maxValue')">
             </div>
         </div>
         <div class="row" style="padding-bottom: 0; padding-top: 10px;">
@@ -57,12 +48,12 @@
         </div>
         <div class="row" id="searchBoxArea">
             <div class="col-6">
-                <input [(ngModel)]="searchInputs.minArea" formControlName="minArea" style="width: 100%;" 
-                    type="text" placeholder="mín" class="btn" maxlength="4" (keyup)="checkText('minArea')">
+                <input formControlName="minArea" style="width: 100%;" type="text"
+                    placeholder="mín" class="btn" maxlength="4" (keyup)="checkText('minArea')">
             </div>
             <div class="col-6">
-                <input [(ngModel)]="searchInputs.maxArea" formControlName="maxArea" style="width: 100%;" 
-                    type="text" placeholder="máx" class="btn" maxlength="4" (keyup)="checkText('maxArea')">
+                <input formControlName="maxArea" style="width: 100%;" type="text"
+                    placeholder="máx" class="btn" maxlength="4" (keyup)="checkText('maxArea')">
             </div>
         </div>
         <div class="row" style="padding-top: 15px;">

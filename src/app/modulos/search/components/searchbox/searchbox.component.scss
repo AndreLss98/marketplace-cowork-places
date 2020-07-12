@@ -1,7 +1,6 @@
 @import '../../../../../place-et-theme.scss';
 
-#searchBox{
-
+#searchBox {
     // Global
     width: 330px;
     min-height: 375px;
@@ -10,24 +9,19 @@
     // position: fixed;
     padding: 30px 20px 15px 20px;
     
-
     .row{
-
         // padding-top: 10px;
         // padding-bottom: 10px;
     }
 
     // Titulos
-    span{
-
+    span {
         color: white;
         font-size: 16px;
     }
 
     // Localização
-
-    .inputCidade{
-        
+    .inputCidade {
         color: white;
         font-size: 14px;
         background-color: $pl-amarelo;
@@ -42,43 +36,30 @@
         color: white;
     }
 
-    .inputCidade:focus{
+    .inputCidade:focus {
         outline: none;
     }
 
     // Tipo de serviço
-    .dropdown{
-        
-        .dropdown-toggle{
-
-            width: 100%;
-            text-align: start;
-            background-color: $pl-amarelo;
-            border: none;
-            border-radius: 0;
-            border-bottom: 2px solid white;
-            color: white;
-            font-size: 14px;
-            padding-left: 0;
-        }
-        
-        .dropdown-toggle:focus{
-            outline: none;
-            box-shadow: none;
-        }
-    }
-
-    .dropdown-toggle::after{
-        float: right;
-        font-size: 20px;
-        margin-top: 8px;
+    mat-select {
+        border-bottom: 2px solid white;
+        ::ng-deep { 
+            .mat-select-value {
+                color: white !important;
+            }
+            .mat-select-placeholder {
+                color: white !important;
+            }
+            .mat-select-arrow {
+                color: white !important;
+            }
+        }        
     }
 
     // Valor
-    #searchBoxValue{
+    #searchBoxValue {
 
-        .btn{
-
+        .btn {
             height: 45px;
             color: $pl-amarelo;
             background-color: white;
@@ -87,26 +68,22 @@
             border-radius: 7px;
         }
 
-        input::placeholder{
-
+        input::placeholder {
             color: $pl-amarelo;
             text-transform: uppercase;
             font-size: 14px;
         }
 
-        .btn:focus{
-
+        .btn:focus {
             outline: 0;
             box-shadow: none;
-            // border: 0;
         }
     }
 
     // Área
-    #searchBoxArea{
+    #searchBoxArea {
 
-        .btn{
-
+        .btn {
             height: 45px;
             color: $pl-amarelo;
             background-color: white;
@@ -115,42 +92,37 @@
             border-radius: 7px;
         }
 
-        input::placeholder{
-
+        input::placeholder {
             color: $pl-amarelo;
             text-transform: uppercase;
             font-size: 14px;
         }
 
-        .btn:focus{
-
+        .btn:focus {
             outline: 0;
             box-shadow: none;
-            // border: 0;
         }
     }
 
     // Limpar e aplicar filtro.
-    .limpar{
+    .limpar {
         width: 100%;
         border-radius: 7px;
         border: 2px solid #00000046;
         color: #0000009c;
         background-color: $pl-amarelo;
-        
-        
     }
 
-    .limpar:hover{
+    .limpar:hover {
         background-color: #ce9615;
     }
 
-    .limpar:focus{
+    .limpar:focus {
         outline: 0;
         box-shadow: none;
     }
 
-    .submit{
+    .submit {
         width: 100%;
         border-radius: 7px;
         border: 2px solid white;
@@ -158,14 +130,13 @@
         background-color: $pl-amarelo;
     }
 
-    .submit:hover{
+    .submit:hover {
         background-color: #ce9615;
     }
 
-    .submit:focus{
+    .submit:focus {
         outline: 0;
         box-shadow: none;
     }
-
 }
 

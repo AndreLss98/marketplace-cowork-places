@@ -11,8 +11,7 @@
         </li>
         <li class="nav-item">
             <button class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
-              placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)"
-              >{{ login.logged_status ? user.user_data.nome.split(' ')[0] : 'Entrar' }}</button>
+              placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? user.user_data.nome.split(' ')[0] : 'Entrar' }}</button>
         </li>
       </ul>
     </div>
@@ -22,7 +21,7 @@
   </div>
   <div class="options container-fluid" id="menuHeader" *ngIf="options.length > 0">
     <div class="row h-100 d-flex justify-content-around align-items-center" style="padding-left: 100px; padding-right: 100px;">
-      <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo(item.id)">
+      <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo('/search', item.id)">
         <div class="imgs">
           <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
         </div>

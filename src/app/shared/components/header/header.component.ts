@@ -33,12 +33,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  goTo(path: string){
-    this.router.navigateByUrl(path);
-    console.log(path)
+  goTo(path: string, id?: number) {
+    let queryParams: any = {};
+    if (id) queryParams.tipo_id = id;
+    this.router.navigate([path], { queryParams });
   }
   
-  doLogin(popover?){
+  doLogin(popover?) {
     
     setTimeout(() => {     
       $('#navBottom').addClass('down');

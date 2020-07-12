@@ -24,7 +24,6 @@ export class AppComponent {
     this.userService.checkPermission().subscribe(response => this.userService.isAdmin = true);
 
     this.route.queryParams.subscribe( params => {
-      console.log("meus params: ",params);
       this.hideFooter = params["hideFooter"] || false;
       this.hideHeader = params["hideHeader"] || false;
     }).unsubscribe();

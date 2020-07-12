@@ -1,5 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, HostListener } from '@angular/core';
+
+import { MenuService } from 'src/app/shared/service/menu.service';
 import { HighlightService } from 'src/app/shared/service/highlight.service';
 
 @Component({
@@ -8,27 +10,29 @@ import { HighlightService } from 'src/app/shared/service/highlight.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  
-  public result = [];
-  private quantity:number = 50;
+
   private offset = 'auto';
+  
   private position;
 
+  public tiposServico = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private highlight: HighlightService
+    private menuService: MenuService,
+    public highlightService: HighlightService
   ) {
-    this.position = $(window).scrollTop(); 
-   }
+    this.position = $(window).scrollTop();
+  }
 
   ngOnInit(): void {
-    this.result = this.route.snapshot.data.source;
-    this.route.queryParams.subscribe( (data) => {
+    this.route.queryParams.subscribe((data) => {
       console.log("Tem algo aqui", data)
-      if(data.location){
-        // this.result = this.highlight.getSome(20)
+      if (data.tipo_id) {
+        this.highlightService.fetch({ tipo_id: data.tipo_id });
+      } else {
+        this.highlightService.fetch();
       }
     })
   }
@@ -46,48 +50,43 @@ export class SearchComponent implements OnInit {
     this.checkOffset();
 
     var scroll = $(window).scrollTop();
-    
-    // scroll to bottom
-    if(scroll > this.position + 30) {  
-        $('#navTop').removeClass('up');
-        $('#navTop').addClass('hide');
 
-      if($(document).scrollTop() + window.innerHeight > $('#footer').offset().top){
+    // scroll to bottom
+    if (scroll > this.position + 30) {
+      $('#navTop').removeClass('up');
+      $('#navTop').addClass('hide');
+
+      if ($(document).scrollTop() + window.innerHeight > $('#footer').offset().top) {
         $("#searchScroll").removeClass("slideDown");
         $("#searchScroll").addClass("slideUp");
-      }else{
+      } else {
         $("#searchScroll").removeClass("slideUp");
         $("#searchScroll").addClass("slideDown");
       }
-        // this.offset = '20px'
-        this.position = scroll;
-    // Scroll to top
-    } else if (scroll < this.position){
-        $('#navTop').removeClass('hide');
-        $('#navTop').addClass('up');
+      // this.offset = '20px'
+      this.position = scroll;
+      // Scroll to top
+    } else if (scroll < this.position) {
+      $('#navTop').removeClass('hide');
+      $('#navTop').addClass('up');
 
-        $("#searchScroll").removeClass("slideDown");
-        $("#searchScroll").addClass("slideUp");
-        this.position = scroll;
-        // this.offset = 'auto';
+      $("#searchScroll").removeClass("slideDown");
+      $("#searchScroll").addClass("slideUp");
+      this.position = scroll;
+      // this.offset = 'auto';
     }
   }
 
-  onScrollContent(){
-    if(this.quantity < 20){
-      this.quantity = this.quantity + 10;
-    }
+  onScrollContent() {
     // this.result = this.highlight.getSomeSpaces(this.quantity)
   }
 
   private checkOffset() {
-    if($('#searchScroll').offset().top + $('#searchScroll').height() >= $('#footer').offset().top - 125){
-
+    if ($('#searchScroll').offset().top + $('#searchScroll').height() >= $('#footer').offset().top - 125) {
       $('#searchScroll').css('position', 'absolute');
-      $('#searchScroll').css('top', ($('#footer').offset().top - $('#searchScroll').height()) - 125 +'px');
+      $('#searchScroll').css('top', ($('#footer').offset().top - $('#searchScroll').height()) - 125 + 'px');
     }
-    if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top){
-      
+    if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
       $('#searchScroll').css('position', 'fixed')
       $('#searchScroll').css('top', this.offset)
     }
