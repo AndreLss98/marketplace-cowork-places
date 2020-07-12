@@ -26,7 +26,7 @@ export class AppComponent {
     this.route.queryParams.subscribe( params => {
       this.hideFooter = params["hideFooter"] || false;
       this.hideHeader = params["hideHeader"] || false;
-    })
+    }).unsubscribe();
   }
 }
 

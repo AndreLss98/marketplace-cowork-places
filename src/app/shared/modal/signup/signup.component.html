@@ -42,7 +42,7 @@
                     <mat-error>Preencha o campo corretamente!</mat-error>
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field class="w-50">
                     <mat-label>Data de nascimento</mat-label>
                     <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
                         formControlName="data_nascimento" required [errorStateMatcher]="matcher" (dateChange)='checkAge()'>

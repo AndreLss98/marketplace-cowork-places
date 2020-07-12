@@ -3,16 +3,24 @@
     <mat-step [stepControl]='termos'>
         <form [formGroup]='termos'>
             <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
-            <div class="d-flex justify-content-center align-content-center">
-                <mat-checkbox formControlName='termo1' required>Termo 1</mat-checkbox>
-                <mat-checkbox formControlName='termo2' required>Termo 1</mat-checkbox>
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e prosseguir</button>
+            </div>
+            <div class="d-flex justify-content-center align-content-center flex-column">
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo1' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Pagamento, Cancelamento e Reembolso</a>.</mat-checkbox>
+                </mat-expansion-panel>
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo2' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Uso e Responsabilidades</a>.</mat-checkbox>
+                </mat-expansion-panel>
                 <!-- <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer> -->
                 <!-- <iframe class="w-100" style="height: 500px;" src="/about/politica_de_uso.md?hideHeader=true&hideFooter=true#markdown" frameborder="0"></iframe> -->
             </div>
         </form>
-        <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-            <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e prosseguir</button>
-        </div>
     </mat-step>
 
     <!-- Dados cadastrais -->
@@ -75,7 +83,8 @@
 
                     <mat-form-field appearance="outline" class="w-25">
                         <mat-label>Numero</mat-label>
-                        <input matInput formControlName="numero" (keyup)="formatarNumerio('numero')">
+                        <input matInput maxlength="20"
+                            formControlName="numero" (keyup)="formatarNumerio('numero')">
                     </mat-form-field>
     
                     <mat-form-field appearance="outline" class="w-75">
@@ -188,13 +197,15 @@
             <div class="w-100 d-flex flex-row flex-wrap">
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Área</mat-label>
-                    <input matInput formControlName="area" placeholder="m²" (keyup)="formatarNumerio('area')">
+                    <input matInput  maxlength="10"
+                        formControlName="area" placeholder="m²" (keyup)="formatarNumerio('area')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Quantidade de Vagas de estacionamento</mat-label>
-                    <input matInput formControlName="vagas" placeholder="Quantidade" (keyup)="formatarNumerio('vagas')">
+                    <input matInput  maxlength="10"
+                        formControlName="vagas" placeholder="Quantidade" (keyup)="formatarNumerio('vagas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
@@ -209,19 +220,22 @@
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Quantidade de Mesas</mat-label>
-                    <input matInput formControlName='quantidade_mesas' (keyup)="formatarNumerio('quantidade_mesas')">
+                    <input matInput  maxlength="10"
+                        formControlName='quantidade_mesas' (keyup)="formatarNumerio('quantidade_mesas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Numero de pessoas</mat-label>
-                    <input matInput formControlName='numero_pessoas' (keyup)="formatarNumerio('numero_pessoas')">
+                    <input matInput  maxlength="10"
+                        formControlName='numero_pessoas' (keyup)="formatarNumerio('numero_pessoas')">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-50">
                     <mat-label>Horário de Funcionamento</mat-label>
-                    <input matInput formControlName='horario_funcionamento' placeholder="Ex.: 24 horas / 7 dias por semana">
+                    <input matInput maxlength="100"
+                        formControlName='horario_funcionamento' placeholder="Ex.: 24 horas / 7 dias por semana">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
 
@@ -237,7 +251,8 @@
                 <div class="w-100 input-group mb-3">
                     <span class="w-100 text-left" style="margin-top: 5px;">Informações adicionais</span>
                     <div class="custom-file">
-                        <input formControlName="info_text" placeholder="Ex.: Proibido fumar" class="form-control">
+                        <input formControlName="info_text" maxlength="50" minlength="2"
+                            placeholder="Ex.: Proibido fumar" class="form-control">
                     </div>
                     <div class="input-group-append">
                         <button class="input-group-text alert-success" type="button" (click)="addInfo()">Adicionar</button>    

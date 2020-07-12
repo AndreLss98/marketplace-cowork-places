@@ -20,6 +20,7 @@ import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/
 import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-resolver.service';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { CondicoesComponent } from './components/condicoes/condicoes.component';
+import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -36,11 +37,16 @@ const routes: Routes = [
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     { path: 'condicoes', component: CondicoesComponent},
-        { 
-          path: 'anuncios/criaranuncio', 
-          component: CriarAnuncioComponent,
-          canActivate: [CriarAnuncioGuard]
-        },
+    { 
+      path: 'anuncios/editaranuncio', 
+      component: CriarAnuncioComponent,
+      canActivate: [EditarAnuncioGuard]
+    },
+    { 
+      path: 'anuncios/criaranuncio', 
+      component: CriarAnuncioComponent,
+      canActivate: [CriarAnuncioGuard]
+    },
     { 
       path: 'usuarios/:id',
       resolve: {

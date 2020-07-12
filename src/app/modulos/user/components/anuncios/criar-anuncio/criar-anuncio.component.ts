@@ -1,5 +1,5 @@
 import { CURRENCY_PATTERN } from './../../../../../shared/constants/constants';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './../../../../../shared/service/user.service';
 import { Alugavel } from './../../../../../shared/interface/interface';
 import { AlugavelService } from './../../../../../shared/service/alugavel.service';
@@ -43,6 +43,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CriarAnuncioComponent implements OnInit {
 
+  private editMode = false;
+
   // Custom erro matcher
   matcher = new MyErrorStateMatcher();
   public valor;
@@ -65,7 +67,7 @@ export class CriarAnuncioComponent implements OnInit {
   // Politica de uso
   public politica_de_uso = environment.apiUrl + '/md/politica_de_uso.md';
   // Item para ser adicionado a lista de info
-  public info_text = new FormControl('');
+  public info_text = new FormControl('', [Validators.minLength(2), Validators.maxLength(50)]);
 
   // Valor maximo da taxa
   public max_taxa;
@@ -84,7 +86,7 @@ export class CriarAnuncioComponent implements OnInit {
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
   rua = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   bairro = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-  numero = new FormControl(null);
+  numero = new FormControl(null, [Validators.maxLength(20)]);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
@@ -95,12 +97,12 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Caracteristicas do espaço
   public caracteristicas_espaco: FormGroup;
-  area = new FormControl('', [Validators.required]);
-  numero_pessoas = new FormControl('', [Validators.required]);
+  area = new FormControl('', [Validators.required, Validators.maxLength(10)]);
+  numero_pessoas = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   quantidade_mesas = new FormControl('', [Validators.required]);
-  vagas = new FormControl('', [Validators.required]);
+  vagas = new FormControl('', [Validators.required, Validators.maxLength(10)]);
   internet = new FormControl('', [Validators.required]);
-  horario_funcionamento = new FormControl('', [Validators.required])
+  horario_funcionamento = new FormControl('', [Validators.required, Validators.maxLength(100)])
   caracteristicas = [];
   info =  new FormArray([]);
 
@@ -125,7 +127,7 @@ export class CriarAnuncioComponent implements OnInit {
     private alugavel: AlugavelService,
     private caracService: CaracteristicasService,
     private imageCompress: NgxImageCompressService,
-    private router: Router
+    private route: ActivatedRoute
   ) {
 
     this.termos = this.form.group({
@@ -168,6 +170,12 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(response => {
+      if(response.edit){
+        this.editMode = response.edit;
+      }
+    }).unsubscribe();
+
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
     });
@@ -423,8 +431,8 @@ export class CriarAnuncioComponent implements OnInit {
       alugavel_imagens.push(element.id);
     });
 
-    let alugavel_cidade = this.distritos.find(element => element.id = this.cidade.value).nome;
-    let alugavel_estado = this.estados.find(element => element.id = this.estado.value).nome;
+    let alugavel_cidade = this.distritos.find(element => element.id == this.cidade.value).nome;
+    let alugavel_estado = this.estados.find(element => element.id == this.estado.value).nome;
 
     let alugavel: Alugavel = {
       anunciante_id : this.user.user_data.id,
