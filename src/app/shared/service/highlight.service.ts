@@ -75,7 +75,6 @@ export class HighlightService {
       this.searched = response.results;
       this.hasNext = response.next? true : false;
       this.hasPrevious = response.previous? true : false;
-      console.log('Buscados: ', this.searched);
     }, (error) => {
       console.log('Error: ', error);
     });
