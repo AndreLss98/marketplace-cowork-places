@@ -35,4 +35,11 @@ export class AlugaveisService {
   public getById(id) {
     return this.http.get<any>(`${environment.apiUrl}/alugaveis/${id}`);
   }
+
+  public getBairros(filters: any = {}) {
+    filters.used = true;
+    const params = new HttpParams()
+    .set('filters', JSON.stringify(filters));
+    return this.http.get<any>(`${environment.apiUrl}/alugaveis/local/bairros`, { params });
+  }
 }

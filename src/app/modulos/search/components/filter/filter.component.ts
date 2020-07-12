@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
@@ -10,7 +10,12 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FilterComponent implements OnInit {
 
   public searchForm: FormGroup;
-  public items = ["Aasdasd", "Basdasdas", "Casdasdasd", "Dasdasdasd", "Basdasdas", "Casdasdasd", "Dasdasdasd", "Basdasdas", "Casdasdasd", "Dasdasdasd", "Basdasdas", "Casdasdasd", "Dasdasdasd", "Basdasdas", "Casdasdasd", "Dasdasdasd"]
+  public items = [
+    "Aasdasd",
+    "Basdasdas",
+    "Basdasdas",
+    "Casdasdasd"
+  ];
 
   constructor(
     private form: FormBuilder
@@ -19,8 +24,10 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
-  onSubmit(){}
+  onSubmit() {
 
+  }
 }
