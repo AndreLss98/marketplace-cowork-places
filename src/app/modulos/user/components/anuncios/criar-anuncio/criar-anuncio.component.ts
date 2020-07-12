@@ -94,7 +94,7 @@ export class CriarAnuncioComponent implements OnInit {
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
   rua = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   bairro = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-  numero = new FormControl(null, [Validators.maxLength(20)]);
+  numero = new FormControl('', [Validators.maxLength(20)]);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.maxLength(100)]);
@@ -393,16 +393,27 @@ export class CriarAnuncioComponent implements OnInit {
         break;
       case 3:
         if(this.valores.valid){
-          if(this.finalizarCadastro()) nextStep();
+          let alugavel = this.finalizarCadastro();
+          if(this.editMode){
+            this.alugavel.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
+              nextStep();
+            }, err => {
+              this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
+              console.log(err);
+            });
+          }else{
+            this.alugavel.createAlugavel(alugavel).subscribe(response => {
+              nextStep();
+            }, err => {
+              this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
+              console.log(err);
+            });
+          }
         }
         break;
       default:
         console.log(step);
         break;
-    }
-
-    function asd(){
-      console.log("Cai no call back");
     }
 
     function nextStep(){
@@ -426,8 +437,9 @@ export class CriarAnuncioComponent implements OnInit {
     this.info.removeAt(index);
   }
 
-  public finalizarCadastro(callback){
+  public finalizarCadastro(): any{
     this.editavel = false;
+
     let alugavel_infos = [];
     this.info.controls.forEach(element => {
       alugavel_infos.push({descricao: element.value})
@@ -482,22 +494,8 @@ export class CriarAnuncioComponent implements OnInit {
       documentos: alugavel_doc
     }
 
-    console.log("Alugavel: ", alugavel);
-    if(this.editMode){
-      this.alugavel.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
-        return true
-      }, err => {
-        this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
-        return false
-      });
-    }else{
-      this.alugavel.createAlugavel(alugavel).subscribe(response => {
-        return true
-      }, err => {
-        this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
-        return false
-      });
-    }
+    console.log("Alugavel: ", JSON.stringify(alugavel));
+    return alugavel;
 
   }
 
@@ -523,6 +521,10 @@ export class CriarAnuncioComponent implements OnInit {
       this.bairro.setValue(response.local.bairro);
       this.proprietario.setValue(response.proprietario.toString());
       this.documento_proprietario.disable();
+
+      response.documentos.forEach(element => {
+        this.documentos.push({nome: element.nome, id: element.id});
+      });
       
       // Carrega caracteristicas do espaço
         // Carrega imagens
