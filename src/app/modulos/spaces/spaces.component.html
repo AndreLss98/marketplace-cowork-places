@@ -65,7 +65,7 @@
                 <!-- Valores -->
                 <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>Nº de pessoas</span>
-                    <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[3].valor}}</span>
+                    <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_PESSOAS].valor}}</span>
                 </div>
                 <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>Quantidade de dias</span>
@@ -126,31 +126,30 @@
     </div>
     <div class="row endereco" style="margin-bottom: 15px;">
         <div class="col-xl-3 d-flex align-items-center" *ngIf="espaco.nota">
-            <span style="font-size: 20px; padding: 5px 10px 5px 10px; border-radius: 7px; color: white; background-color: black;">{{espaco.nota | number:'1.1'}}</span>
-            <span class="material-icons" *ngFor="let item of countStars(espaco.nota)" style="color: black; width: 24px; height: 24px; margin-left: 5px;">{{item}}</span>
+            <span class="nota">{{espaco.nota.toFixed(1)}}</span>
+            <span class="material-icons nota-star" *ngFor="let item of countStars(espaco.nota)">{{item}}</span>
         </div>
-        <div class="col-xl-7 d-flex align-items-center">
-            <span style="color: black; font-size: 20px; font-weight: 500;">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
+        <div class="col-xl-5 d-flex align-items-center">
+            <span class="endereco">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
         </div>
-        <div class="col-xl-1"></div>
-        <!-- <div class="col-xl-4 d-flex flex-row align-items-center">
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center" style="padding: 0">
+        <div class="col-xl-4 d-flex flex-row align-items-center">
+            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
                 <span class="material-icons">aspect_ratio</span>
-                <p style="color: gray; font-size: 11px; margin-bottom: 0;" >{{espaco.caracteristicas[0].valor}} m2</p>
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.AREA].valor}} m2</p>
             </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center" style="padding: 0">
-                <img src="assets/svg/desk.svg" style="width: 24px;" alt="">
-                <p style="color: gray; font-size: 11px; margin-bottom: 0;">{{espaco.caracteristicas[2].valor}} mesas</p>
+            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
+                <img class="caracteristica" src="assets/svg/desk.svg" alt="">
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS].valor}} mesas</p>
             </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center" style="padding: 0">
-                <img src="assets/svg/car.svg" style="width: 24px;" alt="">
-                <p style="color: gray; font-size: 11px; margin-bottom: 0;">{{espaco.caracteristicas[3].valor}} vagas</p>
+            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
+                <img class="caracteristica" src="assets/svg/car.svg" alt="">
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS].valor}} vagas</p>
             </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center" style="padding: 0" *ngIf="espaco.caracteristicas[1].valor == 'true'">
+            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica" *ngIf="espaco.caracteristicas[CARACTERISTICAS.INTERNET].valor == 'true'">
                 <span class="material-icons">wifi</span>
-                <p style="color: gray; font-size: 11px; margin-bottom: 0;">Internet</p>
+                <p class="caracteristica">Internet</p>
             </div>
-        </div> -->
+        </div>
     </div>
 
     <!-- Informaçõe do anuncio -->
@@ -175,11 +174,11 @@
             </div> -->
 
             <!-- Funcionamento -->
-            <!-- <div class="d-flex flex-column">
+            <div class="d-flex flex-column">
                 <span style="font-weight: 600; margin-top: 30px; padding-bottom: 10px;">Funcionamento</span>
-                <span>. {{espaco.caracteristicas[5].valor}}</span>
+                <span>. {{espaco.caracteristicas[CARACTERISTICAS.HORARIO_FUNCIONAMENTO].valor}}</span>
                 <span>. O prazo começa após a confirmação do pagamento</span>
-            </div> -->
+            </div>
 
             <!-- linha -->
             <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
@@ -187,7 +186,7 @@
             <!-- Condições -->
             <div class="d-flex flex-column">
                 <span style="font-weight: 600; margin-top: 30px; padding-bottom: 10px;">Condições</span>
-                <span *ngFor="let item of data.dadosCompra.dadosEspaco.condicoes">. {{item}}</span>
+                <span *ngFor="let condicao of condicoes">. {{condicao.descricao}}</span>
             </div>
 
             <!-- linha -->
@@ -271,11 +270,11 @@
     <!-- <div style="height: 45px;"></div> -->
 
     <!-- Espaços similares -->
-    <!-- <div class="row back-verde-escuro" style="padding-right: 10%; padding-left: 10%; padding-top: 30px; padding-bottom: 30px;">
-        <span style="width: 100%; color: black; font-size: 20px; font-weight: bold; margin-bottom: 20px;">Espaços similares</span>
+    <div *ngIf="espacos && espacos.length > 0" class="row back-verde-escuro more-announcement">
+        <span style="width: 100%; color: black; font-size: 20px; font-weight: bold; margin-bottom: 20px;">Mais espaços desse anunciante</span>
         <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-between">
-            <app-highlight-items *ngFor="let item of espacos_similares" [data]="item" width="240px"></app-highlight-items>
+            <app-highlight-items *ngFor="let item of espacos" [data]="item" width="240px"></app-highlight-items>
         </div>
-    </div> -->
+    </div>
 
 </div>

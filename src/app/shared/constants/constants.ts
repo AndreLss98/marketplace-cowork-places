@@ -35,8 +35,11 @@ export const ALUGAVEL_STATUS = {
     DISAPPROVED: { value: 'disapproved', name: 'Reprovado' }
 };
 
-export enum ENUM_ALUGAVEL_STATUS {
-    WAITING = 'Em Avaliçao',
-    APPROVED = 'Aprovado',
-    DISAPPROVED = 'Reprovado'
+export enum ENUM_ALUGAVEL_CARACTERISTICAS {
+    AREA,
+    INTERNET,
+    QUANTIDADE_MESAS,
+    QUANTIDADE_VAGAS,
+    HORARIO_FUNCIONAMENTO,
+    QUANTIDADE_PESSOAS,
 }

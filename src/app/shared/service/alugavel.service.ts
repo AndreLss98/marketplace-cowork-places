@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { environment } from './../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Alugavel } from '../interface/interface';
 
@@ -13,8 +13,12 @@ export class AlugavelService {
     private http: HttpClient,
     ) { }
     
-    public getAllByUser(): Observable<any>{
-      return this.http.get<any>(environment.apiUrl+'/alugaveis/usuario');
+    public getAllByUser(anunciante_id?: number): Observable<any> {
+      let params = {};
+      if (anunciante_id) {
+        params = new HttpParams().set('anunciante_id', anunciante_id.toString());
+      }
+      return this.http.get<any>(environment.apiUrl+'/alugaveis/usuario', { params });
     }
 
     public getTaxa(): Observable<any>{

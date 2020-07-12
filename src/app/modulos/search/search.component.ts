@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((data) => {
-      console.log("Tem algo aqui", data)
+      console.log("params: ", data)
       if (data.tipo_id) {
         this.highlightService.fetch({ tipo_id: data.tipo_id });
       } else {

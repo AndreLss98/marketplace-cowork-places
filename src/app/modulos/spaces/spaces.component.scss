@@ -73,3 +73,45 @@
     background-color: white; 
     border-top: 1px solid #b1b1b1;
 }
+
+span.nota {
+    color: white;
+    font-size: 20px;
+    border-radius: 7px;
+    background-color: black;
+    padding: 5px 10px 5px 10px;
+}
+
+span.nota-star {
+    width: 24px;
+    height: 24px;
+    color: black;
+    margin-left: 5px;
+}
+
+div.caracteristica {
+    padding: 0;
+}
+
+p.caracteristica {
+    color: gray;
+    font-size: 11px;
+    margin-bottom: 0;
+}
+
+img.caracteristica {
+    width: 24px;
+}
+
+span.endereco {
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+div.more-announcement {
+    padding-top: 30px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 30px;
+}
