@@ -13,21 +13,26 @@ export class AlugavelService {
     private http: HttpClient,
     ) { }
     
-    public getAllByUser(): Observable<any>{
-      return this.http.get<any>(environment.apiUrl+'/alugaveis/usuario');
-    }
+  public getAllByUser(): Observable<any>{
+    return this.http.get<any>(environment.apiUrl+'/alugaveis/usuario');
+  }
 
-    public getTaxa(): Observable<any>{
-      return this.http.get<any>(environment.apiUrl+'/alugaveis/taxa');
-    }
-    
-    public createAlugavel(alugavel: Alugavel):Observable<any>{
-      return this.http.post<any>(environment.apiUrl+'/alugaveis', alugavel);
-    }
-    
-    public alterStatus(id, status) {
-      return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, { status });
-    }
+  public getTaxa(): Observable<any>{
+    return this.http.get<any>(environment.apiUrl+'/alugaveis/taxa');
+  }
+  
+  public createAlugavel(alugavel: Alugavel):Observable<any>{
+    return this.http.post<any>(environment.apiUrl+'/alugaveis', alugavel);
+  }
+
+  public saveAlugavel(alugavel: Alugavel, id):Observable<any>{
+    return this.http.put<any>(environment.apiUrl+'/alugaveis/' + id, alugavel);
+  }
+  
+  public alterStatus(id, status) {
+    return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, { status });
+  }
+
   public saveImage(base64): Observable<any>{
     let file = this.base64toBlobtoFile(base64);
     let headers = new HttpHeaders();
