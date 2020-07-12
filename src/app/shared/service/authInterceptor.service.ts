@@ -74,6 +74,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                 return this.logoutUser();
             }),
             catchError(error => {
+              if(error.url.includes('/usuarios/check-admin')) return throwError(error);
                 // If there is an exception calling 'refreshToken', bad news so logout.
                 return this.logoutUser();
             }),

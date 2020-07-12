@@ -1,5 +1,6 @@
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { CURRENCY_PATTERN } from './../../../../../shared/constants/constants';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../../../../../shared/service/user.service';
 import { Alugavel } from './../../../../../shared/interface/interface';
 import { AlugavelService } from './../../../../../shared/service/alugavel.service';
@@ -43,7 +44,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CriarAnuncioComponent implements OnInit {
 
-  private editMode = false;
+  public editMode = false;
+  private espaco_id;
+
+  // Permite a edição dos campos;
+  public editavel = true;
+
+  // Id do alugavel, caso em modo de edição;
+  private idAlugavel;
 
   // Custom erro matcher
   matcher = new MyErrorStateMatcher();
@@ -79,7 +87,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   // Dados cadastrais
   public dados_cadastrais: FormGroup;
-  titulo = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
+  titulo = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]);
   tipo = new FormControl('', [Validators.required]); // id
   descricao = new FormControl('', [Validators.required, Validators.maxLength(500), Validators.minLength(2)]);
   cep = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{8}$/), Validators.minLength(8), Validators.maxLength(8)]);
@@ -89,7 +97,7 @@ export class CriarAnuncioComponent implements OnInit {
   numero = new FormControl(null, [Validators.maxLength(20)]);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
-  complemento = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
+  complemento = new FormControl('', [Validators.maxLength(100)]);
   proprietario = new FormControl('', [Validators.required]);
   escritura = new FormControl('', [Validators.required]);
   contrato_locacao = new FormControl('');
@@ -122,12 +130,13 @@ export class CriarAnuncioComponent implements OnInit {
     private ibge: IbgeService,
     private user: UserService,
     private tipos: TiposService,
-    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private viacep: ViacepService,
+    private snackBar: MatSnackBar,
     private alugavel: AlugavelService,
+    private alugaveis: AlugaveisService,
     private caracService: CaracteristicasService,
     private imageCompress: NgxImageCompressService,
-    private route: ActivatedRoute
   ) {
 
     this.termos = this.form.group({
@@ -170,11 +179,18 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.carregarCaracteristicas();
+
     this.route.queryParams.subscribe(response => {
       if(response.edit){
         this.editMode = response.edit;
+        this.espaco_id = response.id;
+
+        this.escritura.disable();
+        this.loadData();
       }
     }).unsubscribe();
+    
 
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
@@ -239,6 +255,7 @@ export class CriarAnuncioComponent implements OnInit {
         this.verificaCidade();
         this.estado.disable();
         this.cidade.disable();
+        console.log(this.estados, data['microrregiao']['mesorregiao']['UF'].id);
       })
     }, err => {
       // console.log(err);
@@ -274,6 +291,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public checkBoxChange(elemento){
+
     elemento.value = !elemento.value;
   }
 
@@ -353,12 +371,13 @@ export class CriarAnuncioComponent implements OnInit {
         }
         break;
       case 1:
-        if(!this.escritura.valid) {
+        console.log(this.dados_cadastrais.controls);
+        if(!this.escritura.valid && !this.editMode) {
           this.snackBar.open("Insira todos os documentos necessarios", "OK", {duration: 5000});
           return;
         }
         if(this.dados_cadastrais.valid){
-          this.carregarCaracteristicas();
+          // this.carregarCaracteristicas();
           nextStep();
         }
         break;
@@ -374,12 +393,16 @@ export class CriarAnuncioComponent implements OnInit {
         break;
       case 3:
         if(this.valores.valid){
-          this.finalizarCadastro( nextStep() );
+          if(this.finalizarCadastro()) nextStep();
         }
         break;
       default:
         console.log(step);
         break;
+    }
+
+    function asd(){
+      console.log("Cai no call back");
     }
 
     function nextStep(){
@@ -404,6 +427,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public finalizarCadastro(callback){
+    this.editavel = false;
     let alugavel_infos = [];
     this.info.controls.forEach(element => {
       alugavel_infos.push({descricao: element.value})
@@ -458,11 +482,82 @@ export class CriarAnuncioComponent implements OnInit {
       documentos: alugavel_doc
     }
 
-    console.log(alugavel);
+    console.log("Alugavel: ", alugavel);
+    if(this.editMode){
+      this.alugavel.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
+        return true
+      }, err => {
+        this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
+        return false
+      });
+    }else{
+      this.alugavel.createAlugavel(alugavel).subscribe(response => {
+        return true
+      }, err => {
+        this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
+        return false
+      });
+    }
 
-    this.alugavel.createAlugavel(alugavel).subscribe(response => {
-      callback();
-    }, err => console.log("Deu erro: ", err));
+  }
+
+  private loadData(){
+    this.alugaveis.getById(this.espaco_id).subscribe(response => {
+      console.log("Load data: ", response);
+
+      // Salva o id do alugavel;
+      this.idAlugavel = response.id;
+      
+      // Carrega dados cadastrais
+      this.cep.disable()
+      this.numero.disable();
+      this.complemento.disable();
+      this.titulo.setValue(response.titulo);
+      this.tipo.setValue(response.tipo.id);
+      this.descricao.setValue(response.descricao);
+      this.cep.setValue(response.local.cep);
+      this.validarCep();
+      this.rua.setValue(response.local.rua);
+      this.complemento.setValue(response.local.complemento);
+      this.numero.setValue(response.local.numero);
+      this.bairro.setValue(response.local.bairro);
+      this.proprietario.setValue(response.proprietario.toString());
+      this.documento_proprietario.disable();
+      
+      // Carrega caracteristicas do espaço
+        // Carrega imagens
+      response.imagens.forEach(element => {
+        this.imagens.push({
+          id: element.id,
+          url: environment.apiUrl + '/imgs/' + element.url
+        });
+      });
+
+      let carac = response.caracteristicas;
+      this.area.setValue(carac.find(element => {console.log(element); return element.nome == 'Área'}).valor);
+      this.quantidade_mesas.setValue(carac.find(element => {return element.nome == 'Quantidade de Mesas'}).valor);
+      this.internet.setValue(carac.find(element => element.nome == 'Internet').valor);
+      this.horario_funcionamento.setValue(carac.find(element => element.nome == 'Horário de Funcionamento').valor);
+      this.numero_pessoas.setValue(carac.find(element => element.nome == 'Quantidade de Pessoas').valor);
+      this.vagas.setValue(carac.find(element => element.nome == 'Quantidade de Vagas').valor);
+
+      this.caracteristicas.forEach( element => {
+        carac.forEach(carac => {
+          if(element.id == carac.id){
+            element.value = (carac.valor == "true");
+          }
+        });
+      });
+
+      response.infos.forEach(element => {
+        this.info.push(new FormControl(element.descricao));
+      });
+
+    // Carregar valor e taxa
+    this.taxa.setValue(Number(response.taxa));
+    this.custo_dia.setValue(Number(response.valor));
+    
+    });
   }
 
 }

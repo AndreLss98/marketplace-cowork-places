@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-info',
@@ -15,6 +16,8 @@ import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.serv
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
+
+  public emailVerified = false;
 
   public dataNascimento = '';
   public selectedFile: File = null;
@@ -34,6 +37,7 @@ export class InfoComponent implements OnInit {
     public formBuilder: FormBuilder,
     public userService: UserService,
     public documentosService: DocumentosService,
+    public login: LoginService,
     private contaBancariaService: ContaBancariaService,
   ) {
     this.editBankAccountForm = formBuilder.group({
@@ -52,6 +56,8 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.userService.user_data) this.login.logout();
+    this.emailVerified =  this.userService.user_data.email_validado;
     console.log("User: ", this.userService.user_data);
     this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;

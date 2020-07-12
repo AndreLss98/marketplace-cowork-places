@@ -25,16 +25,13 @@ export class MeusAnunciosComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugavel.getAllByUser().subscribe(response => {
-      console.log("Response:", response);
       this.espacos_aprovados = response.filter(espaco =>  {return espaco.status == ALUGAVEL_STATUS.APPROVED.value});
       this.espacos_em_avaliaco = response.filter(espaco => { return espaco.status ==  ALUGAVEL_STATUS.WAITING.value});
       this.espacos_reprovados = response.filter(espaco => {return espaco.status ==  ALUGAVEL_STATUS.DISAPPROVED.value});
-      console.log('Peguei papis: ', this.espacos_aprovados, this.espacos_em_avaliaco, this.espacos_reprovados)
     });
   }
 
   editSpace(idSpace){
-    console.log(idSpace);
     this.router.navigate(['/user/anuncios/editaranuncio'], {queryParams: {id: idSpace, edit: true} , skipLocationChange: true});
   }
 

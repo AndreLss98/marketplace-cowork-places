@@ -28,6 +28,12 @@ export class CriarAnuncioGuard implements CanActivate {
       return false;
     }
 
+    if(!this.userService.user_data.email_validado){
+      this.snack.open("Para criar um anúncio, confirme o seu email", "Ok", {duration: 5000});
+      this.route.navigate(['/user/conta/info'])
+      return false;
+    }
+
     return true;
   }
   
