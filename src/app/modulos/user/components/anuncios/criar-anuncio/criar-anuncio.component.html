@@ -258,9 +258,9 @@
                         <button class="input-group-text alert-success" type="button" (click)="addInfo()">Adicionar</button>    
                     </div>
                 </div>
-                <div class="w-50 input-group mb-3" *ngFor="let control of info.controls; index as i">
+                <div class="w-50 input-group mb-3" *ngFor="let control of info; index as i">
                     <div class="custom-file">
-                        <input [formControl]='info.controls[i]' class="form-control">
+                        <input [value]="control.descricao" class="form-control">
                     </div>
                     <div class="input-group-append">
                         <button class="input-group-text alert-danger" type="button" (click)="removeInfo(i)">Remover</button>    

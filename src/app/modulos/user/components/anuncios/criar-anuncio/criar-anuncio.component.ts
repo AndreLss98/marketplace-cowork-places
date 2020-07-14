@@ -94,7 +94,7 @@ export class CriarAnuncioComponent implements OnInit {
   pais = new FormControl('Brasil', [Validators.required]); // usar o do ibge
   rua = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
   bairro = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
-  numero = new FormControl('', [Validators.maxLength(20)]);
+  numero = new FormControl(null, [Validators.maxLength(20)]);
   cidade = new FormControl('', [Validators.required]);
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.maxLength(100)]);
@@ -112,7 +112,7 @@ export class CriarAnuncioComponent implements OnInit {
   internet = new FormControl('', [Validators.required]);
   horario_funcionamento = new FormControl('', [Validators.required, Validators.maxLength(100)])
   caracteristicas = [];
-  info =  new FormArray([]);
+  info = [];
 
   // Preço e taxa
   public valores: FormGroup;
@@ -429,20 +429,28 @@ export class CriarAnuncioComponent implements OnInit {
       this.snackBar.open('Limite alcançado!', 'Ok', {duration: 5000});
       return;
     }
-    this.info.push(new FormControl(this.info_text.value));
+    this.info.push({descricao: this.info_text.value});
     this.info_text.setValue('');
   }
 
   public removeInfo(index){
-    this.info.removeAt(index);
+    this.info.splice(index, 1);
   }
 
   public finalizarCadastro(): any{
     this.editavel = false;
 
     let alugavel_infos = [];
-    this.info.controls.forEach(element => {
-      alugavel_infos.push({descricao: element.value})
+    this.info.forEach(element => {
+      if(this.editMode) {
+        alugavel_infos.push(
+          {
+            id: element.id,
+            descricao: element.descricao
+          })
+      }else{
+        alugavel_infos.push({descricao: element.descricao})
+      }
     });
 
     let alugavel_caracteristicas = [];
@@ -552,7 +560,10 @@ export class CriarAnuncioComponent implements OnInit {
       });
 
       response.infos.forEach(element => {
-        this.info.push(new FormControl(element.descricao));
+        this.info.push({
+          id: element.id,
+          descricao: element.descricao
+        });
       });
 
     // Carregar valor e taxa
