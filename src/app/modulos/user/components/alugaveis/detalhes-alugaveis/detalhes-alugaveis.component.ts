@@ -21,6 +21,7 @@ export class DetalhesAlugaveisComponent implements OnInit {
   public displayedDocumentsColumns = [ 'documento', 'action' ];
 
   public status = Object.values(ALUGAVEL_STATUS);
+  readonly STATUS = ALUGAVEL_STATUS;
 
   public statusForm: FormGroup;
   
@@ -30,19 +31,20 @@ export class DetalhesAlugaveisComponent implements OnInit {
     private alugavelService: AlugavelService
   ) {
     this.statusForm = formBuilder.group({
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
+      observacao: ['', [Validators.maxLength(500)]]
     });
   }
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data.alugavel;
     this.resetStatusForm();
-    console.log('Alugavel: ', this.alugavel);
   }
 
   statusChange() {
     this.alugavel.status = this.statusForm.value.status;
-    this.alugavelService.alterStatus(this.alugavel.id, this.alugavel.status).subscribe(response => {
+    this.alugavel.observacao = this.statusForm.value.observacao;
+    this.alugavelService.alterStatus(this.alugavel.id, this.statusForm.value).subscribe(response => {
       console.log('Alterado');
       this.resetStatusForm()
     }, (error) => {
@@ -52,7 +54,8 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   private resetStatusForm() {
     this.statusForm.reset({
-      status: this.alugavel.status
+      status: this.alugavel.status,
+      observacao: this.alugavel.observacao
     })
   }
 

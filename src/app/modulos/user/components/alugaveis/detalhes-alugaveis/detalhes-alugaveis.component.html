@@ -12,8 +12,17 @@
             </mat-select>
         </mat-form-field>
         <button style="margin-left: 10px;" mat-raised-button color="accent" type="submit" [disabled]="statusForm.invalid || statusForm.pristine">Atualizar</button>
+        <mat-form-field *ngIf="statusForm.value.status === STATUS.DISAPPROVED.value" class="w-100">
+            <mat-label>Deixe uma observação</mat-label>
+            <textarea matInput
+                maxlength="500"
+                formControlName="observacao"
+                placeholder="EX.: Os documentos não são válidos...">
+            </textarea>
+        </mat-form-field>
     </form>
     <mat-card-content>
+        <h4>Descriçao</h4>
         <p>{{alugavel.descricao}}</p>
         <table>
             <td>

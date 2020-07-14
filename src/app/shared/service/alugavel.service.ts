@@ -34,8 +34,8 @@ export class AlugavelService {
     return this.http.put<any>(environment.apiUrl + '/alugaveis/' + id, alugavel);
   }
 
-  public alterStatus(id, status) {
-    return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, { status });
+  public alterStatus(id, update) {
+    return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, update);
   }
 
   public saveImage(base64): Observable<any> {
