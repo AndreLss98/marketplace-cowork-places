@@ -20,7 +20,10 @@ export class UserGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
-    console.log(route);
+    if(!this.userService.user_data) {
+      this.login.logout(); 
+      return false;
+    }
 
     if(!environment.production){
       this.userService.isAdmin = true;
