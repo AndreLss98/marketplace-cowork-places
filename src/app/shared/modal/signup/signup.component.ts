@@ -48,12 +48,12 @@ export class SignupComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   public primeiroPasso: FormGroup;
-  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailPattern)]);
+  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailPattern), Validators.maxLength(100)]);
 
   public segundoPasso: FormGroup;
-  nome = new FormControl('', [Validators.required, Validators.pattern('')]);
+  nome = new FormControl('', [Validators.required, Validators.pattern(''), Validators.minLength(2), Validators.maxLength(50)]);
   cpf = new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]);
-  sobrenome = new FormControl('', Validators.required);
+  sobrenome = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]);
   data_nascimento = new FormControl('', Validators.required);
 
 
