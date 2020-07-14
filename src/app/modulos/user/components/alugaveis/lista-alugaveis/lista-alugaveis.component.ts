@@ -1,6 +1,8 @@
 import { Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
+import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-lista-alugaveis',
@@ -9,8 +11,14 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 })
 export class ListaAlugaveisComponent implements OnInit {
 
+  public alugaveisReprovados = [];
   public alugaveisDisponiveis = [];
   public alugaveisNaoDisponiveis = [];
+
+  public disapprovedPage = 1;
+  public disapprovedPageSize = 5;
+  public hasNextDisapproved = false;
+  public hasPreviousDisapproved = false;
 
   public notAvailablesPage = 1;
   public notAvailablesPageSize = 5;
@@ -23,6 +31,7 @@ export class ListaAlugaveisComponent implements OnInit {
   public hasPreviousAvailable = false;
 
   public displayedColumnsAvailableTable = [ 'titulo', 'preco', 'edit' ];
+  public displayedColumnsDisapprovedTable = [ 'titulo', 'preco', 'edit' ];
   public displayedColumnsNotAvailableTable = [ 'titulo', 'preco', 'edit' ];
 
   public pageSizes = [ 5, 10, 20 ];
@@ -37,6 +46,7 @@ export class ListaAlugaveisComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllAvailable();
     this.fetchAllNotAvailable();
+    this.fetchAllDisapproved();
   }
 
   visualizarDetalhesAlugavel(id) {
@@ -44,17 +54,21 @@ export class ListaAlugaveisComponent implements OnInit {
   }
 
   public fetchAllNotAvailable() {
-    this.alugaveisService.getAllNotAvailable(this.notAvailablesPage, this.notAvailablesPageSize).subscribe(response => {
-      console.log('Not Available: ', response);
+    this.alugaveisService.getByStatus(this.notAvailablesPage, this.notAvailablesPageSize, ALUGAVEL_STATUS.WAITING.value).subscribe(response => {
       this.alugaveisNaoDisponiveis = response.results;
-    });
+    })
+  }
+
+  public fetchAllDisapproved() {
+    this.alugaveisService.getByStatus(this.disapprovedPage, this.disapprovedPageSize, ALUGAVEL_STATUS.DISAPPROVED.value).subscribe(response => {
+      this.alugaveisReprovados = response.results;
+    })
   }
 
   public fetchAllAvailable() {
-    this.alugaveisService.getAllAvailable(this.availablesPage, this.availablesPageSize).subscribe(response => {
-      console.log('Available: ', response);
+    this.alugaveisService.getByStatus(this.availablesPage, this.availablesPageSize, ALUGAVEL_STATUS.APPROVED.value).subscribe(response => {
       this.alugaveisDisponiveis = response.results;
-    });
+    })
   }
 
   public previousPageOfNotAvailables() {
@@ -75,5 +89,15 @@ export class ListaAlugaveisComponent implements OnInit {
   public nextPageOfAvailables() {
     ++this.notAvailablesPage;
     this.fetchAllNotAvailable();
+  }
+
+  public previousPageOfDisapproved() {
+    --this.disapprovedPage;
+    this.fetchAllDisapproved();
+  }
+
+  public nextPageOfDisapproved() {
+    ++this.disapprovedPage;
+    this.fetchAllDisapproved();
   }
 }
