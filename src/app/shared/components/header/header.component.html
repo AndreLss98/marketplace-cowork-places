@@ -11,7 +11,7 @@
         </li>
         <li class="nav-item">
             <button class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
-              placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? user.user_data.nome.split(' ')[0] : 'Entrar' }}</button>
+              placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
         </li>
       </ul>
     </div>
