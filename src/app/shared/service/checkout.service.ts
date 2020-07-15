@@ -10,9 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CheckoutService {
 
-  private _data_entrada;
-  private _data_saida;
-  private _espaco;
+  private _reserva: any;
   
   constructor(
     private http: HttpClient
@@ -20,23 +18,12 @@ export class CheckoutService {
 
   }
   
-  public get espaco() {
-    return this._espaco;
+  get reserva() {
+    return this._reserva;
   }
-  public set espaco(value) {
-    this._espaco = value;
-  }
-  public get data_saida() {
-    return this._data_saida;
-  }
-  public set data_saida(value) {
-    this._data_saida = value;
-  }
-  public get data_entrada() {
-    return this._data_entrada;
-  }
-  public set data_entrada(value) {
-    this._data_entrada = value;
+
+  set reserva(reserva) {
+    this._reserva = reserva;
   }
 
   public checkout(aluguel) {

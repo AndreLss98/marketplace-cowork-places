@@ -95,26 +95,23 @@ export class SpacesComponent implements OnInit {
 
   public checkout() {
     if (this.entrada != undefined && this.saida != undefined) {
-      this.checkoutService.data_entrada = this.entrada;
-      this.checkoutService.data_saida = this.saida;
-      this.checkoutService.espaco = this.espaco;
-      // this.router.navigate(['/checkout']);
-
-      const aluguel = {
+      this.checkoutService.reserva = {
         dias_reservados: {
           data_entrada: this.formatDate(new Date(this.entrada)),
           data_saida: this.formatDate(new Date(this.saida))
         },
         valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
-        alugavel_id: this.espaco.id
-      }
+        alugavel_id: this.espaco.id,
+        titulo: this.espaco.titulo
+      };
 
-      this.checkoutService.checkout(aluguel).subscribe(response => {
+      if (this.totalDias() < 31) this.router.navigate(['/checkout']);
+      /* this.checkoutService.checkout(aluguel).subscribe(response => {
         console.log('Response: ', response);
         window.open(response.paymentUrl, "_blank");
       }, (error) => {
         console.log("Aluguel error: ", error);
-      });
+      }); */
     } else {
       this.snackBar.open('Selecione as datas de entrada e saída', 'OK', { duration: 3000 })
     }
@@ -168,9 +165,5 @@ export class SpacesComponent implements OnInit {
 
   private formatDate(date: Date) {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  }
-
-  private fetchMore() {
-    
   }
 }
