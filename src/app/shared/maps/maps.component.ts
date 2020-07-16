@@ -6,35 +6,58 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./maps.component.scss']
 })
 export class MapsComponent implements OnInit {
+  readonly default_center = new google.maps.LatLng(-16.679301, -49.256769);
   @ViewChild('map', { static: true }) mapElement: ElementRef;
   map: google.maps.Map;
+
+  public marker: google.maps.Marker;
+
   constructor() {
 
   }
 
   ngOnInit(): void {
-    console.log('Carregou')
     this.initMap();
   }
 
   private initMap() {
-    if ("geolocation" in navigator) {
-      const mapOptions: google.maps.MapOptions = {
-        center: { lat: -16.6686548, lng: -49.1929707 },
-        zoom: 17,
-        fullscreenControl: false,
-        mapTypeControl: false,
-      }
+    let mapOptions: google.maps.MapOptions = {
+      zoom: 17,
+      center: this.default_center,
+      fullscreenControl: false,
+      mapTypeControl: false,
+    };
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log('Current position: ', position)
+        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        mapOptions.center = latLng;
+        this.generateMap(mapOptions);
       }, (error) => {
-        console.log('Current position error: ', error)
+        console.log('Current position error: ', error);
+        this.generateMap(mapOptions);
       })
     } else {
       console.log('Geolocation is not available');
+      this.generateMap(mapOptions);
     }
   }
 
+  private generateMap(mapOptions: google.maps.MapOptions) {
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.initMarker(mapOptions.center, this.map);
+  }
+
+  private initMarker(latLng, map) {
+    this.marker = new google.maps.Marker({
+      position: latLng,
+      map,
+      draggable: true
+    });
+
+    this.marker.addListener('dragend', (e) => {
+      console.log('Event: ', e.latLng.toJSON());
+    });
+  }
 }
