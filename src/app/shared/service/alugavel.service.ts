@@ -21,7 +21,6 @@ export class AlugavelService {
     return this.http.get<any>(environment.apiUrl + '/alugaveis/usuario', { params });
   }
 
-
   public getTaxa(): Observable<any> {
     return this.http.get<any>(environment.apiUrl + '/alugaveis/taxa');
   }
@@ -36,6 +35,14 @@ export class AlugavelService {
 
   public alterStatus(id, update) {
     return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, update);
+  }
+
+  public removeInfo(idAlugavel, idInfo): Observable<any>{
+    return this.http.delete<any>(environment.apiUrl + '/alugaveis/' + idAlugavel + '/infos/' + idInfo);
+  }
+  
+  public removeImage(idAlugavel, idImagem): Observable<any>{
+    return this.http.delete<any>(environment.apiUrl + '/alugaveis/' + idAlugavel + '/imagem/' + idImagem);
   }
 
   public saveImage(base64): Observable<any> {
