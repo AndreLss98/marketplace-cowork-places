@@ -1,24 +1,27 @@
-import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
-import { CURRENCY_PATTERN } from './../../../../../shared/constants/constants';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from './../../../../../shared/service/user.service';
-import { Alugavel } from './../../../../../shared/interface/interface';
-import { AlugavelService } from './../../../../../shared/service/alugavel.service';
-import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
-import { TiposService } from 'src/app/shared/service/tipos.service';
-import { ViacepService } from './../../../../../shared/service/viacep.service';
-import { IbgeService } from './../../../../../shared/service/ibge.service';
-import { environment } from './../../../../../../environments/environment';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray } from '@angular/forms';
-import { ErrorStateMatcher, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatStepper } from '@angular/material/stepper';
-import { INFORMACOES_ADICIONAIS_LIMITE } from 'src/app/shared/constants/constants';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ErrorStateMatcher, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray } from '@angular/forms';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+
+import { Alugavel } from 'src/app/shared/interface/interface';
+
+import { environment } from 'src/environments/environment';
+import { CURRENCY_PATTERN, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
+import { INFORMACOES_ADICIONAIS_LIMITE } from 'src/app/shared/constants/constants';
+
+import { UserService } from 'src/app/shared/service/user.service';
+import { IbgeService } from 'src/app/shared/service/ibge.service';
+import { TiposService } from 'src/app/shared/service/tipos.service';
+import { ViacepService } from 'src/app/shared/service/viacep.service';
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
+import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -133,10 +136,10 @@ export class CriarAnuncioComponent implements OnInit {
     private route: ActivatedRoute,
     private viacep: ViacepService,
     private snackBar: MatSnackBar,
-    private alugavel: AlugavelService,
     private alugaveis: AlugaveisService,
-    private caracService: CaracteristicasService,
+    private alugavelService: AlugavelService,
     private imageCompress: NgxImageCompressService,
+    private caracteristicasService: CaracteristicasService,
   ) {
 
     this.termos = this.form.group({
@@ -200,7 +203,7 @@ export class CriarAnuncioComponent implements OnInit {
       this.categorias = response;
     });
 
-    this.alugavel.getTaxa().subscribe(response => {
+    this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = response.taxa;
     })
   }
@@ -212,7 +215,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public carregarCaracteristicas(){
-    this.caracService.getAll().subscribe(response => {
+    this.caracteristicasService.getAll().subscribe(response => {
       response.forEach(element => {
         if(element.id > 6){
           element.value = false;
@@ -277,21 +280,19 @@ export class CriarAnuncioComponent implements OnInit {
       this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
       return false; 
     }else{
-      this.alugavel.saveDoc(event.target.files.item(0), field)
-        .subscribe(response=>{
-          let doc = {
-            nome: field,
-            id: response.id
-          }
-          this.documentos.push(doc);
+      this.alugavelService.saveDoc(event.target.files.item(0), field).subscribe(response=>{
+        let doc = {
+          nome: field,
+          id: response.id
+        }
+        this.documentos.push(doc);
       })
       // console.log(this.files); 
       // this.files.push(event.target.files.item(0))
     }       
   }
 
-  public checkBoxChange(elemento){
-
+  public checkBoxChange(elemento) {
     elemento.value = !elemento.value;
   }
 
@@ -311,7 +312,7 @@ export class CriarAnuncioComponent implements OnInit {
             base64: result,
             id: ''
           }
-          this.alugavel.saveImage(image.base64).subscribe(response => {
+          this.alugavelService.saveImage(image.base64).subscribe(response => {
             image.id = response.img.id
             this.imagens.push(image);
           }, err => {
@@ -331,7 +332,6 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public calculaCustoDia(): number{
-    let total = 0;
     if(this.taxa.value == this.max_taxa){
       return Number(this.custo_dia.value);
     }else if(this.taxa.value == (this.max_taxa / 2)){
@@ -359,11 +359,10 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-
   public nextStep(step: MatStepper){
     console.log(step.selectedIndex);
     switch (step.selectedIndex) {
-      case 0: 
+      case 0:
         if(!this.termos.valid){
           this.snackBar.open("Para prosseguir aceite os termos", "Ok", {duration: 5000})
         }else{
@@ -393,16 +392,16 @@ export class CriarAnuncioComponent implements OnInit {
         break;
       case 3:
         if(this.valores.valid){
-          let alugavel = this.finalizarCadastro();
+          let alugavel = this.buildObjToSave();
           if(this.editMode){
-            this.alugavel.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
+            this.alugavelService.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
               nextStep();
             }, err => {
               this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
               console.log(err);
             });
           }else{
-            this.alugavel.createAlugavel(alugavel).subscribe(response => {
+            this.alugavelService.createAlugavel(alugavel).subscribe(response => {
               nextStep();
             }, err => {
               this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
@@ -413,7 +412,6 @@ export class CriarAnuncioComponent implements OnInit {
         break;
       default:
         console.log(step);
-        break;
     }
 
     function nextStep(){
@@ -437,7 +435,7 @@ export class CriarAnuncioComponent implements OnInit {
     this.info.splice(index, 1);
   }
 
-  public finalizarCadastro(): any{
+  public buildObjToSave(): any{
     this.editavel = false;
 
     let alugavel_infos = [];
@@ -454,16 +452,16 @@ export class CriarAnuncioComponent implements OnInit {
     });
 
     let alugavel_caracteristicas = [];
-    alugavel_caracteristicas.push({caracteristica_id: 1, valor: this.area.value});
-    alugavel_caracteristicas.push({caracteristica_id: 2, valor: this.internet.value});
-    alugavel_caracteristicas.push({caracteristica_id: 3, valor: this.quantidade_mesas.value});
-    alugavel_caracteristicas.push({caracteristica_id: 4, valor: this.vagas.value});
-    alugavel_caracteristicas.push({caracteristica_id: 5, valor: this.horario_funcionamento.value});
-    alugavel_caracteristicas.push({caracteristica_id: 6, valor: this.numero_pessoas.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.AREA, valor: this.area.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET, valor: this.internet.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_MESAS, valor: this.quantidade_mesas.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_VAGAS, valor: this.vagas.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.HORARIO_FUNCIONAMENTO, valor: this.horario_funcionamento.value});
+    alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_PESSOAS, valor: this.numero_pessoas.value});
+    
     this.caracteristicas.forEach(element => {
       alugavel_caracteristicas.push({caracteristica_id: element.id, valor: element.value.toString()})
     });
-
 
     let alugavel_doc = [];
     this.documentos.forEach(element => {
@@ -504,7 +502,6 @@ export class CriarAnuncioComponent implements OnInit {
 
     console.log("Alugavel: ", JSON.stringify(alugavel));
     return alugavel;
-
   }
 
   private loadData(){
@@ -513,6 +510,9 @@ export class CriarAnuncioComponent implements OnInit {
 
       // Salva o id do alugavel;
       this.idAlugavel = response.id;
+      // Carregar valor e taxa
+      this.taxa.setValue(Number(response.taxa));
+      this.custo_dia.setValue(Number(response.valor));
       
       // Carrega dados cadastrais
       this.cep.disable()
@@ -534,8 +534,6 @@ export class CriarAnuncioComponent implements OnInit {
         this.documentos.push({nome: element.nome, id: element.id});
       });
       
-      // Carrega caracteristicas do espaço
-        // Carrega imagens
       response.imagens.forEach(element => {
         this.imagens.push({
           id: element.id,
@@ -543,19 +541,17 @@ export class CriarAnuncioComponent implements OnInit {
         });
       });
 
-      let carac = response.caracteristicas;
-      this.area.setValue(carac.find(element => {console.log(element); return element.nome == 'Área'}).valor);
-      this.quantidade_mesas.setValue(carac.find(element => {return element.nome == 'Quantidade de Mesas'}).valor);
-      this.internet.setValue(carac.find(element => element.nome == 'Internet').valor);
-      this.horario_funcionamento.setValue(carac.find(element => element.nome == 'Horário de Funcionamento').valor);
-      this.numero_pessoas.setValue(carac.find(element => element.nome == 'Quantidade de Pessoas').valor);
-      this.vagas.setValue(carac.find(element => element.nome == 'Quantidade de Vagas').valor);
+      let caracteristicas = response.caracteristicas;
+      this.area.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA].valor);
+      this.internet.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET].valor);
+      this.vagas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_VAGAS].valor);
+      this.quantidade_mesas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_MESAS].valor);
+      this.numero_pessoas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_PESSOAS].valor);
+      this.horario_funcionamento.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.HORARIO_FUNCIONAMENTO].valor);
 
       this.caracteristicas.forEach( element => {
-        carac.forEach(carac => {
-          if(element.id == carac.id){
-            element.value = (carac.valor == "true");
-          }
+        caracteristicas.forEach(caracteristica => {
+          if(element.id === caracteristica.id) element.value = (caracteristica.valor == "true");
         });
       });
 
@@ -565,11 +561,6 @@ export class CriarAnuncioComponent implements OnInit {
           descricao: element.descricao
         });
       });
-
-    // Carregar valor e taxa
-    this.taxa.setValue(Number(response.taxa));
-    this.custo_dia.setValue(Number(response.valor));
-    
     });
   }
 

@@ -18,13 +18,13 @@ export class CaracteristicasService {
     return this.http.get<any>(`${environment.apiUrl}/caracteristicas`);
   }
 
-  public save(politica) {
-    return this.http.post(`${environment.apiUrl}/caracteristicas`, politica);
+  public save(caracteristica) {
+    return this.http.post(`${environment.apiUrl}/caracteristicas`, caracteristica);
   }
 
-  public update(politica) {
-    const id = politica.id;
-    delete politica.id;
-    return this.http.put(`${environment.apiUrl}/caracteristicas/${id}`, politica);
+  public update(caracteristica) {
+    const {id} = caracteristica;
+    delete caracteristica.id;
+    return this.http.put(`${environment.apiUrl}/caracteristicas/${id}`, caracteristica);
   }
 }

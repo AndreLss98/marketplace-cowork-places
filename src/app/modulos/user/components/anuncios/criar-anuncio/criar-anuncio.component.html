@@ -67,7 +67,7 @@
                         <mat-error *ngIf="cep.hasError('notfound')">CEP não encontrado</mat-error>
                         <mat-error *ngIf="!cep.hasError('notfound') && !this.cep.hasError('nao_disponivel')">Preencha o campo corretamente</mat-error>
                         <mat-error *ngIf="this.cep.hasError('nao_disponivel')">
-                            Os nosso serviços ainda não estão disponíveis nessa cidade. Aguarde!
+                            Os nossos serviços ainda não estão disponíveis nessa cidade. Aguarde!
                         </mat-error>
                     </mat-form-field>
     
