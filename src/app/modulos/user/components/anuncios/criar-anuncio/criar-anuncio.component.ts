@@ -22,6 +22,7 @@ import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
+import { MapsService } from 'src/app/shared/service/maps.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -46,6 +47,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class CriarAnuncioComponent implements OnInit {
+
+  public lngLatPlace;
 
   public editMode = false;
   private espaco_id;
@@ -138,6 +141,7 @@ export class CriarAnuncioComponent implements OnInit {
     private route: ActivatedRoute,
     private viacep: ViacepService,
     private snackBar: MatSnackBar,
+    private mapService: MapsService,
     private alugaveis: AlugaveisService,
     private alugavelService: AlugavelService,
     private imageCompress: NgxImageCompressService,
@@ -213,7 +217,6 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public onLocalChange(event) {
-    console.log('New position: ', event);
     this.latitude.setValue(event.lat);
     this.longitude.setValue(event.lng);
   }
@@ -250,8 +253,9 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-  public validarCep(){
+  public validarCep() {
     this.viacep.validaCep(this.cep.value).subscribe( response => {
+      this.lngLatPlace = null;
       if(response['erro'] == true){
         this.cep.setErrors({'notfound': true})
         return;
@@ -261,6 +265,13 @@ export class CriarAnuncioComponent implements OnInit {
       this.bairro.setValue(response['bairro']);
       this.complemento.enable();
 
+      this.mapService.getLatitudeLongitude(this.cep.value).subscribe(response => {
+        this.lngLatPlace = {
+          latitude: response.results[0].geometry.location.lat,
+          longitude: response.results[0].geometry.location.lng
+        }
+      });
+
       this.ibge.getMunicipioPorId(response['ibge']).subscribe( data => {
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
@@ -268,7 +279,7 @@ export class CriarAnuncioComponent implements OnInit {
         this.verificaCidade();
         this.estado.disable();
         this.cidade.disable();
-        console.log(this.estados, data['microrregiao']['mesorregiao']['UF'].id);
+        // console.log(this.estados, data['microrregiao']['mesorregiao']['UF'].id);
       })
     }, err => {
       // console.log(err);

@@ -106,7 +106,9 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <maps (localChange)="onLocalChange($event)"></maps>
+                <div *ngIf="lngLatPlace">
+                    <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
+                </div>
                 <!-- Documentos -->
                 <span class="w-100 text-center" style="margin-bottom: 5px;"  *ngIf="!editMode">Documentos do espaço</span>
                 <div class="w-100 d-flex flex-row flex-wrap" *ngIf="!editMode">

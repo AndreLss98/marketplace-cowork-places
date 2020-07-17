@@ -39,7 +39,7 @@
                     <span class="sr-only">Anterior</span>
                 </a>
             </div>
-            <maps *ngIf="view === 'maps'" [lngLatPlace]="{ latitude: espaco.local.latitude, longitude: espaco.local.longitude }"></maps>
+            <maps *ngIf="view === 'maps'" [lngLatPlace]="{ latitude: espaco.local.latitude, longitude: espaco.local.longitude }" [static]="true"></maps>
         </div>
         <div class="col-lg-3">
             <div class="myCard col">

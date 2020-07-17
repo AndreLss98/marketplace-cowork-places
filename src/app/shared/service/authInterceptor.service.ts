@@ -38,7 +38,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         {  
           withCredentials: true
         })
-    }else if(req.url.includes('viacep')){
+    }else if(req.url.includes('viacep') || req.url.includes('maps.googleapis.com')) {
       return req;
     }else{
 

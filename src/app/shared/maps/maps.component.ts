@@ -8,6 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input }
 export class MapsComponent implements OnInit {
 
   @Input() lngLatPlace;
+  @Input() static: boolean = false;
   @Output() localChange = new EventEmitter();
 
   readonly default_center = new google.maps.LatLng(-16.679301, -49.256769);
@@ -21,12 +22,7 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.lngLatPlace) {
-      console.log('Obj que passei: ', this.lngLatPlace);
-      this.loadMap()
-    } else {
-      this.initMap();
-    }
+    this.initMap();
   }
 
   private initMap() {
@@ -37,44 +33,36 @@ export class MapsComponent implements OnInit {
       mapTypeControl: false,
     };
 
+    if (this.lngLatPlace) {
+      mapOptions.center = new google.maps.LatLng(this.lngLatPlace.latitude, this.lngLatPlace.longitude);
+      this.generateMap(mapOptions);
+      return;
+    }
+
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log('Current position: ', position)
-        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        mapOptions.center = latLng;
+        mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);;
         this.generateMap(mapOptions);
       }, (error) => {
         console.log('Current position error: ', error);
         this.generateMap(mapOptions);
-      })
+      });
     } else {
       console.log('Geolocation is not available');
       this.generateMap(mapOptions);
     }
   }
 
-  private loadMap() {
-    const latLng = new google.maps.LatLng(this.lngLatPlace.latitude, this.lngLatPlace.longitude);
-    let mapOptions: google.maps.MapOptions = {
-      zoom: 17,
-      center: latLng,
-      fullscreenControl: true,
-      mapTypeControl: false
-    };
-
-    this.generateMap(mapOptions, false);
-  }
-
-  private generateMap(mapOptions: google.maps.MapOptions, draggable = true) {
+  private generateMap(mapOptions: google.maps.MapOptions) {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.initMarker(mapOptions.center, this.map, draggable);
+    this.initMarker(mapOptions.center, this.map);
   }
 
-  private initMarker(latLng, map, draggable) {
+  private initMarker(latLng, map) {
     this.marker = new google.maps.Marker({
       position: latLng,
       map,
-      draggable
+      draggable: !this.static
     });
 
     this.localChange.emit(latLng.toJSON());
