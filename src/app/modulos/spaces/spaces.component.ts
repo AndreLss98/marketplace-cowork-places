@@ -49,6 +49,8 @@ export class SpacesComponent implements OnInit {
   public espacos = [];
   public condicoes = [];
 
+  public view = 'photos';
+
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,

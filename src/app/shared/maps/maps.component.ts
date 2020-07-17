@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'maps',
@@ -7,6 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '
 })
 export class MapsComponent implements OnInit {
 
+  @Input() lngLatPlace;
   @Output() localChange = new EventEmitter();
 
   readonly default_center = new google.maps.LatLng(-16.679301, -49.256769);
@@ -20,7 +21,12 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initMap();
+    if (this.lngLatPlace) {
+      console.log('Obj que passei: ', this.lngLatPlace);
+      this.loadMap()
+    } else {
+      this.initMap();
+    }
   }
 
   private initMap() {
@@ -47,16 +53,28 @@ export class MapsComponent implements OnInit {
     }
   }
 
-  private generateMap(mapOptions: google.maps.MapOptions) {
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.initMarker(mapOptions.center, this.map);
+  private loadMap() {
+    const latLng = new google.maps.LatLng(this.lngLatPlace.latitude, this.lngLatPlace.longitude);
+    let mapOptions: google.maps.MapOptions = {
+      zoom: 17,
+      center: latLng,
+      fullscreenControl: true,
+      mapTypeControl: false
+    };
+
+    this.generateMap(mapOptions, false);
   }
 
-  private initMarker(latLng, map) {
+  private generateMap(mapOptions: google.maps.MapOptions, draggable = true) {
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.initMarker(mapOptions.center, this.map, draggable);
+  }
+
+  private initMarker(latLng, map, draggable) {
     this.marker = new google.maps.Marker({
       position: latLng,
       map,
-      draggable: true
+      draggable
     });
 
     this.localChange.emit(latLng.toJSON());
