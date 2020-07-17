@@ -334,6 +334,9 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public removeFoto(index){
+    if(this.editMode){
+      this.alugavelService.removeImage(this.idAlugavel, this.imagens[index].id).subscribe(response => console.log(response));;
+    }
     this.imagens.splice(index, 1);
   }
 
@@ -442,6 +445,9 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public removeInfo(index){
+    if(this.editMode){
+      this.alugavelService.removeInfo(this.idAlugavel, this.info[index].id).subscribe(response => console.log(response));
+    }
     this.info.splice(index, 1);
   }
 
