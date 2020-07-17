@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'maps',
@@ -6,6 +6,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./maps.component.scss']
 })
 export class MapsComponent implements OnInit {
+
+  @Output() localChange = new EventEmitter();
+
   readonly default_center = new google.maps.LatLng(-16.679301, -49.256769);
   @ViewChild('map', { static: true }) mapElement: ElementRef;
   map: google.maps.Map;
@@ -57,7 +60,7 @@ export class MapsComponent implements OnInit {
     });
 
     this.marker.addListener('dragend', (e) => {
-      console.log('Event: ', e.latLng.toJSON());
+      this.localChange.emit(e.latLng.toJSON());
     });
   }
 }

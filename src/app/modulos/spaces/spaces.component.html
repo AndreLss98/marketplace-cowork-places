@@ -65,7 +65,7 @@
                 <!-- Valores -->
                 <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>Nº de pessoas</span>
-                    <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_PESSOAS].valor}}</span>
+                    <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_PESSOAS - 1].valor}}</span>
                 </div>
                 <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>Quantidade de dias</span>
@@ -135,17 +135,17 @@
         <div class="col-xl-4 d-flex flex-row align-items-center">
             <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
                 <span class="material-icons">aspect_ratio</span>
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.AREA].valor}} m2</p>
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.AREA - 1].valor}} m2</p>
             </div>
             <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
                 <img class="caracteristica" src="assets/svg/desk.svg" alt="">
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS].valor}} mesas</p>
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS - 1].valor}} mesas</p>
             </div>
             <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
                 <img class="caracteristica" src="assets/svg/car.svg" alt="">
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS].valor}} vagas</p>
+                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS - 1].valor}} vagas</p>
             </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica" *ngIf="espaco.caracteristicas[CARACTERISTICAS.INTERNET].valor == 'true'">
+            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica" *ngIf="espaco.caracteristicas[CARACTERISTICAS.INTERNET - 1].valor == 'true'">
                 <span class="material-icons">wifi</span>
                 <p class="caracteristica">Internet</p>
             </div>
@@ -176,7 +176,7 @@
             <!-- Funcionamento -->
             <div class="d-flex flex-column">
                 <span style="font-weight: 600; margin-top: 30px; padding-bottom: 10px;">Funcionamento</span>
-                <span>. {{espaco.caracteristicas[CARACTERISTICAS.HORARIO_FUNCIONAMENTO].valor}}</span>
+                <span>. {{espaco.caracteristicas[CARACTERISTICAS.HORARIO_FUNCIONAMENTO - 1].valor}}</span>
                 <span>. O prazo começa após a confirmação do pagamento</span>
             </div>
 

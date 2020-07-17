@@ -105,6 +105,8 @@ export class CriarAnuncioComponent implements OnInit {
   escritura = new FormControl('', [Validators.required]);
   contrato_locacao = new FormControl('');
   documento_proprietario = new FormControl('');
+  latitude = new FormControl(null, [Validators.required]);
+  longitude = new FormControl(null, [Validators.required]);
 
   // Caracteristicas do espaço
   public caracteristicas_espaco: FormGroup;
@@ -162,7 +164,9 @@ export class CriarAnuncioComponent implements OnInit {
       proprietario: this.proprietario,
       escritura: this.escritura,
       contrato_locacao: this.contrato_locacao,
-      documento_proprietario: this.documento_proprietario
+      documento_proprietario: this.documento_proprietario,
+      latitude: this.latitude,
+      longitude: this.longitude
     });
 
     this.caracteristicas_espaco = this.form.group({
@@ -206,6 +210,12 @@ export class CriarAnuncioComponent implements OnInit {
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = response.taxa;
     })
+  }
+
+  public onLocalChange(event) {
+    console.log('New position: ', event);
+    this.latitude.setValue(event.lat);
+    this.longitude.setValue(event.lng);
   }
 
   public getFormattedPrice(campo) {
@@ -360,7 +370,6 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public nextStep(step: MatStepper){
-    console.log(step.selectedIndex);
     switch (step.selectedIndex) {
       case 0:
         if(!this.termos.valid){
@@ -393,6 +402,7 @@ export class CriarAnuncioComponent implements OnInit {
       case 3:
         if(this.valores.valid){
           let alugavel = this.buildObjToSave();
+          console.log('Alugavel: ', alugavel)
           if(this.editMode){
             this.alugavelService.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
               nextStep();
@@ -476,7 +486,7 @@ export class CriarAnuncioComponent implements OnInit {
     let alugavel_cidade = this.distritos.find(element => element.id == this.cidade.value).nome;
     let alugavel_estado = this.estados.find(element => element.id == this.estado.value).nome;
 
-    let alugavel: Alugavel = {
+    let alugavel: any = {
       anunciante_id : this.user.user_data.id,
       tipo_id: this.tipo.value,
       taxa: this.taxa.value,
@@ -492,15 +502,15 @@ export class CriarAnuncioComponent implements OnInit {
         estado: alugavel_estado,
         bairro: this.bairro.value,
         numero: this.numero.value,
-        complemento: this.complemento.value
+        complemento: this.complemento.value,
+        latitude: this.latitude.value,
+        longitude: this.longitude.value
       },
       caracteristicas: alugavel_caracteristicas,
       infos: alugavel_infos,
       imagens: alugavel_imagens,
       documentos: alugavel_doc
     }
-
-    console.log("Alugavel: ", JSON.stringify(alugavel));
     return alugavel;
   }
 
@@ -542,12 +552,12 @@ export class CriarAnuncioComponent implements OnInit {
       });
 
       let caracteristicas = response.caracteristicas;
-      this.area.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA].valor);
-      this.internet.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET].valor);
-      this.vagas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_VAGAS].valor);
-      this.quantidade_mesas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_MESAS].valor);
-      this.numero_pessoas.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_PESSOAS].valor);
-      this.horario_funcionamento.setValue(caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.HORARIO_FUNCIONAMENTO].valor);
+      this.area.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.AREA).valor);
+      this.internet.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET).valor);
+      this.vagas.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_VAGAS).valor);
+      this.quantidade_mesas.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_MESAS).valor);
+      this.numero_pessoas.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_PESSOAS).valor);
+      this.horario_funcionamento.setValue(this.getCaracteristica(caracteristicas, ENUM_ALUGAVEL_CARACTERISTICAS.HORARIO_FUNCIONAMENTO).valor);
 
       this.caracteristicas.forEach( element => {
         caracteristicas.forEach(caracteristica => {
@@ -562,6 +572,10 @@ export class CriarAnuncioComponent implements OnInit {
         });
       });
     });
+  }
+
+  private getCaracteristica(caracteristicas, id) {
+    return caracteristicas.find(caracteristica => caracteristica.id === id);
   }
 
 }
