@@ -59,6 +59,8 @@ export class MapsComponent implements OnInit {
       draggable: true
     });
 
+    this.localChange.emit(latLng.toJSON());
+
     this.marker.addListener('dragend', (e) => {
       this.localChange.emit(e.latLng.toJSON());
     });
