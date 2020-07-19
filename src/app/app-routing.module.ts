@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./modulos/home/home.module').then(m => m.HomeModule) },
   { path: 'spaces/:id', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
   { path: 'about', loadChildren: () => import('./modulos/about/about.module').then(m => m.AboutModule) },
+  { path: 'confirm-email', loadChildren: () => import('./modulos/confirm-email/confirm-email.module').then(m => m.ConfirmEmailModule) },
   { 
     path: 'user', 
     loadChildren: () => import('./modulos/user/user.module').then(m => m.UserModule),
