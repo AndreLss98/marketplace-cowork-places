@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
@@ -26,8 +25,11 @@ export class CheckoutService {
     this._reserva = reserva;
   }
 
-  public checkout(aluguel) {
-    console.log("Aluguel: ", aluguel);
-    return this.http.post<any>(`${environment.apiUrl}/alugueis/checkout`, aluguel);
+  public checkout(reserva) {
+    return this.http.post<any>(`${environment.apiUrl}/alugueis/checkout`, reserva);
+  }
+
+  public updateReserva(id, reserva) {
+    return this.http.put<any>(`${environment.apiUrl}/alugueis/${id}`, reserva);
   }
 }

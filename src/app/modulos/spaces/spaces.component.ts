@@ -103,17 +103,27 @@ export class SpacesComponent implements OnInit {
           data_saida: this.formatDate(new Date(this.saida))
         },
         valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
-        alugavel_id: this.espaco.id,
-        titulo: this.espaco.titulo
+        alugavel_id: this.espaco.id
       };
 
-      if (this.totalDias() < 31) this.router.navigate(['/checkout']);
-      /* this.checkoutService.checkout(aluguel).subscribe(response => {
-        console.log('Response: ', response);
-        window.open(response.paymentUrl, "_blank");
-      }, (error) => {
-        console.log("Aluguel error: ", error);
-      }); */
+      if (this.totalDias() <= 30) {
+        this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+          this.checkoutService.reserva.titulo = this.espaco.titulo;
+          this.checkoutService.reserva.id = response.id;
+          console.log('Response: ', response);
+          this.router.navigate(['/checkout']);
+        }, (error) => {
+          console.log("Aluguel error: ", error);
+        });
+      } else {
+        this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+          console.log('Response: ', response);
+          this.checkoutService.reserva = response;
+          this.router.navigate(['/checkout']);
+        }, (error) => {
+          console.log("Aluguel error: ", error);
+        });
+      }
     } else {
       this.snackBar.open('Selecione as datas de entrada e saída', 'OK', { duration: 3000 })
     }
@@ -166,6 +176,8 @@ export class SpacesComponent implements OnInit {
   }
 
   private formatDate(date: Date) {
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    return `${date.getFullYear()}-${month}-${day}`;
   }
 }
