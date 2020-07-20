@@ -36,13 +36,13 @@
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 1</mat-label>
-                        <input matInput formControlName="numero_1" required />
+                        <input matInput formControlName="numero_1" (keyup)="formatarTelefone('numero_1')" required />
                     </mat-form-field>
                 </td>
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 2</mat-label>
-                        <input matInput formControlName="numero_2" placeholder="Opcional" />
+                        <input matInput formControlName="numero_2" (keyup)="formatarTelefone('numero_2')" placeholder="Opcional" />
                     </mat-form-field>
                 </td>
             </table>

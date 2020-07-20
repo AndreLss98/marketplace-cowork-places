@@ -181,4 +181,13 @@ export class InfoComponent implements OnInit {
     this.editInfoForm.controls['cpf'].setValue(formatted);
   }
 
+  public formatarTelefone(campo: string) {
+    let formatted = this.editInfoForm.value[campo];
+    formatted = formatted.replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, "($1) $2")
+    .replace(/^(\(\d{2}\) \d{5})(\d)/, "$1-$2")
+    .replace(/^(\(\d{2}\) \d{5}-\d{4})(.)/, "$1");
+    this.editInfoForm.controls[campo].setValue(formatted);
+  }
+
 }
