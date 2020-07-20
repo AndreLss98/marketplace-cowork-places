@@ -23,7 +23,6 @@ export class EditarAnuncioGuard implements CanActivate {
 
     return this.alugaveis.getById(next.queryParams.id).pipe(
         map(res => {
-          console.log(res.anunciante_id, this.user.user_data.id, res.anunciante_id == this.user.user_data.id);
           return res.anunciante_id == this.user.user_data.id;
         }));
 
