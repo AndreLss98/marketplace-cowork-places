@@ -16,6 +16,13 @@ import { MapsComponent } from './maps/maps.component';
     MarkdownModule,
     FormsModule,
   ],
-  exports: [FormsModule, MaterialModule, ReactiveFormsModule, HighlightItemsComponent, MdViewerComponent, MapsComponent]
+  exports: [
+    FormsModule, 
+    MapsComponent,
+    MaterialModule, 
+    MdViewerComponent, 
+    ReactiveFormsModule, 
+    HighlightItemsComponent, 
+  ]
 })
 export class SharedModule { }

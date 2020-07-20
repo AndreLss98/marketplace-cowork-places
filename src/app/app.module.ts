@@ -1,3 +1,5 @@
+import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
+import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,6 +32,8 @@ import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings,
     HeaderComponent,
     FooterComponent,
     SignupComponent,
+    FeedbackButtonComponent,
+    FeedbackModalComponent
   ],
   imports: [
     FormsModule,

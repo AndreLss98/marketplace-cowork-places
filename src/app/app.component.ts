@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(
     private login: LoginService,
     private route: ActivatedRoute,
-    private userService: UserService
+    public userService: UserService
   ){
     this.login.verifySession();
 
