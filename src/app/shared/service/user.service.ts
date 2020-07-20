@@ -53,6 +53,10 @@ export class UserService {
     return this.http.post(environment.apiUrl + '/usuarios/email', { email: email });
   }
 
+  public validateEmail(token: string) {
+    return this.http.post(`${environment.apiUrl}/usuarios/validate-email`, { token });
+  }
+
   public checkPermission() {
     return this.http.post(`${environment.apiUrl}/usuarios/check-admin`, {});
   }

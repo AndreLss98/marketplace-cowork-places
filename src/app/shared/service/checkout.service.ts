@@ -30,6 +30,7 @@ export class CheckoutService {
   }
 
   public updateReserva(id, reserva) {
+    delete reserva.id;
     return this.http.put<any>(`${environment.apiUrl}/alugueis/${id}`, reserva);
   }
 }

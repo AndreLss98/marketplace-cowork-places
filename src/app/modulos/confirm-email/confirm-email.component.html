@@ -1,7 +1,7 @@
 <div class="w-100 h-50 d-flex justify-content-center align-items-center flex-column">
-    <img src="assets/svg/checkmark.svg" style="width: 150px;" class="checkmark">
-    <span style="text-align: center; font-size: 25px;">Email sendo verificado!</span>
-    <div class="w-50">
+    <img *ngIf="validate" src="assets/svg/checkmark.svg" class="checkmark">
+    <span class="message">{{ message }}</span>
+    <div *ngIf="loading" class="w-50">
         <mat-progress-bar mode="indeterminate" class="w-100"></mat-progress-bar>
     </div>
 </div>
