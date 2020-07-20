@@ -1,3 +1,4 @@
+import { SpacesGuard } from './modulos/spaces/guard/spaces.guard';
 import { CheckoutGuardGuard } from './modulos/checkout/guard/checkout-guard.guard';
 import { UserGuard } from './modulos/user/guard/user.guard';
 import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
@@ -7,9 +8,13 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', loadChildren: () => import('./modulos/home/home.module').then(m => m.HomeModule) },
   { path: 'home', loadChildren: () => import('./modulos/home/home.module').then(m => m.HomeModule) },
-  { path: 'spaces/:id', loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) },
   { path: 'about', loadChildren: () => import('./modulos/about/about.module').then(m => m.AboutModule) },
   { path: 'confirm-email', loadChildren: () => import('./modulos/confirm-email/confirm-email.module').then(m => m.ConfirmEmailModule) },
+  { 
+    path: 'spaces/:id', 
+    loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) ,
+    canActivate: [SpacesGuard]
+  },
   { 
     path: 'user', 
     loadChildren: () => import('./modulos/user/user.module').then(m => m.UserModule),

@@ -23,5 +23,11 @@
             </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Reprovados '+ espacos_reprovados.length" style="margin-bottom: 10px;"> Content 3 </mat-tab>
+    <mat-tab [label]="'Reprovados '+ espacos_reprovados.length" style="margin-bottom: 10px;">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+            <div style="margin: 5px;" *ngFor="let reprovados of espacos_reprovados">
+                <app-highlight-items [data]='reprovados'></app-highlight-items>
+            </div>
+        </div>
+    </mat-tab>
 </mat-tab-group>
