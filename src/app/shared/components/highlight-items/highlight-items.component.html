@@ -20,14 +20,16 @@
     
     <mat-card-header>
         <mat-card-title>{{data.titulo}}</mat-card-title>
+        <mat-card-subtitle class="d-flex flex-row justify-content-between">
+            {{data.tipo.nome}}
+            <div class="d-flex flex-row cardItem" *ngIf="data.nota">
+                <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0; padding: 5px; margin-right: 5px;">{{ data.nota.toFixed(2)}}</p>
+                <span *ngFor="let item of countStars(data.nota)" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
+            </div>
+        </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content class="d-flex flex-column justify-content-around">
-
-        <div class="d-flex flex-row w-100 cardItem" *ngIf="data.nota">
-            <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0;  padding: 5px; margin-right: 5px;">{{ data.nota.toFixed(2)}}</p>
-            <span *ngFor="let item of countStars(data.nota)" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
-        </div>
 
         <div class="w-100 cardItem">
             <span class="endereco"><mat-icon>location_on</mat-icon> {{data.local.rua}} - {{data.local.cidade}} - {{data.local.estado}}</span>
