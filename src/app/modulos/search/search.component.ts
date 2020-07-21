@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.route.queryParams.subscribe((data) => {
       console.log("params: ", data)
       if (data.tipo_id) {
@@ -52,7 +53,7 @@ export class SearchComponent implements OnInit {
     var scroll = $(window).scrollTop();
 
     // scroll to bottom
-    if (scroll > this.position + 30) {
+    if (scroll > this.position + 50) {
       $('#navTop').removeClass('up');
       $('#navTop').addClass('hide');
 
@@ -82,9 +83,9 @@ export class SearchComponent implements OnInit {
   }
 
   private checkOffset() {
-    if ($('#searchScroll').offset().top + $('#searchScroll').height() >= $('#footer').offset().top - 125) {
+    if ($('#searchScroll').offset().top + $('#searchScroll').height() >= $('#footer').offset().top - 233) {
       $('#searchScroll').css('position', 'absolute');
-      $('#searchScroll').css('top', ($('#footer').offset().top - $('#searchScroll').height()) - 125 + 'px');
+      $('#searchScroll').css('top', ($('#footer').offset().top - $('#searchScroll').height()) - 233 + 'px');
     }
     if ($(document).scrollTop() + window.innerHeight < $('#footer').offset().top) {
       $('#searchScroll').css('position', 'fixed')

@@ -4,7 +4,7 @@
     // Global
     width: 330px;
     min-height: 375px;
-    background-color: $pl-amarelo;
+    background-color: gray;
     border-radius: 20px;
     // position: fixed;
     padding: 30px 20px 15px 20px;
@@ -24,7 +24,7 @@
     .inputCidade {
         color: white;
         font-size: 14px;
-        background-color: $pl-amarelo;
+        background-color: gray;
         border: none;
         padding-bottom: 6px;
         border-bottom: 2px solid white;
@@ -69,7 +69,7 @@
         }
 
         input::placeholder {
-            color: $pl-amarelo;
+            color: gray;
             text-transform: uppercase;
             font-size: 14px;
         }
@@ -93,7 +93,7 @@
         }
 
         input::placeholder {
-            color: $pl-amarelo;
+            color: gray;
             text-transform: uppercase;
             font-size: 14px;
         }
@@ -107,36 +107,14 @@
     // Limpar e aplicar filtro.
     .limpar {
         width: 100%;
-        border-radius: 7px;
-        border: 2px solid #00000046;
-        color: #0000009c;
-        background-color: $pl-amarelo;
+        // background-color: $pl-amarelo;
     }
 
-    .limpar:hover {
-        background-color: #ce9615;
-    }
-
-    .limpar:focus {
-        outline: 0;
-        box-shadow: none;
-    }
 
     .submit {
         width: 100%;
-        border-radius: 7px;
-        border: 2px solid white;
-        color: white;
-        background-color: $pl-amarelo;
+        // background-color: $pl-amarelo;
     }
 
-    .submit:hover {
-        background-color: #ce9615;
-    }
-
-    .submit:focus {
-        outline: 0;
-        box-shadow: none;
-    }
 }
 
