@@ -1,4 +1,26 @@
-
-<div>
+<div class="d-flex flex-column align-items-center justify-content-center">
     <span class="pergunta">{{ pergunta }}</span>
+    <form [formGroup]="formFeedback">
+        <div *ngIf="mode == 'range'" class="w-100">
+            <mat-slider formControlName="range"
+                class="w-100" thumbLabel min='0' max='10' step='1' value='5'></mat-slider>
+        </div>
+        <div *ngIf="mode == 'text'" class="w-100">
+            <mat-form-field class="w-100"  appearance="outline">
+                <mat-label>Digite aqui!</mat-label>
+                <textarea 
+                    matInput
+                    formControlName="text"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="5"
+                    cdkAutosizeMaxRows="5"
+                    maxlength="250"
+                    ></textarea>
+            </mat-form-field>
+        </div>
+        <div class="w-100 d-flex justify-content-end align-content-end">
+            <button mat-button mat-raised-button color="primary">Enviar</button>
+        </div>
+    </form>
 </div>
