@@ -7,8 +7,15 @@ import { environment } from 'src/environments/environment';
 })
 export class FavoritosService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
+
+  public favoritar(alugavel_id) {
+    return this.http.post(environment.apiUrl + '/usuarios/favoritos', {alugavel_id: alugavel_id});
+  }
+
+  public desfavoritar(alugavel_id) {
+    return this.http.delete(environment.apiUrl + '/usuarios/favoritos/' + alugavel_id);
   }
 
   public getAll() {

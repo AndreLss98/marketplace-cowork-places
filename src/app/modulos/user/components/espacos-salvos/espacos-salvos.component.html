@@ -1,4 +1,10 @@
 <div class="d-flex flex-wrap flex-row justify-content-around">
-    <app-highlight-items *ngFor="let favorito of favoritos" [data]="favorito"></app-highlight-items>
+    <div style="margin: 5px; position: relative;"  *ngFor="let favorito of favoritos">
+        <button type="button" mat-mini-fab color="warn" (click)="removerFavoritos(favorito.id)"
+            style="position: absolute; top: 5px; right: 5px; z-index: 99;">
+            <mat-icon>close</mat-icon>
+        </button>
+        <app-highlight-items [data]="favorito"></app-highlight-items>
+    </div>
     <!-- <app-highlight-items [data]="space"></app-highlight-items> -->
 </div>

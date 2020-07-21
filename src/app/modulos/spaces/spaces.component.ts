@@ -1,3 +1,4 @@
+import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -55,6 +56,7 @@ export class SpacesComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
+    private favoritoService: FavoritosService,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
   ) { }
@@ -65,6 +67,7 @@ export class SpacesComponent implements OnInit {
     });
 
     this.espaco = this.route.snapshot.data['data'];
+    console.log(this.espaco);
     this.condicoes = this.route.snapshot.data['condicoes'];
     this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
       this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id);
@@ -93,6 +96,16 @@ export class SpacesComponent implements OnInit {
     }
 
     return array;
+  }
+
+  public favoritar(){
+    this.favoritoService.favoritar(this.espaco.id).subscribe(res => {
+      this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
+    }, err => {
+      this.favoritoService.desfavoritar(this.espaco.id).subscribe( response => {
+        this.snackBar.open('Removido dos espaços salvos', 'OK', {duration: 1000});
+      })
+    });
   }
 
   public checkout() {
