@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1595357690958,
+  "timestamp": 1595360530480,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -151,7 +151,7 @@
     "/assets/svg/tick.svg": "15de12ebc054c7c0ebee8147df53d0ba1cd6a66d",
     "/common-es2015.cd63d914b34b26b61f7f.js": "77af9b0251d6ad5c8d252484520c900c86f374f6",
     "/common-es5.cd63d914b34b26b61f7f.js": "48ff537ee52d700f1a6fb5d66ece9167ae9fbc28",
-    "/favicon.ico": "6164dcbefdbbc187232ee9986bd03e433c7ce8f7",
+    "/favicon.ico": "19981290cd10b9b73a0c893df74f1f2e07bd3234",
     "/index.html": "fd390ab9417b44021f469e2a82ffc21fff0e2252",
     "/main-es2015.75ee9fd5cc42af92adad.js": "d991e5f08bc491d5b01a3d16d011a530978dead7",
     "/main-es5.75ee9fd5cc42af92adad.js": "7596bffd092b6d244425135423a6eb4d798b6038",
