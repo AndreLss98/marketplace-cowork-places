@@ -8,11 +8,11 @@
                 <img [src]="backUrl + '/imgs/' + image.url" class="card-img-top d-block w-100 carouselImage">
             </div>
         </div>
-        <a class="carousel-control-prev" href="#Carousel{{data.id}}" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#Carousel{{data.id}}" role="button" data-slide="prev" *ngIf="data.imagens.length > 1">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#Carousel{{data.id}}" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#Carousel{{data.id}}" role="button" data-slide="next" *ngIf="data.imagens.length > 1">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -20,7 +20,9 @@
 
     <div class="clickable-area" (click)="goToSpace()">
         <mat-card-header>
-            <mat-card-title>{{data.titulo}}</mat-card-title>
+            <mat-card-title style="max-width: 284px;">
+                <span  style="white-space: pre-line; word-wrap: break-word;">{{data.titulo}}</span>
+            </mat-card-title>
             <mat-card-subtitle class="d-flex flex-row justify-content-between">
                 {{data.tipo.nome}}
                 <div class="d-flex flex-row cardItem" *ngIf="data.nota">
