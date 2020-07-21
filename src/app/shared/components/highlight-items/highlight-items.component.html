@@ -1,9 +1,11 @@
-<div class="card" style="margin-bottom: 10px;" [ngStyle]="{'width': width}">
 
+<mat-card class="card" style="position: relative;">
+    
     <div id="Carousel{{data.id}}" class="carousel slide">
-        <div class="carousel-inner" role="listbox" style="height: 190px; border-radius: 25px 25px 0 0;">
+        <div class="carousel-inner" role="listbox" style="border-radius: 25px 25px 5px 5px;">
             <div *ngFor="let image of data.imagens; let i = index" class="carousel-item" [class.active]="i == 0">
-                <img [src]="backUrl + '/imgs/' + image.url" class="card-img-top d-block w-100">
+                <div class="bg-image" [ngStyle]="{'background-image': 'url('+ backUrl + '/imgs/' + image.url +')'}"></div>
+                <img [src]="backUrl + '/imgs/' + image.url" class="card-img-top d-block w-100 carouselImage">
             </div>
         </div>
         <a class="carousel-control-prev" href="#Carousel{{data.id}}" role="button" data-slide="prev">
@@ -15,54 +17,49 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    
+    <mat-card-header>
+        <mat-card-title>{{data.titulo}}</mat-card-title>
+    </mat-card-header>
 
-    <div class="card-body" (click)="goToSpace()">
-        <div class="card-title d-flex flex-column w-100">
-            <div>
-                <p style="margin-bottom: 0; font-size: 11px; font-weight: bold;">{{ data.tipo.nome }}</p>
-                <h5 style="font-weight: bold;">{{ data.titulo }}</h5>
-            </div>
-            <!-- <div class="d-flex flex-row w-100">
-                <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0;  padding: 5px; margin-right: 5px;">{{ data.rank.toFixed(2)}}</p>
-                <span *ngFor="let item of countStars()" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
-            </div> -->
-        </div>
-        <div>
-            <div class="row">
-                <div class="col-8">
-                    <p style="font-size: 11px;">{{ data.descricao }}</p>
-                </div>
-                <div class="col-4"></div>
-            </div>
-            <div class="row" style="padding-bottom: 10px;">
-                <div *ngFor="let caracteristica of data.caracteristicas" class="col-3 d-flex flex-column align-items-center" style="padding: 0">
-                    <span *ngIf="caracteristica.icone && caracteristica.icone.substring(caracteristica.icone.length - 4) !== '.svg'" class="material-icons">{{ caracteristica.icone }}</span>
-                    <img *ngIf="caracteristica.icone && caracteristica.icone.substring(caracteristica.icone.length - 4) === '.svg'" [src]="'assets/svg/' + caracteristica.icone" style="width: 24px;" alt="">
-                    <p *ngIf="caracteristica.icone" style="color: gray; font-size: 11px;">{{ caracteristica.valor }}</p>
-                </div>
+    <mat-card-content class="d-flex flex-column justify-content-around">
+
+        <div class="d-flex flex-row w-100 cardItem" *ngIf="data.nota">
+            <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0;  padding: 5px; margin-right: 5px;">{{ data.nota.toFixed(2)}}</p>
+            <span *ngFor="let item of countStars(data.nota)" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
         </div>
 
-<!--         <div class="row" style="margin-left: 7px; margin-right: 7px; border-top: 1px solid #858585;">
-            <div class="col d-flex flex-row" style="padding: 5px 0 5px 0">
-                <span style="font-size: 14px; font-weight: bold;">ALUGUEL</span>
-            </div>
-            <div class="col d-flex justify-content-end" style="padding: 5px 0 5px 0">
-                <span style="font-size: 14px; font-weight: bold;">R$: {{ data.valor.toFixed(2)}}</span>
-            </div>
-        </div>
-        <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 10px; border-bottom: 1px solid #858585;">
-            <div class="col d-flex justify-content-end" style="padding: 0;">
-                <span style="font-size: 14px; font-weight: bold;">+Taxas</span>
-            </div>
-        </div> -->
-        <div class="row" style="margin-left: 7px; margin-right: 7px; padding-bottom: 15px; padding-top: 7px; border-top: 1px solid #858585;">
-            <div class="col d-flex justify-content-start" style="padding: 0;">
-                <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
-            </div>
-            <div class="col d-flex justify-content-end" style="padding: 0;">
-                <span style="font-size: 14px; font-weight: bold;">R$: {{( data.valor).toFixed(2)}}</span>
-            </div>
+        <div class="w-100 cardItem">
+            <span class="endereco"><mat-icon>location_on</mat-icon> {{data.local.rua}} - {{data.local.cidade}} - {{data.local.estado}}</span>
         </div>
 
+        <div class="d-flex flex-row justify-content-between cardItem">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <span class="material-icons">aspect_ratio</span>
+                <p class="caracteristica">{{data.caracteristicas[CARACTERISTICAS.AREA - 1].valor}} m2</p>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <img class="caracteristica" src="assets/svg/desk.svg" alt="">
+                <p class="caracteristica">{{data.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS - 1].valor}} mesas</p>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <img class="caracteristica" src="assets/svg/car.svg" alt="">
+                <p class="caracteristica">{{data.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS - 1].valor}} vagas</p>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center" *ngIf="data.caracteristicas[CARACTERISTICAS.INTERNET - 1].valor == 'true'">
+                <span class="material-icons">wifi</span>
+                <p class="caracteristica">Internet</p>
+            </div>
+        </div>
+        
+    </mat-card-content>
+
+    <div style="position: absolute; bottom: 0; width: 91%;">
+        <div class="d-flex justify-content-between"
+            style="padding-bottom: 15px; padding-top: 7px; border-top: 1px solid #858585;">
+            <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
+            <span style="font-size: 14px; font-weight: bold;">R$: {{custoDia().toFixed(2)}}</span>
+        </div>
     </div>
-</div>
+
+</mat-card>

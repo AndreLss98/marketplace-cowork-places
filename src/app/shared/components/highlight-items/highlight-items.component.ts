@@ -1,7 +1,8 @@
-import { highlightItem } from './../../interface/interface';
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
 
 @Component({
   selector: 'app-highlight-items',
@@ -13,21 +14,26 @@ export class HighlightItemsComponent implements OnInit {
   @Input('data') data: any;
   @Input('width') width:string = '277px'
   public backUrl = environment.apiUrl;
+  private taxaTotal;
+  public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private alugavel: AlugavelService
   ) { }
 
   ngOnInit(): void {
     this.data.valor = Number(this.data.valor)
+    this.alugavel.getTaxa().subscribe( res => {
+      this.taxaTotal = res.taxa;
+    })
   }
 
   goToSpace() {
     this.router.navigateByUrl("/spaces/" + this.data.id)
   }
 
-  countStars(): string[] {
-    let n:number = this.data.rank;
+  countStars(n): string[] {
     let array = [];
     let j = 0;
 
@@ -45,5 +51,9 @@ export class HighlightItemsComponent implements OnInit {
     }
     
     return array;
+  }
+
+  custoDia(){
+    return Number( this.data.valor * ( (this.taxaTotal / 100) + 1 ) );
   }
 }
