@@ -20,16 +20,14 @@ export class CriarAnuncioGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
-    if(!this.userService.user_data.cadastro_validado){
-
-      this.snack.open("Para criar um anúncio, termine o seu cadastro", "Ok", {duration: 5000});
+    if(!this.userService.user_data.cadastro_validado) {
+      this.snack.open("Cadastro em análise, confira se você preencheu todos os campos corretamente", "Ok", {duration: 5000});
       this.route.navigate(['/user/conta/info'])
       return false;
     }
 
-    if(!this.userService.user_data.email_validado){
-      this.snack.open("Para criar um anúncio, confirme o seu email", "Ok", {duration: 5000});
+    if(!this.userService.user_data.email_validado) {
+      this.snack.open("Para criar um anúncio confirme o seu email", "Ok", {duration: 5000});
       this.route.navigate(['/user/conta/info'])
       return false;
     }
