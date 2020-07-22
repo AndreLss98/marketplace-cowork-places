@@ -43,3 +43,12 @@ export enum ENUM_ALUGAVEL_CARACTERISTICAS {
     HORARIO_FUNCIONAMENTO,
     QUANTIDADE_PESSOAS
 }
+
+export const TIPOS_CAMPOS = {
+    INTERVALO: 'intervalo',
+    SELECAO: 'selecao',
+    BINARIO: 'binario',
+    TEXTO_SIMPLES: 'texto_simples',
+    AREA_TEXTO: 'area_texto',
+    NUMERICO: 'numerico'
+}

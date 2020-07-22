@@ -1,0 +1,23 @@
+<div [formGroup]="form">
+    <div [ngSwitch]="question.campo.tipo">
+        <div *ngSwitchCase="TIPOS_CAMPOS.INTERVALO">
+            <span>{{ question.pergunta }}</span>
+            <mat-slider thumbLabel class="w-100" [formControlName]="question.nome_campo" [min]="propriedades.min" [max]="propriedades.max" [step]="propriedades.step"></mat-slider>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.AREA_TEXTO">
+            <span class="w-100">{{question.pergunta}}</span>
+            <mat-form-field class="w-100"  appearance="outline">
+                <mat-label>Digite aqui!</mat-label>
+                <textarea 
+                    matInput
+                    [formControlName]="question.nome_campo"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    [cdkAutosizeMinRows]="propriedades.min_rows"
+                    [cdkAutosizeMaxRows]="propriedades.max_rows"
+                    [maxlength]="propriedades.max_length">
+                </textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

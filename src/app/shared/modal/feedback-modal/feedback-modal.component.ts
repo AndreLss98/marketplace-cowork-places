@@ -1,5 +1,7 @@
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+
+import { FeedbackService } from 'src/app/shared/service/feedback.service';
 
 @Component({
   selector: 'app-feedback-modal',
@@ -7,26 +9,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feedback-modal.component.scss']
 })
 export class FeedbackModalComponent implements OnInit {
+  public form: any = {};
+  public formFeedback: FormGroup;
 
-  public pergunta = "De 0 a 10, o quanto você recomenda o nosso site ?";
-  public mode = "range";
-  public resposta_range;
-  public responsta_text;
-
-  public formFeedback: FormGroup
-  range = new FormControl('', []);
-  text = new FormControl('', []);
-
+  public questions = [];
+  
   constructor(
-    private form: FormBuilder
+    private feedbackSevice: FeedbackService
   ) {
-    this.formFeedback = this.form.group({
-      range: this.range,
-      text: this.text
-    })
+    
   }
 
   ngOnInit(): void {
+    this.fetchQuestions();
   }
 
+  private fetchQuestions() {
+    this.feedbackSevice.getAll().subscribe(response => {
+      this.questions = response;
+      this.configForm();
+    });
+  }
+
+  private configForm() {
+    this.questions.forEach(question => {
+      this.form[question.nome_campo] = new FormControl(question.campo.propriedades.standard || '');
+    });
+    this.formFeedback = new FormGroup(this.form);
+  }
 }

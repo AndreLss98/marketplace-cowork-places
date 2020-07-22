@@ -25,6 +25,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings, 
   RECAPTCHA_SETTINGS, RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
 
+import { QuestionComponent } from './shared/components/question/question.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings,
     FooterComponent,
     SignupComponent,
     FeedbackButtonComponent,
-    FeedbackModalComponent
+    FeedbackModalComponent,
+    QuestionComponent
   ],
   imports: [
     FormsModule,
