@@ -4,7 +4,7 @@
     padding-right: 40px;
     padding-left: 40px;
     padding-bottom: 100px;
-    padding-top: 100px;
+    padding-top: 30px;
     background-color: #f4f4f4;
 
     cdk-virtual-scroll-viewport::-webkit-scrollbar {
@@ -83,10 +83,10 @@
     }
 }
 
-.slideUp{
-  top: auto;
-}
+// .slideUp{
+//   top: auto;
+// }
 
-.slideDown{
-  top: 20px !important;
-}
+// .slideDown{
+//   top: 20px !important;
+// }

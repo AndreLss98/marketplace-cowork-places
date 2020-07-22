@@ -35,7 +35,7 @@ export class SpacesComponent implements OnInit {
   // Datas de entrada e saida
   public saida;
   public entrada;
-  public hoje = moment().format();
+  public hoje = moment().add(2, 'days').format();
 
   // Valor maximo de taxa para calcular;
   private max_taxa;
