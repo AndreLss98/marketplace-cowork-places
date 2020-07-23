@@ -1,6 +1,7 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
+import { ModalService } from 'src/app/shared/service/modal.service';
 import { FeedbackService } from 'src/app/shared/service/feedback.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class FeedbackModalComponent implements OnInit {
   public questions = [];
   
   constructor(
-    private feedbackSevice: FeedbackService
+    private modalService: ModalService,
+    private feedbackSevice: FeedbackService,
   ) {
     
   }
@@ -27,7 +29,7 @@ export class FeedbackModalComponent implements OnInit {
   private fetchQuestions() {
     this.feedbackSevice.getAllByUser().subscribe(response => {
       this.questions = response.filter(question => !question.resposta);
-      this.configForm();
+      if(this.questions.length > 0) this.configForm();
     });
   }
 
@@ -36,5 +38,17 @@ export class FeedbackModalComponent implements OnInit {
       this.form[question.nome_campo] = new FormControl(question.campo.propriedades.standard || '');
     });
     this.formFeedback = new FormGroup(this.form);
+  }
+
+  public sendFeedback() {
+    let answers: any = [];
+    Object.keys(this.formFeedback.value).forEach(field_name => {
+      const feedback_id = this.questions.find(question => question.nome_campo === field_name).id;
+      answers.push({ feedback_id, resposta: this.formFeedback.value[field_name] });
+    });
+    console.log(answers);
+    this.feedbackSevice.reply(answers).subscribe(response => {
+      this.modalService.closeAllModals();
+    });
   }
 }

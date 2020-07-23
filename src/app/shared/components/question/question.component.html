@@ -39,7 +39,7 @@
                 <input matInput
                     [formControlName]="question.nome_campo"
                     [placeholder]="propriedades.placeholder"
-                    type="number" />
+                    type="number"/>
             </mat-form-field>
         </div>
         <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome">
@@ -48,7 +48,7 @@
         <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome">
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>{{ question.pergunta }}</mat-label>
-                <mat-select [formControlName]="question.nome_campo" [multiple]="propriedades.multiple">
+                <mat-select [formControlName]="question.nome_campo" [multiple]="propriedades.multiple" >
                     <mat-option *ngFor="let possibilidade of propriedades.possibilidades" [value]="possibilidade.id">
                         {{possibilidade.valor}}
                     </mat-option>

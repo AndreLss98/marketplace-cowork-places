@@ -1,7 +1,19 @@
 <div class="d-flex flex-column align-items-center justify-content-center">
-    <form>
+    <form *ngIf="formFeedback;else noQuestions" (ngSubmit)="sendFeedback()" [formGroup]="formFeedback">
         <div *ngFor="let question of questions">
             <question class="w-100" [form]="formFeedback" [question]="question"></question>
         </div>
+        <div id="send-button">
+            <button
+                mat-flat-button
+                type="submit"
+                color="primary"
+                [disabled]="formFeedback.invalid">Enviar
+            </button>
+        </div>
     </form>
+    <ng-template #noQuestions>
+        <span>Você ja respondeu a todas nossas perguntas!</span>
+        <span>Obrigado!</span>
+    </ng-template>
 </div>

@@ -25,6 +25,10 @@ export class FeedbackService {
     return this.http.post<any>(`${environment.apiUrl}/feedback`, feedback);
   }
 
+  public reply(feedback) {
+    return this.http.post<any>(`${environment.apiUrl}/usuarios/feedbacks`, feedback);
+  }
+
   public delete(id) {
     return this.http.delete<any>(`${environment.apiUrl}/feedback/${id}`);
   }
