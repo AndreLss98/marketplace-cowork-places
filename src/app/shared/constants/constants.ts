@@ -45,10 +45,89 @@ export enum ENUM_ALUGAVEL_CARACTERISTICAS {
 }
 
 export const TIPOS_CAMPOS = {
-    INTERVALO: 'intervalo',
-    SELECAO: 'selecao',
-    BINARIO: 'binario',
-    TEXTO_SIMPLES: 'texto_simples',
-    AREA_TEXTO: 'area_texto',
-    NUMERICO: 'numerico'
+    INTERVALO: {
+        nome: 'intervalo',
+        campos: {
+            min: {
+                type: 'number',
+                label: 'Valor mínimo',
+                required: true
+            },
+            max: {
+                type: 'number',
+                label: 'Valor máximo',
+                required: true
+            },
+            step: {
+                type: 'number',
+                label: 'Salto',
+                required: false
+            },
+            standard: {
+                type: 'number',
+                label: 'Valor inicial',
+                required: false
+            },
+        }
+    },
+    SELECAO: {
+        nome: 'selecao',
+        campos: {
+            multiple: {
+                type: 'boolean',
+                label: 'Mais de um valor permitido?',
+                required: true
+            }
+        }
+    },
+    BINARIO: {
+        nome: 'binario',
+        campos: {
+            standard: {
+                type: 'boolean',
+                label: 'Valor padrão',
+                required: true
+            }
+        }
+    },
+    TEXTO_SIMPLES: {
+        nome: 'texto_simples',
+        campos: {
+            placeholder: {
+                type: 'text',
+                label: 'Placeholder',
+                required: true
+            }
+        }
+    },
+    AREA_TEXTO: {
+        nome: 'area_texto',
+        campos: {
+            min_rows: {
+                type: 'number',
+                label: 'Quantidade mínima de linhas',
+                required: true
+            },
+            max_value: {
+                type: 'number',
+                label: 'Quantidade máxima de linhas',
+                required: true
+            },
+            max_lenght: {
+                type: 'number',
+                label: 'Quantidade máxima de caracteres',
+                required: true
+            },
+        }
+    },
+    NUMERICO: {
+        nome: 'numerico',
+        campos: {
+            placeholder: {
+                type: 'text',
+                label: 'Placeholder',
+                required: true
+            }
+        }
+    }
 }

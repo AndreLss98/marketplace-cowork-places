@@ -25,8 +25,8 @@ export class FeedbackModalComponent implements OnInit {
   }
 
   private fetchQuestions() {
-    this.feedbackSevice.getAll().subscribe(response => {
-      this.questions = response;
+    this.feedbackSevice.getAllByUser().subscribe(response => {
+      this.questions = response.filter(question => !question.resposta);
       this.configForm();
     });
   }

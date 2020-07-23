@@ -16,7 +16,9 @@ export class QuestionComponent implements OnInit {
 
   get isValid() { return this.form.controls[this.question.nome_campo].valid; }
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   ngOnInit(): void {
     this.propriedades = this.question.campo.propriedades;

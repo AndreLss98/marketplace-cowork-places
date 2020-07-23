@@ -1,0 +1,20 @@
+mat-table {
+    margin: 15px;
+}
+
+mat-cell.action-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#form-container {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+button.danger {
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+}
