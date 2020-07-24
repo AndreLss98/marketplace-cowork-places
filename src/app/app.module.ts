@@ -10,6 +10,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+
 import {
   RecaptchaModule,
   RecaptchaSettings, 
@@ -74,7 +75,7 @@ import { AuthInterceptorService } from './shared/service/authInterceptor.service
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'pt-BR',
-    },
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent]

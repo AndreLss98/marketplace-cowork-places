@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+
+import * as moment from 'moment';
 
 import { environment } from 'src/environments/environment';
 
@@ -9,11 +13,36 @@ import { LoginService } from 'src/app/shared/service/login.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
 
+export const CUSTOM_DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT
+    },
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'pt-BR'
+    }
+  ]
 })
 export class InfoComponent implements OnInit {
 
@@ -27,6 +56,7 @@ export class InfoComponent implements OnInit {
 
   public editInfoForm: FormGroup;
   public editBankAccountForm: FormGroup;
+  public data_nascimento = new FormControl(moment());
 
   public canEditCPF = false;
 
@@ -50,7 +80,7 @@ export class InfoComponent implements OnInit {
       cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]],
       numero_1: ['', [Validators.required]],
       numero_2: ['', []],
-      data_nascimento: ['', [Validators.required]]
+      data_nascimento: this.data_nascimento
     });
   }
 
@@ -145,11 +175,12 @@ export class InfoComponent implements OnInit {
   }
 
   public actionInfoForm() {
-    this.userService.atualizarDadosPessoais(this.editInfoForm.value).subscribe(response => {
+    /* this.userService.atualizarDadosPessoais(this.editInfoForm.value).subscribe(response => {
       this.editInfoForm.markAsPristine()
     }, (error) => {
       console.log("Edit info error: ", error);
-    });
+    }); */
+    console.log(this.editInfoForm);
   }
 
   private resetBankAccountForm() {

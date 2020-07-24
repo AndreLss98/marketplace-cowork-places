@@ -25,11 +25,12 @@
                             <input
                                 matInput
                                 style="color: black;"
-                                formControlName="data_nascimento"
+                                [formControl]="data_nascimento"
                                 [matDatepicker]="picker"
-                                placeholder="dd/mm/yyyy">
+                                placeholder="dd/mm/yyyy"
+                                required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker startView="multi-year" #picker></mat-datepicker>
                         </mat-form-field>
                     </td>
                 </ng-template>
@@ -51,13 +52,13 @@
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 1</mat-label>
-                        <input matInput formControlName="numero_1" (keyup)="formatarTelefone('numero_1')" required />
+                        <input matInput formControlName="numero_1" maxlength="15" (keyup)="formatarTelefone('numero_1')" required />
                     </mat-form-field>
                 </td>
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 2</mat-label>
-                        <input matInput formControlName="numero_2" (keyup)="formatarTelefone('numero_2')" placeholder="Opcional" />
+                        <input matInput formControlName="numero_2" maxlength="15" (keyup)="formatarTelefone('numero_2')" placeholder="Opcional" />
                     </mat-form-field>
                 </td>
             </table>
