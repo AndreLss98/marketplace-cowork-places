@@ -1,31 +1,38 @@
-import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
-import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
-import { AuthInterceptorService } from './shared/service/authInterceptor.service';
-import { MarkdownModule } from 'ngx-markdown';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MarkdownModule } from 'ngx-markdown';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import {
+  RecaptchaModule,
+  RecaptchaSettings, 
+  RECAPTCHA_SETTINGS,
+  RECAPTCHA_LANGUAGE,
+  RecaptchaFormsModule
+} from 'ng-recaptcha';
+
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './shared/material.module';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
 import { LoginComponent } from './shared/modal/login/login.component';
 import { SignupComponent } from './shared/modal/signup/signup.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MaterialModule } from './shared/materia.module';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings, 
-  RECAPTCHA_SETTINGS, RECAPTCHA_LANGUAGE } from 'ng-recaptcha';
-
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { QuestionComponent } from './shared/components/question/question.component';
+import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
+import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
+
+import { environment } from '../environments/environment';
+
+import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 
 @NgModule({
   declarations: [

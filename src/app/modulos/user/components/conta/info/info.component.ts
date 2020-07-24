@@ -1,14 +1,14 @@
-import { UserService } from './../../../../../shared/service/user.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
 
+import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
-import { ThrowStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-info',
@@ -16,8 +16,6 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-
-  public emailVerified = false;
 
   public dataNascimento = '';
   public selectedFile: File = null;
@@ -50,16 +48,17 @@ export class InfoComponent implements OnInit {
     this.editInfoForm = formBuilder.group({
       id: [null, Validators.required],
       cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]],
-      numero_1: ["", [Validators.required]],
-      numero_2: ["", []]
+      numero_1: ['', [Validators.required]],
+      numero_2: ['', []],
+      data_nascimento: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
-    this.emailVerified =  this.userService.user_data.email_validado;
+
     console.log("User: ", this.userService.user_data);
-    this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
+    if (this.userService.user_data.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
 

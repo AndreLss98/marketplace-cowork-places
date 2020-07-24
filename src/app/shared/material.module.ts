@@ -32,6 +32,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { NgModule } from '@angular/core';
 
@@ -51,6 +52,7 @@ import { NgModule } from '@angular/core';
     MatAutocompleteModule,
     MatMomentDateModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatRadioModule,
     MatSelectModule,
