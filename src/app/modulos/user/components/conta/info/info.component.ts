@@ -86,8 +86,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
-
-    console.log("User: ", this.userService.user_data);
+  
     if (this.userService.user_data.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
@@ -97,14 +96,6 @@ export class InfoComponent implements OnInit {
     }
 
     this.configDocumentsTable();
-  }
-
-  private formatDate(date: Date): string {
-    let formattedDate = '';
-    formattedDate = date.getDate() + 1 < 10? `0${date.getDate() + 1}/` : `${date.getDate() + 1}/`;
-    formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}/` : `${date.getMonth() + 1}/`;
-    formattedDate += date.getFullYear();
-    return formattedDate;
   }
 
   public onFileSelected(event) {
@@ -175,12 +166,20 @@ export class InfoComponent implements OnInit {
   }
 
   public actionInfoForm() {
-    /* this.userService.atualizarDadosPessoais(this.editInfoForm.value).subscribe(response => {
+    let info = this.editInfoForm.value;
+    if (!this.dataNascimento) {
+      info.data_nascimento = this.formatDate(new Date(info.data_nascimento.subtract(1, 'd')), true);
+    } else {
+      delete info.data_nascimento;
+    }
+    console.log(info);
+    this.userService.atualizarDadosPessoais(info).subscribe(response => {
+      if (!this.dataNascimento) this.dataNascimento = this.formatDate(new Date(info.data_nascimento));
+      this.canEditCPF = false;
       this.editInfoForm.markAsPristine()
     }, (error) => {
       console.log("Edit info error: ", error);
-    }); */
-    console.log(this.editInfoForm);
+    });
   }
 
   private resetBankAccountForm() {
@@ -220,4 +219,17 @@ export class InfoComponent implements OnInit {
     this.editInfoForm.controls[campo].setValue(formatted);
   }
 
+  private formatDate(date: Date, forSave = false): string {
+    let formattedDate = '';
+    if (!forSave) {
+      formattedDate = date.getDate() + 1 < 10? `0${date.getDate() + 1}/` : `${date.getDate() + 1}/`;
+      formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}/` : `${date.getMonth() + 1}/`;
+      formattedDate += date.getFullYear();
+    } else {
+      formattedDate = `${date.getFullYear()}-`;
+      formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}-` : `${date.getMonth() + 1}-`;
+      formattedDate += date.getDate() + 1 < 10? `0${date.getDate() + 1}` : `${date.getDate() + 1}`;
+    }
+    return formattedDate;
+  }
 }
