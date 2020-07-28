@@ -1,1 +1,16 @@
-<div #paypal></div>
+<mat-horizontal-stepper [linear]="true">
+    <mat-step>
+        <ng-template matStepLabel>Confirmar dados</ng-template>
+        Dados do espaço e valores
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Concordar com os termos de serviços</ng-template>
+        exibir os termos para serem concordados
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Pagar e Finalizar!</ng-template>
+        Pagar e ser redirecionado
+        <div #paypal></div>
+    </mat-step>
+</mat-horizontal-stepper>
+
