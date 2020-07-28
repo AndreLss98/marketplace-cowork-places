@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://206.189.168.26',
   apiUrl: 'http://localhost',
   token: '',
   google_api_key: 'AIzaSyBBE4kMR4humYJfPb4MCxqqPF5geXZYAvk'
