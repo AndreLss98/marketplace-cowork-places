@@ -27,7 +27,7 @@ export class SpacesGuard implements CanActivate {
       let id = next.params.id;
       return this.AlugaveisService.getById(id).pipe(
         map(res => {
-          if(res.status === ALUGAVEL_STATUS.APPROVED.value || res.anunciante_id === this.userService.user_data.id) {
+          if(res.status === ALUGAVEL_STATUS.APPROVED.value || res.anunciante_id === this.userService?.user_data?.id) {
             return true
           }else{
             this.snack.open("Esse espaço não pode ser exibido", "OK", {duration: 5000});

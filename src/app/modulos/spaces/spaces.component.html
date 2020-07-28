@@ -92,7 +92,7 @@
         
                 <!-- botão reservar -->
                 <div class="d-flex align-items-center justify-content-center" style="padding: 20px;">
-                    <button class="btn btn-reservar" type="button" (click)="checkout()" [disabled]="espaco.anunciante_id === userService.user_data.id">RESERVAR</button>
+                    <button class="btn btn-reservar" type="button" (click)="checkout()" [disabled]="userService?.user_data?.id && espaco.anunciante_id === userService.user_data.id">RESERVAR</button>
                 </div>
         
                 <!-- Adicionar mais itens à sua reserva. -->
