@@ -81,7 +81,11 @@
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Tipo</mat-label>
-                        <input matInput formControlName="tipo" required />
+                        <mat-select formControlName="tipo" required>
+                            <mat-option *ngFor="let type of bankAccountTypes" [value]="type">
+                              {{type}}
+                            </mat-option>
+                          </mat-select>
                     </mat-form-field>
                 </td>
                 <td class="w-25">

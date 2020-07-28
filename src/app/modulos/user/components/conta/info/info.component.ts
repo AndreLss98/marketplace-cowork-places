@@ -50,6 +50,7 @@ export class InfoComponent implements OnInit {
   public selectedFile: File = null;
 
   public imgName = 'assets/svg/avatar.svg';
+  public bankAccountTypes = [ 'Conta Corrente', 'Conta Poupança' ];
 
   public documentos = [];
   public displayedColumns = [ 'Nome', 'Action' ];
