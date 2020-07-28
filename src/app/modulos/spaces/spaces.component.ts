@@ -11,8 +11,9 @@ import * as moment from 'moment';
 import { environment } from './../../../environments/environment';
 import { ENUM_ALUGAVEL_CARACTERISTICAS } from './../../shared/constants/constants';
 
+import { UserService } from 'src/app/shared/service/user.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
-import { CheckoutService } from './../../shared/service/checkout.service';
+import { CheckoutService } from 'src/app/shared/service/checkout.service';
 
 @Component({
   selector: 'app-spaces',
@@ -56,9 +57,10 @@ export class SpacesComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private favoritoService: FavoritosService,
+    public userService: UserService,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
+    private favoritoService: FavoritosService,
   ) { }
 
   ngOnInit(): void {
@@ -98,7 +100,11 @@ export class SpacesComponent implements OnInit {
     return array;
   }
 
-  public favoritar(){
+  public favoritar() {
+    if (this.espaco.anunciante_id === this.userService.user_data.id) {
+      this.snackBar.open('Você é o proprietário desse anúncio', 'OK', {duration: 1000});
+      return;
+    }
     this.favoritoService.favoritar(this.espaco.id).subscribe(res => {
       this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
     }, err => {
