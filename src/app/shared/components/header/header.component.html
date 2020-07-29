@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
         <li class="nav-item" *ngFor="let item of menu">
-          <a [href]="item.rout" class="nav-link">{{ item.name }}</a>
+          <a [target]="item.target" [href]="item.rout" class="nav-link">{{ item.name }}</a>
         </li>
         <li class="nav-item">
             <button class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
