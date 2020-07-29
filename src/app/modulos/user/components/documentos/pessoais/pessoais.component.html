@@ -36,6 +36,14 @@
                     <mat-label>Nome</mat-label>
                     <input formControlName="nome" matInput placeholder="Nome">
                 </mat-form-field>
+
+                <mat-form-field appearance="outline">   
+                    <mat-label>Icone</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option *ngFor="let icone of icones" [value]="icone">{{ icone }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
                 <div>
                     <mat-checkbox formControlName="avancado">Cadastro Avançado?</mat-checkbox>
                 </div>
@@ -54,6 +62,14 @@
                     <mat-label>Nome</mat-label>
                     <input matInput formControlName="nome" placeholder="Nome">
                 </mat-form-field>
+
+                <mat-form-field appearance="outline">   
+                    <mat-label>Icone</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option *ngFor="let icone of icones" [value]="icone">{{ icone }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
                 <div>
                     <mat-checkbox formControlName="avancado">Cadastro Avançado?</mat-checkbox>
                 </div>

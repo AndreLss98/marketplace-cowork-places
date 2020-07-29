@@ -16,6 +16,7 @@ export class PessoaisComponent implements OnInit {
   public editForm: FormGroup;
   public createForm: FormGroup;
 
+  public icones = [ 'Icone 1', 'Icone 2', 'Icone 3' ];
   public displayedColumns = [ 'id', 'nome', 'avancado', 'action' ];
 
   constructor(
@@ -24,13 +25,15 @@ export class PessoaisComponent implements OnInit {
   ) {
     this.createForm = formBuilder.group({
       nome: ["", Validators.required],
+      icone: ["", []],
       avancado: [false, Validators.required]
     });
 
     this.editForm = formBuilder.group({
-      id: [null, Validators.required],
-      nome: ["", Validators.required],
-      avancado: [false, Validators.required],
+      id: [null, [Validators.required]],
+      nome: ["", [Validators.required]],
+      icone: ["", []],
+      avancado: [false, [Validators.required]],
     });
   }
 
@@ -63,6 +66,7 @@ export class PessoaisComponent implements OnInit {
     this.editForm.reset({
       id: this.documento.id,
       nome: this.documento.nome,
+      icone: this.documento.icone,
       avancado: this.documento.avancado
     })
   }
