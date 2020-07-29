@@ -52,10 +52,10 @@ export class CriarAnuncioComponent implements OnInit {
   private espaco_id;
 
   // caminho imagem documento espaço
-  public documentoEspacoImg = 'url("/assets/imgs/criar_anuncio/documento_espaco.png")' 
-  public documentoEspacoImgAmarelo = 'url("/assets/imgs/criar_anuncio/documento_espaco_amarelo.png")' 
-  public cnhImg = 'url("/assets/imgs/criar_anuncio/cnh.png")' 
-  public cnhImgAmarelo = 'url("/assets/imgs/criar_anuncio/cnh_amarelo.png")' 
+  public documentoEspacoImg = 'url("/assets/svg/documento_espaco_verde.svg")' 
+  public documentoEspacoImgAmarelo = 'url("/assets/svg/documento_espaco_amarelo.svg")' 
+  public cnhImg = 'url("/assets/svg/cnh_verde.svg")' 
+  public cnhImgAmarelo = 'url("/assets/svg/cnh_amarelo.svg")' 
 
   // Permite a edição dos campos;
   public editavel = true;
