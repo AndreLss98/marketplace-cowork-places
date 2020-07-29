@@ -1,7 +1,7 @@
 export const HEADER_NAV_OPTIONS = [
-    { name: 'Como funciona', rout: '/home#homeComoFunciona' },
-    { name: 'Anuncie', rout: '/home' },
-    { name: 'Ajuda', rout: 'https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!' },
+    { name: 'Como funciona', rout: '/home#homeComoFunciona', target: '' },
+    { name: 'Anuncie', rout: '/home', target: '' },
+    { name: 'Ajuda', rout: 'https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!', target: '_blank' },
 ]
 
 export const HEADER_MENU_OPTIONS = [
