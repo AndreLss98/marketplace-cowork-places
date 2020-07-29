@@ -30,8 +30,8 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams.subscribe((data) => {
       console.log("params: ", data)
-      if (data.tipo_id) {
-        this.highlightService.fetch({ tipo_id: data.tipo_id });
+      if (data) {
+        this.highlightService.fetch(data);
       } else {
         this.highlightService.fetch();
       }

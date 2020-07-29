@@ -9,12 +9,11 @@
             </div>
             <!-- Bairro ou Cidade -->
             <div class="w-100 buscaCidade">
-                <input type="text" name="city" list="cityname" placeholder="Bairro ou Cidade">
+                <input #bairro type="text" name="city" list="cityname" placeholder="Bairro">
                 <datalist id="cityname">
                    <option [value]="option" *ngFor="let option of options"> 
                 </datalist>
-                <button>Buscar</button>
-                <!-- <button>Buscar</button> -->
+                <button (click)="search(bairro.value)">Buscar</button>
             </div>
             <!-- Filtros -->
             <div class="w-100 filtros" style="margin-top: 15px">
