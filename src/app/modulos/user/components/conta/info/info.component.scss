@@ -14,3 +14,32 @@
 .card-table {
     margin: 20px;
 }
+
+.inputDocumento{
+    background-repeat:no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+    height: 250px;
+    cursor: pointer;
+}
+
+.inputDocumento > input{
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.inputDocumento:hover{
+    background-color: rgba(0, 0, 0, 0.055);
+    border-radius: 5px;
+}
+
+.inputDocumento > label{
+    text-align: center;
+}

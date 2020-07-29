@@ -16,7 +16,7 @@ export class PessoaisComponent implements OnInit {
   public editForm: FormGroup;
   public createForm: FormGroup;
 
-  public icones = [ 'Icone 1', 'Icone 2', 'Icone 3' ];
+  public icones = [ 'rg_verde.svg', 'cnh_verde.svg', 'selfie_verde.svg' ];
   public displayedColumns = [ 'id', 'nome', 'avancado', 'action' ];
 
   constructor(
