@@ -1,3 +1,4 @@
+import { SafetyComponent } from './components/conta/safety/safety.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: '', component: UserComponent,
   children:  [
     { path: 'conta/info', component: InfoComponent},
+    { path: 'conta/safety', component: SafetyComponent},
     { path: 'tipos', component: ListaTiposComponent},
     { path: 'payments', component: PaymentsComponent},
     { path: 'documentos', component: PessoaisComponent},
