@@ -6,6 +6,7 @@ import { UserRoutingModule } from './user-routing.module';
 
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
+import { SafetyComponent } from './components/conta/safety/safety.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { CondicoesComponent } from './components/condicoes/condicoes.component';
@@ -24,7 +25,7 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
 
 
 @NgModule({
-  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent, PessoaisComponent, ListaUsuariosComponent, DetalhesUsuariosComponent, ListaAlugaveisComponent, DetalhesAlugaveisComponent, CondicoesComponent, FeedbackComponent],
+  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent, PessoaisComponent, ListaUsuariosComponent, DetalhesUsuariosComponent, ListaAlugaveisComponent, DetalhesAlugaveisComponent, CondicoesComponent, FeedbackComponent, SafetyComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
