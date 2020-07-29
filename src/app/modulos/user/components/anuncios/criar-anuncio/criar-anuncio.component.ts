@@ -105,7 +105,7 @@ export class CriarAnuncioComponent implements OnInit {
   estado = new FormControl('', [Validators.required]);
   complemento = new FormControl('', [Validators.maxLength(100)]);
   proprietario = new FormControl('', [Validators.required]);
-  escritura = new FormControl('', [Validators.required]);
+  escritura = new FormControl('', []);
   contrato_locacao = new FormControl('');
   documento_proprietario = new FormControl('');
   latitude = new FormControl(null, [Validators.required]);

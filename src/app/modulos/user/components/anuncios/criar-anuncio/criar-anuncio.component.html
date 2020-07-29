@@ -123,7 +123,7 @@
                     <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de alienação</span>
                     <div class="w-100 input-group">
                         <div class="custom-file">
-                            <input type="file" required class="custom-file-input" 
+                            <input type="file" class="custom-file-input" 
                                 id="escritura" formControlName='escritura' (change)="carregarDocumento($event, 'escritura')">
                             <label class="custom-file-label" for="escritura" aria-describedby="escrituraAddon0">
                                 {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
@@ -134,7 +134,7 @@
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
                         <div class="custom-file">
-                            <input type="file" [required]="proprietario.value == 'false'" (change)="carregarDocumento($event, 'contrato_locacao')"
+                            <input type="file" (change)="carregarDocumento($event, 'contrato_locacao')"
                                 class="custom-file-input" id="contrato_locacao" formControlName='contrato_locacao'>
                             <label class="custom-file-label" for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
                                 {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
@@ -145,7 +145,7 @@
                     <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do proprietário</span>
                         <div class="custom-file">
-                            <input type="file" [required]="proprietario.value == 'false'" (change)="carregarDocumento($event, 'documento_proprietario')"
+                            <input type="file" (change)="carregarDocumento($event, 'documento_proprietario')"
                                 class="custom-file-input" id="documento_proprietario" formControlName='documento_proprietario'>
                             <label class="custom-file-label" for="documento_proprietario" 
                                 aria-describedby="documento_proprietarioAddon0">
