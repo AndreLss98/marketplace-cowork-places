@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="true"  #stepper>
+<mat-horizontal-stepper [linear]="false"  #stepper>
 
     <mat-step [stepControl]='termos' [editable]="editavel">
         <form [formGroup]='termos'>
@@ -120,34 +120,34 @@
                           </mat-select>
                     </mat-form-field>
 
-                    <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de alienação</span>
-                    <div class="w-100 input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" 
+                    <div class="w-100 input-group border-top">
+                        <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de alienação</span>
+                        <div class="inputDocumentoEspaco" [ngStyle]="{'background-image':escritura.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
+                            <input type="file"
                                 id="escritura" formControlName='escritura' (change)="carregarDocumento($event, 'escritura')">
-                            <label class="custom-file-label" for="escritura" aria-describedby="escrituraAddon0">
+                            <label for="escritura" aria-describedby="escrituraAddon0">
                                 {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
                             </label>
                         </div>
                     </div>
 
-                    <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
+                    <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
-                        <div class="custom-file">
+                        <div class="inputDocumentoEspaco" [ngStyle]="{'background-image':contrato_locacao.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
                             <input type="file" (change)="carregarDocumento($event, 'contrato_locacao')"
-                                class="custom-file-input" id="contrato_locacao" formControlName='contrato_locacao'>
-                            <label class="custom-file-label" for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
+                                id="contrato_locacao" formControlName='contrato_locacao'>
+                            <label  for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
                                 {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
                             </label>
                         </div>
                     </div>
 
-                    <div class="w-100 input-group" *ngIf="proprietario.value == 'false'">
+                    <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
                         <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do proprietário</span>
-                        <div class="custom-file">
+                        <div class="inputDocumentoProprietario" [ngStyle]="{'background-image':documento_proprietario.value ? cnhImg: cnhImgAmarelo}">
                             <input type="file" (change)="carregarDocumento($event, 'documento_proprietario')"
-                                class="custom-file-input" id="documento_proprietario" formControlName='documento_proprietario'>
-                            <label class="custom-file-label" for="documento_proprietario" 
+                                id="documento_proprietario" formControlName='documento_proprietario'>                          
+                            <label for="documento_proprietario" 
                                 aria-describedby="documento_proprietarioAddon0">
                                 {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
                             </label>

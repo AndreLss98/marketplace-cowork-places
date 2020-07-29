@@ -6,10 +6,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ErrorStateMatcher, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-
-import { Alugavel } from 'src/app/shared/interface/interface';
 
 import { environment } from 'src/environments/environment';
 import { CURRENCY_PATTERN, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
@@ -52,6 +50,12 @@ export class CriarAnuncioComponent implements OnInit {
 
   public editMode = false;
   private espaco_id;
+
+  // caminho imagem documento espaço
+  public documentoEspacoImg = 'url("/assets/imgs/criar_anuncio/documento_espaco.png")' 
+  public documentoEspacoImgAmarelo = 'url("/assets/imgs/criar_anuncio/documento_espaco_amarelo.png")' 
+  public cnhImg = 'url("/assets/imgs/criar_anuncio/cnh.png")' 
+  public cnhImgAmarelo = 'url("/assets/imgs/criar_anuncio/cnh_amarelo.png")' 
 
   // Permite a edição dos campos;
   public editavel = true;
@@ -293,6 +297,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public carregarDocumento(event, field){
+    console.log(event);
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
    
     if (!allowedExtensions.exec(event.target.files.item(0).name)) { 

@@ -19,3 +19,51 @@
     width: 200px;
     color: $pl-verde-escuro;
 }
+
+.inputDocumentoEspaco{
+    background-image: url('/assets/imgs/criar_anuncio/documento_espaco.png');
+    background-repeat:no-repeat;
+    background-position: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+    height: 250px;
+    cursor: pointer;
+}
+
+.inputDocumentoEspaco > input{
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.inputDocumentoEspaco > label{
+    text-align: center;
+}
+
+.inputDocumentoProprietario{
+    background-image: url('/assets/imgs/criar_anuncio/cnh.png');
+    background-repeat:no-repeat;
+    background-position: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+    height: 250px;
+    cursor: pointer;
+}
+
+.inputDocumentoProprietario > input{
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.inputDocumentoProprietario > label{
+    text-align: center;
+}
