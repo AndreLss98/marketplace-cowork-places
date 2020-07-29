@@ -1,7 +1,20 @@
 <mat-horizontal-stepper [linear]="true">
     <mat-step>
         <ng-template matStepLabel>Confirmar dados</ng-template>
-        Dados do espaço e valores
+
+        <mat-card class="mat-elevation-z4 card-table">
+            <mat-card-title>Dados do espaço</mat-card-title>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
+        
+        <mat-card class="mat-elevation-z4 card-table">
+            <mat-card-title>Custo total</mat-card-title>
+            <mat-card-content>
+                
+            </mat-card-content>
+        </mat-card>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Concordar com os termos de serviços</ng-template>
@@ -9,7 +22,7 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Pagar e Finalizar!</ng-template>
-        Pagar e ser redirecionado
+        Pagar e ser redirecionadoa
         <div #paypal></div>
     </mat-step>
 </mat-horizontal-stepper>
