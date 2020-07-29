@@ -10,7 +10,10 @@ export class ContaBancariaService {
 
   constructor(private http: HttpClient, private user: UserService) { }
 
-  public updateOrSaveAccount(account) {
+  public updateOrSaveAccount(account, bancos) {
+    account.codigo_banco = bancos.find(banco => banco.nome === account.banco).codigo;
+    delete account.banco;
+
     if (!this.user.user_data.conta_bancaria) {
       return this.http.post(`${environment.apiUrl}/usuarios/conta-bancaria`, account);
     }

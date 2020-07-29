@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -10,6 +12,7 @@ import { environment } from 'src/environments/environment';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
+import { BancosService } from 'src/app/shared/service/bancos.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
 
@@ -52,8 +55,11 @@ export class InfoComponent implements OnInit {
   public imgName = 'assets/svg/avatar.svg';
   public bankAccountTypes = [ 'Conta Corrente', 'Conta Poupança' ];
 
+  public bancos: any = [];
+  public filteredBanks: Observable<string[]>;
+
   public documentos = [];
-  public displayedColumns = [ 'Nome', 'Action' ];
+  public displayedColumns = [ 'Nome', 'action' ];
 
   public editInfoForm: FormGroup;
   public editBankAccountForm: FormGroup;
@@ -63,14 +69,15 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
+    public login: LoginService,
     public formBuilder: FormBuilder,
     public userService: UserService,
+    private bancoService: BancosService,
     public documentosService: DocumentosService,
-    public login: LoginService,
     private contaBancariaService: ContaBancariaService,
   ) {
     this.editBankAccountForm = formBuilder.group({
-      banco: ["", Validators.required],
+      banco: [null, Validators.required],
       tipo: ["", Validators.required],
       agencia: ["", Validators.required],
       numero: ["", Validators.required]
@@ -92,11 +99,25 @@ export class InfoComponent implements OnInit {
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
 
+    this.bancoService.getAll().subscribe(response => {
+      this.bancos = response;
+    });
+
+    this.filteredBanks = this.editBankAccountForm.controls.banco.valueChanges.pipe(
+      startWith(''),
+      map(value => this.bankFilter(value))
+    );
+
     if (this.userService.user_data.conta_bancaria) {
       this.resetBankAccountForm();
     }
 
     this.configDocumentsTable();
+  }
+
+  private bankFilter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.bancos.map(banco => banco.nome).filter(banco => banco.toLowerCase().includes(filterValue));
   }
 
   public onFileSelected(event) {
@@ -158,7 +179,7 @@ export class InfoComponent implements OnInit {
   }
 
   public actionBankAccountForm() {
-    this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value).subscribe((response: any) => {
+    this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value, this.bancos).subscribe((response: any) => {
       this.userService.user_data.conta_bancaria = response;
       this.resetBankAccountForm();
     }, (error) => {

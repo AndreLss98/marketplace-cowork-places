@@ -75,7 +75,10 @@
                 <td class="w-25">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Banco</mat-label>
-                        <input matInput formControlName="banco" required />
+                        <input type="text" matInput formControlName="banco" [matAutocomplete]="auto" placeholder="Banco">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">{{ bank }}</mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </td>
                 <td class="w-25">
@@ -121,7 +124,7 @@
                 <td mat-cell *matCellDef="let element">{{ element.arquivo }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="Action">
+            <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element">
                     <input #fileInput style="display: none;" type="file" (change)="updateDocument($event, element)">
