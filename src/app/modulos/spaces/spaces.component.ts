@@ -1,3 +1,6 @@
+import { LoginComponent } from 'src/app/shared/modal/login/login.component';
+import { ModalService } from 'src/app/shared/service/modal.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -61,6 +64,8 @@ export class SpacesComponent implements OnInit {
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
     private favoritoService: FavoritosService,
+    private login: LoginService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -115,6 +120,10 @@ export class SpacesComponent implements OnInit {
   }
 
   public checkout() {
+    if(!this.login.checkLogedIn()){
+      this.modalService.openModal(LoginComponent);
+      return;
+    }
     if (this.entrada != undefined && this.saida != undefined) {
       this.checkoutService.reserva = {
         dias_reservados: {
