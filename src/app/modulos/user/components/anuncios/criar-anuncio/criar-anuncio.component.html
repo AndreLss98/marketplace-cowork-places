@@ -171,11 +171,14 @@
             <mat-expansion-panel [expanded]='true' style="margin-bottom: 5px;">
                 <mat-expansion-panel-header>Fotos do espaço</mat-expansion-panel-header>
                 <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
-                    <mat-card class="myCard" (click)="compressFile()">
+                    <mat-card class="myCard" (click)="compressFile()" style="cursor: pointer;">
                         <div class="d-flex h-100 align-items-center justify-content-center flex-column">
                             <mat-icon>add</mat-icon>
-                            <span>Adicionar uma imagem</span>  
+                            <span>Adicionar uma imagem*</span>  
                         </div>
+                        <mat-card-footer class="d-flex justify-content-end">
+                            <span style="width: 100%; text-align: right; font-size: 11px;">*PNG, JPEG e JPG  </span>
+                        </mat-card-footer>
                     </mat-card>
 
                     <mat-card class="myCard" *ngFor="let foto of imagens; index as i">
