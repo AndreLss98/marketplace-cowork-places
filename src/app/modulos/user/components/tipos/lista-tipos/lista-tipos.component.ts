@@ -34,13 +34,15 @@ export class ListaTiposComponent implements OnInit {
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
       icone: ["", [Validators.required]],
+      descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       id: [null]
     });
 
     this.createForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
-      icone: ["", [Validators.required]]
+      icone: ["", [Validators.required]],
+      descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]]
     });
   }
 
@@ -77,15 +79,13 @@ export class ListaTiposComponent implements OnInit {
   }
 
   public createTipo() {
-    if (this.createForm.status === "VALID") {
-      this.tiposServive.create(this.createForm.value).subscribe((response) => {
-        this.fetchAllType();
-        this.createForm.reset({
-          disponivel: false,
-          nome: "",
-          icone: ""
-        });
-      })
-    }
+    this.tiposServive.create(this.createForm.value).subscribe((response) => {
+      this.fetchAllType();
+      this.createForm.reset({
+        disponivel: false,
+        nome: "",
+        icone: ""
+      });
+    });
   }
 }

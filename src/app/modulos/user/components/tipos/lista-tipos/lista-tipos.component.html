@@ -41,11 +41,17 @@
               <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
             </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+        </mat-form-field>
     
         <div>
-            <mat-checkbox formControlName="disponivel">Disponivel</mat-checkbox>
+            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
         </div>
-        <button mat-flat-button color="primary" type="submit">Criar</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid || createForm.pristine">Criar</button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -67,11 +73,17 @@
               <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
             </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+        </mat-form-field>
     
         <div>
-            <mat-checkbox formControlName="disponivel">Disponivel</mat-checkbox>
+            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
         </div>
-        <button mat-flat-button color="primary" type="submit">Atualizar</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
       </form>
     </mat-card-content>
   </mat-card>
