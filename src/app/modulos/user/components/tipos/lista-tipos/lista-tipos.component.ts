@@ -62,6 +62,7 @@ export class ListaTiposComponent implements OnInit {
       disponivel: this.tipo.disponivel,
       nome: this.tipo.nome,
       icone: this.tipo.icone,
+      descricao: this.tipo.descricao,
       id: this.tipo.id
     });
   }
