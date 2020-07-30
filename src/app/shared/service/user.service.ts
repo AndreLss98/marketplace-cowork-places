@@ -83,4 +83,8 @@ export class UserService {
     delete usuario.id;
     return this.http.put<any>(`${environment.apiUrl}/usuarios/`, usuario);
   }
+
+  public updatePassword(update) {
+    return this.http.put<any>(`${environment.apiUrl}/usuarios/alter-password`, update);
+  }
 }

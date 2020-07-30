@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/shared/service/user.service';
 
@@ -12,8 +13,9 @@ export class SafetyComponent implements OnInit {
   public alterarSenha: FormGroup;
 
   constructor(
-    public userService: UserService,
     private form: FormBuilder,
+    private snackBar: MatSnackBar,
+    public userService: UserService,
   ) {
     this.alterarSenha = this.form.group({
       senha_antiga: ["", [Validators.required]],
@@ -35,7 +37,14 @@ export class SafetyComponent implements OnInit {
   }
 
   public alterPassword() {
-    console.log(this.alterarSenha)
+    const { senha_antiga, senha_nova } = this.alterarSenha.value;
+
+    this.userService.updatePassword({ senha_antiga, senha_nova }).subscribe(response => {
+      this.alterarSenha.reset();
+    }, (error) => {
+      console.log(error);
+      this.snackBar.open("Não foi possivel alterar sua senha!", "Ok", { duration: 3000 });
+    });
   }
 
 }

@@ -44,7 +44,8 @@
                 <button
                     *ngIf="userService.user_data.email_validado"
                     mat-button mat-raised-button
-                    type="submit" color="primary">Salvar</button>
+                    type="submit" color="primary"
+                    [disabled]="alterarSenha.invalid || alterarSenha.pristine">Salvar</button>
             </div>
         </form>
     </mat-card-content>
