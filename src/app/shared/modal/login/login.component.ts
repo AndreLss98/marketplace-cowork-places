@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { LoginService } from 'src/app/shared/service/login.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { SignupComponent } from '../signup/signup.component';
+import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.component';
 
 @Component({
   selector: 'app-login',
@@ -73,11 +74,15 @@ export class LoginComponent implements OnInit {
     this.loginError = false;
   }
 
-  openCadastrar(){
+  openCadastrar() {
     this.modal.openModal(SignupComponent, true, {minHeight: '500px'})
   }
 
-  close(){
+  openRecuperarSenha() {
+    this.modal.openModal(RecuperarSenhaComponent, true, {minHeight: '500px'})
+  }
+
+  close() {
     this.modal.closeAllModals();
   }
   

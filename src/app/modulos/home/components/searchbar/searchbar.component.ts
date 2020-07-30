@@ -23,7 +23,6 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
     this.alugaveisService.getBairros().subscribe(response => {
       this.options = response.map(resp => resp.bairro);
-      console.log(this.options);
     });
   }
 

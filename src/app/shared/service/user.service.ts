@@ -87,4 +87,8 @@ export class UserService {
   public updatePassword(update) {
     return this.http.put<any>(`${environment.apiUrl}/usuarios/alter-password`, update);
   }
+
+  public recoverPassword(email) {
+    return this.http.post<any>(`${environment.apiUrl}/usuarios/recover-password`, email);
+  }
 }

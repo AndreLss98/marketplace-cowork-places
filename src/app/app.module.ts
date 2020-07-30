@@ -29,6 +29,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { QuestionComponent } from './shared/components/question/question.component';
 import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
+import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recuperar-senha.component';
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
 
 import { environment } from '../environments/environment';
@@ -42,6 +43,7 @@ import { AuthInterceptorService } from './shared/service/authInterceptor.service
     HeaderComponent,
     FooterComponent,
     SignupComponent,
+    RecuperarSenhaComponent,
     FeedbackButtonComponent,
     FeedbackModalComponent,
     QuestionComponent
@@ -78,6 +80,6 @@ import { AuthInterceptorService } from './shared/service/authInterceptor.service
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, SignupComponent]
+  entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent]
 })
 export class AppModule { }
