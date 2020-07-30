@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
@@ -9,30 +10,32 @@ import { UserService } from 'src/app/shared/service/user.service';
 export class SafetyComponent implements OnInit {
 
   public alterarSenha: FormGroup;
-  senha_antiga = new FormControl('', [Validators.required]);
-  senha = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)])
-  confirmar_senha = new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]);
 
   constructor(
     public userService: UserService,
     private form: FormBuilder,
   ) {
     this.alterarSenha = this.form.group({
-      senha_antiga: this.senha_antiga,
-      senha: this.senha,
-      confirmar_senha: this.confirmar_senha
-    }, { validators: this.verificaSenhas });
+      senha_antiga: ["", [Validators.required]],
+      senha_nova: ["", [Validators.minLength(6), Validators.maxLength(16), Validators.required]],
+      confirmar_senha: ["", [Validators.minLength(6), Validators.maxLength(16), Validators.required]]
+    }, { validators: this.validateConfirmPassword });
   }
 
   ngOnInit(): void {
+
   }
 
-  public verificaSenhas(group: FormGroup) {
-    let pass = group.controls.senha.value;
-    let confirmPass = group.controls.confirmar_senha.value;
-    if (pass.length < 6) return { lengthMin: true }
-    if (pass.length > 16) return { lengthMax: true }
-    return pass === confirmPass ? null : { notSame: true }
+  public validateConfirmPassword(group: FormGroup) {
+    if (group.controls.senha_nova.value === group.controls.confirmar_senha.value) {
+      group.controls.confirmar_senha.setErrors(null)
+    } else {
+      group.controls.confirmar_senha.setErrors({ notsame: true });
+    }
+  }
+
+  public alterPassword() {
+    console.log(this.alterarSenha)
   }
 
 }
