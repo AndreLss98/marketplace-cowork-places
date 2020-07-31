@@ -1,3 +1,18 @@
+@import '../../../place-et-theme.scss';
+
 .card-table {
     margin: 20px;
+}
+
+.spanValor{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.spanPaypal{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
+    font-size: 20px;
+    color: #797979;
 }

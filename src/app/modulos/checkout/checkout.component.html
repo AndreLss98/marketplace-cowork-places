@@ -1,29 +1,89 @@
-<mat-horizontal-stepper [linear]="true">
+<mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step>
         <ng-template matStepLabel>Confirmar dados</ng-template>
 
-        <mat-card class="mat-elevation-z4 card-table">
-            <mat-card-title>Dados do espaço</mat-card-title>
-            <mat-card-content>
-                
-            </mat-card-content>
-        </mat-card>
-        
-        <mat-card class="mat-elevation-z4 card-table">
-            <mat-card-title>Custo total</mat-card-title>
-            <mat-card-content>
-                
-            </mat-card-content>
-        </mat-card>
+        <div class="d-flex flex-row justify-content-around">
+
+            <app-highlight-items [data]="alugavel"></app-highlight-items>
+            
+            <div class="d-flex flex-column flex-wrap w-50">
+                <mat-card class="mat-elevation-z4 card-table">
+                    <mat-card-title>Período</mat-card-title>
+                    <mat-card-content class="d-flex flex-column flex-wrap">
+                        <span class="spanValor">Data de entrada: {{entrada.format('LL')}}</span>
+                        <span class="spanValor">Data de saída: {{saida.format('LL')}}</span>
+                        <span class="spanValor">Total de dias: {{totalDias(entrada, saida)}}</span>
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card class="mat-elevation-z4 card-table">
+                    <mat-card-title>Valor</mat-card-title>
+                    <mat-card-content class="d-flex flex-column flex-wrap">
+                        <span class="spanValor">Custo por dia: R$ {{calculaCustoDia(alugavel.taxa, alugavel.valor)}}</span>
+                        <span class="spanValor">Taxa de serviço: R$ {{calculaTaxa(alugavel.taxa, alugavel.valor)}}</span>
+                        <span class="spanValor">Total: R$ {{this.checkoutService.reserva.valor}}</span>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button mat-button mat-raised-button matStepperNext color="primary">Confirmar e prosseguir</button>
+        </div>
     </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Concordar com os termos de serviços</ng-template>
-        exibir os termos para serem concordados
+    <mat-step [stepControl]='termos'>
+        <form [formGroup]='termos' (ngSubmit)="concordar(stepper)" >
+            <ng-template matStepLabel style="word-wrap: break-word;">Termos deserviços</ng-template>
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                <button mat-button mat-raised-button type="submit" color="primary">Aceitar e prosseguir</button>
+            </div>
+            <div class="d-flex justify-content-center align-content-center flex-column">
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo1' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Pagamento, Cancelamento e Reembolso</a>.</mat-checkbox>
+                </mat-expansion-panel>
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
+                    <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_de_uso"></app-md-viewer>
+                    <mat-checkbox formControlName='termo2' required style="margin-top: 10px;">Eu aceito as <a href="">Políticas de Uso e Responsabilidades</a>.</mat-checkbox>
+                </mat-expansion-panel>
+            </div>
+        </form>
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Pagar e Finalizar!</ng-template>
-        Pagar e ser redirecionadoa
-        <div #paypal></div>
+        <div class="d-flex justify-content-center">
+            <mat-card class="mat-elevation-z4 card-table" class="w-50">
+                <mat-card-title>
+                    <div class="d-flex justify-content-center w-100">
+                        <img src="assets/imgs/paypal/PP_logo_h_150x38.png">
+                    </div>
+                </mat-card-title>
+                <mat-card-content class="d-flex flex-column flex-wrap">
+                    <div class="d-flex flex-column">
+                        <!-- Copiado da kabum na cara dura mesmo  -->
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">credit_card</mat-icon>
+                            <span class="spanPaypal">Parcelamento</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">security</mat-icon>
+                            <span class="spanPaypal">Máxima proteção com PayPal</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">airplanemode_active</mat-icon>
+                            <span class="spanPaypal">Acumule milhas</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center w-100" style="margin-top: 10px;">
+                        <div class="w-100" #paypal></div>
+                    </div>
+                    <div class="d-flex justify-content-center w-100">
+                        <img src="assets/imgs/paypal/cc-badges-ppppcmcvdam.png">
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </mat-step>
 </mat-horizontal-stepper>
 

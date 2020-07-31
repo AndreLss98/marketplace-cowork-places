@@ -23,10 +23,12 @@ export class HighlightItemsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data.valor = Number(this.data.valor)
-    this.alugavel.getTaxa().subscribe( res => {
-      this.taxaTotal = res.taxa;
-    })
+    setTimeout(() => {      
+      this.data.valor = Number(this.data['valor'])
+      this.alugavel.getTaxa().subscribe( res => {
+        this.taxaTotal = res.taxa;
+      })
+    }, 10);
   }
 
   goToSpace() {
