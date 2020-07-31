@@ -45,38 +45,38 @@ export class SearchComponent implements OnInit {
     $('#navTop').addClass('up');
   }
 
-  @HostListener('window:scroll', ['$event']) // for window scroll events
-  scrollEvent(event) {
+  // @HostListener('window:scroll', ['$event']) // for window scroll events
+  // scrollEvent(event) {
 
-    this.checkOffset();
+  //   this.checkOffset();
 
-    var scroll = $(window).scrollTop();
+  //   var scroll = $(window).scrollTop();
 
-    // scroll to bottom
-    if (scroll > this.position + 50) {
-      $('#navTop').removeClass('up');
-      $('#navTop').addClass('hide');
+  //   // scroll to bottom
+  //   if (scroll > this.position + 50) {
+  //     $('#navTop').removeClass('up');
+  //     $('#navTop').addClass('hide');
 
-      if ($(document).scrollTop() + window.innerHeight > $('#footer').offset().top) {
-        $("#searchScroll").removeClass("slideDown");
-        $("#searchScroll").addClass("slideUp");
-      } else {
-        $("#searchScroll").removeClass("slideUp");
-        $("#searchScroll").addClass("slideDown");
-      }
-      // this.offset = '20px'
-      this.position = scroll;
-      // Scroll to top
-    } else if (scroll < this.position) {
-      $('#navTop').removeClass('hide');
-      $('#navTop').addClass('up');
+  //     if ($(document).scrollTop() + window.innerHeight > $('#footer').offset().top) {
+  //       $("#searchScroll").removeClass("slideDown");
+  //       $("#searchScroll").addClass("slideUp");
+  //     } else {
+  //       $("#searchScroll").removeClass("slideUp");
+  //       $("#searchScroll").addClass("slideDown");
+  //     }
+  //     // this.offset = '20px'
+  //     this.position = scroll;
+  //     // Scroll to top
+  //   } else if (scroll < this.position) {
+  //     $('#navTop').removeClass('hide');
+  //     $('#navTop').addClass('up');
 
-      $("#searchScroll").removeClass("slideDown");
-      $("#searchScroll").addClass("slideUp");
-      this.position = scroll;
-      // this.offset = 'auto';
-    }
-  }
+  //     $("#searchScroll").removeClass("slideDown");
+  //     $("#searchScroll").addClass("slideUp");
+  //     this.position = scroll;
+  //     // this.offset = 'auto';
+  //   }
+  // }
 
   onScrollContent() {
     // this.result = this.highlight.getSomeSpaces(this.quantity)
