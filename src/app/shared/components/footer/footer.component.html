@@ -17,7 +17,7 @@
                 <a href="/about/politica_de_cancelamento">Politica de cancelamento</a>
             </div> -->
             <div class="row" *ngFor="let politica of politicas">
-                <a [href]="'/about/' + politica.sluq">{{ politica.nome }}</a>
+                <a [href]="'/about/' + politica.sluq" target="_blank">{{ politica.nome }}</a>
             </div>
             <div class="row">
                 <a href="">Empresa</a>
@@ -31,7 +31,7 @@
                 <a href="">Noticias</a>
             </div> -->
             <div class="row">
-                <a href="/about/como_anunciar.md">Como anunciar</a>
+                <a href="/about/como_anunciar.md" target="_blank">Como anunciar</a>
             </div>
         </div>
         <div class="col-2">
