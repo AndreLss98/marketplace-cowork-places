@@ -1,3 +1,4 @@
+import { MobileService } from './../../shared/service/mobile.service';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { UserService } from './../../shared/service/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -10,13 +11,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class UserComponent implements OnInit, OnDestroy {
 
   public user:any;
-  public opened: boolean = true;
+  public opened: boolean = true && !this.mobileService.isMobile();
   public currentSelection: string = '';
   public isAdmin: boolean = false;
 
   constructor(
     private login: LoginService,
     public userService: UserService,
+    public mobileService: MobileService
   ) {
 
   }

@@ -1,3 +1,4 @@
+import { MobileService } from './shared/service/mobile.service';
 import { UserService } from './shared/service/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from './shared/service/login.service';
@@ -17,7 +18,8 @@ export class AppComponent {
   constructor(
     private login: LoginService,
     private route: ActivatedRoute,
-    public userService: UserService
+    public userService: UserService,
+    public mobileService: MobileService
   ){
     this.login.verifySession();
 

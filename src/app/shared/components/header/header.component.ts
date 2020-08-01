@@ -1,3 +1,4 @@
+import { MobileService } from './../../service/mobile.service';
 import { UserService } from './../../service/user.service';
 import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit {
     public user: UserService,
     public modalService: ModalService,
     private router: Router,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private mobileService: MobileService
   ) {}
 
 @HostListener('window:scroll', ['$event']) // for window scroll events
@@ -84,13 +86,13 @@ export class HeaderComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    if($(window).width() < 426) this.mobile_mode = true;
+    
     this.menuService.getAllHome().subscribe((response: any) => {
       this.options = response.filter(tipo => tipo.disponivel);
-      console.log('Options: ', this.options);
     });
 
-    if($(window).width() < 426) this.mobile_mode = true;
-    if($(window).width() < 860) this.options.length = 3;
+    // if($(window).width() < 860) this.options.length = 3;
     this.position = $(window).scrollTop(); 
   }
 }

@@ -10,7 +10,7 @@
           <a [target]="itemMenu.target" [href]="itemMenu.rout" class="nav-link">{{ itemMenu.name }}</a>
         </li>
         <li class="nav-item">
-            <button class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
+            <button *ngIf="!mobile_mode" class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
               placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
         </li>
       </ul>
@@ -35,17 +35,19 @@
 </div>
 
 <!-- Barra de navegação celular -->
-<div [hidden]="!mobile_mode" id="navBottom" style="min-height: 64px;"
-  class="w-100 d-flex flex-row justify-content-around fixed-bottom tabs">
-    <div class="d-flex align-items-center justify-content-center flex-column" (click)="goTo('/search')">
+<div *ngIf="mobile_mode" id="navBottom" style="min-height: 64px;"
+    [ngbPopover]="popContent" container="body" triggers="manual"
+    placement="top" popoverClass="popoverClass" #p="ngbPopover"
+    class="w-100 d-flex flex-row justify-content-around fixed-bottom tabs">
+    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="goTo('/search')">
       <span class="material-icons" style="color: white; font-size: 30px;">search</span>
       <span style="font-size: 12px; color: white;">Buscar</span>
     </div>
-    <div class="d-flex align-items-center justify-content-center flex-column" (click)="goTo('/user/espacossalvos')">
+    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="goTo('/user/espacossalvos')">
       <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
       <span style="font-size: 12px; color: white;">Favoritos</span>
     </div>
-    <div class="d-flex align-items-center justify-content-center flex-column" (click)="doLogin(p)">
+    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="doLogin(p)">
       <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
       <span style="font-size: 12px; color: white;">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</span>
     </div>
@@ -57,7 +59,7 @@
     <span class="popoverTitle">Olá {{user.user_data.nome.split(' ')[0]}}</span>
     <div style="margin-bottom: 5px;">
       <mat-list>
-        <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user')">Minha Conta</mat-list-item>
+        <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user/conta/info')">Minha Conta</mat-list-item>
         <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
         <mat-list-item class="list-item" >Aluguéis</mat-list-item>
         <mat-list-item class="list-item border-bottom" (click)="goTo('/user/anuncios/meusanuncios')">Anúncios</mat-list-item>
