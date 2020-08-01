@@ -108,16 +108,16 @@ export const TIPOS_CAMPOS = {
                 label: 'Quantidade mínima de linhas',
                 required: true
             },
-            max_value: {
+            max_rows: {
                 type: 'number',
                 label: 'Quantidade máxima de linhas',
                 required: true
             },
-            max_lenght: {
+            max_length: {
                 type: 'number',
                 label: 'Quantidade máxima de caracteres',
                 required: true
-            },
+            }
         }
     },
     NUMERICO: {

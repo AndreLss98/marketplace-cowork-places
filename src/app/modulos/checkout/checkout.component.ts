@@ -156,6 +156,4 @@ export class CheckoutComponent implements OnInit {
       return Number(custo_dia * (this.max_taxa / 100 + 1))
     }
   }
-
-
 }

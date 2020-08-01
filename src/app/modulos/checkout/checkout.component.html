@@ -4,7 +4,7 @@
 
         <div class="d-flex flex-row justify-content-around">
 
-            <app-highlight-items [data]="alugavel"></app-highlight-items>
+            <app-highlight-items *ngIf="alugavel" [data]="alugavel"></app-highlight-items>
             
             <div class="d-flex flex-column flex-wrap w-50">
                 <mat-card class="mat-elevation-z4 card-table">
@@ -16,7 +16,7 @@
                     </mat-card-content>
                 </mat-card>
 
-                <mat-card class="mat-elevation-z4 card-table">
+                <mat-card *ngIf="alugavel" class="mat-elevation-z4 card-table">
                     <mat-card-title>Valor</mat-card-title>
                     <mat-card-content class="d-flex flex-column flex-wrap">
                         <span class="spanValor">Custo por dia: R$ {{calculaCustoDia(alugavel.taxa, alugavel.valor)}}</span>

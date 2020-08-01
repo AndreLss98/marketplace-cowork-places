@@ -32,6 +32,7 @@ export class FeedbackComponent implements OnInit {
       pergunta: ['', [Validators.required]],
       nome_campo: ['', [Validators.required]],
       tipo_campo: ['', [Validators.required]],
+      fixa: [false, []],
       propriedades: ['']
     });
 
@@ -60,6 +61,7 @@ export class FeedbackComponent implements OnInit {
 
     this.feedbackService.save(feedback).subscribe(response => {
       this.resetForm();
+      this.fetchAll();
     });
   }
 
