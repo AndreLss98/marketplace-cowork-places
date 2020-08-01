@@ -43,7 +43,11 @@ export class LoginService {
     this.userToken = undefined,
     this.expires_at = undefined;
     localStorage.removeItem(EXPIRE_AT);
-    this.router.navigateByUrl('/home');
+    this.http.delete(`${environment.apiUrl}/auth/logout`).subscribe(response => {
+      this.router.navigateByUrl('/home');
+    }, (error) => {
+      console.log(error);
+    })
   }
 
   public login(response: authUser){
