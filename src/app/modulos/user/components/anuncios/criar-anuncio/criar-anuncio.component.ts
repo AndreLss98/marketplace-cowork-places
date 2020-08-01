@@ -83,7 +83,8 @@ export class CriarAnuncioComponent implements OnInit {
   public estados;
   public distritos;
   // Politica de uso
-  public politica_de_uso = environment.apiUrl + '/md/politica_de_uso.md';
+  public politica_uso = environment.apiUrl + '/md/politica_uso.md';
+  public politica_pagamento = environment.apiUrl + '/md/politica_pagamento.md';
   // Item para ser adicionado a lista de info
   public info_text = new FormControl('', [Validators.minLength(2), Validators.maxLength(50)]);
 
