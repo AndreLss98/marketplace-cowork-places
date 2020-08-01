@@ -1,6 +1,6 @@
 import { CheckoutService } from './../../../shared/service/checkout.service';
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanLoad, Route, UrlSegment} from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,8 +14,9 @@ export class CheckoutGuardGuard implements CanLoad {
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
-    if(this.checkoutService.reserva) return true;
+    return true;
+    // if(this.checkoutService.reserva) return true;
 
-    return false;
+    // return false;
   }
 }
