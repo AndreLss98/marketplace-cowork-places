@@ -1,3 +1,5 @@
+import { LoginComponent } from 'src/app/shared/modal/login/login.component';
+import { ModalService } from 'src/app/shared/service/modal.service';
 import { UserService } from './user.service';
 import { RefreshTokenService } from './refresh-token.service';
 import { Observable } from 'rxjs';
@@ -25,7 +27,8 @@ export class LoginService {
     private http: HttpClient,
     private router: Router,
     private refresh: RefreshTokenService,
-    private user: UserService
+    private user: UserService,
+    private modal: ModalService
   ) { 
     this.logged_status = this.checkLogedIn();
   }
@@ -40,7 +43,9 @@ export class LoginService {
     this.userToken = undefined,
     this.expires_at = undefined;
     localStorage.removeItem(EXPIRE_AT);
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/home').then(res => {
+      this.modal.openModal(LoginComponent);
+    })
   }
 
   public login(response: authUser){

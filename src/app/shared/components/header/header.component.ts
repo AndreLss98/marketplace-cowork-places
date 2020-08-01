@@ -1,6 +1,6 @@
 import { UserService } from './../../service/user.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/shared/service/login.service';
 
 import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
@@ -18,8 +18,9 @@ import { MenuService } from '../../service/menu.service';
 export class HeaderComponent implements OnInit {
 
   public menu = HEADER_NAV_OPTIONS;
-  private mobile_mode = false;
+  public mobile_mode = false;
   public options = [];
+  public position;
 
   constructor(
     public login: LoginService,
@@ -27,10 +28,20 @@ export class HeaderComponent implements OnInit {
     public modalService: ModalService,
     private router: Router,
     private menuService: MenuService
-  ) { 
-    menuService.getAllHome().subscribe((response: any) => {
-      this.options = response.filter(tipo => tipo.disponivel);
-    });
+  ) {}
+
+@HostListener('window:scroll', ['$event']) // for window scroll events
+  scrollEvent(event) {
+    var scroll = $(window).scrollTop();
+    if(scroll > this.position + 30) {
+        $('#navBottom').removeClass('up');
+        $('#navBottom').addClass('down');
+        this.position = scroll;
+    } else if (scroll < this.position){
+        $('#navBottom').removeClass('down');
+        $('#navBottom').addClass('up');
+        this.position = scroll;
+    }
   }
 
   goTo(path: string, id?: number) {
@@ -73,39 +84,13 @@ export class HeaderComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.menuService.getAllHome().subscribe((response: any) => {
+      this.options = response.filter(tipo => tipo.disponivel);
+      console.log('Options: ', this.options);
+    });
+
     if($(window).width() < 426) this.mobile_mode = true;
     if($(window).width() < 860) this.options.length = 3;
-
-    $(document).ready(function () {
-
-      if($(window).width() < 426){
-        $('#navTop').hide();
-        $('#navBottom').show();
-        $("#menuHeader").hide();
-      }
-
-      $(document).click(function (event) {
-          var clickover = $(event.target);
-          var _opened = $(".navbar-collapse").hasClass("show");
-          if (_opened === true && !clickover.hasClass("navbar-toggler")) {
-              $("button.navbar-toggler").click();
-          }
-      });
-
-      var position = $(window).scrollTop(); 
-
-      $(window).scroll(function() {
-          var scroll = $(window).scrollTop();
-          if(scroll > position + 30) {
-              $('#navBottom').removeClass('up');
-              $('#navBottom').addClass('down');
-              position = scroll;
-          } else if (scroll < position){
-              $('#navBottom').removeClass('down');
-              $('#navBottom').addClass('up');
-              position = scroll;
-          }
-      });
-    });
+    this.position = $(window).scrollTop(); 
   }
 }

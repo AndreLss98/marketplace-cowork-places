@@ -1,8 +1,5 @@
 #content{
     min-height: 100%;
-    min-width: 85%;
-    padding-right: 40px;
-    padding-left: 40px;
     padding-bottom: 100px;
     padding-top: 30px;
     background-color: #f4f4f4;
@@ -12,74 +9,35 @@
         background: transparent;/* optional: just make scrollbar invisible */
     }
     
-     cdk-virtual-scroll-viewport {
-       -ms-overflow-style: none !important; // IE 10+
-        scrollbar-width: none !important;
-        overflow: -moz-scrollbars-none !important;
-        -ms-overflow-style: none; // IE 10+
-      }
-
-    #searchHighlight{
-      flex: 0 0 72%; max-width: 72%;
-      justify-content: space-between;
-      align-items: start;
+    cdk-virtual-scroll-viewport {
+      -ms-overflow-style: none !important; // IE 10+
+      scrollbar-width: none !important;
+      overflow: -moz-scrollbars-none !important;
+      -ms-overflow-style: none; // IE 10+
     }
 
-    #searchBoxAndFilter{
-      flex: 0 0 28%; max-width: 28%;
-    }
+    // #searchHighlight{
+    //   flex: 0 0 72%; max-width: 72%;
+    //   justify-content: space-between;
+    //   align-items: start;
+    // }
+
+    // #searchBoxAndFilter{
+    //   flex: 0 0 28%; max-width: 28%;
+    // }
 
     #searchBoxAndFilterMobile{
       display: none;
     }
 
-    @media (max-width: 1285px) {
-      #searchHighlight{
-        flex: 0 0 65%; max-width: 65%;
-      }
+    @media (max-width: 1425px) {
       #searchBoxAndFilter{
-        flex: 0 0 35%; max-width: 35%;
+        width: 100%;
       }
-    }
-
-    @media (max-width: 1085px) {
       #searchHighlight{
-        flex: 0 0 55%; max-width: 55%;
+        width: 100%;
+        justify-content: center !important;
       }
-      #searchBoxAndFilter{
-        flex: 0 0 45%; max-width: 45%;
-      }
-    }
-
-    @media (max-width: 810px) {
-      #searchHighlight{
-        flex: 0 0 50%; max-width: 50%;
-      }
-      #searchBoxAndFilter{
-        flex: 0 0 50%; max-width: 50%;
-      }
-    }
-
-
-    @media (max-width: 768px) {
-      #searchHighlight{
-        flex: 0 0 100%; max-width: 100%;
-      }
-      #searchBoxAndFilter{
-        display: none;
-      }
-      #searchBoxAndFilterMobile{
-        display: block;
-      }
-    }
-
-    
-    @media (max-width: 425px){
-        padding-top: 30px;
-
-        #searchHighlight{
-          justify-content: center !important;
-        }
     }
 }
 

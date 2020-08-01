@@ -6,4 +6,9 @@
         </button>
         <app-highlight-items [data]="favorito"></app-highlight-items>
     </div>
+    <div *ngIf="favoritos.length < 1"lass="w-100 h-100 d-flex justify-content-center align-items-center">
+        <span style="font-size: 25px; font-weight: 500; color: #818181; text-align: center;"> 
+            Você ainda não possui espaços salvos
+        </span>
+    </div>
 </div>

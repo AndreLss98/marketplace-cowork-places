@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm container-fluid" id="navTop">
+<nav [hidden]="mobile_mode" class="navbar navbar-expand-sm container-fluid" id="navTop">
     <img src="assets/imgs/logo/logo_preta-min.png" class="navbar-brand title" (click)="goTo('/home')">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" ></span>
@@ -6,8 +6,8 @@
 
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
-        <li class="nav-item" *ngFor="let item of menu">
-          <a [target]="item.target" [href]="item.rout" class="nav-link">{{ item.name }}</a>
+        <li class="nav-item" *ngFor="let itemMenu of menu">
+          <a [target]="itemMenu.target" [href]="itemMenu.rout" class="nav-link">{{ itemMenu.name }}</a>
         </li>
         <li class="nav-item">
             <button class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
@@ -15,51 +15,56 @@
         </li>
       </ul>
     </div>
-  </nav>
-  <div class="container-fluid">
-    <h1 class="w-100 text-center">SITE EM DESENVOLVIMENTO</h1>
-  </div>
-  <div class="options container-fluid" id="menuHeader" *ngIf="options.length > 0">
-    <div class="row h-100 d-flex justify-content-around align-items-center" style="padding-left: 100px; padding-right: 100px;">
-      <div class="col d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px;" *ngFor="let item of options" (click)="goTo('/search', item.id)">
-        <div class="imgs">
-          <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
-        </div>
-        <span style=" white-space: nowrap">{{item.nome}}</span>
-      </div>
-    </div>
-  </div>
+</nav>
 
-  <div class="fixed-bottom container tabs" style="display: none; height: 64px;" id="navBottom">
-    <div class="row h-100" style="margin-left: 30px; margin-right: 30px;">
-      <div class="col-4 d-flex align-items-center justify-content-center flex-column">
-        <span class="material-icons" style="color: white; font-size: 30px;">search</span>
-        <span style="font-size: 12px; color: white;">Buscar</span>
+<!-- Alerta de site em desenvolvimento -->
+<!-- <div class="w-100">
+  <h1 class="w-100 text-center">SITE EM DESENVOLVIMENTO</h1>
+</div> -->
+
+<!-- Menu com os itens de pesquisa -->
+<div class="options" id="menuHeader" *ngIf="options.length > 0 && !mobile_mode">
+  <div class="h-100 d-flex flex-row justify-content-center align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px; min-width: 120px;" *ngFor="let item of options" (click)="goTo('/search', item.id)">
+      <div class="imgs">
+        <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
       </div>
-      <div class="col-4 d-flex align-items-center justify-content-center flex-column">
-        <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
-        <span style="font-size: 12px; color: white;">Favoritos</span>
-      </div>
-      <div class="col-4 d-flex align-items-center justify-content-center flex-column" (click)="doLogin()">
-        <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
-        <span style="font-size: 12px; color: white;">{{ login.logged_status ? user.user_data.firstName : 'Entrar' }}</span>
-      </div>
+      <span style=" white-space: nowrap">{{item.nome}}</span>
     </div>
   </div>
+</div>
 
-  <ng-template #popContent>
-    <div id="popover">
-      <span class="popoverTitle">Olá {{user.user_data.nome.split(' ')[0]}}</span>
-      <div style="margin-bottom: 5px;">
-        <mat-list>
-          <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user')">Minha Conta</mat-list-item>
-          <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
-          <mat-list-item class="list-item" >Aluguéis</mat-list-item>
-          <mat-list-item class="list-item border-bottom" (click)="goTo('/user/anuncios/meusanuncios')">Anúncios</mat-list-item>
-        </mat-list>
-      </div>
-      <div class="d-flex justify-content-end" style="min-width: 150px;">
-        <button mat-button mat-raised-button color="warn" (click)="login.logout()">Sair</button>
-      </div>
+<!-- Barra de navegação celular -->
+<div [hidden]="!mobile_mode" id="navBottom" style="min-height: 64px;"
+  class="w-100 d-flex flex-row justify-content-around fixed-bottom tabs">
+    <div class="d-flex align-items-center justify-content-center flex-column" (click)="goTo('/search')">
+      <span class="material-icons" style="color: white; font-size: 30px;">search</span>
+      <span style="font-size: 12px; color: white;">Buscar</span>
     </div>
-  </ng-template>
+    <div class="d-flex align-items-center justify-content-center flex-column" (click)="goTo('/user/espacossalvos')">
+      <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
+      <span style="font-size: 12px; color: white;">Favoritos</span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center flex-column" (click)="doLogin(p)">
+      <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
+      <span style="font-size: 12px; color: white;">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</span>
+    </div>
+</div>
+
+<!-- Menu de itens -->
+<ng-template #popContent>
+  <div id="popover">
+    <span class="popoverTitle">Olá {{user.user_data.nome.split(' ')[0]}}</span>
+    <div style="margin-bottom: 5px;">
+      <mat-list>
+        <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user')">Minha Conta</mat-list-item>
+        <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
+        <mat-list-item class="list-item" >Aluguéis</mat-list-item>
+        <mat-list-item class="list-item border-bottom" (click)="goTo('/user/anuncios/meusanuncios')">Anúncios</mat-list-item>
+      </mat-list>
+    </div>
+    <div class="d-flex justify-content-end" style="min-width: 150px;">
+      <button mat-button mat-raised-button color="warn" (click)="login.logout()">Sair</button>
+    </div>
+  </div>
+</ng-template>

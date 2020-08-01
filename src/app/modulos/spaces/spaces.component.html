@@ -18,7 +18,7 @@
 
     <!-- 1º Card - Imagens e detalhes -->
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-9" style="margin-bottom:5px">
             <div *ngIf="view === 'photos'" id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 572px;">
                 <ol class="carousel-indicators">
                     <li *ngFor="let image of espaco.imagens; let i=index" 
@@ -227,7 +227,7 @@
 </div>
 
     <!-- Avaliações -->
-<div id='avaliacoes' class="container-fluid">
+<div id='avaliacoes' class="w-100">
 
     <!-- Estrelas -->
     <!-- <div class="row" style="margin-top: 40px;">
@@ -275,10 +275,10 @@
     <!-- <div style="height: 45px;"></div> -->
 
     <!-- Espaços similares -->
-    <div *ngIf="espacos && espacos.length > 0" class="row back-verde-escuro more-announcement">
-        <span style="width: 100%; color: black; font-size: 20px; font-weight: bold; margin-bottom: 20px;">Mais espaços desse anunciante</span>
-        <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-between">
-            <app-highlight-items *ngFor="let item of espacos" [data]="item" width="240px"></app-highlight-items>
+    <div *ngIf="espacos && espacos.length > 0" class="d-flex flex-column back-verde-escuro more-announcement">
+        <span style="color: black; font-size: 20px; font-weight: bold; margin: auto auto 20px 15px">Mais espaços desse anunciante</span>
+        <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-start">
+            <app-highlight-items *ngFor="let item of espacos" [data]="item" style="margin: 5px;"></app-highlight-items>
         </div>
     </div>
 

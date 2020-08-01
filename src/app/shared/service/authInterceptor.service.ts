@@ -52,8 +52,8 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   logoutUser() {
     // Route to the login page (implementation up to you)
-    this.login.logout()
-    return throwError("Usuario deslogado")
+    // this.login.logout()
+    return throwError("Usuario deslogado");
   }
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {

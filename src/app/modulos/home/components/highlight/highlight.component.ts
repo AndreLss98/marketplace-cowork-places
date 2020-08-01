@@ -24,21 +24,21 @@ export class HighlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkWidth();
+    this.fetchAlugaveis(3);
   }
 
   private checkWidth(){
-    let width = $(window).width();
-    if(width < 992){
-      this.cardClass = "col-xl-6 d-flex justify-content-center";
-      this.fetchAlugaveis(1);
-    }else if(width < 1200){
-      this.cardClass = "col-4";
-      this.fetchAlugaveis(2);
-    }else if(width > 1200){
-      this.cardClass = "col-3";
-      this.fetchAlugaveis(3);
-    }
+    // let width = $(window).width();
+    // if(width < 992){
+    //   this.cardClass = "col-xl-6 d-flex justify-content-center";
+      // 
+    // }else if(width < 1200){
+    //   this.cardClass = "col-4";
+    //   this.fetchAlugaveis(2);
+    // }else if(width > 1200){
+    //   this.cardClass = "col-3";
+    //   this.fetchAlugaveis(3);
+    // }
   }
 
   private fetchAlugaveis(quantity: number) {
