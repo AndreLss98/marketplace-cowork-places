@@ -67,7 +67,7 @@ export class SignupComponent implements OnInit {
 
   public confirmar: FormGroup;
   termo_servico = new FormControl('', [Validators.requiredTrue]);
-  termo_privacidae = new FormControl('', [Validators.requiredTrue]);
+  // termo_privacidae = new FormControl('', [Validators.requiredTrue]);
   recaptcha = new FormControl('', [Validators.required]);
 
   constructor(
@@ -102,7 +102,7 @@ export class SignupComponent implements OnInit {
     }, { validators: this.verificaSenhas });
 
     this.confirmar = this.form.group({
-      termo_privacidae: this.termo_privacidae,
+      // termo_privacidae: this.termo_privacidae,
       termo_servico: this.termo_servico,
       recaptcha: this.recaptcha
     })
