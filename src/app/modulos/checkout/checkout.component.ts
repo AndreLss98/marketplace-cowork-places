@@ -31,7 +31,8 @@ export class CheckoutComponent implements OnInit {
   termo1 = new FormControl('', [Validators.required]);
   termo2 = new FormControl('', [Validators.required]);
 
-  public politica_de_uso = environment.apiUrl + '/md/politica_de_uso.md';
+  public politica_uso = environment.apiUrl + '/md/politica_uso.md';
+  public politica_pagamento = environment.apiUrl + '/md/politica_pagamento.md';
 
   constructor(
     private router: Router,
