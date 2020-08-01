@@ -23,7 +23,7 @@ export class CriarAnuncioGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(this.mobileService.isMobile){
+    if(this.mobileService.isMobile()){
       this.snack.open("Ainda não é possível adicionar um espaço pelo celular.", "Ok", {duration: 5000});
       return false;
     }
