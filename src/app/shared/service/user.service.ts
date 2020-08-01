@@ -91,4 +91,8 @@ export class UserService {
   public recoverPassword(email) {
     return this.http.post<any>(`${environment.apiUrl}/usuarios/recover-password`, email);
   }
+
+  public resendEmail() {
+    return this.http.get(`${environment.apiUrl}/usuarios/resend-confirm-email`);
+  }
 }

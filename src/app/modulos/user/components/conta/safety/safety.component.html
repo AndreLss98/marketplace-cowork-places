@@ -6,8 +6,13 @@
             <input matInput value="{{ userService.user_data.email }}" readonly />
             <mat-hint *ngIf="!userService.user_data.email_validado" style="color: red;">E-mail ainda não verificiado!</mat-hint>
         </mat-form-field>
-        <div class="w-100 d-flex justify-content-end">
-            <button mat-button *ngIf="!userService.user_data.email_validado" mat-raised-button color="primary">Enviar email de verificação novamente</button>
+        <div *ngIf="!userService.user_data.email_validado" class="w-100 d-flex justify-content-end">
+            <button
+            mat-button
+            mat-raised-button
+            [disabled]="!canSendEmail"
+            (click)="resendEmail()"
+            color="primary">Enviar email de verificação novamente</button>
         </div>
     </mat-card-content>
 </mat-card>
