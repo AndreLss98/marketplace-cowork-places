@@ -43,9 +43,7 @@ export class LoginService {
     this.userToken = undefined,
     this.expires_at = undefined;
     localStorage.removeItem(EXPIRE_AT);
-    this.router.navigateByUrl('/home').then(res => {
-      this.modal.openModal(LoginComponent);
-    })
+    this.router.navigateByUrl('/home');
   }
 
   public login(response: authUser){
