@@ -46,7 +46,7 @@ export class FeedbackModalComponent implements OnInit {
       const feedback_id = this.questions.find(question => question.nome_campo === field_name).id;
       answers.push({ feedback_id, resposta: this.formFeedback.value[field_name] });
     });
-    console.log(answers);
+    //console.log(answers);
     this.feedbackSevice.reply(answers).subscribe(response => {
       this.modalService.closeAllModals();
     });

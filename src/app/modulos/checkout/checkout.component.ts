@@ -59,7 +59,6 @@ export class CheckoutComponent implements OnInit {
 
     this.alugaveis.getById(this.checkoutService.reserva.alugavel_id).subscribe(response => {
       this.alugavel = response;
-      console.log(this.alugavel);
     });
     
     if (this.checkoutService.reserva.paypal_plan_id) {
@@ -84,13 +83,13 @@ export class CheckoutComponent implements OnInit {
       },
       onApprove: async (data, actions) => {
         const order = await actions.order.capture();
-        console.log('You have successfully created order: ', order);
+        // console.log('You have successfully created order: ', order);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { paypal_order_id: order.id }).subscribe(response => {
           this.router.navigate(['/']);
         });
       },
       onError: error => {
-        console.log('Erro na reserva: ', error);
+        // console.log('Erro na reserva: ', error);
         this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`]);
       }
     }).render(this.paypalElement.nativeElement);
@@ -104,13 +103,13 @@ export class CheckoutComponent implements OnInit {
         });
       },
       onApprove: (data, actions) => {
-        console.log('You have successfully created subscription: ', data);
+        // console.log('You have successfully created subscription: ', data);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { subscription_id: data.subscriptionID }).subscribe(response => {
           this.router.navigate(['/']);
         });
       },
       onError: error => {
-        console.log('Erro na reserva: ', error);
+        // console.log('Erro na reserva: ', error);
         this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`]);
       }
     }).render(this.paypalElement.nativeElement);

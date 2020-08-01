@@ -30,12 +30,12 @@ export class RecuperarSenhaComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    //console.log(this.form.value);
     this.userService.recoverPassword(this.form.value).subscribe(response => {
       this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
       this.modalService.closeAllModals();
     }, (error) => {
-      console.log(error);
+      //console.log(error);
     })
     
   }

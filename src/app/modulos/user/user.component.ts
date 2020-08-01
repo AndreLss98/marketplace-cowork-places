@@ -34,7 +34,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.isAdmin = true;
       this.userService.isAdmin = true;
     }, (error) => {
-      console.log(error);
+      //console.log(error);
       this.userService.isAdmin = false;
       this.isAdmin = false;
     });

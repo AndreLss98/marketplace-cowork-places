@@ -134,13 +134,13 @@ export class InfoComponent implements OnInit {
         observe: 'events'
       }).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
           this.imgName = `${environment.apiUrl}/imgs/${event.body.image_name}`;
           this.selectedFile = null;
         }
       }, (error) => {
-        console.log("Error: ", error);
+        //console.log("Error: ", error);
       });
     }
   }
@@ -158,12 +158,12 @@ export class InfoComponent implements OnInit {
         observe: 'events'
       }).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
           this.configDocumentsTable();
         }
       }, (error) => {
-        console.log("Error: ", error);
+        //console.log("Error: ", error);
       });
     }
   }
@@ -183,7 +183,7 @@ export class InfoComponent implements OnInit {
       this.userService.user_data.conta_bancaria = response;
       this.resetBankAccountForm();
     }, (error) => {
-      console.log("Update account error: ", error);
+      //console.log("Update account error: ", error);
     });
   }
 
@@ -194,13 +194,13 @@ export class InfoComponent implements OnInit {
     } else {
       delete info.data_nascimento;
     }
-    console.log(info);
+    //console.log(info);
     this.userService.atualizarDadosPessoais(info).subscribe(response => {
       if (!this.dataNascimento) this.dataNascimento = this.formatDate(new Date(info.data_nascimento));
       this.canEditCPF = false;
       this.editInfoForm.markAsPristine()
     }, (error) => {
-      console.log("Edit info error: ", error);
+      //console.log("Edit info error: ", error);
     });
   }
 

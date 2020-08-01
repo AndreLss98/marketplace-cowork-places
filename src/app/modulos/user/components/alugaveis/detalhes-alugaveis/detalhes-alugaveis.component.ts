@@ -45,7 +45,7 @@ export class DetalhesAlugaveisComponent implements OnInit {
     this.alugavel.status = this.statusForm.value.status;
     this.alugavel.observacao = this.statusForm.value.observacao;
     this.alugavelService.alterStatus(this.alugavel.id, this.statusForm.value).subscribe(response => {
-      console.log('Alterado');
+      //console.log('Alterado');
       this.resetStatusForm()
     }, (error) => {
       this.alugavel.disponivel = !this.alugavel.disponivel;

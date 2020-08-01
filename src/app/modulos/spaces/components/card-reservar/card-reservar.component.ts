@@ -28,6 +28,6 @@ export class CardReservarComponent implements OnInit {
   
 
   public addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
+    //console.log(`${type}: ${event.value}`);
   }
 }

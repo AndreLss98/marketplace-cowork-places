@@ -54,7 +54,7 @@ export class ListaUsuariosComponent implements OnInit {
       response.next? this.hasNextNotAlloweds = true : this.hasNextNotAlloweds = false;
       response.previous? this.hasPreviousNotAlloweds = true : this.hasPreviousNotAlloweds = false;
     }, (error) => {
-      console.log("Error: ", error);
+      //console.log("Error: ", error);
     });
   }
 
@@ -64,7 +64,7 @@ export class ListaUsuariosComponent implements OnInit {
       response.next? this.hasNextAlloweds = true : this.hasNextAlloweds = false;
       response.previous? this.hasPreviousAlloweds = true : this.hasPreviousAlloweds = false;
     }, (error) => {
-      console.log("Error: ", error);
+      //console.log("Error: ", error);
     });
   }
 
@@ -89,7 +89,7 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   public viewUserDetails(user) {
-    console.log('Usuario: ', user);
+    //console.log('Usuario: ', user);
     this.router.navigate([`user/usuarios/${user.id}`]);
   }
 }

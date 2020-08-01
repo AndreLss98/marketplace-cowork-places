@@ -48,7 +48,7 @@ export class ListaCaracteristicasComponent implements OnInit {
     this.caracteristicasService.getAll().subscribe((response: any) => {
       this.caracteristicas = response;
     }, (error) => {
-      console.log("Fetch error: ", error);
+      //console.log("Fetch error: ", error);
     });    
   }
 
@@ -63,7 +63,7 @@ export class ListaCaracteristicasComponent implements OnInit {
 
   public updateCaracteristica() {
     if (this.editForm.valid) {
-      console.log('Form: ', this.editForm);
+      //console.log('Form: ', this.editForm);
       this.caracteristicasService.update(this.editForm.value).subscribe((response) => {
         this.caracteristica = null;
         this.fetchAll();

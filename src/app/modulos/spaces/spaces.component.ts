@@ -74,7 +74,7 @@ export class SpacesComponent implements OnInit {
     });
 
     this.espaco = this.route.snapshot.data['data'];
-    console.log(this.espaco);
+    //console.log(this.espaco);
     this.condicoes = this.route.snapshot.data['condicoes'];
     this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
       this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id);
@@ -138,18 +138,18 @@ export class SpacesComponent implements OnInit {
         this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
           this.checkoutService.reserva.titulo = this.espaco.titulo;
           this.checkoutService.reserva.id = response.id;
-          console.log('Response: ', response);
+          //console.log('Response: ', response);
           this.router.navigate(['/checkout']);
         }, (error) => {
-          console.log("Aluguel error: ", error);
+          //console.log("Aluguel error: ", error);
         });
       } else {
         this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-          console.log('Response: ', response);
+          //console.log('Response: ', response);
           this.checkoutService.reserva = response;
           this.router.navigate(['/checkout']);
         }, (error) => {
-          console.log("Aluguel error: ", error);
+          //console.log("Aluguel error: ", error);
         });
       }
     } else {

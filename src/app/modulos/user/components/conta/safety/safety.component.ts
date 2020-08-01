@@ -42,7 +42,7 @@ export class SafetyComponent implements OnInit {
     this.userService.updatePassword({ senha_antiga, senha_nova }).subscribe(response => {
       this.alterarSenha.reset();
     }, (error) => {
-      console.log(error);
+      //console.log(error);
       this.snackBar.open("Não foi possivel alterar sua senha!", "Ok", { duration: 3000 });
     });
   }

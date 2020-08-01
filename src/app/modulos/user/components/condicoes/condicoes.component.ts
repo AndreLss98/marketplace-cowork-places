@@ -40,7 +40,7 @@ export class CondicoesComponent implements OnInit {
     this.condicoesService.getAll().subscribe(response => {
       this.condicoes = response;
     }, (error) => {
-      console.log('Error: ', error);
+      //console.log('Error: ', error);
     });
   }
 
@@ -57,7 +57,7 @@ export class CondicoesComponent implements OnInit {
       this.resetSaveForm();
       this.fetchAll();
     }, (error) => {
-      console.log('Error: ', error);
+      //console.log('Error: ', error);
     });
   }
 
@@ -66,7 +66,7 @@ export class CondicoesComponent implements OnInit {
       this.condicao = null;
       this.fetchAll();
     }, (error) => {
-      console.log('Error: ', error);
+      //console.log('Error: ', error);
     });
   }
 

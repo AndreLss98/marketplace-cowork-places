@@ -298,7 +298,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public carregarDocumento(event, field){
-    console.log(event);
+    //console.log(event);
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
    
     if (!allowedExtensions.exec(event.target.files.item(0).name)) { 
@@ -352,7 +352,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   public removeFoto(index){
     if(this.editMode){
-      this.alugavelService.removeImage(this.idAlugavel, this.imagens[index].id).subscribe(response => console.log(response));;
+      this.alugavelService.removeImage(this.idAlugavel, this.imagens[index].id).subscribe(response => console.log());;
     }
     this.imagens.splice(index, 1);
   }
@@ -399,7 +399,7 @@ export class CriarAnuncioComponent implements OnInit {
         }
         break;
       case 1:
-        console.log(this.dados_cadastrais.controls);
+        //console.log(this.dados_cadastrais.controls);
         if(!this.escritura.valid && !this.editMode) {
           this.snackBar.open("Insira todos os documentos necessarios", "OK", {duration: 5000});
           return;
@@ -410,7 +410,7 @@ export class CriarAnuncioComponent implements OnInit {
         }
         break;
       case 2:
-        console.log(this.imagens);
+        //console.log(this.imagens);
         if(this.imagens.length == 0){
           this.snackBar.open("Adicione imagens ao seu espaço", "OK", {duration: 5000});
           return;
@@ -422,26 +422,26 @@ export class CriarAnuncioComponent implements OnInit {
       case 3:
         if(this.valores.valid){
           let alugavel = this.buildObjToSave();
-          console.log('Alugavel: ', alugavel)
+          //console.log('Alugavel: ', alugavel)
           if(this.editMode){
             this.alugavelService.saveAlugavel(alugavel, this.idAlugavel).subscribe(response => {
               nextStep();
             }, err => {
               this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
-              console.log(err);
+              //console.log(err);
             });
           }else{
             this.alugavelService.createAlugavel(alugavel).subscribe(response => {
               nextStep();
             }, err => {
               this.snackBar.open("Ocorreu algum erro!", "OK", {duration: 5000});
-              console.log(err);
+              //console.log(err);
             });
           }
         }
         break;
       default:
-        console.log(step);
+        //console.log(step);
     }
 
     function nextStep(){
@@ -539,7 +539,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   private loadData(){
     this.alugaveis.getById(this.espaco_id).subscribe(response => {
-      console.log("Load data: ", response);
+      //console.log("Load data: ", response);
 
       // Salva o id do alugavel;
       this.idAlugavel = response.id;

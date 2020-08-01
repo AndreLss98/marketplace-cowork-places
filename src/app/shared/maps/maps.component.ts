@@ -44,11 +44,11 @@ export class MapsComponent implements OnInit {
         mapOptions.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);;
         this.generateMap(mapOptions);
       }, (error) => {
-        console.log('Current position error: ', error);
+        //console.log('Current position error: ', error);
         this.generateMap(mapOptions);
       });
     } else {
-      console.log('Geolocation is not available');
+      //console.log('Geolocation is not available');
       this.generateMap(mapOptions);
     }
   }

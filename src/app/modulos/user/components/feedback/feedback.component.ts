@@ -116,7 +116,7 @@ export class FeedbackComponent implements OnInit {
     this.feedbackService.delete(id).subscribe(response => {
       this.fetchAll();
     }, (error) => {
-      console.log(error);
+      //console.log(error);
     });
   }
 }

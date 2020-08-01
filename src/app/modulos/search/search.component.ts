@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe((data) => {
-      console.log("params: ", data)
+      // console.log("params: ", data)
       if (data) {
         this.highlightService.fetch(data);
       } else {

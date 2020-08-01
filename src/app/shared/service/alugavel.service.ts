@@ -54,7 +54,6 @@ export class AlugavelService {
     let upload = new FormData();
     upload.append('file', file);
 
-    console.log
     return this.http.post<any>(environment.apiUrl + '/alugaveis/imagem', upload, { headers });
   }
 

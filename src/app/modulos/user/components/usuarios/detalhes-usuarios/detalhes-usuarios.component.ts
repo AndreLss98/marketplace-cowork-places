@@ -56,7 +56,7 @@ export class DetalhesUsuariosComponent implements OnInit {
 
   onChangeValidate() {
     this.userService.validarPerfil(this.user.id, this.user.cadastro_validado).subscribe(response => {
-      console.log("Alterou status");
+      //console.log("Alterou status");
     }, (error) => {
       this.user.cadastro_validado = !this.user.cadastro_validado;
     });

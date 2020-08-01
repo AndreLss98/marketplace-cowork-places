@@ -65,13 +65,13 @@ export class ListaPoliticasComponent implements OnInit {
     if (this.saveForm.valid) {
       this.politicasService.save(this.saveForm.value, this.selectedFile).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
           this.fetchPoliticas();
           this.resetSaveForm();
         }
       }, (error) => {
-        console.log('Save error: ', error);
+        //console.log('Save error: ', error);
       });
     };
   }
@@ -80,14 +80,14 @@ export class ListaPoliticasComponent implements OnInit {
     if (this.editForm.valid) {
       this.politicasService.update(this.editForm.value, this.updateFile).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
           this.politica = null;
           this.updateFile = null;
           this.fetchPoliticas();
         }
       }, (error) => {
-        console.log('Update error: ', error);
+        //console.log('Update error: ', error);
       });
     };
   }
