@@ -50,6 +50,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   public editMode = false;
   private espaco_id;
+  public image_spinner = false;
 
   // caminho imagem documento espaço
   public documentoEspacoImg = 'url("/assets/svg/documento_espaco_verde.svg")' 
@@ -332,7 +333,20 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public compressFile() {
-    this.imageCompress.uploadFile().then(({image}) => {
+    var allowedExtensions =  /(image\/jpg|image\/jpeg|image\/png)$/;
+
+    this.imageCompress.uploadFile().then(({ image }) => {
+
+      this.image_spinner = true;
+      var file_type = image.substring(0, 50);
+
+      var mime = file_type.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/)[1];
+
+      if(!allowedExtensions.exec(mime)){
+        this.image_spinner = false;
+        this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
+        return false; 
+      }
       this.imageCompress.compressFile(image, 100, 50).then(
         result => {
           let image = {
@@ -342,11 +356,21 @@ export class CriarAnuncioComponent implements OnInit {
           this.alugavelService.saveImage(image.base64).subscribe(response => {
             image.id = response.img.id
             this.imagens.push(image);
+            // Finaliza
+            this.image_spinner = false;
           }, err => {
-            this.snackBar.open('Ocorreu algum erro!', 'Ok', {duration: 5000})
+            this.snackBar.open('Ocorreu algum erro!', 'Ok', { duration: 5000 });
+            this.image_spinner = false;
+            // Finaliza
           });
         }
-      );
+      ).catch(err => {
+        console.log("Deu erro no compress: ", err)
+      });
+    }).catch(err => {
+      console.log('Deu erro ao pegar o arquivo: ', err);
+      this.image_spinner = false;
+      this.snackBar.open('Ocorreu algum erro!', 'Ok', { duration: 5000 });
     });
   }
 
