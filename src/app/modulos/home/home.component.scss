@@ -25,15 +25,20 @@
 
 
 .como_funciona{
-
-    background-image: url("/assets/imgs/home/como_funciona_bg.jpg");
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: contain;
-
-    justify-content: flex-end !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: black; 
+    overflow-y: hidden;
+    // padding-bottom: 50px;
+    // justify-content: flex-end !important;
 
     .content{
         width: 50%;
+        margin-top: auto;
+        margin-bottom: auto;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 }
