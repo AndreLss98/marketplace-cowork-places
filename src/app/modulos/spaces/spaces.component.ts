@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as moment from 'moment';
 
@@ -80,6 +80,9 @@ export class SpacesComponent implements OnInit {
       entrada: ['', [Validators.required]],
       saida: ['', [Validators.required]]
     });
+
+    this.reservaForm.controls['entrada'].disable();
+    this.reservaForm.controls['saida'].disable();
   }
 
   ngOnInit(): void {
@@ -113,7 +116,7 @@ export class SpacesComponent implements OnInit {
       const conflictRange = this.reservedDays.find(range => range.data_entrada.getTime() > this.reservaForm.controls.entrada.value.getTime() && range.data_entrada.getTime() < this.reservaForm.controls.saida.value.getTime());
       if (conflictRange) {
         this.reservaForm.controls.saida.setValue(null);
-        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 5000 });
+        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 2000 });
       }
     }
 
