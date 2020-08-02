@@ -34,7 +34,7 @@ export class AlugavelService {
   }
 
   public alterStatus(id, update) {
-    return this.http.put(`${environment.apiUrl}/alugaveis/${id}/status`, update);
+    return this.http.put<any>(`${environment.apiUrl}/alugaveis/${id}/status`, update);
   }
 
   public removeInfo(idAlugavel, idInfo): Observable<any>{
@@ -92,5 +92,9 @@ export class AlugavelService {
     });
 
     return imageFile;
+  }
+
+  public getDiasReservados(id) {
+    return this.http.get(`${environment.apiUrl}/alugaveis/${id}/dias-reservados`);
   }
 }

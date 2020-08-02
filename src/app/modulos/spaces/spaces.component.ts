@@ -1,35 +1,33 @@
-import { LoginComponent } from 'src/app/shared/modal/login/login.component';
-import { ModalService } from 'src/app/shared/service/modal.service';
-import { LoginService } from 'src/app/shared/service/login.service';
-import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 
 import * as moment from 'moment';
 
-import { environment } from './../../../environments/environment';
-import { ENUM_ALUGAVEL_CARACTERISTICAS } from './../../shared/constants/constants';
+import { LoginComponent } from 'src/app/shared/modal/login/login.component';
+
+import { environment } from 'src/environments/environment';
+import { ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
+import { ModalService } from 'src/app/shared/service/modal.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { CheckoutService } from 'src/app/shared/service/checkout.service';
+import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 
 @Component({
   selector: 'app-spaces',
   templateUrl: './spaces.component.html',
   styleUrls: ['./spaces.component.scss'],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-br' },
     {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+      provide: MAT_DATE_LOCALE,
+      useValue: 'pt-br'
+    }
   ]
 })
 export class SpacesComponent implements OnInit {
@@ -56,17 +54,33 @@ export class SpacesComponent implements OnInit {
 
   public view = 'photos';
 
+  public reservedDays: any = [];
+  readonly minDate = this.setMinDate();
+
+  public rangeFilter = (date: Date | null): boolean => {
+    const reservedRange = this.reservedDays.find(range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
+    return reservedRange? false : true;
+  }
+
+  public reservaForm: FormGroup;
+
   constructor(
     private router: Router,
+    private login: LoginService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     public userService: UserService,
+    private formBuilder: FormBuilder,
+    private modalService: ModalService,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
     private favoritoService: FavoritosService,
-    private login: LoginService,
-    private modalService: ModalService
-  ) { }
+  ) {
+    this.reservaForm = formBuilder.group({
+      entrada: ['', [Validators.required]],
+      saida: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit(): void {
     this.alugavelService.getTaxa().subscribe(response => {
@@ -74,35 +88,24 @@ export class SpacesComponent implements OnInit {
     });
 
     this.espaco = this.route.snapshot.data['data'];
-    //console.log(this.espaco);
     this.condicoes = this.route.snapshot.data['condicoes'];
+
+    this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
+      this.reservedDays = response;
+      for (let reserved of this.reservedDays) {
+        reserved.data_entrada = new Date(reserved.data_entrada);
+        reserved.data_entrada.setDate(reserved.data_entrada.getDate() + 1);
+        reserved.data_entrada.setHours(0, 0, 0);
+
+        reserved.data_saida = new Date(reserved.data_saida);
+        reserved.data_saida.setDate(reserved.data_saida.getDate() + 1);
+        reserved.data_saida.setHours(0, 0, 0);
+      }
+    });
+
     this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
       this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id);
-    })
-  }
-
-  /**
-   * Retorna um array com os nomes dos icones, para as estrelas da avalição
-   * pode ser star, star_half, star_outline
-   */
-  public countStars(n: number): string[] {
-    let array = [];
-    let j = 0;
-
-    for (let index = 0; index < Math.floor(n); index++) {
-      j++
-      array.push('start');
-    }
-
-    if (n - j) {
-      array.push('star_half');
-    }
-
-    while (array.length < 5) {
-      array.push('star_outline')
-    }
-
-    return array;
+    });
   }
 
   public favoritar() {
@@ -121,39 +124,32 @@ export class SpacesComponent implements OnInit {
 
   public checkout() {
     if(!this.login.checkLogedIn()){
-      this.modalService.openModal(LoginComponent);
-      return;
+      return this.modalService.openModal(LoginComponent);
     }
-    if (this.entrada != undefined && this.saida != undefined) {
-      this.checkoutService.reserva = {
-        dias_reservados: {
-          data_entrada: this.formatDate(new Date(this.entrada)),
-          data_saida: this.formatDate(new Date(this.saida))
-        },
-        valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
-        alugavel_id: this.espaco.id
-      };
+    this.checkoutService.reserva = {
+      dias_reservados: {
+        data_entrada: this.formatDate(this.reservaForm.controls['entrada'].value),
+        data_saida: this.formatDate(this.reservaForm.controls['saida'].value)
+      },
+      valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
+      alugavel_id: this.espaco.id
+    };
 
-      if (this.totalDias() <= 30) {
-        this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-          this.checkoutService.reserva.titulo = this.espaco.titulo;
-          this.checkoutService.reserva.id = response.id;
-          //console.log('Response: ', response);
-          this.router.navigate(['/checkout']);
-        }, (error) => {
-          //console.log("Aluguel error: ", error);
-        });
-      } else {
-        this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-          //console.log('Response: ', response);
-          this.checkoutService.reserva = response;
-          this.router.navigate(['/checkout']);
-        }, (error) => {
-          //console.log("Aluguel error: ", error);
-        });
-      }
+    if (this.totalDias() <= 30) {
+      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+        this.checkoutService.reserva.titulo = this.espaco.titulo;
+        this.checkoutService.reserva.id = response.id;
+        this.router.navigate(['/checkout']);
+      }, (error) => {
+        console.log("Aluguel error: ", error);
+      });
     } else {
-      this.snackBar.open('Selecione as datas de entrada e saída', 'OK', { duration: 3000 })
+      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+        this.checkoutService.reserva = response;
+        this.router.navigate(['/checkout']);
+      }, (error) => {
+        console.log("Aluguel error: ", error);
+      });
     }
   }
 
@@ -195,17 +191,56 @@ export class SpacesComponent implements OnInit {
     }
   }
 
-  selecionaData(type: string, event: MatDatepickerInputEvent<Date>) {
+  /* selecionaData(type: string, event: MatDatepickerInputEvent<Date>) {
     if (type == 'entrada') {
       this.entrada = moment(event.value)
     } else if (type == 'saida') {
       this.saida = moment(event.value)
     }
-  }
+  } */
 
-  private formatDate(date: Date) {
+  public formatDate(date: Date) {
     const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     return `${date.getFullYear()}-${month}-${day}`;
+  }
+
+  public formDateFormat(field) {
+    if (!field) return '';
+    const date = new Date(field);
+
+    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    return `${day}/${month}/${date.getFullYear()}`;
+  }
+
+  /**
+ * Retorna um array com os nomes dos icones, para as estrelas da avalição
+ * pode ser star, star_half, star_outline
+ */
+  public countStars(n: number): string[] {
+    let array = [];
+    let j = 0;
+
+    for (let index = 0; index < Math.floor(n); index++) {
+      j++
+      array.push('start');
+    }
+
+    if (n - j) {
+      array.push('star_half');
+    }
+
+    while (array.length < 5) {
+      array.push('star_outline')
+    }
+
+    return array;
+  }
+
+  private setMinDate() {
+    let today = new Date();
+    today.setDate(today.getDate() + 2);
+    return today;
   }
 }

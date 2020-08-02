@@ -44,11 +44,14 @@
         <div class="col-lg-3">
             <div class="myCard col">
                 <!-- Entrada / Saida -->
-                <div class="d-flex flex-column">
+                <!-- <div class="d-flex flex-column">
                     <div>
                         <mat-form-field style="width: 100%">
                             <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
-                            <input style="color: black; font-weight: 500;" disabled matInput [matDatepicker]="pickerEntrada" [min]='hoje' [max]='saida' (dateChange)="selecionaData('entrada', $event)">
+                            <input
+                                style="color: black; font-weight: 500;"
+                                disabled matInput [matDatepicker]="pickerEntrada" [matDatepickerFilter]="dateFilter"
+                                [min]='hoje' [max]='saida' (dateChange)="selecionaData('entrada', $event)" />
                             <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
                             <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
                         </mat-form-field>
@@ -61,8 +64,26 @@
                             <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
                         </mat-form-field>
                     </div>
-                </div>
-        
+                </div> -->
+
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Selecione um intervalo</mat-label>
+                    <mat-date-range-input [formGroup]="reservaForm" [min]="minDate" [rangePicker]="picker" [dateFilter]="rangeFilter">
+                      <input #entrada
+                        matStartDate
+                        formControlName="entrada"
+                        placeholder="Entrada"
+                        (dateInput)="entrada.value = formDateFormat(entrada.value)" />
+                      <input #saida
+                        matEndDate
+                        formControlName="saida"
+                        placeholder="Saída"
+                        (dateInput)="saida.value = formDateFormat(saida.value)" />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+
                 <!-- Valores -->
                 <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>Nº de pessoas</span>
@@ -92,7 +113,12 @@
         
                 <!-- botão reservar -->
                 <div class="d-flex align-items-center justify-content-center" style="padding: 20px;">
-                    <button class="btn btn-reservar" type="button" (click)="checkout()" [disabled]="userService?.user_data?.id && espaco.anunciante_id === userService.user_data.id">RESERVAR</button>
+                    <button
+                        class="btn btn-reservar"
+                        type="button"
+                        (click)="checkout()"
+                        [disabled]="userService?.user_data?.id && espaco.anunciante_id === userService.user_data.id ||
+                        reservaForm.invalid">RESERVAR</button>
                 </div>
         
                 <!-- Adicionar mais itens à sua reserva. -->

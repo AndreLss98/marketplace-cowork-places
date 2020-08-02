@@ -16,7 +16,7 @@ import { BancosService } from 'src/app/shared/service/bancos.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
 
-export const CUSTOM_DATE_FORMAT = {
+const CUSTOM_DATE_FORMAT = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },

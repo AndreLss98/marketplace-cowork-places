@@ -5,6 +5,5 @@
 	<div class="h-100 d-flex align-items-start flex-row flex-wrap" id="searchHighlight" infiniteScroll
 		[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
 		<app-highlight-items *ngFor="let space of highlightService.searched" style="padding-bottom: 15px; margin: 5px;" [data]="space" width="210px"></app-highlight-items>
-
 	</div>
 </div>
