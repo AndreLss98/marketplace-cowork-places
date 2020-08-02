@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 
 import * as moment from 'moment';
 
@@ -33,11 +33,6 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 export class SpacesComponent implements OnInit {
 
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
-
-  // Datas de entrada e saida
-  public saida;
-  public entrada;
-  public hoje = moment().add(2, 'days').format();
 
   // Valor maximo de taxa para calcular;
   private max_taxa;
@@ -80,9 +75,6 @@ export class SpacesComponent implements OnInit {
       entrada: ['', [Validators.required]],
       saida: ['', [Validators.required]]
     });
-
-    this.reservaForm.controls['entrada'].disable();
-    this.reservaForm.controls['saida'].disable();
   }
 
   ngOnInit(): void {
@@ -115,14 +107,11 @@ export class SpacesComponent implements OnInit {
     if (this.reservaForm.controls.saida.value) {
       const conflictRange = this.reservedDays.find(range => range.data_entrada.getTime() > this.reservaForm.controls.entrada.value.getTime() && range.data_entrada.getTime() < this.reservaForm.controls.saida.value.getTime());
       if (conflictRange) {
+        this.reservaForm.controls.entrada.setValue(null);
         this.reservaForm.controls.saida.setValue(null);
         this.snackBar.open('Intervalo inválido', 'Ok', { duration: 2000 });
       }
     }
-
-    const month = this.reservaForm.controls.entrada.value.getMonth() + 1 < 10 ? '0' + (this.reservaForm.controls.entrada.value.getMonth() + 1) : this.reservaForm.controls.entrada.value.getMonth() + 1;
-    const day = this.reservaForm.controls.entrada.value.getDate() < 10 ? '0' + this.reservaForm.controls.entrada.value.getDate() : this.reservaForm.controls.entrada.value.getDate();
-    return `${day}/${month}/${this.reservaForm.controls.entrada.value.getFullYear()}`;
   }
 
   public favoritar() {
@@ -152,7 +141,7 @@ export class SpacesComponent implements OnInit {
       alugavel_id: this.espaco.id
     };
 
-    if (this.totalDias() <= 30) {
+    if (this.totalDias() <= 31 || Math.round(this.totalDias() / 31) === 1) {
       this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
         this.checkoutService.reserva.titulo = this.espaco.titulo;
         this.checkoutService.reserva.id = response.id;
@@ -162,7 +151,7 @@ export class SpacesComponent implements OnInit {
       });
     } else {
       this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-        this.checkoutService.reserva = response;
+        this.checkoutService.reserva.paypal_plan_id = response.paypal_plan_id;
         this.router.navigate(['/checkout']);
       }, (error) => {
         console.log("Aluguel error: ", error);
@@ -189,8 +178,8 @@ export class SpacesComponent implements OnInit {
   }
 
   public calculaTotalPeriodo(taxa, custo_dia): number {
-    let b = this.entrada;
-    let a = this.saida;
+    let b = moment(this.reservaForm.controls['entrada'].value);
+    let a = moment(this.reservaForm.controls['saida'].value);
     if (a == undefined || b == undefined) {
       return Number(this.calculaTotal(taxa, custo_dia));
     } else {
@@ -199,22 +188,14 @@ export class SpacesComponent implements OnInit {
   }
 
   public totalDias() {
-    let b = this.entrada;
-    let a = this.saida;
+    let b = moment(this.reservaForm.controls['entrada'].value);
+    let a = moment(this.reservaForm.controls['saida'].value);
     if (a == undefined || b == undefined) {
       return Number(1);
     } else {
       return Number(a.diff(b, 'days') + 1);
     }
   }
-
-  /* selecionaData(type: string, event: MatDatepickerInputEvent<Date>) {
-    if (type == 'entrada') {
-      this.entrada = moment(event.value)
-    } else if (type == 'saida') {
-      this.saida = moment(event.value)
-    }
-  } */
 
   public formatDate(date: Date) {
     const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
