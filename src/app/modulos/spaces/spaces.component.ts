@@ -108,6 +108,20 @@ export class SpacesComponent implements OnInit {
     });
   }
 
+  public validateRange() {
+    if (this.reservaForm.controls.saida.value) {
+      const conflictRange = this.reservedDays.find(range => range.data_entrada.getTime() > this.reservaForm.controls.entrada.value.getTime() && range.data_entrada.getTime() < this.reservaForm.controls.saida.value.getTime());
+      if (conflictRange) {
+        this.reservaForm.controls.saida.setValue(null);
+        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 5000 });
+      }
+    }
+
+    const month = this.reservaForm.controls.entrada.value.getMonth() + 1 < 10 ? '0' + (this.reservaForm.controls.entrada.value.getMonth() + 1) : this.reservaForm.controls.entrada.value.getMonth() + 1;
+    const day = this.reservaForm.controls.entrada.value.getDate() < 10 ? '0' + this.reservaForm.controls.entrada.value.getDate() : this.reservaForm.controls.entrada.value.getDate();
+    return `${day}/${month}/${this.reservaForm.controls.entrada.value.getFullYear()}`;
+  }
+
   public favoritar() {
     if (this.espaco.anunciante_id === this.userService.user_data.id) {
       this.snackBar.open('Você é o proprietário desse anúncio', 'OK', {duration: 1000});
