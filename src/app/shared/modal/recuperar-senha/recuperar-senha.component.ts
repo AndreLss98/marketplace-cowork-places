@@ -36,8 +36,9 @@ export class RecuperarSenhaComponent implements OnInit {
       this.modalService.closeAllModals();
     }, (error) => {
       //console.log(error);
-    })
-    
+      this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
+      this.modalService.closeAllModals();
+    });
   }
 
 }
