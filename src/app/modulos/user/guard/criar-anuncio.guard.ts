@@ -24,29 +24,46 @@ export class CriarAnuncioGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if(this.mobileService.isMobile()){
-      this.snack.open("Ainda não é possível adicionar um espaço pelo celular.", "Ok", {duration: 5000});
+      this.generateSnack("Ainda não é possível adicionar um espaço pelo celular.");
       return false;
     }
 
-    if(!this.userService.user_data.cadastro_validado) {
-      this.snack.open("Cadastro em análise, confira se você preencheu todos os campos corretamente", "Ok", {duration: 5000});
+    if(!this.userService.user_data.cpf) {
+      if (!this.userService.user_data.cadastro_validado) {
+        this.generateSnack("Complete o cadastro dos seus dados pessoais e informe seus dados bancários.");
+      } else {
+        this.generateSnack("Complete o cadastro dos seus dados pessoais (Data de Nascimento, CPF e Número de telefone.)");
+      }
+      return false;
+    }
+
+    if(!this.userService.user_data.conta_bancaria) {
+      this.generateSnack("Para criar um anúncio é necessário ter uma conta bancária cadastrada.")
       this.route.navigate(['/user/conta/info'])
       return false;
     }
 
     if(!this.userService.user_data.email_validado) {
-      this.snack.open("Para criar um anúncio confirme o seu email", "Ok", {duration: 5000});
+      this.generateSnack("Para criar um anúncio confirme o seu email");
       this.route.navigate(['/user/conta/safety'])
       return false;
     }
 
-    if(!this.userService.user_data.conta_bancaria) {
-      this.snack.open("Para criar um anúncio é necessário ter uma conta bancária cadastrada.", "Ok", {duration: 5000});
+    if(!this.userService.user_data.cadastro_validado) {
+      this.generateSnack("Cadastro em análise.");
       this.route.navigate(['/user/conta/info'])
       return false;
     }
 
     return true;
+  }
+
+  private generateSnack(message: string) {
+    this.snack.open(message, "Ok", {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    });
   }
   
 }
