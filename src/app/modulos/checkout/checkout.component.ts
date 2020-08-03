@@ -78,7 +78,10 @@ export class CheckoutComponent implements OnInit {
               currency_code: 'BRL',
               value: this.checkoutService.reserva.valor
             }
-          }]
+          }],
+          application_context: {
+            locale: 'pt-BR'
+          }
         });
       },
       onApprove: async (data, actions) => {
@@ -99,7 +102,9 @@ export class CheckoutComponent implements OnInit {
     paypal.Buttons({
       createSubscription: (data, actions) => {
         return actions.subscription.create({
-          plan_id
+          plan_id,
+          locale: 'pt-BR',
+          shipping_preference: 'NO_SHIPPING'
         });
       },
       onApprove: (data, actions) => {
