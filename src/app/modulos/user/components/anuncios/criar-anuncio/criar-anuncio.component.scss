@@ -77,3 +77,9 @@
 .inputDocumentoProprietario > label{
     text-align: center;
 }
+
+.politicas{
+    max-height: 500px; 
+    overflow: scroll; 
+    overflow-x: hidden;
+}
