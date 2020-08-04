@@ -22,10 +22,31 @@ import { ListaPerguntasComponent } from './components/questionario/lista-pergunt
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
+import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 
 
 @NgModule({
-  declarations: [UserComponent, PaymentsComponent, MeusAnunciosComponent, EspacosSalvosComponent, CriarAnuncioComponent, ListaTiposComponent, InfoComponent, ListaPoliticasComponent, ListaCaracteristicasComponent, ListaPerguntasComponent, PessoaisComponent, ListaUsuariosComponent, DetalhesUsuariosComponent, ListaAlugaveisComponent, DetalhesAlugaveisComponent, CondicoesComponent, FeedbackComponent, SafetyComponent],
+  declarations: [
+    UserComponent, 
+    InfoComponent, 
+    SafetyComponent, 
+    PaymentsComponent, 
+    PessoaisComponent, 
+    FeedbackComponent, 
+    CondicoesComponent, 
+    ListaTiposComponent, 
+    CriarAnuncioComponent, 
+    MeusAnunciosComponent, 
+    MeusAlugueisComponent,
+    ListaUsuariosComponent, 
+    EspacosSalvosComponent, 
+    ListaPoliticasComponent, 
+    ListaAlugaveisComponent, 
+    ListaPerguntasComponent, 
+    DetalhesUsuariosComponent, 
+    DetalhesAlugaveisComponent, 
+    ListaCaracteristicasComponent, 
+  ],
   imports: [
     CommonModule,
     UserRoutingModule,
