@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
@@ -37,7 +37,7 @@ export class SearchboxComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   constructor(
-    private route: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private menuService: MenuService,
     private alugaveisService: AlugaveisService,
@@ -55,6 +55,12 @@ export class SearchboxComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((data) => {
+      if(data.bairro){
+        this.location.setValue(data.bairro);
+      }
+    })
+
     this.filteredOptions = this.location.valueChanges.pipe(
       startWith(''),
       map(value => this.locationFilter(value))
