@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialogConfig, MatDialog, MatDialogRef, MatDialogState } from '@angular/material/dialog';
+import { MatDialogConfig, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
