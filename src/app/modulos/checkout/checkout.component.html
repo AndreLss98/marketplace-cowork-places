@@ -19,8 +19,8 @@
                 <mat-card *ngIf="alugavel" class="mat-elevation-z4 card-table">
                     <mat-card-title>Valor</mat-card-title>
                     <mat-card-content class="d-flex flex-column flex-wrap">
-                        <span class="spanValor">Custo por dia: R$ {{calculaCustoDia(alugavel.taxa, alugavel.valor)}}</span>
-                        <span class="spanValor">Taxa de serviço: R$ {{calculaTaxa(alugavel.taxa, alugavel.valor)}}</span>
+                        <span class="spanValor">Custo por dia: R$ {{calculaCustoDia(alugavel.taxa, alugavel.valor).toFixed(2)}}</span>
+                        <span class="spanValor">Taxa de serviço: R$ {{calculaTaxa(alugavel.taxa, alugavel.valor).toFixed(2)}}</span>
                         <span class="spanValor">Total: R$ {{this.checkoutService.reserva.valor}}</span>
                     </mat-card-content>
                 </mat-card>
