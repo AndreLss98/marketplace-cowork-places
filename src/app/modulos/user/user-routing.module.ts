@@ -1,3 +1,4 @@
+import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, CanActivate } from '@angular/router';
@@ -54,6 +55,13 @@ const routes: Routes = [
       canActivate: [CriarAnuncioGuard]
     },
     { 
+      path: 'anuncios/:id',
+      resolve: {
+        alugavel: DetalhesAlugavelResolverService
+      },
+      component: DetalhesAlugaveisComponent
+    },
+    { 
       path: 'usuarios/:id',
       resolve: {
         user: DetalhesUsuarioResolverService
@@ -61,11 +69,8 @@ const routes: Routes = [
       component: DetalhesUsuariosComponent
     },
     { 
-      path: 'anuncios/:id',
-      resolve: {
-        alugavel: DetalhesAlugavelResolverService
-      },
-      component: DetalhesAlugaveisComponent
+      path: 'alugueis',
+      component: MeusAlugueisComponent
     },
   ]
   },
