@@ -56,12 +56,12 @@
 <!-- Menu de itens -->
 <ng-template #popContent>
   <div id="popover">
-    <span class="popoverTitle">Olá {{user.user_data.nome.split(' ')[0]}}</span>
+    <span class="popoverTitle" *ngIf="login.logged_status">Olá {{user.user_data.nome.split(' ')[0]}}</span>
     <div style="margin-bottom: 5px;">
       <mat-list>
         <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user/conta/info')">Minha Conta</mat-list-item>
         <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
-        <mat-list-item class="list-item" >Aluguéis</mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">Aluguéis</mat-list-item>
         <mat-list-item class="list-item border-bottom" (click)="goTo('/user/anuncios/meusanuncios')">Anúncios</mat-list-item>
       </mat-list>
     </div>
