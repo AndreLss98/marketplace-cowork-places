@@ -254,7 +254,7 @@ export class CriarAnuncioComponent implements OnInit {
 
   public verificaCidade(){
     // 520870705 = GOIANIA
-    if(this.cidade.value != 52010){
+    if(this.cidade.value != 52010 && this.cidade.value != 520870705){
       this.cep.setErrors({nao_disponivel: true});
     }
   }
@@ -282,10 +282,12 @@ export class CriarAnuncioComponent implements OnInit {
         this.estado.setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
         this.cidade.setValue(data['microrregiao'].id);
-        this.verificaCidade();
         this.estado.disable();
         this.cidade.disable();
+        this.verificaCidade();
         // console.log(this.estados, data['microrregiao']['mesorregiao']['UF'].id);
+      }, err => {
+        this.snackBar.open("Ocorreu alguem problema, tente novamente mais tarde", 'OK', {duration: 5000, verticalPosition: 'top'});
       })
     }, err => {
       // console.log(err);
@@ -431,6 +433,8 @@ export class CriarAnuncioComponent implements OnInit {
         if(this.dados_cadastrais.valid){
           // this.carregarCaracteristicas();
           nextStep();
+        }else{
+          this.snackBar.open("Preencha todos os campos corretamente", "OK", {duration: 5000});
         }
         break;
       case 2:
