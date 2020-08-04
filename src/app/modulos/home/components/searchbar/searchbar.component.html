@@ -9,7 +9,7 @@
             </div>
             <!-- Bairro ou Cidade -->
             <div class="w-100 buscaCidade">
-                <input #bairro type="text" name="city" list="cityname" placeholder="Bairro">
+                <input #bairro type="text" name="city" list="cityname" placeholder="Digite o bairro para ver as opções disponíveis">
                 <datalist id="cityname">
                    <option [value]="option" *ngFor="let option of options"> 
                 </datalist>
