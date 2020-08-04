@@ -1,3 +1,4 @@
+import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { NgModule } from '@angular/core';
@@ -70,6 +71,9 @@ const routes: Routes = [
     },
     { 
       path: 'alugueis',
+      resolve: {
+        alugueis: AlugueisMeusalugueisResolverService
+      },
       component: MeusAlugueisComponent
     },
   ]
