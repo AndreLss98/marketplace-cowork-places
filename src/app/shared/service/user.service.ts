@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -94,5 +95,9 @@ export class UserService {
 
   public resendEmail() {
     return this.http.get(`${environment.apiUrl}/usuarios/resend-confirm-email`);
+  }
+
+  getAlugueis(): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + '/usuarios/alugueis');
   }
 }
