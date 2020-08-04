@@ -1,3 +1,4 @@
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
@@ -11,18 +12,28 @@ import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
 })
 export class HighlightItemsComponent implements OnInit {
 
-  @Input('data') data: any;
+  @Input('data') data: any = undefined;
   @Input('width') width:string = '277px'
+
+  @Input('alugavel_id') alugavel_id: number = undefined;
+
   public backUrl = environment.apiUrl;
   private taxaTotal;
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   constructor(
     private router: Router,
-    private alugavel: AlugavelService
+    private alugavel: AlugavelService,
+    private alugaveis: AlugaveisService
   ) { }
 
   ngOnInit(): void {
+    if(this.alugavel_id){
+      this.alugaveis.getById(this.alugavel_id).subscribe( res => {
+        this.data = res;
+      });
+    }
+
     setTimeout(() => {      
       this.data.valor = Number(this.data['valor'])
       this.alugavel.getTaxa().subscribe( res => {
