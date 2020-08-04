@@ -292,19 +292,25 @@
     
             <div class="row">
                 <div class="col">
-                    
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Custo por dia</mat-label>
-                        <input matInput formControlName='custo_dia' (keyup)="getFormattedPrice('custo_dia')" maxlength="10">
-                        <mat-error>Formato invalido</mat-error>
+                        <input #custo_diario matInput formControlName='custo_dia' (keyup)="custo_diario.value = getFormattedPrice('custo_dia')" maxlength="10" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Custo por mês</mat-label>
+                        <input #custo_mensal matInput formControlName="custo_mes" (keyup)="custo_mensal.value = getFormattedPrice('custo_mes')" maxlength="10" />
                     </mat-form-field>
     
                     <div class="w-100">
                         <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de serviço</span>
                         <mat-slider class="w-100" thumbLabel [step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
                     </div>
-    
+                    <div class="w-100">
+                        <h4>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.</h4>
+                    </div>
                 </div>
+                
                 <div class="col">
                     <mat-card>
                         <mat-card-title class="text-center">Simulação de valores</mat-card-title>
@@ -328,8 +334,10 @@
                                     </mat-form-field>
                                 </div>
                                 <span style="font-size: 20px; font-weight: 500;">Custo por dia: R$ {{ calculaCustoDia().toFixed(2) }}</span>
+                                <span style="font-size: 20px; font-weight: 500;">Custo por mês: R$ {{ calculaCustoMes().toFixed(2) }}</span>
                                 <span style="font-size: 20px; font-weight: 500;">Taxa de servico: R$ {{ calculaTaxa().toFixed(2) }}</span>
                                 <span style="font-size: 20px; font-weight: 500;">Total por dia: R$ {{ calculaTotal().toFixed(2) }}</span>
+                                <span style="font-size: 20px; font-weight: 500;">Total por Mês: R$ {{ calculaTotalMes().toFixed(2) }}</span>
                                 <span style="font-size: 20px; font-weight: 500; margin-top: 5px;">Total no periodo: R$ {{ calculaTotalPeriodo().toFixed(2)}}</span>
                             </div>
                         </mat-card-content>

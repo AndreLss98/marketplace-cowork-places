@@ -31,4 +31,4 @@ export class AlugaveisService {
     .set('filters', JSON.stringify(filters));
     return this.http.get<any>(`${environment.apiUrl}/alugaveis/local/bairros`, { params });
   }
-}
+} 

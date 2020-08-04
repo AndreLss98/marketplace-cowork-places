@@ -35,7 +35,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './criar-anuncio.component.html',
   styleUrls: ['./criar-anuncio.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
+    { 
+      provide: MAT_DATE_LOCALE,
+      useValue: 'pt-BR'
+    },
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -132,6 +135,7 @@ export class CriarAnuncioComponent implements OnInit {
   public valores: FormGroup;
   taxa = new FormControl(0, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
+  custo_mes = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
   
   // imagens
   public imagens = [];
@@ -191,7 +195,8 @@ export class CriarAnuncioComponent implements OnInit {
 
     this.valores = this.form.group({
       taxa: this.taxa,
-      custo_dia: this.custo_dia
+      custo_dia: this.custo_dia,
+      custo_mes: this.custo_mes
     });
   }
 
@@ -231,6 +236,7 @@ export class CriarAnuncioComponent implements OnInit {
     let v = this[campo].value;
     v=v.replace(/[&\/\\#,+()$~%'":*?<>{} A-Za-z]/g,"");
     this[campo].setValue(v);
+    return `R$ ${v}`;
   }
 
   public carregarCaracteristicas(){
@@ -397,21 +403,41 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-  public calculaTaxa(): number{
+  public calculaCustoMes(): number{
+    if(this.taxa.value == this.max_taxa){
+      return Number(this.custo_mes.value);
+    }else if(this.taxa.value == (this.max_taxa / 2)){
+      return Number(this.custo_mes.value * (this.taxa.value/100 + 1))
+    }else{
+      return Number(this.custo_mes.value * (this.max_taxa/ 100 + 1))
+    }
+  }
+
+  public calculaTaxa(): number {
     return Number(this.custo_dia.value * (this.taxa.value/100))
   }
 
-  public calculaTotal(): number{
+  public calculaTaxaMes(): number {
+    return Number(this.custo_mes.value * (this.taxa.value/100))
+  }
+
+  public calculaTotal(): number {
     return Number(this.calculaCustoDia() + this.calculaTaxa());
   }
 
-  public calculaTotalPeriodo():number{
+  public calculaTotalMes(): number {
+    return Number(this.calculaCustoMes() + this.calculaTaxaMes());
+  }
+
+  public calculaTotalPeriodo():number {
     let b = this.entrada;
     let a = this.saida;
     if(a == undefined || b == undefined){ 
       return Number(1 * this.calculaTotal());
-    }else{
-      return Number((a.diff(b, 'days')+1) * this.calculaTotal());
+    } else  if ((a.diff(b, 'days') + 1) > 30) {
+      return ((a.diff(b, 'days') + 1) * this.calculaTotalMes()) / 31;
+    } else {
+      return Number((a.diff(b, 'days') + 1) * this.calculaTotal());
     }
   }
 
@@ -543,6 +569,7 @@ export class CriarAnuncioComponent implements OnInit {
       taxa: this.taxa.value,
       descricao: this.descricao.value,
       valor: this.custo_dia.value,
+      valor_mes: this.custo_mes.value,
       titulo: this.titulo.value,
       proprietario: this.proprietario.value,
       local: {
@@ -574,6 +601,7 @@ export class CriarAnuncioComponent implements OnInit {
       // Carregar valor e taxa
       this.taxa.setValue(Number(response.taxa));
       this.custo_dia.setValue(Number(response.valor));
+      this.custo_mes.setValue(Number(response.valor_mes));  
       
       // Carrega dados cadastrais
       this.cep.disable()

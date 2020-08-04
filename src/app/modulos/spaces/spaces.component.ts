@@ -48,6 +48,7 @@ export class SpacesComponent implements OnInit {
   public condicoes = [];
 
   public view = 'photos';
+  public isDaily: boolean = true;
 
   public reservedDays: any = [];
   readonly minDate = this.setMinDate();
@@ -84,6 +85,7 @@ export class SpacesComponent implements OnInit {
 
     this.espaco = this.route.snapshot.data['data'];
     this.condicoes = this.route.snapshot.data['condicoes'];
+    console.log(this.espaco);
 
     this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
       this.reservedDays = response;
@@ -137,7 +139,7 @@ export class SpacesComponent implements OnInit {
         data_entrada: this.formatDate(this.reservaForm.controls['entrada'].value),
         data_saida: this.formatDate(this.reservaForm.controls['saida'].value)
       },
-      valor: this.calculaTotalPeriodo(this.espaco.taxa, this.espaco.valor).toFixed(2),
+      valor: this.calculaTotalPeriodo().toFixed(2),
       alugavel_id: this.espaco.id
     };
 
@@ -170,21 +172,45 @@ export class SpacesComponent implements OnInit {
     }
   }
 
+  public calculaCustoMes(taxa, custo_mes): number {
+    if (taxa == this.max_taxa) {
+      return Number(custo_mes);
+    } else if (taxa == this.max_taxa / 2) {
+      return Number(custo_mes * (taxa / 100 + 1))
+    } else {
+      return Number(custo_mes * (this.max_taxa / 100 + 1))
+    }
+  }
+
   public calculaTaxa(taxa, custo_dia): number {
     return Number(custo_dia * (taxa / 100))
+  }
+
+  public calculaTaxaMes(taxa, custo_mes): number {
+    return Number(custo_mes * (taxa / 100))
   }
 
   public calculaTotal(taxa, custo_dia): number {
     return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
   }
 
-  public calculaTotalPeriodo(taxa, custo_dia): number {
+  public calculaTotalMes(taxa, custo_mes): number {
+    return Number(this.calculaCustoMes(taxa, custo_mes) + this.calculaTaxaMes(taxa, custo_mes));
+  }
+
+  public calculaTotalPeriodo(): number {
     let b = moment(this.reservaForm.controls['entrada'].value);
     let a = moment(this.reservaForm.controls['saida'].value);
+
     if (a == undefined || b == undefined) {
-      return Number(this.calculaTotal(taxa, custo_dia));
+      this.isDaily = true;
+      return Number(this.calculaTotal(this.espaco.taxa, this.espaco.valor));
+    } else if((a.diff(b, 'days') + 1) > 30) {
+      this.isDaily = false;
+      return Number((a.diff(b, 'days') + 1) * this.calculaTotalMes(this.espaco.taxa, this.espaco.valor_mes)) / 31;
     } else {
-      return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
+      this.isDaily = true;
+      return Number((a.diff(b, 'days') + 1) * this.calculaTotal(this.espaco.taxa, this.espaco.valor));
     }
   }
 
