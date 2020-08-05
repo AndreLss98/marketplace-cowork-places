@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
         const order = await actions.order.capture();
         // console.log('You have successfully created order: ', order);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { paypal_order_id: order.id }).subscribe(response => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/user/alugueis']);
         });
       },
       onError: error => {
@@ -110,7 +110,7 @@ export class CheckoutComponent implements OnInit {
       onApprove: (data, actions) => {
         // console.log('You have successfully created subscription: ', data);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { subscription_id: data.subscriptionID }).subscribe(response => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/user/alugueis']);
         });
       },
       onError: error => {
