@@ -12,7 +12,7 @@ export class RefreshTokenService {
     private http: HttpClient
   ) { }
 
-  public refreshToken():Observable<any>{
+  public refreshToken():Observable<any> {
     return this.http.post<any>(environment.apiUrl + '/auth/refresh-token', {});
   }
 

@@ -198,7 +198,9 @@ export class InfoComponent implements OnInit {
     this.userService.atualizarDadosPessoais(info).subscribe(response => {
       if (!this.dataNascimento) this.dataNascimento = this.formatDate(new Date(info.data_nascimento));
       this.canEditCPF = false;
-      this.editInfoForm.markAsPristine()
+      this.userService.user_data.cpf = info.cpf;
+      this.editInfoForm.markAsPristine();
+
     }, (error) => {
       //console.log("Edit info error: ", error);
     });

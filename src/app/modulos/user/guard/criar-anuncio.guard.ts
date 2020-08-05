@@ -29,7 +29,7 @@ export class CriarAnuncioGuard implements CanActivate {
     }
 
     if(!this.userService.user_data.cpf) {
-      if (!this.userService.user_data.cadastro_validado) {
+      if (!this.userService.user_data.conta_bancaria) {
         this.generateSnack("Complete o cadastro dos seus dados pessoais e informe seus dados bancários.");
       } else {
         this.generateSnack("Complete o cadastro dos seus dados pessoais (Data de Nascimento, CPF e Número de telefone.)");
