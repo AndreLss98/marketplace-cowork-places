@@ -11,8 +11,7 @@ const routes: Routes = [
     path: '', 
     component: SpacesComponent,
     resolve: {
-      data: SpacesResolverService,
-      condicoes: CondicoesResolverService
+      data: SpacesResolverService
     }
   }
 ];

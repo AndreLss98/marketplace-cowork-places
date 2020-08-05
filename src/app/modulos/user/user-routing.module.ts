@@ -43,7 +43,7 @@ const routes: Routes = [
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
-    { path: 'condicoes', component: CondicoesComponent},
+    // { path: 'condicoes', component: CondicoesComponent},
     { path: 'feedbacks', component: FeedbackComponent},
     { 
       path: 'anuncios/editaranuncio', 
