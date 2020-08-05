@@ -50,7 +50,9 @@ export class LoginComponent implements OnInit {
           this.login.login(response);
           this.modal.closeAllModals();
         }, err => {
-          if(err.name && err.name == 'TimeoutError'){
+          if (err.status === 405) {
+            this.login.signInWithGoogle();
+          }else if(err.name && err.name == 'TimeoutError'){
             this.loginError = true;
             this.errorMessage = "Verifique a conexão! Tente novamente.";
             this.showLoading = false;
