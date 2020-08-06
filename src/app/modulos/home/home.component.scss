@@ -1,3 +1,5 @@
+@import '../../../place-et-theme.scss';
+
 #content{
     padding-right: 0px;
     padding-left: 0px;
@@ -27,6 +29,7 @@
     text-align: center; 
     width: 400px;
     line-height: 1.1;
+    z-index: 2;
 }
 
 .infoContentTitle{
@@ -53,4 +56,42 @@
         padding-bottom: 10px;
         padding-top: 10px;
     }
+}
+
+.videoComoAnunciar{
+    background-image: url('/assets/svg/fundo_verde.svg');
+    background-size: contain;
+    // background-color: $pl-amarelo;
+    height: 100%;
+    padding-bottom: 48px;
+    padding-top: 28px;
+    
+    span{
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    iframe{
+        border-radius: 5px;
+    }
+
+}
+
+.videoComoAlugar{
+    background-image: url('/assets/svg/fundo_amarelo.svg');
+    background-size: contain;
+    // background-color: $pl-verde-claro;
+    padding-bottom: 48px;
+    padding-top: 28px;
+    span{
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    iframe{
+        border-radius: 5px;
+    }
+
 }

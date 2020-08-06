@@ -1,4 +1,4 @@
-<div class="content" id="highlight">
+<div class="content" id="highlight" *ngIf="(spaces && spaces.length > 0) || (rooms && rooms.length > 0)">
     <div class="row" *ngIf="spaces && spaces.length > 0">
         <div class="{{cardClass}}" style="margin-bottom: 30px">
             <div class="highlightInfo">
