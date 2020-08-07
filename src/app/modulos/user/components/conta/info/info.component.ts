@@ -49,6 +49,8 @@ const CUSTOM_DATE_FORMAT = {
 })
 export class InfoComponent implements OnInit {
 
+  public dadosPessoaisValido = true;
+
   public dataNascimento = '';
   public selectedFile: File = null;
 
@@ -94,6 +96,14 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
+
+    if(
+      !this.userService.user_data.cpf ||
+      !this.userService.user_data.email_validado ||
+      !this.userService.user_data.data_nascimento ||
+      !this.userService.user_data.data_nascimento ||
+      !this.userService.user_data.numero_1
+      )   this.dadosPessoaisValido =  false;
   
     if (this.userService.user_data.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;
