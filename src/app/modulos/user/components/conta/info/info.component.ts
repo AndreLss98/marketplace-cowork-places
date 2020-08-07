@@ -74,7 +74,7 @@ export class InfoComponent implements OnInit {
     public userService: UserService,
     private bancoService: BancosService,
     public documentosService: DocumentosService,
-    private contaBancariaService: ContaBancariaService,
+    private contaBancariaService: ContaBancariaService
   ) {
     this.editBankAccountForm = formBuilder.group({
       banco: [null, Validators.required],

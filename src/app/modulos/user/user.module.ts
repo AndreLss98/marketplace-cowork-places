@@ -23,6 +23,7 @@ import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuari
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
+import { InfoModalComponent } from './components/conta/info/info-modal.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-
     PessoaisComponent, 
     FeedbackComponent, 
     CondicoesComponent, 
+    InfoModalComponent,
     ListaTiposComponent, 
     CriarAnuncioComponent, 
     MeusAnunciosComponent, 
@@ -45,7 +47,7 @@ import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-
     ListaPerguntasComponent, 
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
-    ListaCaracteristicasComponent, 
+    ListaCaracteristicasComponent,
   ],
   imports: [
     CommonModule,

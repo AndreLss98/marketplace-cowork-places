@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { MobileService } from 'src/app/shared/service/mobile.service';
-import { InfoComponent } from '../components/conta/info/info.component';
 import { SafetyComponent } from '../components/conta/safety/safety.component';
+import { InfoModalComponent } from '../components/conta/info/info-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,11 @@ export class CriarAnuncioGuard implements CanActivate {
   constructor(
     private route: Router,
     private snack: MatSnackBar,
+    private matDialog: MatDialog,
     private userService: UserService,
     private modalService: ModalService,
     private mobileService: MobileService,
-  ){
+  ) {
 
   }
 
@@ -35,17 +37,21 @@ export class CriarAnuncioGuard implements CanActivate {
 
     if(!this.userService.user_data.cpf) {
       if (!this.userService.user_data.conta_bancaria) {
-        this.generateSnack("Complete o cadastro dos seus dados pessoais e informe seus dados bancários.");
+        this.matDialog.open(InfoModalComponent, { data: {
+          message: 'Complete o cadastro dos seus dados pessoais e informe seus dados bancários.'
+        }});
       } else {
-        this.generateSnack("Complete o cadastro dos seus dados pessoais (Data de Nascimento, CPF e Número de telefone.)");
+        this.matDialog.open(InfoModalComponent, { data: {
+          message: 'Complete o cadastro dos seus dados pessoais (Data de Nascimento, CPF e Número de telefone).'
+        }});
       }
-      this.modalService.openModal(InfoComponent, false);
       return false;
     }
 
     if(!this.userService.user_data.conta_bancaria) {
-      this.generateSnack("Para criar um anúncio é necessário ter uma conta bancária cadastrada.")
-      this.modalService.openModal(InfoComponent, false);
+      this.matDialog.open(InfoModalComponent, { data: {
+        message: 'Para criar um anúncio é necessário ter uma conta bancária cadastrada.'
+      }})
       return false;
     }
 
