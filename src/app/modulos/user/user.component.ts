@@ -14,7 +14,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public opened: boolean = true && !this.mobileService.isMobile();
   public currentSelection: string = '';
   public isAdmin: boolean = false;
-
+  
   constructor(
     private login: LoginService,
     public userService: UserService,

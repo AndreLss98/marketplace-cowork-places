@@ -2,7 +2,12 @@
     <div id="img-perfil">{{ userService.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
     
-    <mat-card-title>Dados Pessoais</mat-card-title>
+    <mat-card-title>
+        <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
+            [matBadgeHidden]="userService.cadastroValidado()" >
+            Dados Pessoais
+        </span>
+    </mat-card-title>
     <mat-card-content>
         <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
             <div class="w-100 d-flex flex-row flex-wrap">
@@ -31,6 +36,7 @@
                                 required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+                            <mat-hint *ngIf="!userService.user_data.data_nascimento">Informe a data de nascimento.</mat-hint>
                         </mat-form-field>
                     </div>
                 </ng-template>
@@ -45,6 +51,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>CPF</mat-label>
                         <input #cpf formControlName="cpf" maxlength="14" matInput (keyup)="formatarCPF(cpf.value)" [readonly]="!canEditCPF" [required]="canEditCPF" />
+                        <mat-hint *ngIf="!userService.user_data.cpf">Informe o CPF.</mat-hint>
                     </mat-form-field>
                 </div>
             </div>
@@ -53,6 +60,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 1</mat-label>
                         <input matInput formControlName="numero_1" maxlength="15" (keyup)="formatarTelefone('numero_1')" required />
+                        <mat-hint *ngIf="!userService.user_data.numero_1">Informe o seu número de telefone.</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>
@@ -68,7 +76,12 @@
 </mat-card>
 
 <mat-card class="mat-elevation-z4 card-table">
-    <mat-card-title>Dados Bancários</mat-card-title>
+    <mat-card-title>
+        <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
+            [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
+            Dados Bancários
+        </span>
+    </mat-card-title>
     <mat-card-content>
         <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()">
             <div class="w-100 d-flex flex-row flex-wrap">

@@ -33,6 +33,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 import { NgModule } from '@angular/core';
 
@@ -43,6 +45,7 @@ import { NgModule } from '@angular/core';
   declarations: [],
   bootstrap: [],
   exports: [
+    MatBadgeModule,
     MdePopoverModule,
     ScrollingModule,
     MatButtonModule,

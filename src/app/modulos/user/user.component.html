@@ -26,8 +26,13 @@
                     <mat-panel-title>Conta</mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-list>
-                    <mat-list-item (click)="updateSelection('Conta > Informações Pessoais')"
-                        class="border-bottom" routerLink="conta/info"> Informações Pessoais </mat-list-item>
+                    <mat-list-item (click)="updateSelection('Conta > Informações Pessoais')" 
+                        class="border-bottom" routerLink="conta/info">
+                        <span matBadge="!" matBadgeColor="warn" 
+                            [matBadgeHidden]="userService.cadastroValidado()" matBadgeOverlap="false">
+                                Informações Pessoais
+                        </span>
+                    </mat-list-item>
                     <mat-list-item (click)="updateSelection('Conta > Login e Segurança')"
                         class="border-bottom" routerLink="conta/safety"> Login e Segurança </mat-list-item>
                     <!-- <mat-list-item (click)="updateSelection('Conta > Estatísticas')"
