@@ -1,9 +1,13 @@
-import { MobileService } from './../../../shared/service/mobile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from 'src/app/shared/service/user.service';
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+
+import { UserService } from 'src/app/shared/service/user.service';
+import { ModalService } from 'src/app/shared/service/modal.service';
+import { MobileService } from 'src/app/shared/service/mobile.service';
+import { InfoComponent } from '../components/conta/info/info.component';
+import { SafetyComponent } from '../components/conta/safety/safety.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +15,11 @@ import { Observable } from 'rxjs';
 export class CriarAnuncioGuard implements CanActivate {
 
   constructor(
-    private userService: UserService,
+    private route: Router,
     private snack: MatSnackBar,
+    private userService: UserService,
+    private modalService: ModalService,
     private mobileService: MobileService,
-    private route: Router
   ){
 
   }
@@ -34,18 +39,19 @@ export class CriarAnuncioGuard implements CanActivate {
       } else {
         this.generateSnack("Complete o cadastro dos seus dados pessoais (Data de Nascimento, CPF e Número de telefone.)");
       }
+      this.modalService.openModal(InfoComponent, false);
       return false;
     }
 
     if(!this.userService.user_data.conta_bancaria) {
       this.generateSnack("Para criar um anúncio é necessário ter uma conta bancária cadastrada.")
-      this.route.navigate(['/user/conta/info'])
+      this.modalService.openModal(InfoComponent, false);
       return false;
     }
 
     if(!this.userService.user_data.email_validado) {
       this.generateSnack("Para criar um anúncio confirme o seu email");
-      this.route.navigate(['/user/conta/safety'])
+      this.modalService.openModal(SafetyComponent);
       return false;
     }
 

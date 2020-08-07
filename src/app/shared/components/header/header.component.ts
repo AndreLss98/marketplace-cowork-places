@@ -1,15 +1,16 @@
-import { MobileService } from './../../service/mobile.service';
-import { UserService } from './../../service/user.service';
 import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/shared/service/login.service';
 
+import * as $ from 'jquery'
+
 import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
+
+import { MenuService } from '../../service/menu.service';
+import { UserService } from './../../service/user.service';
+import { MobileService } from './../../service/mobile.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
-
-import * as $ from 'jquery'
-import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-header',
@@ -24,11 +25,11 @@ export class HeaderComponent implements OnInit {
   public position;
 
   constructor(
-    public login: LoginService,
-    public user: UserService,
-    public modalService: ModalService,
     private router: Router,
+    public user: UserService,
+    public login: LoginService,
     private menuService: MenuService,
+    public modalService: ModalService,
     private mobileService: MobileService
   ) {}
 
