@@ -15,8 +15,8 @@ export class SafetyComponent implements OnInit {
   public canSendEmail: boolean = true;
 
   constructor(
-    private form: FormBuilder,
-    private snackBar: MatSnackBar,
+    protected form: FormBuilder,
+    protected snackBar: MatSnackBar,
     public userService: UserService,
   ) {
     this.alterarSenha = this.form.group({

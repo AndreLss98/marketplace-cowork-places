@@ -7,8 +7,8 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { UserService } from 'src/app/shared/service/user.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { MobileService } from 'src/app/shared/service/mobile.service';
-import { SafetyComponent } from '../components/conta/safety/safety.component';
 import { InfoModalComponent } from '../components/conta/info/info-modal.component';
+import { SafetyModalComponent } from '../components/conta/safety/safety-modal/safety-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,9 @@ export class CriarAnuncioGuard implements CanActivate {
     }
 
     if(!this.userService.user_data.email_validado) {
-      this.generateSnack("Para criar um anúncio confirme o seu email");
-      this.modalService.openModal(SafetyComponent);
+      this.matDialog.open(SafetyModalComponent, { data: {
+        message: 'Para criar um anúncio confirme o seu email.'
+      }})
       return false;
     }
 

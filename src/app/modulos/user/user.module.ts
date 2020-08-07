@@ -24,6 +24,7 @@ import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alug
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { InfoModalComponent } from './components/conta/info/info-modal.component';
+import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
 
 
 @NgModule({
@@ -47,7 +48,7 @@ import { InfoModalComponent } from './components/conta/info/info-modal.component
     ListaPerguntasComponent, 
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
-    ListaCaracteristicasComponent,
+    ListaCaracteristicasComponent, SafetyModalComponent,
   ],
   imports: [
     CommonModule,
