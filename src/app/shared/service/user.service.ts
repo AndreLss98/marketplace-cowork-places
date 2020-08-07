@@ -47,6 +47,19 @@ export class UserService {
     this._isAdmin = value;
   }
 
+  public cadastroValidado(){
+    if(
+      !this.user_data.cpf ||
+      !this.user_data.email_validado ||
+      !this.user_data.data_nascimento ||
+      !this.user_data.data_nascimento ||
+      !this.user_data.numero_1 ||
+      !this.user_data.conta_bancaria 
+      )   return false;
+
+      return true;
+  }
+
   public verifyUserEmail(email: string) {
     let params = new HttpParams();
     let headers = new HttpHeaders();

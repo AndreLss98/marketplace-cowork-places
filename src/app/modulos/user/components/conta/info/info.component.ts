@@ -200,7 +200,7 @@ export class InfoComponent implements OnInit {
       this.canEditCPF = false;
       this.userService.user_data.cpf = info.cpf;
       this.editInfoForm.markAsPristine();
-
+      this.login.verifySession();
     }, (error) => {
       //console.log("Edit info error: ", error);
     });
