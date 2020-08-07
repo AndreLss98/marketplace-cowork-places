@@ -43,7 +43,8 @@ export class HighlightService {
     minValue?: number,
     maxValue?: number,
     minArea?: number,
-    maxArea?: number
+    maxArea?: number,
+    cidade?: string
   ) {
     let filters: any = {
       status: ALUGAVEL_STATUS.APPROVED.value
@@ -55,6 +56,7 @@ export class HighlightService {
     if (maxValue) filters.maxValue = maxValue;
     if (maxArea) filters.maxArea = maxArea;
     if (minArea) filters.minArea = minArea;
+    if (cidade) filters.cidade = cidade;
 
     const params = new HttpParams()
       .set('page', page.toString())
@@ -70,7 +72,8 @@ export class HighlightService {
       filters.minValue,
       filters.maxValue,
       filters.minArea,
-      filters.maxArea
+      filters.maxArea,
+      filters.cidade
     ).subscribe(response => {
       this.searched = response.results;
       this.hasNext = response.next? true : false;

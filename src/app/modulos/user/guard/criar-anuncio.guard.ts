@@ -49,11 +49,11 @@ export class CriarAnuncioGuard implements CanActivate {
       return false;
     }
 
-    if(!this.userService.user_data.cadastro_validado) {
+    /* if(!this.userService.user_data.cadastro_validado) {
       this.generateSnack("Cadastro em análise.");
       this.route.navigate(['/user/conta/info'])
       return false;
-    }
+    } */
 
     return true;
   }

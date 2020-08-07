@@ -31,4 +31,11 @@ export class AlugaveisService {
     .set('filters', JSON.stringify(filters));
     return this.http.get<any>(`${environment.apiUrl}/alugaveis/local/bairros`, { params });
   }
+
+  public getCidades(filters: any = {}) {
+    filters.used = true;
+    const params = new HttpParams()
+    .set('filters', JSON.stringify(filters));
+    return this.http.get<any>(`${environment.apiUrl}/alugaveis/local/cidades`, { params });
+  }
 } 

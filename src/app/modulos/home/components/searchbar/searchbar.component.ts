@@ -21,14 +21,14 @@ export class SearchbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.alugaveisService.getBairros().subscribe(response => {
-      this.options = response.map(resp => resp.bairro);
+    this.alugaveisService.getCidades().subscribe(response => {
+      this.options = response.map(resp => resp.cidade);
     });
   }
 
-  search(bairro = '') {
+  search(cidade = '') {
     let queryParams: any = {};
-    if (bairro !== '') queryParams.bairro = bairro
+    if (cidade !== '') queryParams.cidade = cidade;
     this.router.navigate(['/search'], { queryParams });
   }
 

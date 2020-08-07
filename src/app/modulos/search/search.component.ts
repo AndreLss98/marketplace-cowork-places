@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   private position;
 
   public tiposServico = [];
+  public filters: any;
 
   constructor(
     private router: Router,
@@ -27,11 +28,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.route);
     this.route.queryParams.subscribe((data) => {
-      // console.log("params: ", data)
-      if (data) {
-        this.highlightService.fetch(data);
+      this.filters = data;
+      if (this.filters) {
+        this.highlightService.fetch(this.filters);
       } else {
         this.highlightService.fetch();
       }

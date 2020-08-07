@@ -14,5 +14,5 @@ export class DetalhesAlugavelResolverService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot) {
     return this.alugaveisService.getById(route.paramMap.get('id'));
-  }  
+  }
 }
