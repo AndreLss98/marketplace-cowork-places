@@ -35,7 +35,7 @@ export class CriarAnuncioGuard implements CanActivate {
       return false;
     }
 
-    if(!this.userService.user_data.cpf) {
+    /* if(!this.userService.user_data.cpf) {
       if (!this.userService.user_data.conta_bancaria) {
         this.matDialog.open(InfoModalComponent, { data: {
           message: 'Complete o cadastro dos seus dados pessoais e informe seus dados bancários.'
@@ -46,21 +46,21 @@ export class CriarAnuncioGuard implements CanActivate {
         }});
       }
       return false;
-    }
+    } */
 
-    if(!this.userService.user_data.conta_bancaria) {
+    /* if(!this.userService.user_data.conta_bancaria) {
       this.matDialog.open(InfoModalComponent, { data: {
         message: 'Para criar um anúncio é necessário ter uma conta bancária cadastrada.'
       }})
       return false;
-    }
+    } */
 
-    if(!this.userService.user_data.email_validado) {
+    /* if(!this.userService.user_data.email_validado) {
       this.matDialog.open(SafetyModalComponent, { data: {
         message: 'Para criar um anúncio confirme o seu email.'
       }})
       return false;
-    }
+    } */
 
     /* if(!this.userService.user_data.cadastro_validado) {
       this.generateSnack("Cadastro em análise.");
