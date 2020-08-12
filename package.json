@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --aot --buildOptimizer=true",
+    "build-prod": "ng build --prod --aot --buildOptimizer=true",
+    "build-homolog": "ng build -c=homolog --aot --buildOptimizer=true --output-path=dist/homolog-placeet",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
