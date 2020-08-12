@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://homolog.backend.localhost',
+  apiUrl: 'http://backend.localhost',
   token: '',
   google_api_key: 'AIzaSyBBE4kMR4humYJfPb4MCxqqPF5geXZYAvk'
 };
