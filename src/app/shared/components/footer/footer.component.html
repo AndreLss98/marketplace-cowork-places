@@ -4,7 +4,7 @@
             <img src="assets/imgs/logo/logo_branco-min.png" style="width: 190px;">
         </div>
         <div class="col-2">
-            <div class="row" *ngFor="let politica of politicas">
+            <div class="row cursor-pointer" *ngFor="let politica of politicas">
                 <a [href]="'/about/' + politica.sluq" target="_blank">{{ politica.nome }}</a>
             </div>
             <div class="row">
