@@ -52,7 +52,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   logoutUser() {
     // Route to the login page (implementation up to you)
-    // this.login.logout()
+    this.login.logout();
     return throwError("Usuario deslogado");
   }
 
@@ -76,7 +76,7 @@ export class AuthInterceptorService implements HttpInterceptor {
             catchError(error => {
               if(error.url.includes('/usuarios/check-admin')) return throwError(error);
                 // If there is an exception calling 'refreshToken', bad news so logout.
-                return this.logoutUser();
+              return this.logoutUser();
             }),
             finalize(() => {
                 this.isRefreshingToken = false;

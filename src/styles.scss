@@ -103,6 +103,10 @@ input[type=number] {
   // margin-right: auto;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 

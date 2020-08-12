@@ -8,7 +8,6 @@ import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constan
 
 import { MenuService } from '../../service/menu.service';
 import { UserService } from './../../service/user.service';
-import { MobileService } from './../../service/mobile.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
     public login: LoginService,
     private menuService: MenuService,
     public modalService: ModalService,
-    private mobileService: MobileService
   ) {}
 
 @HostListener('window:scroll', ['$event']) // for window scroll events

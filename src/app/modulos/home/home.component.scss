@@ -40,10 +40,13 @@
 .infoContentTitle{
     font-weight: bold; 
     font-size: 20px;
+    padding-bottom: 5px;
 }
 
 .infoContentContent{
     font-size: 16px;
+    max-width: 300px;
+    text-align: justify;
 }
 
 .como_funciona{
@@ -64,9 +67,8 @@
 }
 
 .videoComoAnunciar{
-    background-image: url('/assets/svg/fundo_verde.svg');
     background-size: contain;
-    // background-color: $pl-amarelo;
+    background-color: map-get($map: $md-verdeescuro, $key: 100);
     height: 100%;
     padding-bottom: 48px;
     padding-top: 28px;
@@ -84,9 +86,8 @@
 }
 
 .videoComoAlugar{
-    background-image: url('/assets/svg/fundo_amarelo.svg');
     background-size: contain;
-    // background-color: $pl-verde-claro;
+    background-color: map-get($map: $md-amarelo, $key: 100);
     padding-bottom: 48px;
     padding-top: 28px;
     span{

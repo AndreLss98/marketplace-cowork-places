@@ -1,4 +1,4 @@
-<mat-table [dataSource]="perguntas">
+<mat-table [dataSource]="perguntas" class="cursor-pointer">
     <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
         <mat-cell *matCellDef="let element" (click)="selectQuestion(element)"> {{element.id}} </mat-cell>

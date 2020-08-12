@@ -11,7 +11,7 @@
         </li>
         <li class="nav-item">
             <button *ngIf="!mobile_mode" class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
-              placement="bottom-right" popoverClass="popoverClass" #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
+              placement="bottom-right"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
         </li>
       </ul>
     </div>
@@ -56,17 +56,38 @@
 <!-- Menu de itens -->
 <ng-template #popContent>
   <div id="popover">
-    <span class="popoverTitle" *ngIf="login.logged_status">Olá {{user.user_data.nome.split(' ')[0]}}</span>
+    <!-- <span class="popoverTitle" *ngIf="login.logged_status">Olá {{user.user_data.nome.split(' ')[0]}}</span> -->
     <div style="margin-bottom: 5px;">
       <mat-list>
-        <mat-list-item class="list-item border-bottom border-top" (click)="goTo('/user/conta/info')">Minha Conta</mat-list-item>
-        <mat-list-item class="list-item border-bottom" (click)="goTo('/user/espacossalvos')" >Espaços salvos</mat-list-item>
-        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">Aluguéis</mat-list-item>
-        <mat-list-item class="list-item border-bottom" (click)="goTo('/user/anuncios/meusanuncios')">Anúncios</mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
+          <span style="font-weight: 500;">
+            Minha Conta
+          </span>
+        </mat-list-item>
+        <div class="espacamento"></div>
+        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
+          <span style="font-weight: 500;">
+            Salvos
+          </span>
+        </mat-list-item>
+        <div class="espacamento"></div>
+        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
+          <span style="font-weight: 500;">
+            Aluguéis
+          </span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
+          <span style="font-weight: 500;">
+            Anúncios
+          </span>
+        </mat-list-item>
+        <div class="espacamento"></div>
+        <mat-list-item (click)="this.login.logout()">
+          <span>
+            Sair
+          </span>
+        </mat-list-item>
       </mat-list>
-    </div>
-    <div class="d-flex justify-content-end" style="min-width: 150px;">
-      <button mat-button mat-raised-button color="warn" (click)="login.logout()">Sair</button>
     </div>
   </div>
 </ng-template>
