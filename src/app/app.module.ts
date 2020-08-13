@@ -10,6 +10,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 import {
   RecaptchaModule,
@@ -77,7 +81,8 @@ import { AuthInterceptorService } from './shared/service/authInterceptor.service
     {
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'pt-BR',
-    }
+    },
+    { provide: LOCALE_ID, useValue: "pt-BR" }
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent]
