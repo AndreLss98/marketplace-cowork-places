@@ -2,14 +2,44 @@
     <div id="img-perfil">{{ userService.user_data.nome[0] }}</div>
     <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
     
-    <mat-card-title>
+    <mat-card-title class="d-flex flex-row">
         <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
             [matBadgeHidden]=" this.dadosPessoaisValido" >
             Dados Pessoais
         </span>
+        <mat-icon style="margin-left: 15px;" (click)="editDadosPessoais = !editDadosPessoais">edit</mat-icon>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
+        <div class="d-flex flex-column justify-content-start" *ngIf="!editDadosPessoais">
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Nome</span>
+                <span class="content">{{ userService.user_data.nome + ' ' + userService.user_data.sobrenome}}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.data_nascimento">
+                <span class="title">Data Nascimento</span>
+                <span class="content">{{ userService.user_data.data_nascimento | date: 'mediumDate':'pt' }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Email</span>
+                <span class="content">{{ userService.user_data.email }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.cpf">
+                <span class="title">CPF</span>
+                <span class="content">{{ userService.user_data.cpf }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Telefone 1</span>
+                <span class="content">{{ userService.user_data.numero_1 }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.numero_2">
+                <span class="title">Telefone 2</span>
+                <span class="content">{{ userService.user_data.numero_2 }}</span>
+            </div>
+        </div>
+        <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()" [hidden]="!editDadosPessoais">
+            <div style="margin-bottom: 7px;">
+                <span style="font-size: 18px; font-weight: 500;">Editar</span>
+            </div>
             <div class="w-100 d-flex flex-row flex-wrap">
                 <div>
                     <mat-form-field appearance="outline" class="w-100">
@@ -76,14 +106,35 @@
 </mat-card>
 
 <mat-card class="mat-elevation-z4 card-table">
-    <mat-card-title>
+    <mat-card-title class="d-flex flex-row">
         <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
             [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
             Dados Bancários
         </span>
+        <mat-icon style="margin-left: 15px;" (click)="editDadosBancarios = !editDadosBancarios">edit</mat-icon>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()">
+
+        <div class="d-flex flex-column justify-content-start" *ngIf="!editDadosBancarios && userService.user_data.conta_bancaria">
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Banco</span>
+                <span class="content">{{ userService.user_data.conta_bancaria.banco }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Tipo</span>
+                <span class="content">{{ userService.user_data.conta_bancaria.tipo }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Agência</span>
+                <span class="content">{{ userService.user_data.conta_bancaria.agencia }}</span>
+            </div>
+            <div class="d-flex flex-column dadosPessoais">
+                <span class="title">Número da conta</span>
+                <span class="content">{{ userService.user_data.conta_bancaria.numero }}</span>
+            </div>
+        </div>
+
+        <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()" *ngIf="editDadosBancarios || !userService.user_data.conta_bancaria">
             <div class="w-100 d-flex flex-row flex-wrap">
                 <div>
                     <mat-form-field appearance="outline" class="w-100">

@@ -50,6 +50,9 @@ const CUSTOM_DATE_FORMAT = {
 export class InfoComponent implements OnInit {
 
   public dadosPessoaisValido = true;
+  public editDadosPessoais = false;
+  public editDadosBancarios = false;
+
 
   public dataNascimento = '';
   public selectedFile: File = null;
@@ -96,6 +99,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
+    console.log(this.userService.user_data);
 
     if(
       !this.userService.user_data.cpf ||
