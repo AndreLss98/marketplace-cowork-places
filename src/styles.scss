@@ -8,25 +8,6 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$place-et-primary: mat-palette($mat-indigo);
-$place-et-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$place-et-warn: mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($place-et-theme);
-
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -44,10 +25,17 @@ $place-et-warn: mat-palette($md-amarelo);
 // Create the theme object (a Sass map containing all of the palettes).
 $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-warn);
 
+$placeet-typography: mat-typography-config(
+  $font-family: 'CentraleSans'
+);
+
 @include angular-material-theme($place-et-theme);
 
+@include angular-material-typography($placeet-typography);
+
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #ffffff; caret-color: map-get($map: $md-verde, $key: 500);}
+body { margin: 0; font-family: 'CentraleSan's, "Helvetica Neue", sans-serif; background: #ffffff; caret-color: map-get($map: $md-verde, $key: 500);}
 
 
 // Remove input type numbers arrows
@@ -97,12 +85,6 @@ input[type=number] {
   background: transparent;
 }
 
-.container-fluid{
-  // max-width: 1800px !important; 
-  // margin-left: auto;
-  // margin-right: auto;
-}
-
 .cursor-pointer{
   cursor: pointer;
 }
@@ -110,6 +92,26 @@ input[type=number] {
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+@font-face{
+  font-family: CentraleSans;
+  font-weight: normal;
+  src: url('/assets/font/Centrale\ Sans/CentraleSansRegular.otf') format("opentype");
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face{
+  font-family: CentraleSans;
+  font-weight: 500;
+  src: url('/assets/font/Centrale\ Sans/CentraleSansBold.otf') format("opentype");
+}
+
+@font-face{
+  font-family: CentraleSans;
+  font-weight: bold;
+  src: url('/assets/font/Centrale\ Sans/CentraleSansBold.otf') format("opentype");
+}
+
+@font-face{
+  font-family: CentraleSans;
+  font-weight: lighter;
+  src: url('/assets/font/Centrale\ Sans/CentraleSansLight.otf') format("opentype");
+}
