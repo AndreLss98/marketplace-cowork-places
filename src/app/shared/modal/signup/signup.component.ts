@@ -172,7 +172,11 @@ export class SignupComponent implements OnInit {
           }, error => {
             this.editavel = true;
             this.loader = false;
-            this.snack.open("Ocorreu um erro!", 'OK', { duration: 2000 });
+            if(error.error.item) {
+              this.snack.open( "Esse "+ error.error.item + " já foi cadastrado!", 'OK', { duration: 2000 });
+            }else{
+              this.snack.open("Ocorreu um erro!", 'OK', { duration: 2000 });
+            }
           });
         } else {
           this.snack.open('Para concluir o cadastro, aceite os termos e marque o reCAPTCHA', 'OK', { duration: 5000 });
