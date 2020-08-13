@@ -25,12 +25,12 @@ export class InfoModalComponent extends InfoComponent {
     userService: UserService,
     loginService: LoginService,
     bancoService: BancosService,
-    private snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     documentoService: DocumentosService,
     contaBancariaService: ContaBancariaService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    super(http, loginService, formBuilder, userService, bancoService, documentoService, contaBancariaService);
+    super(http,snackBar, loginService, formBuilder, userService, bancoService, documentoService, contaBancariaService);
   }
 
   ngAfterContentInit() {

@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
@@ -53,7 +54,6 @@ export class InfoComponent implements OnInit {
   public editDadosPessoais = false;
   public editDadosBancarios = false;
 
-
   public dataNascimento = '';
   public selectedFile: File = null;
 
@@ -74,6 +74,7 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
+    public snack: MatSnackBar,
     public login: LoginService,
     public formBuilder: FormBuilder,
     public userService: UserService,
@@ -197,15 +198,19 @@ export class InfoComponent implements OnInit {
   }
 
   public actionBankAccountForm() {
+    this.snack.open('Salvando ...', 'OK', {verticalPosition: 'top'});
     this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value, this.bancos).subscribe((response: any) => {
       this.userService.user_data.conta_bancaria = response;
       this.resetBankAccountForm();
+      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
     }, (error) => {
+      this.snack.open('Ocorreu algum erro!', 'OK', {duration: 2000, verticalPosition: 'top'});
       //console.log("Update account error: ", error);
     });
   }
 
   public actionInfoForm() {
+    this.snack.open('Salvando ...', 'OK', {verticalPosition: 'top'});
     let info = this.editInfoForm.value;
     if (!this.dataNascimento) {
       info.data_nascimento = this.formatDate(new Date(info.data_nascimento.subtract(1, 'd')), true);
@@ -218,9 +223,15 @@ export class InfoComponent implements OnInit {
       this.canEditCPF = false;
       this.userService.user_data.cpf = info.cpf;
       this.editInfoForm.markAsPristine();
-      this.login.verifySession();
+      // this.login.verifySession();
+      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
     }, (error) => {
-      //console.log("Edit info error: ", error);
+      this.snack.dismiss();
+      if(error.error.item == "CPF"){
+        this.snack.open('CPF já em uso!', 'OK', {duration: 2000, verticalPosition: 'top'});
+      }else{
+        this.snack.open('Ocorreu algum erro!', 'OK', {duration: 2000, verticalPosition: 'top'});
+      }
     });
   }
 

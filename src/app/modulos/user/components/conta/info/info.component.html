@@ -22,6 +22,7 @@
             <div class="d-flex flex-column dadosPessoais">
                 <span class="title">Email</span>
                 <span class="content">{{ userService.user_data.email }}</span>
+                <span style="color: red; font-size: 11px;" *ngIf="!userService.user_data.email_validado">E-mail ainda não verificiado!</span> 
             </div>
             <div class="d-flex flex-column dadosPessoais">
                 <span class="title">CPF</span>
