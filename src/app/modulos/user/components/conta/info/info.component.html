@@ -15,17 +15,17 @@
                 <span class="title">Nome</span>
                 <span class="content">{{ userService.user_data.nome + ' ' + userService.user_data.sobrenome}}</span>
             </div>
-            <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.data_nascimento">
+            <div class="d-flex flex-column dadosPessoais">
                 <span class="title">Data Nascimento</span>
-                <span class="content">{{ userService.user_data.data_nascimento | date: 'mediumDate':'pt' }}</span>
+                <span class="content">{{ userService.user_data.data_nascimento | date: 'longDate':'pt' || 'Não informado'}}</span>
             </div>
             <div class="d-flex flex-column dadosPessoais">
                 <span class="title">Email</span>
                 <span class="content">{{ userService.user_data.email }}</span>
             </div>
-            <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.cpf">
+            <div class="d-flex flex-column dadosPessoais">
                 <span class="title">CPF</span>
-                <span class="content">{{ userService.user_data.cpf }}</span>
+                <span class="content">{{ userService.user_data.cpf || 'Não informado'}}</span>
             </div>
             <div class="d-flex flex-column dadosPessoais">
                 <span class="title">Telefone 1</span>

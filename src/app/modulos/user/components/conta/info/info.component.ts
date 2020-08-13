@@ -100,7 +100,7 @@ export class InfoComponent implements OnInit {
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
     console.log(this.userService.user_data);
-
+    
     if(
       !this.userService.user_data.cpf ||
       !this.userService.user_data.email_validado ||
@@ -109,6 +109,10 @@ export class InfoComponent implements OnInit {
       !this.userService.user_data.numero_1
       )   this.dadosPessoaisValido =  false;
   
+    if(this.userService.user_data.data_nascimento){
+      this.userService.user_data.data_nascimento = this.userService.user_data.data_nascimento.split('T')[0]
+    }
+
     if (this.userService.user_data.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
