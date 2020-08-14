@@ -24,7 +24,7 @@
     <mat-card-content>
         <h3 [routerLink]="'/user/usuarios/' + alugavel.anunciante_id" class="link" *ngIf="!alugavel.anunciante_avaliado">O anunciante não possui o cadastro validado! Visualizar anunciante.</h3>
         <h4>Descrição</h4>
-        <p>{{alugavel.descricao}}</p>
+        <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>
         <table>
             <td>
                 <mat-form-field appearance="outline">
