@@ -135,7 +135,7 @@ export class CriarAnuncioComponent implements OnInit {
   public valores: FormGroup;
   taxa = new FormControl(0, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
-  custo_mes = new FormControl('', [Validators.pattern(CURRENCY_PATTERN)]);
+  custo_mes = new FormControl(null, [Validators.pattern(CURRENCY_PATTERN)]);
   
   // imagens
   public imagens = [];

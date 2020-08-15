@@ -118,6 +118,9 @@ span.endereco {
 div.more-announcement {
     padding-top: 30px;
     padding-bottom: 30px;
+    div{
+        padding: 5px 10px;
+    }
 }
 
 span.action-button-icon {
@@ -125,4 +128,12 @@ span.action-button-icon {
     border-radius: 25px;
     padding:10px;
     cursor: pointer;
+}
+
+@media (max-width: 450px){
+    .more-announcement{
+        div{
+            justify-content: center !important;
+        }
+    }
 }
