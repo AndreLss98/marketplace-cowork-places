@@ -17,13 +17,13 @@
     <div style="height: 60px;" ></div>
     <div class="d-flex flex-row flex-wrap" *ngIf="rooms && rooms.length > 0">
         <div class="highlightInfo">
-            <h4>Escolha onde trabalhar!</h4>
+            <h4 style="font-weight: 500;">Escolha onde trabalhar!</h4>
             <br>
             <p>Mesas compartilhadas com serviços que facilitam sua vida.</p>
             <br>
             <button class="btn btn-ofertas-preto" routerLink="/search">Ver mais ofertas</button>
         </div>
-        <div class=" highlightCards" >
+        <div class="highlightCards" >
             <app-highlight-items [data]="room" *ngFor="let room of rooms"></app-highlight-items>
         </div>
     </div>
