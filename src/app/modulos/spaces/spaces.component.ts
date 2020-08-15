@@ -85,7 +85,6 @@ export class SpacesComponent implements OnInit {
 
     this.espaco = this.route.snapshot.data['data'];
     this.condicoes = this.route.snapshot.data['condicoes'];
-    console.log(this.espaco);
 
     this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
       this.reservedDays = response;
@@ -173,7 +172,9 @@ export class SpacesComponent implements OnInit {
   }
 
   public calculaCustoMes(taxa, custo_mes): number {
-    if (taxa == this.max_taxa) {
+    if (this.espaco.valor_mes == 0) {
+      return this.calculaCustoDia(taxa, this.espaco.valor) * 31;
+    } else if (taxa == this.max_taxa) {
       return Number(custo_mes);
     } else if (taxa == this.max_taxa / 2) {
       return Number(custo_mes * (taxa / 100 + 1))
@@ -182,12 +183,14 @@ export class SpacesComponent implements OnInit {
     }
   }
 
-  public calculaTaxa(taxa, custo_dia): number {
-    return Number(custo_dia * (taxa / 100))
+  public calculaTaxa(taxa, custo): number {
+    if (custo == 0) return Number(this.espaco.valor * (taxa / 100))
+    return Number(custo * (taxa / 100))
   }
 
   public calculaTaxaMes(taxa, custo_mes): number {
-    return Number(custo_mes * (taxa / 100))
+    if (this.espaco.valor_mes == 0) return this.calculaTaxa(taxa, this.espaco.valor);
+    return Number(custo_mes * (taxa / 100));
   }
 
   public calculaTotal(taxa, custo_dia): number {
@@ -207,6 +210,7 @@ export class SpacesComponent implements OnInit {
       return Number(this.calculaTotal(this.espaco.taxa, this.espaco.valor));
     } else if((a.diff(b, 'days') + 1) > 30) {
       this.isDaily = false;
+      if (this.espaco.valor_mes == 0) return Number((a.diff(b, 'days') + 1) * this.calculaTotal(this.espaco.taxa, this.espaco.valor));
       return Number((a.diff(b, 'days') + 1) * this.calculaTotalMes(this.espaco.taxa, this.espaco.valor_mes)) / 31;
     } else {
       this.isDaily = true;
@@ -232,8 +236,8 @@ export class SpacesComponent implements OnInit {
 
   public formDateFormat(field) {
     if (!field) return '';
+    console.log('Date: ', field);
     const date = new Date(field);
-
     const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     return `${day}/${month}/${date.getFullYear()}`;

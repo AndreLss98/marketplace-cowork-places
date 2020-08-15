@@ -51,18 +51,18 @@
                         matStartDate
                         formControlName="entrada"
                         placeholder="Entrada"
-                        (dateInput)="entrada.value = formDateFormat(entrada.value)" disabled="true" />
+                        disabled="true" />
                       <input #saida
                         matEndDate
                         formControlName="saida"
                         placeholder="Saída"
-                        (dateInput)="saida.value = formDateFormat(saida.value); validateRange()" disabled="true" />
+                        (dateInput)="validateRange()" disabled="true" />
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
                   </mat-form-field>
 
-                  <div *ngIf="isDaily && calculaTotalPeriodo() > calculaCustoMes(espaco.taxa, espaco.valor_mes)">
+                  <div *ngIf="isDaily && espaco.valor_mes != 0 && calculaTotalPeriodo() > calculaCustoMes(espaco.taxa, espaco.valor_mes)">
                     <p class="info">Recomendamos uma reserva de mais de 30 dias.</p>
                   </div>
 
@@ -76,11 +76,11 @@
                     <span style="text-align: right; padding-right: 6px;">{{totalDias()}}</span>
                 </div>
                 <div style="border-bottom: 1px solid black; height: 20px; margin-bottom: 10px;"></div>
-                <div *ngIf="isDaily" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+                <div *ngIf="isDaily || espaco.valor_mes == 0" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>CUSTO POR DIA</span>
                     <span style="text-align: right; padding-right: 6px;">R$ {{calculaCustoDia(espaco.taxa, espaco.valor).toFixed(2)}}</span>
                 </div>
-                <div *ngIf="!isDaily" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+                <div *ngIf="!isDaily && espaco.valor_mes != 0" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
                     <span>CUSTO POR MÊS</span>
                     <span style="text-align: right; padding-right: 6px;">R$ {{calculaCustoMes(espaco.taxa, espaco.valor_mes).toFixed(2)}}</span>
                 </div>

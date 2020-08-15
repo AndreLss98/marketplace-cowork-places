@@ -135,7 +135,7 @@ export class CriarAnuncioComponent implements OnInit {
   public valores: FormGroup;
   taxa = new FormControl(0, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
-  custo_mes = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
+  custo_mes = new FormControl('', [Validators.pattern(CURRENCY_PATTERN)]);
   
   // imagens
   public imagens = [];
@@ -403,12 +403,14 @@ export class CriarAnuncioComponent implements OnInit {
     }
   }
 
-  public calculaCustoMes(): number{
-    if(this.taxa.value == this.max_taxa){
+  public calculaCustoMes(): number {
+    if (!this.custo_mes.value) {
+      return this.calculaCustoDia();
+    } else if(this.taxa.value == this.max_taxa) {
       return Number(this.custo_mes.value);
-    }else if(this.taxa.value == (this.max_taxa / 2)){
+    } else if(this.taxa.value == (this.max_taxa / 2)) {
       return Number(this.custo_mes.value * (this.taxa.value/100 + 1))
-    }else{
+    } else {
       return Number(this.custo_mes.value * (this.max_taxa/ 100 + 1))
     }
   }
@@ -426,6 +428,7 @@ export class CriarAnuncioComponent implements OnInit {
   }
 
   public calculaTotalMes(): number {
+    if (!this.custo_mes.value) return Number(this.calculaCustoDia() + this.calculaTaxa());
     return Number(this.calculaCustoMes() + this.calculaTaxaMes());
   }
 
@@ -434,7 +437,7 @@ export class CriarAnuncioComponent implements OnInit {
     let a = this.saida;
     if(a == undefined || b == undefined){ 
       return Number(1 * this.calculaTotal());
-    } else  if ((a.diff(b, 'days') + 1) > 30) {
+    } else  if ((a.diff(b, 'days') + 1) > 30 && this.custo_mes.value) {
       return ((a.diff(b, 'days') + 1) * this.calculaTotalMes()) / 31;
     } else {
       return Number((a.diff(b, 'days') + 1) * this.calculaTotal());
@@ -568,8 +571,8 @@ export class CriarAnuncioComponent implements OnInit {
       tipo_id: this.tipo.value,
       taxa: this.taxa.value,
       descricao: this.descricao.value,
-      valor: this.custo_dia.value,
-      valor_mes: this.custo_mes.value,
+      valor: Number(this.custo_dia.value),
+      valor_mes: Number(this.custo_mes.value),
       titulo: this.titulo.value,
       proprietario: this.proprietario.value,
       local: {
@@ -601,7 +604,7 @@ export class CriarAnuncioComponent implements OnInit {
       // Carregar valor e taxa
       this.taxa.setValue(Number(response.taxa));
       this.custo_dia.setValue(Number(response.valor));
-      this.custo_mes.setValue(Number(response.valor_mes));  
+      this.custo_mes.setValue(Number(response.valor_mes));
       
       // Carrega dados cadastrais
       this.cep.disable()

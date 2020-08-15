@@ -302,14 +302,13 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Custo por mês</mat-label>
                         <input #custo_mensal matInput formControlName="custo_mes" (keyup)="custo_mensal.value = getFormattedPrice('custo_mes')" maxlength="10" />
+                        <mat-hint>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.</mat-hint>
                     </mat-form-field>
     
                     <div class="w-100">
                         <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de serviço</span>
-                        <mat-slider class="w-100" thumbLabel [step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
-                    </div>
-                    <div class="w-100">
-                        <h4>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.</h4>
+                        <mat-slider class="w-100 showFixLabel" thumbLabel [step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
+                        <mat-hint>Taxa de serviço visível ao cliente</mat-hint>
                     </div>
                 </div>
                 
