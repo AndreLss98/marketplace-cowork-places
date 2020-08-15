@@ -224,7 +224,8 @@
 
             <!-- Duvida -->
             <div class="d-flex flex-column">
-                <a href="" style="font-weight: 500; margin-top: 30px; padding-bottom: 10px; font-size: 20px;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
+                <a [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+espaco.id" 
+                    target="_blank" style="font-weight: 500; margin-top: 30px; padding-bottom: 10px; font-size: 20px;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
                 <!-- <mat-form-field appearance="outline">
                     <mat-label style="font-size: 15px;">Deixe sua dúvida aqui.</mat-label>
                     <a>Redireciona pro WPP</a>
