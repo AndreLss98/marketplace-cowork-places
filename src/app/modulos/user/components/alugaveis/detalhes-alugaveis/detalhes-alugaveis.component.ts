@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { ALUGAVEL_STATUS } from './../../../../../shared/constants/constants';
+import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -40,6 +40,8 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data.alugavel;
+    console.log(this.alugavel)
+    this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor = this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor === 'true'? 'Sim' : 'Não';
     this.resetStatusForm();
   }
 

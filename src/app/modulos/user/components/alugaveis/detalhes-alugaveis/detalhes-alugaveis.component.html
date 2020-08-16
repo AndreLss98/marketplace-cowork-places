@@ -97,9 +97,9 @@
 <mat-card *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
     <mat-card-title>Caracteristicas</mat-card-title>
     <mat-card-content>
-        <mat-table [dataSource]="alugavel.caracteristicas" class="mat-elevation-z8">
+        <mat-table [dataSource]="alugavel.caracteristicas">
             <ng-container matColumnDef="caracteristica">
-                <mat-header-cell *matHeaderCellDef> Caracteristicas </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Caracteristica </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
             </ng-container>
 
