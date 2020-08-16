@@ -29,4 +29,8 @@ export class TiposService {
   public create(tipo) {
     return this.http.post(`${environment.apiUrl}/tipos`, tipo);
   }
+
+  public delete(id) {
+    return this.http.delete(`${environment.apiUrl}/tipos/${id}`);
+  }
 }

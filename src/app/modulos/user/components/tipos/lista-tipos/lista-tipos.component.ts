@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TiposService } from 'src/app/shared/service/tipos.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-tipos',
@@ -12,7 +14,7 @@ export class ListaTiposComponent implements OnInit {
 
   public tipo;
   public tipos = [];
-  public displayedColumns: string[] = ['id', 'nome', 'disponivel'];
+  public displayedColumns: string[] = ['id', 'nome', 'disponivel', 'action'];
 
   public editForm: FormGroup;
   public createForm: FormGroup;
@@ -27,8 +29,9 @@ export class ListaTiposComponent implements OnInit {
   ];
 
   constructor(
-    private tiposServive: TiposService,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
+    private tiposServive: TiposService,
   ) {
     this.editForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
@@ -47,7 +50,7 @@ export class ListaTiposComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchAllType(); 
+    this.fetchAllType();
   }
 
   private fetchAllType() {
@@ -86,6 +89,17 @@ export class ListaTiposComponent implements OnInit {
         disponivel: false,
         nome: "",
         icone: ""
+      });
+    });
+  }
+
+  public deleteTipo(id) {
+    this.tiposServive.delete(id).subscribe(response => {
+      this.fetchAllType();
+      this.tipo = null;
+    }, (error) => {
+      this.dialog.open(ErrorDialogComponent, {
+        data: { message: "Não foi possível remover o tipo de anúncio pois já está sendo utilizado." }
       });
     });
   }

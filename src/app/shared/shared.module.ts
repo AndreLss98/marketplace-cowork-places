@@ -10,9 +10,16 @@ import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { AlugueisAtivosComponent } from './components/alugueis-ativos/alugueis-ativos.component';
 import { RouterModule } from '@angular/router';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
-  declarations: [HighlightItemsComponent, MdViewerComponent, MapsComponent, AlugueisAtivosComponent],
+  declarations: [ 
+    MapsComponent,
+    MdViewerComponent,
+    ErrorDialogComponent,
+    HighlightItemsComponent,
+    AlugueisAtivosComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -27,8 +34,9 @@ import { RouterModule } from '@angular/router';
     MaterialModule, 
     MdViewerComponent, 
     ReactiveFormsModule, 
+    ErrorDialogComponent,
     HighlightItemsComponent, 
-    AlugueisAtivosComponent
+    AlugueisAtivosComponent,
   ]
 })
 export class SharedModule { }
