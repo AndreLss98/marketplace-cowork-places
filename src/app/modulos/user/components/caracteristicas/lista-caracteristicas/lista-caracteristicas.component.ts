@@ -18,10 +18,21 @@ export class ListaCaracteristicasComponent implements OnInit {
   public createForm: FormGroup;
 
   public icones = [
-    'car.svg',
-    'desk.svg',
-    'wifi',
-    'aspect_ratio'
+    {
+      nome: 'car.svg',
+      material: false
+    },
+    {
+      nome: 'desk.svg',
+      material: false
+    }, {
+      nome: 'wifi',
+      material: true
+    },
+    {
+      nome: 'aspect_ratio',
+      material: true
+    }
   ];
 
   constructor(

@@ -30,10 +30,14 @@
                     <input formControlName="nome" matInput placeholder="Nome" required>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
-                    <mat-label>Icones</mat-label>
+                    <mat-label>Icone</mat-label>
                     <mat-select formControlName="icone">
                         <mat-option value="">Sem icone</mat-option>
-                        <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+                        <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
+                            {{ icone.nome }}
+                            <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
+                            <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button>
@@ -55,7 +59,11 @@
                     <mat-label>Icones</mat-label>
                     <mat-select formControlName="icone">
                         <mat-option value="">Sem icone</mat-option>
-                        <mat-option *ngFor="let icone of icones" value="{{ icone }}">{{ icone }}</mat-option>
+                        <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
+                            {{ icone.nome }}
+                            <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
+                            <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
