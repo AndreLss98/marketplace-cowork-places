@@ -14,7 +14,7 @@ export class ListaPoliticasComponent implements OnInit {
   public updateFile: File;
   public politica;
   public politicas = [];
-  public displayedColumns: string[] = ['id', 'nome', 'versao', 'aprovado'];
+  public displayedColumns: string[] = ['id', 'nome', 'versao', 'aprovado', 'action'];
 
   public saveForm: FormGroup;
   public editForm: FormGroup;
@@ -107,6 +107,16 @@ export class ListaPoliticasComponent implements OnInit {
       arquivo: this.politica.sluq,
       versao: this.politica.versao,
       aprovado: this.politica.aprovado
+    });
+  }
+
+  public deletePolitica(id) {
+    this.politicasService.delete(id).subscribe(response => {
+      this.politica = null;
+      this.updateFile = null;
+      this.fetchPoliticas();
+    }, (error) => {
+      console.log('Error: ', error);
     });
   }
 

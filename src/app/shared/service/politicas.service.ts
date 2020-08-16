@@ -39,4 +39,8 @@ export class PoliticasService {
       observe: 'events'
     });
   }
+
+  public delete(id) {
+    return this.http.delete(`${environment.apiUrl}/politicas/${id}`);
+  }
 }
