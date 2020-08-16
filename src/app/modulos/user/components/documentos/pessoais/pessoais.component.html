@@ -1,4 +1,4 @@
-<mat-table [dataSource]="documentos" class="cursor-pointer">
+<mat-table class="mat-elevation-z8 cursor-pointer" [dataSource]="documentos">
     <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
         <mat-cell *matCellDef="let element" (click)="selectDocument(element)"> {{element.id}} </mat-cell>
@@ -16,8 +16,11 @@
 
     <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <button mat-raised-button color="warn" (click)="deletar(element.id)">Deletar</button>
+        <mat-cell *matCellDef="let element" class="action-row">
+            <button
+                mat-raised-button
+                class="danger"
+                (click)="deletar(element.id)">Remover</button>
         </mat-cell>
     </ng-container>
 
@@ -40,7 +43,10 @@
                 <mat-form-field appearance="outline">   
                     <mat-label>Icone</mat-label>
                     <mat-select formControlName="icone">
-                        <mat-option *ngFor="let icone of icones" [value]="icone">{{ icone }}</mat-option>
+                        <mat-option *ngFor="let icone of icones" [value]="icone">
+                            {{ icone }}
+                            <img [src]="'assets/svg/' + icone" width="35" height="35" />
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
 
