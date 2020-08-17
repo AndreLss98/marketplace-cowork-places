@@ -55,6 +55,7 @@ export class LoginService {
     this.user.user_data = response.user
     this.expires_at = response.expires_at;
     localStorage.setItem(EXPIRE_AT, this.expires_at);
+    this.user.user_data.data_nascimento = this.user.user_data.data_nascimento.split('T')[0]
     this.logged_status = this.checkLogedIn();
   }
 
