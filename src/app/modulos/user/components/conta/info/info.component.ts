@@ -100,7 +100,6 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
-    console.log(this.userService.user_data);
     
     if(
       !this.userService.user_data.cpf ||
@@ -223,7 +222,7 @@ export class InfoComponent implements OnInit {
       this.canEditCPF = false;
       this.userService.user_data.cpf = info.cpf;
       this.editInfoForm.markAsPristine();
-      // this.login.verifySession();
+      this.login.verifySession();
       this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
     }, (error) => {
       this.snack.dismiss();
