@@ -1,3 +1,4 @@
+import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -37,12 +38,13 @@ import { SafetyModalComponent } from './components/conta/safety/safety-modal/saf
     FeedbackComponent, 
     CondicoesComponent, 
     InfoModalComponent,
+    LocacoesComponent,
     ListaTiposComponent, 
     CriarAnuncioComponent, 
     MeusAnunciosComponent, 
     MeusAlugueisComponent,
     ListaUsuariosComponent, 
-    EspacosSalvosComponent, 
+    EspacosSalvosComponent,
     ListaPoliticasComponent, 
     ListaAlugaveisComponent, 
     ListaPerguntasComponent, 

@@ -1,7 +1,4 @@
-import { map } from 'rxjs/operators';
-import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { AluguelService } from './../../service/aluguel.service';
-import { UserService } from 'src/app/shared/service/user.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

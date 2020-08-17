@@ -1,1 +1,18 @@
-<p>locacoes works!</p>
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab [label]="'Ativos ('+ ativos.length +')'">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+            <div style="margin: 5px;" *ngFor="let ativo of ativos">
+                <app-alugueis-ativos [aluguel_id]='ativo.alugavel_id' [locatarioBool]="true"></app-alugueis-ativos>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab [label]="'Inativos ('+ inativos.length +')'">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+            <div style="margin: 5px;" *ngFor="let inativo of inativos">
+                <app-alugueis-ativos [aluguel_id]='inativo.alugavel_id' [locatarioBool]="true"></app-alugueis-ativos>
+            </div>
+        </div>
+    </mat-tab>
+    <!-- <mat-tab label="Em processamento"></mat-tab> -->
+    <!-- <mat-tab label="Cancelados ou extornados"></mat-tab> -->
+</mat-tab-group>

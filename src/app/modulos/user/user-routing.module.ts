@@ -1,3 +1,4 @@
+import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
@@ -58,6 +59,9 @@ const routes: Routes = [
     },
     { 
       path: 'anuncios/locacoes', 
+      resolve: {
+        alugueis: AnunciosLocacoesResolverService
+      },
       component: LocacoesComponent,
     },
     { 

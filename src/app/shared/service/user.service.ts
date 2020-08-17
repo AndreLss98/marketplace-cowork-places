@@ -111,7 +111,7 @@ export class UserService {
     return this.http.get(`${environment.apiUrl}/usuarios/resend-confirm-email`);
   }
 
-  public getAlugueis(): Observable<any> {
-    return this.http.get<any>(environment.apiUrl + '/usuarios/alugueis');
+  public getAlugueis(locacoes?): Observable<any> {
+    return this.http.get<any>(environment.apiUrl + '/usuarios/alugueis' + `${locacoes? '?locacoes=true':''}`);
   }
 }
