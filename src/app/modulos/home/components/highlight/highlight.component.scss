@@ -34,11 +34,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    max-height: 520px;
+    max-height: 510px;
     overflow: hidden;
     // width: 100%;
-    margin-left: 5px;
-    margin-right: 5px;
+    app-highlight-items{
+        padding: 5px;
+    }
 }
 
 .highlightInfo{
