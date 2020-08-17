@@ -7,6 +7,7 @@ import { USUARIO_STATUS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-detalhes-usuarios',
@@ -34,6 +35,7 @@ export class DetalhesUsuariosComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private documentosService: DocumentosService,
+    private snack: MatSnackBar
   ) {
     this.validateForm = formBuilder.group({
       id: [null, [Validators.required]],
@@ -71,6 +73,7 @@ export class DetalhesUsuariosComponent implements OnInit {
   }
 
   validate() {
+    this.snack.open('Salvando ...', '', {duration: 2000, verticalPosition: 'top'});
     this.isLoading = true;
     this.userService.validarPerfil(this.validateForm.controls.id.value, this.validateForm.value).subscribe(response => {
       this.isLoading = false;
@@ -79,7 +82,9 @@ export class DetalhesUsuariosComponent implements OnInit {
         status_cadastro: this.validateForm.controls.status_cadastro.value,
         observacao: this.validateForm.controls.observacao.value
       })
+      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
     }, (error) => {
+      this.snack.open('Não foi possível salvar', 'OK', {duration: 2000, verticalPosition: 'top'});
       this.isLoading = false;
       this.user.cadastro_validado = !this.user.cadastro_validado;
     });
