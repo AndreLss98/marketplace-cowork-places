@@ -32,7 +32,7 @@ import { SafetyModalComponent } from './components/conta/safety/safety-modal/saf
     UserComponent, 
     InfoComponent, 
     SafetyComponent, 
-    PaymentsComponent, 
+    PaymentsComponent,
     PessoaisComponent, 
     FeedbackComponent, 
     CondicoesComponent, 
@@ -48,7 +48,8 @@ import { SafetyModalComponent } from './components/conta/safety/safety-modal/saf
     ListaPerguntasComponent, 
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
-    ListaCaracteristicasComponent, SafetyModalComponent,
+    ListaCaracteristicasComponent, 
+    SafetyModalComponent,
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,4 @@
+import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
@@ -54,6 +55,10 @@ const routes: Routes = [
       path: 'anuncios/criaranuncio', 
       component: CriarAnuncioComponent,
       canActivate: [CriarAnuncioGuard]
+    },
+    { 
+      path: 'anuncios/locacoes', 
+      component: LocacoesComponent,
     },
     { 
       path: 'anuncios/:id',
