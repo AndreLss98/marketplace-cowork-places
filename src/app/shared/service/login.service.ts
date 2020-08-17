@@ -11,7 +11,7 @@ import { USER_SESSION, EXPIRE_AT } from '../constants/constants'
 import { Router } from '@angular/router';
 import { authUser } from '../interface/interface';
 import * as moment from 'moment';
-import { timeout } from 'rxjs/operators';
+import { timeout, map, catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -62,12 +62,15 @@ export class LoginService {
     
     let expire: number = + localStorage.getItem(EXPIRE_AT);
     if(expire > moment().unix()){
-      this.refresh.refreshToken()
-        .subscribe( response => {
-          this.login(response);
-        }, err => {
+      return this.refresh.refreshToken().pipe(
+        map(res=>{
+          this.login(res);
+        }),
+        catchError( err =>{
           this.logout();
-        });
+          throw err;
+        })
+      )
     }
   }
 
