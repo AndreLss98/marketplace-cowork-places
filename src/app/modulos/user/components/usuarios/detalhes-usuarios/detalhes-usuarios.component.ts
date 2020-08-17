@@ -1,7 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
+import { USUARIO_STATUS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
@@ -13,6 +15,9 @@ import { DocumentosService } from 'src/app/shared/service/documentos.service';
 })
 export class DetalhesUsuariosComponent implements OnInit {
 
+  readonly USUARIO_STATUS = USUARIO_STATUS;
+  public status: any =  Object.values(USUARIO_STATUS);
+
   public documentos = [];
   public userDocuments = [];
   public documentsTableColumns = [ 'nome', 'action' ];
@@ -22,18 +27,29 @@ export class DetalhesUsuariosComponent implements OnInit {
 
   public backBaseUrl = environment.apiUrl + '/docs/';
 
+  public validateForm: FormGroup;
+  public isLoading = false;
   constructor(
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private userService: UserService,
     private documentosService: DocumentosService,
   ) {
-    
+    this.validateForm = formBuilder.group({
+      id: [null, [Validators.required]],
+      status_cadastro: ["", [Validators.required]],
+      observacao: ["", []]
+    });
   }
 
   ngOnInit(): void {
     this.fetchDocuments();
     this.user = this.route.snapshot.data.user;
     if (this.user.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.user.data_nascimento));
+
+    this.validateForm.controls.id.setValue(this.user.id);
+    this.validateForm.controls.status_cadastro.setValue(this.user.status_cadastro);
+    this.validateForm.controls.observacao.setValue(this.user.observacao);
   }
 
   private formatDate(date: Date): string {
@@ -54,10 +70,17 @@ export class DetalhesUsuariosComponent implements OnInit {
     });
   }
 
-  onChangeValidate() {
-    this.userService.validarPerfil(this.user.id, this.user.cadastro_validado).subscribe(response => {
-      //console.log("Alterou status");
+  validate() {
+    this.isLoading = true;
+    this.userService.validarPerfil(this.validateForm.controls.id.value, this.validateForm.value).subscribe(response => {
+      this.isLoading = false;
+      this.validateForm.reset({
+        id: this.user.id,
+        status_cadastro: this.validateForm.controls.status_cadastro.value,
+        observacao: this.validateForm.controls.observacao.value
+      })
     }, (error) => {
+      this.isLoading = false;
       this.user.cadastro_validado = !this.user.cadastro_validado;
     });
   }

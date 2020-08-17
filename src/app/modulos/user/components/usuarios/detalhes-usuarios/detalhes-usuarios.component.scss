@@ -1,3 +1,18 @@
+#headerContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    .item:nth-child(2) {
+        margin-left: 15px;
+        flex-grow: 1;
+    }
+}
+
+#headerForm {
+    display: flex;
+    align-items: center;
+}
+
 #img-perfil {
     border-radius: 50px;
     height: 100px;
@@ -9,4 +24,13 @@
     border: 1px solid #00ffab;
     font-size: 35px;
     font-weight: bold;
+}
+
+mat-card {
+    margin: 7px 15px;
+}
+
+mat-cell.action-row {
+    display: flex;
+    justify-content: center;
 }

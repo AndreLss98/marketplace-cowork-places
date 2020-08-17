@@ -32,7 +32,14 @@ export const INFORMACOES_ADICIONAIS_LIMITE = 16;
 export const ALUGAVEL_STATUS = {
     WAITING: { value: 'waiting', name: 'Em Análise' },
     APPROVED: { value: 'approved', name: 'Aprovado' },
-    DISAPPROVED: { value: 'disapproved', name: 'Reprovado' }
+    DISAPPROVED: { value: 'disapproved', name: 'Reprovado' },
+    REMOVED: { value: 'removed', name: 'Removido' }
+};
+
+export const USUARIO_STATUS = {
+    WAITING: { value: 'waiting', name: 'Em Análise' },
+    APPROVED: { value: 'approved', name: 'Aprovado' },
+    DISAPPROVED: { value: 'disapproved', name: 'Reprovado' },
 };
 
 export enum ENUM_ALUGAVEL_CARACTERISTICAS {

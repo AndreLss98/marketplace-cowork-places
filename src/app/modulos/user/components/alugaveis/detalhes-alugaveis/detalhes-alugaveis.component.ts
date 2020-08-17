@@ -40,7 +40,6 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data.alugavel;
-    console.log(this.alugavel)
     this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor = this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor === 'true'? 'Sim' : 'Não';
     this.resetStatusForm();
   }

@@ -89,8 +89,9 @@ export class UserService {
     return this.http.get(`${environment.apiUrl}/usuarios/${id}`);
   }
 
-  public validarPerfil(id, cadastro_validado) {
-    return this.http.put<any>(`${environment.apiUrl}/usuarios/${id}/validar-perfil`, { cadastro_validado });
+  public validarPerfil(id, update) {
+    delete update.id;
+    return this.http.put<any>(`${environment.apiUrl}/usuarios/${id}/validar-perfil`, update);
   }
 
   public atualizarDadosPessoais(usuario) {

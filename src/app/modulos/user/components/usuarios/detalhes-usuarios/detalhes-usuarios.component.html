@@ -1,10 +1,41 @@
 <mat-card>
-    <div id="img-perfil">{{ user.nome[0] }}</div>
-    <div>
-        <ng-container>
-            <mat-checkbox [(ngModel)]="user.cadastro_validado" (change)="onChangeValidate()">Perfil verificado?</mat-checkbox>
-        </ng-container>
+    <div id="headerContainer">
+        <div class="item">
+            <div id="img-perfil">{{ user.nome[0] }}</div>
+        </div>
+        <div class="item">
+            <form class="w-100" [formGroup]="validateForm" (ngSubmit)="validate()">
+                <div id="headerForm">
+                    <div style="margin-right: 10px;">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Status Perfil</mat-label>
+                            <mat-select formControlName="status_cadastro">
+                                <mat-option *ngFor="let stat of status" [value]="stat.value">{{ stat.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="!isLoading; else notLoading">
+                        <button
+                            mat-raised-button
+                            color="accent" type="submit"
+                            [disabled]="validateForm.invalid || validateForm.pristine">Atualizar</button>
+                    </div>
+                    <ng-template #notLoading>
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </ng-template>
+                </div>
+                <mat-form-field *ngIf="validateForm.controls.status_cadastro.value == USUARIO_STATUS.DISAPPROVED.value" class="w-100">
+                    <mat-label>Deixe uma observação</mat-label>
+                    <textarea matInput
+                        maxlength="500"
+                        formControlName="observacao"
+                        placeholder="EX.: Os documentos não são válidos...">
+                    </textarea>
+                </mat-form-field>
+            </form>
+        </div>
     </div>
+
     <mat-card-title>Dados Pessoais</mat-card-title>
     <mat-card-content>
         <table>
@@ -46,10 +77,10 @@
     </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="user.conta_bancaria">
+<mat-card >
     <mat-card-title>Dados Bancários</mat-card-title>
     <mat-card-content>
-        <table>
+        <table *ngIf="user.conta_bancaria; else semDadosBancarios">
             <td>
                 <mat-form-field appearance="outline">
                     <mat-label>Banco</mat-label>
@@ -75,28 +106,35 @@
                 </mat-form-field>
             </td>
         </table>
+        <ng-template #semDadosBancarios>
+            <h4>O usuário ainda não cadastrou seus dados bancários.</h4>
+        </ng-template>
     </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="documentos && documentos.length > 0">
+<mat-card>
     <mat-card-title>Documentos Pessoais</mat-card-title>
-    <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>
     <mat-card-content>
-        <table mat-table [dataSource]="documentos">
+
+        <mat-table *ngIf="documentos && documentos.length > 0; else semDocumentos" class="mat-elevation-z8 w-50" [dataSource]="documentos">
             <ng-container matColumnDef="nome">
-                <th mat-header-cell *matHeaderCellDef>Documento</th>
-                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                <mat-header-cell *matHeaderCellDef>Documento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element" style="padding-left: 15px">
-                    <input #fileInput style="display: none;" type="file">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" class="action-row">
                     <a mat-flat-button color="primary" target="_blank" [href]="backBaseUrl + element.url">Visualizar</a>
-                </td>
+                </mat-cell>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="documentsTableColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: documentsTableColumns;"></tr>
-        </table>
+
+            <mat-header-row *matHeaderRowDef="documentsTableColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: documentsTableColumns;"></mat-row>
+        </mat-table>
+
+        <ng-template #semDocumentos>
+            <h4>O usuário ainda não enviou nenhum documento.</h4>
+        </ng-template>
     </mat-card-content>
 </mat-card>
