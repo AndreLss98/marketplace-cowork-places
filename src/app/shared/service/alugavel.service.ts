@@ -37,6 +37,10 @@ export class AlugavelService {
     return this.http.put<any>(`${environment.apiUrl}/alugaveis/${id}/status`, update);
   }
 
+  public alterAvaible(id, update) {
+    return this.http.put<any>(`${environment.apiUrl}/alugaveis/${id}/disponibilidade`, {status: update});
+  }
+
   public removeInfo(idAlugavel, idInfo): Observable<any>{
     return this.http.delete<any>(environment.apiUrl + '/alugaveis/' + idAlugavel + '/infos/' + idInfo);
   }

@@ -2,14 +2,14 @@
     <mat-tab [label]="'Ativos ('+ ativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px;" *ngFor="let ativo of ativos">
-                <app-alugueis-ativos [aluguel_id]='ativo.aluguel_id' [locadorBool]="true"></app-alugueis-ativos>
+                <app-alugueis-ativos [aluguel_id]='ativo.alugavel_id' [locadorBool]="true"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>
     <mat-tab [label]="'Inativos ('+ inativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px;" *ngFor="let inativo of inativos">
-                <app-highlight-items [alugavel_id]='inativo.alugavel_id'></app-highlight-items>
+                <app-alugueis-ativos [aluguel_id]='inativo.alugavel_id' [locadorBool]="true"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>

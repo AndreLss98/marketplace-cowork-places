@@ -14,3 +14,27 @@
     -moz-box-shadow: 0px 0px 5px 1px $pl-verde-escuro;
     box-shadow: 0px 0px 5px 1px $pl-verde-escuro;   
 }
+
+.alertReprovados{
+    top: -10px;
+    z-index: -1;
+    max-width: 350px;
+    background-color: white;
+    padding: 15px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 0 0 15px 15px;
+    border-bottom: 1px solid #00000020;
+    border-left: 1px solid #00000020;
+    border-right: 1px solid #00000020;
+    position: relative;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    .title{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .content{
+        font-size: 14px;
+    }
+}
