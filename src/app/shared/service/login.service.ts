@@ -46,7 +46,7 @@ export class LoginService {
     this.http.delete(`${environment.apiUrl}/auth/logout`).subscribe(response => {
       this.router.navigateByUrl('/home');
     }, (error) => {
-      console.log(error);
+      this.router.navigateByUrl('/home');
     })
   }
 
