@@ -1,8 +1,10 @@
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
+
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 
 @Component({
   selector: 'app-lista-alugaveis',
@@ -11,93 +13,56 @@ import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 })
 export class ListaAlugaveisComponent implements OnInit {
 
-  public alugaveisReprovados = [];
-  public alugaveisDisponiveis = [];
-  public alugaveisNaoDisponiveis = [];
+  public status: any =  Object.values(ALUGAVEL_STATUS);
 
-  public disapprovedPage = 1;
-  public disapprovedPageSize = 5;
-  public hasNextDisapproved = false;
-  public hasPreviousDisapproved = false;
+  public alugaveis = [];
 
-  public notAvailablesPage = 1;
-  public notAvailablesPageSize = 5;
-  public hasNextNotAvailable = false;
-  public hasPreviousNotAvailable = false;
+  public currentPage = 1;
+  public currentPageSize = 5;
+  public hasNext = false;
+  public hasPrevious = false;
 
-  public availablesPage = 1;
-  public availablesPageSize = 5;
-  public hasNextAvailable = false;
-  public hasPreviousAvailable = false;
-
-  public displayedColumnsAvailableTable = [ 'titulo', 'preco', 'edit' ];
-  public displayedColumnsDisapprovedTable = [ 'titulo', 'preco', 'edit' ];
-  public displayedColumnsNotAvailableTable = [ 'titulo', 'preco', 'edit' ];
+  public displayedColumns = [ 'titulo', 'preco', 'edit' ];
 
   public pageSizes = [ 5, 10, 20 ];
+  
+  public filters: FormGroup;
 
   constructor(
     private router: Router,
     private alugaveisService: AlugaveisService,
+    private formBuilder: FormBuilder
   ) {
+    this.filters = formBuilder.group({
+      status_cadastro: [ALUGAVEL_STATUS.WAITING.value, []]
+    });
 
+    this.filters.valueChanges.subscribe(() => {
+      this.fetchAll();
+    })
   }
 
   ngOnInit(): void {
-    this.fetchAllAvailable();
-    this.fetchAllNotAvailable();
-    this.fetchAllDisapproved();
+    this.fetchAll();
   }
 
   visualizarDetalhesAlugavel(id) {
     this.router.navigateByUrl(`user/anuncios/${id}`);
   }
 
-  public fetchAllNotAvailable() {
-    this.alugaveisService.getByStatus(this.notAvailablesPage, this.notAvailablesPageSize, ALUGAVEL_STATUS.WAITING.value).subscribe(response => {
-      this.alugaveisNaoDisponiveis = response.results;
+  public fetchAll() {
+    this.alugaveisService.getByStatus(this.currentPage, this.currentPageSize, this.filters.controls.status_cadastro.value).subscribe(response => {
+      this.alugaveis = response.results;
     })
   }
 
-  public fetchAllDisapproved() {
-    this.alugaveisService.getByStatus(this.disapprovedPage, this.disapprovedPageSize, ALUGAVEL_STATUS.DISAPPROVED.value).subscribe(response => {
-      this.alugaveisReprovados = response.results;
-    })
+  public previousPage() {
+    --this.currentPage;
+    this.fetchAll();
   }
 
-  public fetchAllAvailable() {
-    this.alugaveisService.getByStatus(this.availablesPage, this.availablesPageSize, ALUGAVEL_STATUS.APPROVED.value).subscribe(response => {
-      this.alugaveisDisponiveis = response.results;
-    })
-  }
-
-  public previousPageOfNotAvailables() {
-    --this.notAvailablesPage;
-    this.fetchAllNotAvailable();
-  }
-
-  public nextPageOfNotAvailables() {
-    ++this.notAvailablesPage;
-    this.fetchAllNotAvailable();
-  }
-
-  public previousPageOfAvailables() {
-    --this.notAvailablesPage;
-    this.fetchAllNotAvailable();
-  }
-
-  public nextPageOfAvailables() {
-    ++this.notAvailablesPage;
-    this.fetchAllNotAvailable();
-  }
-
-  public previousPageOfDisapproved() {
-    --this.disapprovedPage;
-    this.fetchAllDisapproved();
-  }
-
-  public nextPageOfDisapproved() {
-    ++this.disapprovedPage;
-    this.fetchAllDisapproved();
+  public nextPage() {
+    ++this.currentPage;
+    this.fetchAll();
   }
 }

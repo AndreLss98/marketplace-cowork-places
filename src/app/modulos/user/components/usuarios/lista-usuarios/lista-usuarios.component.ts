@@ -1,7 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { USUARIO_STATUS } from 'src/app/shared/constants/constants';
@@ -15,8 +13,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class ListaUsuariosComponent implements OnInit {
 
   public status: any =  Object.values(USUARIO_STATUS);
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   public users = [];
 
