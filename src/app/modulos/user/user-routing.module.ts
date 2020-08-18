@@ -10,7 +10,6 @@ import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { ContratosComponent } from './components/contratos/contratos.component';
 // import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 import { ListaTiposComponent } from './components/tipos/lista-tipos/lista-tipos.component';
@@ -20,6 +19,7 @@ import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-
 import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
+import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
@@ -48,7 +48,7 @@ const routes: Routes = [
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     // { path: 'condicoes', component: CondicoesComponent},
     { path: 'feedbacks', component: FeedbackComponent},
-    { path: 'contratos', component: ContratosComponent },
+    { path: 'contratos', component: ListaContratosComponent },
     { 
       path: 'anuncios/editaranuncio', 
       component: CriarAnuncioComponent,

@@ -1,6 +1,6 @@
-import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 
 import { SharedModule } from './../../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
@@ -10,7 +10,6 @@ import { InfoComponent } from './components/conta/info/info.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { ContratosComponent } from './components/contratos/contratos.component';
 import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { InfoModalComponent } from './components/conta/info/info-modal.component';
 import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
@@ -22,6 +21,7 @@ import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-
 import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
 import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
+import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
@@ -52,7 +52,8 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
     ListaCaracteristicasComponent, 
-    SafetyModalComponent, ContratosComponent,
+    SafetyModalComponent,
+    ListaContratosComponent,
   ],
   imports: [
     CommonModule,

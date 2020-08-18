@@ -42,6 +42,12 @@ export const USUARIO_STATUS = {
     DISAPPROVED: { value: 'disapproved', name: 'Reprovado' },
 };
 
+export const ALUGUEL_STATUS = {
+    CREATED: { value: 'created', name: 'Aguardando aprovação' },
+    ACTIVE: { value: 'active', name: 'Ativo' },
+    CANCELED: { value: 'canceled', name: 'Cancelado' }
+};
+
 export enum ENUM_ALUGAVEL_CARACTERISTICAS {
     AREA = 1,
     INTERNET,
