@@ -39,7 +39,7 @@
             </div>
             <div class="d-flex flex-column dadosPessoais">
                 <span class="title">Telefone 1</span>
-                <span class="content">{{ userService.user_data.numero_1 }}</span>
+                <span class="content">{{ userService.user_data.numero_1 || 'Não informado'}}</span>
             </div>
             <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.numero_2">
                 <span class="title">Telefone 2</span>
@@ -110,7 +110,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button mat-raised-button color="primary" type="submit" [disabled]="editInfoForm.invalid || editInfoForm.pristine">Atualizar</button>
+            <button mat-raised-button color="primary" type="submit" style="margin-top: 10px;" [disabled]="editInfoForm.invalid || editInfoForm.pristine">Atualizar</button>
         </form>
     </mat-card-content>
 </mat-card>
