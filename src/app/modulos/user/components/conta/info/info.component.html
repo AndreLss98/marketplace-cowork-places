@@ -76,7 +76,7 @@
                                 required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker startView="multi-year" #picker></mat-datepicker>
-                            <mat-hint *ngIf="!userService.user_data.data_nascimento">Informe a data de nascimento.</mat-hint>
+                            <mat-hint *ngIf="!userService.user_data.data_nascimento" style="color: red;">Informe a data de nascimento.</mat-hint>
                         </mat-form-field>
                     </div>
                 </ng-template>
@@ -91,7 +91,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>CPF</mat-label>
                         <input #cpf formControlName="cpf" maxlength="14" matInput (keyup)="formatarCPF(cpf.value)" [readonly]="!canEditCPF" [required]="canEditCPF" />
-                        <mat-hint *ngIf="!userService.user_data.cpf">Informe o CPF.</mat-hint>
+                        <mat-hint *ngIf="!userService.user_data.cpf" style="color: red;">Informe o CPF.</mat-hint>
                     </mat-form-field>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Telefone 1</mat-label>
                         <input matInput formControlName="numero_1" maxlength="15" (keyup)="formatarTelefone('numero_1')" required />
-                        <mat-hint *ngIf="!userService.user_data.numero_1">Informe o seu número de telefone.</mat-hint>
+                        <mat-hint *ngIf="!userService.user_data.numero_1" style="color: red;">Informe o seu número de telefone.</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>
