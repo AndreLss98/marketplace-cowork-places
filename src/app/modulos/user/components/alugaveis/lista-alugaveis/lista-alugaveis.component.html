@@ -1,44 +1,15 @@
-<div class="tables-container">
-    <div class="table-container mat-elevation-z8">
-        <mat-table [dataSource]="alugaveisNaoDisponiveis">
-            <caption>Disponibilizar anúncio</caption>
-            <ng-container matColumnDef="titulo">
-                <mat-header-cell *matHeaderCellDef> Titulo </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.titulo}} </mat-cell>
-            </ng-container>
-    
-            <ng-container matColumnDef="preco">
-                <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
-                <mat-cell *matCellDef="let element">R$ {{element.valor}} </mat-cell>
-            </ng-container>
-    
-            <ng-container matColumnDef="edit">
-                <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
-                <mat-cell *matCellDef="let element" style="display: contents;">
-                    <span (click)="visualizarDetalhesAlugavel(element.id)" class="material-icons edit-icon">create</span>
-                </mat-cell>
-            </ng-container>
-    
-            <mat-header-row *matHeaderRowDef="displayedColumnsNotAvailableTable"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsNotAvailableTable;"></mat-row>
-        </mat-table>
-        <div class="paginator">
-            <select [(ngModel)]="notAvailablesPageSize" (change)="fetchAllNotAvailable()">
-                <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
-            </select>
-    
-            <button mat-icon-button (click)="previousPageOfNotAvailables()" [disabled]="!hasPreviousNotAvailable">
-                <mat-icon>navigate_before</mat-icon>
-            </button>
-    
-            <button mat-icon-button (click)="nextPageOfNotAvailables()" [disabled]="!hasNextNotAvailable">
-                <mat-icon>navigate_next</mat-icon>
-            </button>
-        </div>
-    </div>
+<form style="margin: 0 20px" [formGroup]="filters">
+    <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Choose an option</mat-label>
+        <mat-select formControlName="status_cadastro">
+          <mat-option *ngFor="let stat of status" [value]="stat.value">{{stat.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
 
-    <div class="table-container mat-elevation-z8">
-        <mat-table [dataSource]="alugaveisDisponiveis">
+<div class="tables-container w-100">
+    <div class="table-container mat-elevation-z8 w-100">
+        <mat-table [dataSource]="alugaveis">
             <caption>Anúncios disponiveis</caption>
             <ng-container matColumnDef="titulo">
                 <mat-header-cell *matHeaderCellDef> Titulo </mat-header-cell>
@@ -57,59 +28,19 @@
                 </mat-cell>
             </ng-container>
     
-            <mat-header-row *matHeaderRowDef="displayedColumnsAvailableTable"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsAvailableTable;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <div class="paginator">
-            <select [(ngModel)]="availablesPageSize" (change)="fetchAllAvailable()">
+            <select [(ngModel)]="currentPageSize" (change)="fetchAll()">
                 <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
             </select>
     
-            <button mat-icon-button (click)="previousPageOfAvailables()" [disabled]="!hasPreviousAvailable">
+            <button mat-icon-button (click)="previousPage()" [disabled]="!hasPrevious">
                 <mat-icon>navigate_before</mat-icon>
             </button>
     
-            <button mat-icon-button (click)="nextPageOfAvailables()" [disabled]="!hasNextAvailable">
-                <mat-icon>navigate_next</mat-icon>
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="tables-container">
-    <div class="table-container mat-elevation-z8">
-        <mat-table [dataSource]="alugaveisReprovados">
-            <caption>Anúncios Reprovados</caption>
-            <ng-container matColumnDef="titulo">
-                <mat-header-cell *matHeaderCellDef> Titulo </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.titulo}} </mat-cell>
-            </ng-container>
-    
-            <ng-container matColumnDef="preco">
-                <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.valor}} </mat-cell>
-            </ng-container>
-    
-            <ng-container matColumnDef="edit">
-                <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
-                <mat-cell *matCellDef="let element" style="display: contents;">
-                    <span (click)="visualizarDetalhesAlugavel(element.id)" class="material-icons edit-icon">create</span>
-                </mat-cell>
-            </ng-container>
-    
-            <mat-header-row *matHeaderRowDef="displayedColumnsDisapprovedTable"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsDisapprovedTable;"></mat-row>
-        </mat-table>
-        <div class="paginator">
-            <select [(ngModel)]="availablesPageSize" (change)="fetchAllDisapproved()">
-                <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
-            </select>
-    
-            <button mat-icon-button (click)="previousPageOfDisapproved()" [disabled]="!hasPreviousDisapproved">
-                <mat-icon>navigate_before</mat-icon>
-            </button>
-    
-            <button mat-icon-button (click)="nextPageOfDisapproved()" [disabled]="!hasNextDisapproved">
+            <button mat-icon-button (click)="nextPage()" [disabled]="!hasNext">
                 <mat-icon>navigate_next</mat-icon>
             </button>
         </div>
