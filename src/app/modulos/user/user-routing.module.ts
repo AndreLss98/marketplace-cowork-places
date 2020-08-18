@@ -4,13 +4,14 @@ import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusal
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
-import { CondicoesComponent } from './components/condicoes/condicoes.component';
+import { ContratosComponent } from './components/contratos/contratos.component';
+// import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 import { ListaTiposComponent } from './components/tipos/lista-tipos/lista-tipos.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     // { path: 'condicoes', component: CondicoesComponent},
     { path: 'feedbacks', component: FeedbackComponent},
+    { path: 'contratos', component: ContratosComponent },
     { 
       path: 'anuncios/editaranuncio', 
       component: CriarAnuncioComponent,
