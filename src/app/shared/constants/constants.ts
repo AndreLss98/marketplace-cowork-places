@@ -44,8 +44,8 @@ export const USUARIO_STATUS = {
 
 export const ALUGUEL_STATUS = {
     CREATED: { value: 'created', name: 'Aguardando aprovação' },
-    ACTIVE: { value: 'active', name: 'Ativo' },
-    CANCELED: { value: 'canceled', name: 'Cancelado' }
+    ACTIVE: { value: 'active', name: 'Ativos' },
+    CANCELED: { value: 'canceled', name: 'Cancelados' }
 };
 
 export enum ENUM_ALUGAVEL_CARACTERISTICAS {

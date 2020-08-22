@@ -28,9 +28,9 @@ export class MeusAlugueisComponent implements OnInit {
 
   private processaAlugueis(){
     this.alugueis.forEach(aluguel => {
-      if(aluguel.status === ALUGUEL_STATUS.ACTIVE.value.toUpperCase()) {
+      if(aluguel.status === ALUGUEL_STATUS.ACTIVE.value) {
         this.ativos.push(aluguel);
-      }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value.toUpperCase()) {
+      }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value) {
         this.inativos.push(aluguel)
       }
     });
