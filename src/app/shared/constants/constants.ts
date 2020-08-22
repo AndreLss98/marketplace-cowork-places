@@ -1,5 +1,30 @@
+export const HOME_TEXT = 
+    {
+        infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
+        searchTitle: 'Seu negócio livre para evoluir.',
+        searchContent: 'A liberdade de usar o espaço quando quiser e por quanto tempo precisar. Sem barreiras para o seu crescimento. Espaço certo pra sua necessidade, seja trabalho, descanso, estudo ou diversão. Você escolhe!'
+    }
+
+export const HOME_COMO_FUNCIONA = [
+    'Somos uma plataforma que ajuda os espaços e serviços a encontrarem as pessoas.',
+    'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços.',
+    'A contratação é feita direta com o Proprietário. Não somos intermediários.',
+    'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.',
+    'Ajudamos na gestão de contratos e pagamentos.',
+]
+
+export const HOME_INFO_MIDDLE = [
+    {icon: 'mao.svg', title: 'Tudo num clique.' , text: 'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.'},
+    {icon: 'play.svg', title: 'Todo controle.', text: 'Você tem controle de tudo e negocia como quiser. A contratação é feita direto como proprietário. '},
+    {icon: 'smile.svg', title: 'Sem preocupação.', text: 'Ajudamos na gestão de contrato e pagamentos.'},
+    {icon: 'relogio.svg', title: 'Mais tempo pra você. ', text: 'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços'}
+
+]
+
+
+
 export const HEADER_NAV_OPTIONS = [
-    { name: 'Como Alugar', rout: '/home#comoAlugar', target: '' },
+    { name: 'Como Funciona', rout: '/home#comoAlugar', target: '' },
     // { name: 'Anuncie', rout: '/user/anuncios/criaranuncio', target: '_self' },
     { name: 'Ajuda', rout: 'https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!', target: '_blank' },
 ]
