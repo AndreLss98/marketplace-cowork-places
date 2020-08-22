@@ -10,17 +10,24 @@
 <mat-table [dataSource]="contratos" style="margin: 0 20px 20px 20px" class="mat-elevation-z8">
     <ng-container matColumnDef="entrada">
         <mat-header-cell *matHeaderCellDef> Entrada </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.entrada}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.dias_reservados.data_entrada}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="saida">
         <mat-header-cell *matHeaderCellDef> Saída </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.saida}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.dias_reservados.data_saida}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="valor_total">
         <mat-header-cell *matHeaderCellDef> Valor Contrato </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.valor}} </mat-cell>
+        <mat-cell *matCellDef="let row">R$ {{row.valor}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-flat-button color="primary">Visualizar</button>
+        </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

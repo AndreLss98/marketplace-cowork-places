@@ -16,6 +16,6 @@ export class AluguelService {
   }
 
   public getAllOfPlatform() {
-    return this.http.get(environment.apiUrl + '/alugueis/');
+    return this.http.get<any>(`${environment.apiUrl}/alugueis`);
   }
 }

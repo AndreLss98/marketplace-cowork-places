@@ -25,6 +25,7 @@ import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuari
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
 
+import { ContratosListResolverService } from './resolvers/contratos-list-resolver.service';
 import { DetalhesUsuarioResolverService } from './resolvers/detalhes-usuario-resolver.service';
 import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-resolver.service';
 
@@ -48,7 +49,13 @@ const routes: Routes = [
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     // { path: 'condicoes', component: CondicoesComponent},
     { path: 'feedbacks', component: FeedbackComponent},
-    { path: 'contratos', component: ListaContratosComponent },
+    {
+      path: 'contratos',
+      resolve: {
+        contratos: ContratosListResolverService
+      },
+      component: ListaContratosComponent
+    },
     { 
       path: 'anuncios/editaranuncio', 
       component: CriarAnuncioComponent,
