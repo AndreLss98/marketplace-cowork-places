@@ -1,15 +1,15 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab [label]="'Ativos ('+ ativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px;" *ngFor="let ativo of ativos">
-                <app-alugueis-ativos [aluguel_id]='ativo.alugavel_id' [locatarioBool]="true"></app-alugueis-ativos>
+            <div style="margin: 5px;" *ngFor="let aluguel of ativos">
+                <app-alugueis-ativos [aluguel]="aluguel"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Inativos ('+ inativos.length +')'">
+    <mat-tab [label]="'Para análise ('+ inativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px;" *ngFor="let inativo of inativos">
-                <app-alugueis-ativos [aluguel_id]='inativo.alugavel_id' [locatarioBool]="true"></app-alugueis-ativos>
+            <div style="margin: 5px;" *ngFor="let aluguel of inativos">
+                <app-alugueis-ativos [aluguel]="aluguel"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>

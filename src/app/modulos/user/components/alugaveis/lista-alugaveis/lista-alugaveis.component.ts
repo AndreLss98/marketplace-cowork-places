@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 

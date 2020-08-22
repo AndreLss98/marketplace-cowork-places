@@ -45,6 +45,7 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
     MeusAnunciosComponent, 
     MeusAlugueisComponent,
     ListaUsuariosComponent, 
+    ListaContratosComponent,
     EspacosSalvosComponent,
     ListaPoliticasComponent, 
     ListaAlugaveisComponent, 
@@ -53,7 +54,6 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
     DetalhesAlugaveisComponent, 
     ListaCaracteristicasComponent, 
     SafetyModalComponent,
-    ListaContratosComponent,
   ],
   imports: [
     CommonModule,

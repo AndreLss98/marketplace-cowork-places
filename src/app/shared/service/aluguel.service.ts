@@ -12,6 +12,10 @@ export class AluguelService {
   ) { }
 
   public getDetailsAluguel(aluguel_id){
-    return this.http.get(environment.apiUrl + '/alugueis/'+aluguel_id);
+    return this.http.get(environment.apiUrl + '/alugueis/' + aluguel_id);
+  }
+
+  public getAllOfPlatform() {
+    return this.http.get(environment.apiUrl + '/alugueis/');
   }
 }

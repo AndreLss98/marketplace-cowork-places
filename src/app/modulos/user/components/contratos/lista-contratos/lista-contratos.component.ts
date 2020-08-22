@@ -12,14 +12,15 @@ export class ListaContratosComponent implements OnInit {
 
   public contratos = [];
   public status: any =  Object.values(ALUGUEL_STATUS);
+
   public filters: FormGroup;
-  public displayedColumns: ['entrada', 'saida', 'valor_total']
+  public displayedColumns = ['entrada', 'saida', 'valor_total'];
 
   constructor(
     private formBuilder: FormBuilder
   ) {
     this.filters = formBuilder.group({
-      status: ["", []]
+      status: [ALUGUEL_STATUS.ACTIVE.value, []]
     })
   }
 

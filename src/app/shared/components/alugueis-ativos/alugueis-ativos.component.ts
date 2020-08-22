@@ -8,22 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AlugueisAtivosComponent implements OnInit {
 
-  @Input('locadorBool') locadorBool: boolean = false;
-  @Input('locatarioBool') locatarioBool: boolean = false;
-  @Input('aluguel_id') aluguel_id: any;
-
-  public aluguel;
+  @Input('aluguel') aluguel: any;
 
   constructor(
     public aluguelService: AluguelService,
   ) { }
 
   ngOnInit(): void {
-    this.aluguelService.getDetailsAluguel(this.aluguel_id)
-    .subscribe(res =>{
-      this.aluguel = res;
-      console.log(res);
-    });
+    
   }
 
 }
