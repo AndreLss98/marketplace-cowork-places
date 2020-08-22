@@ -1,38 +1,25 @@
-<nav [hidden]="mobile_mode" class="navbar navbar-expand-sm container-fluid" id="navTop">
-    <img src="assets/imgs/logo/logo_preta-min.png" class="navbar-brand title" (click)="goTo('/home')">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" ></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
-        <li class="nav-item" *ngFor="let itemMenu of menu">
-          <a [target]="itemMenu.target" [href]="itemMenu.rout" class="nav-link">{{ itemMenu.name }}</a>
-        </li>
-        <li class="nav-item">
-            <button *ngIf="!mobile_mode" class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
-              placement="bottom-right"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
-        </li>
-      </ul>
+<div class="content">
+  <div class="header">
+    <div class="d-flex flex-column align-content-start">
+      <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
+      <div *ngFor="let itemMenu of menu" style="margin: 20px 0px;"> 
+        <a class="itemMenu" [target]="itemMenu.target" [href]="itemMenu.rout">{{ itemMenu.name }}</a>
+      </div>
+      <div>
+        <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" m triggers="manual"
+        placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
+      </div>
     </div>
-</nav>
+  </div>
+  <div class="router">
+    <router-outlet></router-outlet>
+  </div>
 
+</div>
 <!-- Alerta de site em desenvolvimento -->
 <!-- <div class="w-100">
   <h1 class="w-100 text-center">SITE EM DESENVOLVIMENTO</h1>
 </div> -->
-
-<!-- Menu com os itens de pesquisa -->
-<div class="options" id="menuHeader" *ngIf="options.length > 0 && !mobile_mode">
-  <div class="h-100 d-flex flex-row justify-content-center align-items-center">
-    <div class="d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px; min-width: 120px;" *ngFor="let item of options" (click)="goTo('/search', item.id)">
-      <div class="imgs">
-        <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
-      </div>
-      <span style=" white-space: nowrap">{{item.nome}}</span>
-    </div>
-  </div>
-</div>
 
 <!-- Barra de navegação celular -->
 <div *ngIf="mobile_mode" id="navBottom" style="min-height: 64px;"

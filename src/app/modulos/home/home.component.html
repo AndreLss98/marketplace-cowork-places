@@ -1,74 +1,90 @@
-<div id="content" class="w-100">
-    <app-searchbar></app-searchbar>
-    <!-- Info -->
-        <!-- titulo -->
-    <div id="info">
-        <div class="d-flex justify-content-center align-items-center">
-            <span class="tituloInfo">Somos uma plataforma que ajuda os espaços e serviços a encontrarem pessoas.</span>
-        </div>
-        <!-- Linha 1 - Mão e play -->
-        <div class="d-flex flex-row flex-wrap justify-content-center" style="margin-top: 20px;">
-            <div class="d-flex flex-row" style="margin-left: 20px; margin-right: 20px; margin-bottom: 20px;">
-                <img src="assets/imgs/home/mao.jpg" style="width: 40px; min-width: 40px; height: 60px;">
-                <div class="d-flex flex-column" style="padding-left: 20px;">
-                    <span class="infoContentTitle" >Tudo num clique.</span>
-                    <span class="infoContentContent">Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.</span>
-                </div>
-            </div>
-            <div class="d-flex flex-row" style="margin-left: 20px; margin-right: 20px;">
-                <img src="assets/imgs/home/play.jpg" style="width: 40px; min-width: 40px; height: 40px;">
-                <div class="d-flex flex-column" style="padding-left: 20px;">
-                    <span class="infoContentTitle">Todo controle.</span>
-                    <span class="infoContentContent">Você tem controle de tudo e negocia como quiser. A contratação é feita direto com proprietário. </span>
-                </div>
-            </div>
+<div class="content">
+
+    <div class="social">
+        <a href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank"><img src="assets/svg/facebook_preto.svg" style="height: 24px; padding-right: 25px;"></a>
+        <a href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank"><img src="assets/svg/linkedin_preto.svg" style="height: 24px; padding-right: 25px;"></a>
+        <a href="https://www.instagram.com/placeet_" target="_blank"><img src="assets/svg/instagram_preto.svg" style="height: 24px; padding-right: 25px;"></a>
+    </div>
+
+    <div style="position: relative; overflow: hidden; margin-bottom: 80px;">
+        <div class="infoTop">
+            <span class="infoTopText">{{infoTopTitle}}</span>
         </div>
     
-        <!-- Linha 2 -  Smile e relogio -->
-        <div class="d-flex flex-row flex-wrap justify-content-center" style="margin-top: 20px;">
-            <div class="d-flex flex-row" style="margin-left: 20px; margin-right: 20px; margin-bottom: 20px;">
-                <img src="assets/imgs/home/smile.jpg" style="width: 40px; min-width: 40px; height: 40px;">
-                <div class="d-flex flex-column" style="padding-left: 20px;">
-                    <span class="infoContentTitle">Sem preocupação.</span>
-                    <span class="infoContentContent">Ajudamos na gestão de contrato e pagamentos. Você não </span>
-                </div>
+        <div class="search">
+            <span class="searchTitle">{{searchTitle}}</span>
+            <div class="searchInput">
+                <mat-icon class="icon">search</mat-icon>
+                <input #cidade type="text" name="city" list="cityname" placeholder="Digite a cidade para ver as opções disponíveis">
+                <datalist id="cityname">
+                   <option [value]="option" *ngFor="let option of options"> 
+                </datalist>
+                <button (click)="search(cidade.value)">Buscar</button>
             </div>
-            <div class="d-flex flex-row" style="margin-left: 20px; margin-right: 20px;">
-                <img src="assets/imgs/home/relogio.jpg" style="width: 40px; min-width: 40px; height: 40px;">
-                <div class="d-flex flex-column" style="padding-left: 20px;">
-                    <span class="infoContentTitle">Mais tempo pra você.</span>
-                    <span class="infoContentContent">Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços</span>
-                </div>
-            </div>
+            <span class="searchContent">{{searchContent}}</span>
+            <img class="searchImg" src="assets/imgs/home/casal-min.png">
         </div>
     </div>
-    <!-- Fim Info -->
 
-    <!-- Video -->
-    <div class="w-100 d-flex flex-wrap flex-column align-content-center justify-content-center videoComoAnunciar" id="comoAnunciar">
-        <span style="line-height: 1.1;">Como Anunciar um espaço compartilhado com a ajuda da PLACEET</span>
-        <div class="d-flex justify-content-center">
-            <iframe 
-                class="mat-elevation-z4" 
-                src="https://www.youtube.com/embed/5NheRGtlAVo?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
-                width="888"
-                height="500"
-                style="max-width: 90vw;"
-                frameborder="0"></iframe>
+    <div class="comoFunciona" id="comoFunciona">
+        <img class="comoFuncionaImg" src="assets/imgs/home/como_funciona-min.png">
+        <div class="d-flex flex-column" style="margin-left: 40%; width: 60%;">
+            <span class="comoFuncionaTitle">Como funciona</span>
+            <div class="d-flex flex-row flex-wrap">
+                <div class="comoFuncionaContent" *ngFor="let item of comoFunciona">
+                    <img src="assets/svg/check_circle.svg">
+                    <span class="comoFuncionaText">{{item}}</span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="w-100 d-flex flex-column flex-wrap align-content-center justify-content-center videoComoAlugar" id="comoAlugar">
-        <span style="line-height: 1.1;">Como Alugar um espaço compartilhado com a ajuda da PLACEET</span>
-        <div class="d-flex justify-content-center">
-            <iframe 
-                class="mat-elevation-z4" 
-                src="https://www.youtube.com/embed/NalPePFsiKQ?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0" 
-                width="888" 
-                height="500" 
-                style="max-width: 90vw;"
-                frameborder="0"
-                ></iframe>
+
+    <div class="infoMiddle">
+        <span class="infoMiddelTitle">Mais praticidade para a sua rotina.</span>
+        <div class="d-flex flex-row flex-wrap justify-content-between">            
+            <div class="infoMiddleContent" *ngFor="let info of infoMiddle">
+                <img [src]="'assets/svg/' + info.icon">
+                <div class="d-flex flex-column" style="margin-left: 30px;">
+                    <span class="infoMiddleContentTitle">{{info.title}}</span>
+                    <span class="infoMiddleContentText">{{info.text}}</span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="comoAnunciar" id='comoAnunciar'>
+        <div class="comoAnunciarTitle">
+            <span>Como anunciar na plataforma.</span>
+        </div>
+        <div class="comoAnunciarVideo">
+            <iframe 
+            class="mat-elevation-z4" 
+            src="https://www.youtube.com/embed/5NheRGtlAVo?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
+            width="888"
+            height="500"
+            style="max-width: 90vw;"
+            frameborder="0"></iframe>
+
+        </div>
+    </div>
+
+    <div class="comoAlugar" id='comoAlugar'>
+        <div class="comoAlugarTitle">
+            <span>Como alugar na plataforma.</span>
+        </div>
+        <div class="comoAlugarVideo">
+            <iframe 
+            class="mat-elevation-z4" 
+            src="https://www.youtube.com/embed/NalPePFsiKQ?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0" 
+            width="888" 
+            height="500" 
+            style="max-width: 90vw;"
+            frameborder="0"
+            ></iframe>
+
+        </div>
+    </div>
+
     <app-highlight></app-highlight>
+
 </div>

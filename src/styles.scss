@@ -35,7 +35,7 @@ $placeet-typography: mat-typography-config(
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'CentraleSan's, "Helvetica Neue", sans-serif; background: #ffffff; caret-color: map-get($map: $md-verde, $key: 500);}
+body { margin: 0; font-family: 'CentraleSans', "Helvetica Neue", sans-serif; background: white; caret-color: map-get($map: $md-verde, $key: 500);}
 
 
 // Remove input type numbers arrows
