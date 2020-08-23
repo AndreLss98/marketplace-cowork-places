@@ -24,7 +24,6 @@ export class DetalhesContratoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data);
     this.aluguel = this.route.snapshot.data['aluguel'];
     this.aluguel.data_criacao = this.formatDate(this.aluguel.data_criacao);
     this.aluguel.dias_reservados.data_entrada = this.formatDate(this.aluguel.dias_reservados.data_entrada);
@@ -44,5 +43,4 @@ export class DetalhesContratoComponent implements OnInit {
     formattedDate += date.getFullYear();
     return formattedDate;
   }
-
 }

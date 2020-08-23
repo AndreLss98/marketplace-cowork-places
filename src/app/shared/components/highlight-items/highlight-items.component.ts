@@ -13,7 +13,9 @@ import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
 export class HighlightItemsComponent implements OnInit {
 
   @Input('data') data: any = undefined;
-  @Input('width') width:string = '277px'
+  @Input('width') width:string = '277px';
+
+  @Input('custom-redirect') custom_redirect: string = '';
 
   @Input('alugavel_id') alugavel_id: number = undefined;
 
@@ -43,6 +45,7 @@ export class HighlightItemsComponent implements OnInit {
   }
 
   goToSpace() {
+    if (this.custom_redirect) return this.router.navigateByUrl(this.custom_redirect + this.data.id);
     this.router.navigateByUrl("/spaces/" + this.data.id)
   }
 
