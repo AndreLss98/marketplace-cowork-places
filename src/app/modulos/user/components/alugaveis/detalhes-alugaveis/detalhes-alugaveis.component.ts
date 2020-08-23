@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
+import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS } from 'src/app/shared/constants/constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -23,6 +23,7 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   public status = Object.values(ALUGAVEL_STATUS);
   readonly STATUS = ALUGAVEL_STATUS;
+  readonly USUARIO_STATUS = USUARIO_STATUS;
 
   public statusForm: FormGroup;
   
