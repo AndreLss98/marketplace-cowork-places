@@ -1,25 +1,21 @@
 <div class="content">
-  <div class="header">
+  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": positionHeader}'>
     <div class="d-flex flex-column align-content-start">
       <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
-      <div *ngFor="let itemMenu of menu" style="margin: 20px 0px;"> 
+      <div *ngFor="let itemMenu of menu" style="margin: 20px 0px;" [hidden]='checkHome()'> 
         <a class="itemMenu" [target]="itemMenu.target" [href]="itemMenu.rout">{{ itemMenu.name }}</a>
       </div>
-      <div>
-        <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" m triggers="manual"
+      <div [hidden]='checkHome()'>
+        <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" triggers="manual"
         placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
       </div>
+      <app-user-menu class="userMenu" *ngIf="router.url.includes('/user')"></app-user-menu>
     </div>
   </div>
   <div class="router">
     <router-outlet></router-outlet>
   </div>
-
 </div>
-<!-- Alerta de site em desenvolvimento -->
-<!-- <div class="w-100">
-  <h1 class="w-100 text-center">SITE EM DESENVOLVIMENTO</h1>
-</div> -->
 
 <!-- Barra de navegação celular -->
 <div *ngIf="mobile_mode" id="navBottom" style="min-height: 64px;"

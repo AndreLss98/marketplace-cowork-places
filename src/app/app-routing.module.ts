@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./modulos/home/home.module').then(m => m.HomeModule) },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./modulos/home/home.module').then(m => m.HomeModule) },
   { path: 'about', loadChildren: () => import('./modulos/about/about.module').then(m => m.AboutModule) },
   { path: 'confirm-email', loadChildren: () => import('./modulos/confirm-email/confirm-email.module').then(m => m.ConfirmEmailModule) },

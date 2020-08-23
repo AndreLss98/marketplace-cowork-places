@@ -1,0 +1,58 @@
+.sair{
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    span{
+        font-size: 16px;
+        color: gray;
+        cursor: pointer;
+    }
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    max-height: 45vh;
+    overflow-y: scroll;
+
+    .menuItem{
+
+        span{outline: none;}
+        margin-bottom: 10px;
+
+        .menuItemTitle{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #d6d6d6;
+            span{
+                font-size: 16px;
+                font-weight: 500;
+                color: black;
+            }
+        }
+
+        .menuItemContent{
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+           
+            cursor: pointer;
+
+            span{
+                font-size: 17px;
+                color: gray;
+                padding: 15px 0 15px 15px ;
+            }
+            
+            span:hover{
+                background-color: #f3f3f3;
+            }
+            
+        }
+
+
+    }
+
+}

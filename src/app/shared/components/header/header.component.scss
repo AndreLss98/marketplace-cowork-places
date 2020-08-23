@@ -8,6 +8,7 @@
     // flex-wrap: wrap;
 
     .header{
+        overflow-y: hidden;
         position: fixed;
         margin: 40px;
         .image{
@@ -20,6 +21,11 @@
             color: black;
             text-align: start;
             font-size: 1.4vw;
+        }
+        .userMenu{
+            margin-top: 20px;
+            // max-height: 70vh;
+            // overflow-y: scroll;
         }
 
         .btn-entrar{

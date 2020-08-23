@@ -1,0 +1,52 @@
+<div class="sair">
+    <span (click)="loginService.logout()" >Sair</span>
+</div>
+<div class="menu">
+    <div class="menuItem">
+        <div class="menuItemTitle">
+            <span>Conta</span>
+        </div>
+        <div class="menuItemContent">
+            <span matBadge="!" matBadgeColor="warn" [matBadgeHidden]="userService.cadastroValidado()"
+                matBadgeOverlap="false" routerLink="/user/conta/info">Informações Pessoais</span>
+            <span  routerLink="/user/conta/safety">Login e Segurança</span>
+            <span routerLink="/user/espacossalvos">Espaços salvos</span>
+        </div>
+    </div>
+
+    <div class="menuItem">
+        <div class="menuItemTitle">
+            <span>Aluguéis</span>
+        </div>
+        <div class="menuItemContent">
+            <span routerLink="/user/alugueis"> Meus aluguéis</span>
+        </div>
+    </div>
+
+    <div class="menuItem">
+        <div class="menuItemTitle">
+            <span>Anúncios</span>
+        </div>
+        <div class="menuItemContent">
+            <span routerLink="/user/anuncios/meusanuncios"> Meus anúncios </span>
+            <span routerLink="/user/anuncios/locacoes"> Locações </span>
+        </div>
+    </div>
+
+    <div class="menuItem" *ngIf="userService.isAdmin">
+        <div class="menuItemTitle">
+            <span>Administrador</span>
+        </div>
+        <div class="menuItemContent">
+            <span routerLink="/user/tipos"> Tipos </span>
+            <span routerLink="/user/politicas"> Politicas </span>
+            <span routerLink="/user/caracteristicas"> Caracteristicas </span>
+            <span routerLink="/user/questionario"> Questionário </span>
+            <span routerLink="/user/documentos"> Documentos Pessoais </span>
+            <span routerLink="/user/usuarios"> Usuários </span>
+            <span routerLink="/user/anuncios"> Anúncios </span>
+            <span routerLink="/user/feedbacks"> Feedback </span>
+            <span routerLink="/user/contratos"> Contratos </span>
+        </div>
+    </div>
+</div>

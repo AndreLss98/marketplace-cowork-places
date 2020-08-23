@@ -22,16 +22,28 @@ export class HeaderComponent implements OnInit {
   public mobile_mode = false;
   public options = [];
   public position;
+  public positionHeader = 'fixed';
 
   constructor(
-    private router: Router,
+    public router: Router,
     public user: UserService,
     public login: LoginService,
     private menuService: MenuService,
     public modalService: ModalService,
-  ) {}
+    ) {}
+    
+  ngOnInit(): void {
+    if($(window).width() < 426) this.mobile_mode = true;
+    
+    this.menuService.getAllHome().subscribe((response: any) => {
+      this.options = response.filter(tipo => tipo.disponivel);
+    });
+  
+    // if($(window).width() < 860) this.options.length = 3;
+    this.position = $(window).scrollTop(); 
+  }
 
-@HostListener('window:scroll', ['$event']) // for window scroll events
+  @HostListener('window:scroll', ['$event']) // for window scroll events
   scrollEvent(event) {
     var scroll = $(window).scrollTop();
     if(scroll > this.position + 30) {
@@ -50,7 +62,7 @@ export class HeaderComponent implements OnInit {
     if (id) queryParams.tipo_id = id;
     this.router.navigate([path], { queryParams });
   }
-  
+
   doLogin(popover?) {
     
     setTimeout(() => {     
@@ -83,15 +95,12 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
-  
-  ngOnInit(): void {
-    if($(window).width() < 426) this.mobile_mode = true;
-    
-    this.menuService.getAllHome().subscribe((response: any) => {
-      this.options = response.filter(tipo => tipo.disponivel);
-    });
 
-    // if($(window).width() < 860) this.options.length = 3;
-    this.position = $(window).scrollTop(); 
+  checkHome(){
+    if(this.router.url.includes('/home') || this.router.url == '/'){
+      return false;
+    }
+    return true;
   }
+  
 }
