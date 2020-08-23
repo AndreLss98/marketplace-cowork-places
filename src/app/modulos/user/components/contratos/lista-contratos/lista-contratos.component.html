@@ -27,7 +27,7 @@
         <ng-container matColumnDef="view">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <button mat-flat-button color="primary">Visualizar</button>
+                <button mat-flat-button color="primary" (click)="viewDetails(row.id)">Visualizar</button>
             </mat-cell>
         </ng-container>
     

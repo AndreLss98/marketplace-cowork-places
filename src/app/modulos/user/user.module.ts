@@ -27,6 +27,7 @@ import { ListaPerguntasComponent } from './components/questionario/lista-pergunt
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { ListaCaracteristicasComponent } from './components/caracteristicas/lista-caracteristicas/lista-caracteristicas.component';
+import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { ListaCaracteristicasComponent } from './components/caracteristicas/list
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
     ListaCaracteristicasComponent, 
-    SafetyModalComponent,
+    SafetyModalComponent, DetalhesContratoComponent,
   ],
   imports: [
     CommonModule,

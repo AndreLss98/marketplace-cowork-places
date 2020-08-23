@@ -57,7 +57,7 @@ export class InfoComponent implements OnInit {
   public dataNascimento = '';
   public selectedFile: File = null;
 
-  public imgName = 'assets/svg/avatar.svg';
+  public imgName;
   public bankAccountTypes = [ 'Conta Corrente', 'Conta Poupança' ];
 
   public bancos: any = [];
@@ -100,20 +100,21 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
+
+    if (this.userService.user_data.img_perfil) this.imgName = `${environment.apiUrl}/imgs/${this.userService.user_data.img_perfil}`;
     
     if(
       !this.userService.user_data.cpf ||
       !this.userService.user_data.email_validado ||
       !this.userService.user_data.data_nascimento ||
       !this.userService.user_data.data_nascimento ||
-      !this.userService.user_data.numero_1
-      )   this.dadosPessoaisValido =  false;
+      !this.userService.user_data.numero_1) this.dadosPessoaisValido =  false;
   
     if(this.userService.user_data.data_nascimento){
-      this.userService.user_data.data_nascimento = this.userService.user_data.data_nascimento.split('T')[0]
+      this.userService.user_data.data_nascimento = this.userService.user_data.data_nascimento.split('T')[0];
+      this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     }
 
-    if (this.userService.user_data.data_nascimento) this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
 
@@ -140,6 +141,13 @@ export class InfoComponent implements OnInit {
 
   public onFileSelected(event) {
     this.selectedFile = <File>event.target.files[0];
+    let reader = new FileReader();
+    reader.onload = (read) => {
+      this.imgName = read.target.result;
+      this.updateNewImage();
+    };
+
+    reader.readAsDataURL(this.selectedFile);
   }
 
   public updateNewImage() {

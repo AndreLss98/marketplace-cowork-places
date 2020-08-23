@@ -8,11 +8,17 @@
 </div>
 
 <mat-card class="mat-elevation-z4 card-table">
-    <div id="img-perfil">{{ userService.user_data.nome[0] }}</div>
-    <button *ngIf="selectedFile?.name" (click)="updateNewImage()">Enviar</button>
+    <div *ngIf="!imgName" id="img-perfil-letter" (click)="imgInput.click()">{{ userService.user_data.nome[0] }}</div>
+    <div *ngIf="imgName" id="img-perfil" (click)="imgInput.click()">
+        <img [src]="imgName" alt="imagem de perfil do usuario">
+    </div>
+    <input hidden  #imgInput type="file" (change)="onFileSelected($event)">
     
     <mat-card-title class="d-flex flex-row">
-        <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
+        <span
+            matBadge="!"
+            matBadgeColor="warn"
+            matBadgeOverlap="false"
             [matBadgeHidden]=" this.dadosPessoaisValido" >
             Dados Pessoais
         </span>
