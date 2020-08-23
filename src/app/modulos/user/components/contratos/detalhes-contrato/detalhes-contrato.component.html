@@ -3,28 +3,28 @@
     <mat-card-content style="display: flex; justify-content: space-between;">
         <div>
             <span>Data do Contrato: </span>
-            <span>12/02/2021</span>
+            <span>{{ aluguel.data_criacao }}</span>
         </div>
 
         <div>
             <span>Data de Entrada: </span>
-            <span>12/02/2021</span>
+            <span>{{ aluguel.dias_reservados.data_entrada }}</span>
         </div>
 
         <div>
             <span>Data da Saída: </span>
-            <span>12/02/2021</span>
+            <span>{{ aluguel.dias_reservados.data_saida }}</span>
         </div>
 
         <div>
             <span>Valor do Contrato: </span>
-            <span>R$ 2500</span>
+            <span>R$ {{ aluguel.valor }}</span>
         </div>
     </mat-card-content>
-    <mat-card-content>
+    <mat-card-content *ngIf="aluguel.status === ALUGUEL_STATUS.CANCELED.value && aluguel.comentario">
         <div>
             <h3>Motivo do cancelamento</h3>
-            <span>O local era totalmente diferente do que informado no anúncio</span>
+            <span>{{ aluguel.comentario }}</span>
         </div>
     </mat-card-content>
 </mat-card>
