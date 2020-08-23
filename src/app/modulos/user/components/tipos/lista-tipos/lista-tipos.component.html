@@ -49,7 +49,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Icone</mat-label>
             <mat-select formControlName="icone">
-              <mat-option *ngFor="let icone of icones" value="{{ icone }}">
+              <mat-option *ngFor="let icone of icones" [value]="icone">
                 <div class="d-flex flex-row">
                   <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
                   <span style="width: 100%; text-align: center;">{{ icone }}</span>
@@ -86,9 +86,11 @@
         <mat-form-field appearance="outline">
             <mat-label>Icone</mat-label>
             <mat-select formControlName="icone" required>
-              <mat-option *ngFor="let icone of icones" value="{{ icone }}">
-                {{ icone }}
-                <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
+              <mat-option *ngFor="let icone of icones" [value]="icone">
+                <div class="d-flex flex-row">
+                  <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
+                  <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                </div>
               </mat-option>
             </mat-select>
         </mat-form-field>
