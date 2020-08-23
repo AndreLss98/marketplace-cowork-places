@@ -1,0 +1,100 @@
+<mat-card style="margin:0 20px 20px 20px">
+    <mat-card-title>Aluguel</mat-card-title>
+    <mat-card-content style="display: flex; justify-content: space-between;">
+        <div>
+            <span>Data do Contrato: </span>
+            <span>12/02/2021</span>
+        </div>
+
+        <div>
+            <span>Data de Entrada: </span>
+            <span>12/02/2021</span>
+        </div>
+
+        <div>
+            <span>Data da Saída: </span>
+            <span>12/02/2021</span>
+        </div>
+
+        <div>
+            <span>Valor do Contrato: </span>
+            <span>R$ 2500</span>
+        </div>
+    </mat-card-content>
+    <mat-card-content>
+        <div>
+            <h3>Motivo do cancelamento</h3>
+            <span>O local era totalmente diferente do que informado no anúncio</span>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div id="divCards">
+    <mat-card class="card" style="margin-left: 20px;">
+        <mat-card-header>
+            <div mat-card-avatar class="avatar letter">{{ aluguel.locador.nome[0] }}</div>
+            <mat-card-title>{{ aluguel.locador.nome }} {{ aluguel.locador.sobrenome }}</mat-card-title>
+            <mat-card-subtitle>Locador</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <span class="subtitle">Email: </span>
+                <span>{{ aluguel.locador.email }}</span>
+            </div>
+    
+            <div>
+                <span class="subtitle">Telefone 1: </span>
+                <span *ngIf="aluguel.locador.numero_1" >{{ aluguel.locador.numero_1 }}</span>
+            </div>
+    
+            <div *ngIf="aluguel.locador.numero_2">
+                <span class="subtitle">Telefone 2: </span>
+                <span>{{ aluguel.locador.numero_2 }}</span>
+            </div>
+    
+            <div>
+                <span class="subtitle">CPF: </span>
+                <span *ngIf="aluguel.locador.cpf" >{{ aluguel.locador.cpf }}</span>
+            </div>
+        </mat-card-content>
+    
+        <mat-card-actions>
+            <button mat-button (click)="viewUser(aluguel.locador.id)">Visualizar locador</button>
+        </mat-card-actions>
+    </mat-card>
+    
+    <app-highlight-items *ngIf="aluguel" [data]="aluguel.alugavel"></app-highlight-items>
+    
+    <mat-card class="card" style="margin-right: 20px;">
+        <mat-card-header>
+            <div mat-card-avatar class="avatar letter">{{ aluguel.locatario.nome[0] }}</div>
+            <mat-card-title>{{ aluguel.locatario.nome }} {{ aluguel.locatario.sobrenome }}</mat-card-title>
+            <mat-card-subtitle>Locatário</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <span class="subtitle">Email: </span>
+                <span>{{ aluguel.locatario.email }}</span>
+            </div>
+    
+            <div>
+                <span class="subtitle">Telefone 1: </span>
+                <span *ngIf="aluguel.locatario.numero_1" >{{ aluguel.locatario.numero_1 }}</span>
+            </div>
+    
+            <div *ngIf="aluguel.locatario.numero_2">
+                <span class="subtitle">Telefone 2: </span>
+                <span>{{ aluguel.locatario.numero_2 }}</span>
+            </div>
+    
+            <div>
+                <span class="subtitle">CPF: </span>
+                <span *ngIf="aluguel.locatario.cpf" >{{ aluguel.locatario.cpf }}</span>
+            </div>
+        </mat-card-content>
+    
+        <mat-card-actions>
+            <button mat-button (click)="viewUser(aluguel.locatario.id)">Visualizar locatário</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

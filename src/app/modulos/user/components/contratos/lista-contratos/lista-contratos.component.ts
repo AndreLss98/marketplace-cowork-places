@@ -1,5 +1,5 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
@@ -29,7 +29,8 @@ export class ListaContratosComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private aluguelService: AluguelService
+    private aluguelService: AluguelService,
+    private router: Router
   ) {
     this.filters = formBuilder.group({
       status: [ALUGUEL_STATUS.CREATED.value, []]
@@ -70,5 +71,9 @@ export class ListaContratosComponent implements OnInit {
   public pageUpdate(event) {
     this.pager = event;
     this.fetchContratos();
+  }
+
+  public viewDetails(id) {
+    this.router.navigateByUrl(`user/contratos/${id}`);
   }
 }
