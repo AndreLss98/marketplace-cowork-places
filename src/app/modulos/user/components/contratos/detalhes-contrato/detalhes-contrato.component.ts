@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-detalhes-contrato',
   templateUrl: './detalhes-contrato.component.html',
@@ -9,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DetalhesContratoComponent implements OnInit {
 
   public aluguel: any;
+
+  readonly API_URL = environment.apiUrl;
 
   constructor(
     private router: Router,
