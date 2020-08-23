@@ -20,7 +20,7 @@ import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lis
 import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
-import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
+// import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
@@ -45,7 +45,7 @@ const routes: Routes = [
     { path: 'usuarios', component: ListaUsuariosComponent},
     { path: 'anuncios', component: ListaAlugaveisComponent},
     { path: 'politicas', component: ListaPoliticasComponent},
-    { path: 'questionario', component: ListaPerguntasComponent},
+    // { path: 'questionario', component: ListaPerguntasComponent},
     { path: 'espacossalvos', component: EspacosSalvosComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
