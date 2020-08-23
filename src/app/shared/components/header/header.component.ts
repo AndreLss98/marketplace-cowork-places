@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
   public mobile_mode = false;
   public options = [];
   public position;
-  public positionHeader = 'fixed';
 
   constructor(
     public router: Router,

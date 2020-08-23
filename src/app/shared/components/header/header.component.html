@@ -1,5 +1,5 @@
 <div class="content">
-  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": positionHeader}'>
+  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": router.url.includes("/user") ? "absolute":"fixed"}'>
     <div class="d-flex flex-column align-content-start">
       <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
       <div *ngIf="!router.url.includes('/user')">
