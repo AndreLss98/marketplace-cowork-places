@@ -13,7 +13,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 })
 export class ListaAlugaveisComponent implements OnInit {
 
-  public status: any =  Object.values(ALUGAVEL_STATUS);
+  public status: any =  Object.values(ALUGAVEL_STATUS).filter(status => status.value !== ALUGAVEL_STATUS.REMOVED.value);
 
   public alugaveis = [];
 

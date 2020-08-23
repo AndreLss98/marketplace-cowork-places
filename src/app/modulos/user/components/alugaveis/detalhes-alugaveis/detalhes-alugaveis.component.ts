@@ -21,7 +21,7 @@ export class DetalhesAlugaveisComponent implements OnInit {
   public displayedColumns = [ 'caracteristica', 'valor' ];
   public displayedDocumentsColumns = [ 'documento', 'action' ];
 
-  public status = Object.values(ALUGAVEL_STATUS);
+  public status = Object.values(ALUGAVEL_STATUS).filter(status => status.value !== ALUGAVEL_STATUS.REMOVED.value);
   readonly STATUS = ALUGAVEL_STATUS;
   readonly USUARIO_STATUS = USUARIO_STATUS;
 
