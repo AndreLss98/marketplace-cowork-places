@@ -2,10 +2,10 @@
   <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": positionHeader}'>
     <div class="d-flex flex-column align-content-start">
       <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
-      <div *ngFor="let itemMenu of menu" style="margin: 20px 0px;" [hidden]='checkHome()'> 
-        <a class="itemMenu" [target]="itemMenu.target" [href]="itemMenu.rout">{{ itemMenu.name }}</a>
-      </div>
-      <div [hidden]='checkHome()'>
+      <div *ngIf="!router.url.includes('/user')">
+        <div *ngFor="let itemMenu of menu" style="margin: 20px 0px;"> 
+          <a class="itemMenu" [target]="itemMenu.target" [href]="itemMenu.rout">{{ itemMenu.name }}</a>
+        </div>
         <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" triggers="manual"
         placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
       </div>
