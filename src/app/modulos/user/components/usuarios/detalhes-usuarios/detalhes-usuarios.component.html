@@ -1,7 +1,10 @@
 <mat-card>
     <div id="headerContainer">
         <div class="item">
-            <div id="img-perfil">{{ user.nome[0] }}</div>
+            <div *ngIf="!user.img_perfil" id="img-perfil-letter">{{ user.nome[0] }}</div>
+            <div *ngIf="user.img_perfil" id="img-perfil">
+                <img [src]="BACK_BASE_URL + '/imgs/' + user.img_perfil" alt="imagem de perfil do usuario">
+            </div>
         </div>
         <div class="item">
             <form class="w-100" [formGroup]="validateForm" (ngSubmit)="validate()">
@@ -125,7 +128,7 @@
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element" class="action-row">
-                    <a mat-flat-button color="primary" target="_blank" [href]="backBaseUrl + element.url">Visualizar</a>
+                    <a mat-flat-button color="primary" target="_blank" [href]="BACK_BASE_URL + '/docs/' + element.url">Visualizar</a>
                 </mat-cell>
             </ng-container>
 

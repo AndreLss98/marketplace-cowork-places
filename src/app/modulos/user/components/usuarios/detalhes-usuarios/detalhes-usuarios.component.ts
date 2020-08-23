@@ -26,7 +26,7 @@ export class DetalhesUsuariosComponent implements OnInit {
   public user: any;
   public dataNascimento: string;
 
-  public backBaseUrl = environment.apiUrl + '/docs/';
+  readonly BACK_BASE_URL = environment.apiUrl;
 
   public validateForm: FormGroup;
   public isLoading = false;

@@ -1,7 +1,7 @@
 <div class="alertCadastro" *ngIf="userService.user_data.status_cadastro == 'disapproved'">
     <span class="title">Infelizmente seu cadastro não foi aprovado.</span>
     <span class="content">{{userService.user_data.observacao}}</span>
-</div >
+</div>
 
 <div class="alertCadastro" *ngIf="userService.user_data.status_cadastro == 'waiting'">
     <span class="title">Cadastro em análise.</span>
