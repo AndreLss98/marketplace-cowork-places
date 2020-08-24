@@ -101,5 +101,10 @@ export class HeaderComponent implements OnInit {
     }
     return true;
   }
+
+  comoFunciona(){
+    var el = document.getElementById('comoFunciona');
+    el.scrollIntoView({behavior: 'smooth'});
+  }
   
 }
