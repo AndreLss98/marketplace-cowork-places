@@ -103,8 +103,19 @@ export class HeaderComponent implements OnInit {
   }
 
   comoFunciona(){
-    var el = document.getElementById('comoFunciona');
-    el.scrollIntoView({behavior: 'smooth'});
+    if(!this.router.url.includes('/home')){
+      this.router.navigate(['/home']).then( () => {
+        setTimeout(() => {
+          var el = document.getElementById('comoFunciona');
+          el.scrollIntoView({behavior: 'smooth'});
+          
+        }, 100);
+      })
+    }else{
+      var el = document.getElementById('comoFunciona');
+      el.scrollIntoView({behavior: 'smooth'});
+    }
+    
   }
   
 }
