@@ -78,8 +78,8 @@ export class CriarAnuncioComponent implements OnInit {
   public cep_validado:boolean = false;
 
   // Entrada e saida para simular valor
-  public entrada;
-  public saida;
+  public entrada = moment();
+  public saida = moment();
 
   // Tipos 
   public categorias;
@@ -202,28 +202,29 @@ export class CriarAnuncioComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarCaracteristicas();
-
+    
     this.route.queryParams.subscribe(response => {
       if(response.edit){
         this.editMode = response.edit;
         this.espaco_id = response.id;
-
+        
         this.escritura.disable();
         this.loadData();
       }
     }).unsubscribe();
     
-
+    
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
     });
-
+    
     this.tipos.getAll().subscribe( response => {
       this.categorias = response;
     });
-
+    
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = response.taxa;
+      this.generateThumb();
     })
   }
 
@@ -234,7 +235,8 @@ export class CriarAnuncioComponent implements OnInit {
 
   public getFormattedPrice(campo) {
     let v = this[campo].value;
-    v=v.replace(/[&\/\\#,+()$~%'":*?<>{} A-Za-z]/g,"");
+    v=v.replace(/[&\/\\#+()$~%'":*?<>{} A-Za-z]/g,"");
+    v=v.replace(/,/g,'.')
     this[campo].setValue(v);
     return `R$ ${v}`;
   }
@@ -660,4 +662,14 @@ export class CriarAnuncioComponent implements OnInit {
     return caracteristicas.find(caracteristica => caracteristica.id === id);
   }
 
+  public generateThumb(){
+    let array = []
+
+    for (let index = 0; index <= this.max_taxa;) {
+      array.push(index)
+      index+= this.max_taxa/2;
+    }
+
+    return array;
+  }
 }

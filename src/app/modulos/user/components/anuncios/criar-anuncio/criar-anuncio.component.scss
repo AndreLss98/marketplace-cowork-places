@@ -83,3 +83,68 @@
     overflow: scroll; 
     overflow-x: hidden;
 }
+
+.customThumb{
+    position: relative;
+    bottom: -5px;
+}
+
+.taxaInfo{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+    border-top: 1px solid $pl-gray;
+    
+    .taxaInfoTitle{
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .taxaInfoText{
+        font-size: 15px;
+        color: gray;
+    }
+}
+
+.simulacao{
+    display: flex;
+    flex-direction: column;
+    
+    .simulacaoTitle{
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .simulacaoValores{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        span{
+            font-size: 15px;
+            color: gray;
+        }
+    }
+
+    .simulacaoTotal{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        span{
+            font-size: 17px;
+            font-weight: 500;
+        }
+    }
+}
+
+.simulacaoDia{
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid $pl-gray;
+    border-top: 1px solid $pl-gray;
+
+}
