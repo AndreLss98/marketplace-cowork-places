@@ -22,3 +22,196 @@
     overflow: scroll; 
     overflow-x: hidden;
 }
+.confirmarDadosTitle{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    
+    span{
+        font-size: 30px;
+        font-weight: 500;
+        margin-left: 10px;
+    }
+}
+
+.confirmarDados{
+    width: 75%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff !important;
+
+    .regras{
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        .titulo{
+            font-size: 26px;
+            font-weight: bold;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-left: 10px;
+        }
+        .data{
+            display: flex;
+            flex-direction: row;
+
+            .entrada{
+                padding: 10px;
+            }
+            .saida{
+                padding: 10px;
+                margin-left: 20px;
+            }
+        }
+
+        .mapa{
+            margin-top: 20px;
+            width: 100%;
+            height: 326px !important;
+            overflow: hidden;
+        }
+
+
+    }
+
+    .card{
+        border: 1px solid $pl-gray;
+        height: 450px;
+        width: 303px;
+        .cardContent{
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+
+            .header{
+                border-bottom: 1px solid $pl-gray;
+                padding-bottom: 10px;
+            }
+
+            .titulo{
+                font-weight: bold;
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+            .content{
+                font-size: 16px;
+                word-wrap: break-word;
+                width: 200px;
+            }
+        }
+
+        .cardImg{
+            display: flex;
+            justify-content: center;
+            img{
+                background-color: #ffffff00;
+                max-width: 150px;
+                max-height: 100px;
+                object-fit: contain;
+            }
+        }
+
+        .cardValores{
+            display: flex;
+            flex-direction: column;
+
+            .custoDia{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                margin: 20px 0;
+
+                span{
+                    font-size: 18px;
+                }
+            }
+
+            .custoTaxa{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                margin: 10px 0 20px 0;
+                padding-bottom: 20px;
+
+                border-bottom: 1px solid $pl-gray;
+
+                span{
+                    font-size: 18px;
+                }
+            }
+
+            .custoTotal{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                padding-bottom: 20px;
+
+                border-bottom: 1px solid $pl-gray;
+
+                span{
+                    font-size: 18px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .cardAviso{
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+
+            .cardAvisoTitulo{
+                font-weight: 500;
+                font-size: 17px;
+            }
+            .cardAvisoTexto{
+                margin-top: 10px;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+@media (max-width: 450px){
+    .confirmarDados{
+        width: 100%;
+        .regras{
+            width: 100%;
+            .titulo{
+                width: 100%;
+            }
+            .data{
+                width: 100%;
+                flex-direction: column;
+                .saida{
+                    padding-top: 10px;
+                }
+            }
+        }
+        .card{
+            margin-top: 10px;
+            .cardImg{
+                width: 100% !important;
+                min-height: 200px;
+                margin-top: 10px;
+            }
+    
+            .cardContent{
+                .header{
+                    justify-content: center;
+                }
+            }
+        }
+    }
+    
+}

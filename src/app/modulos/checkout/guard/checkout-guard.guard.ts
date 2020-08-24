@@ -14,9 +14,9 @@ export class CheckoutGuardGuard implements CanLoad {
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
-    return true;
-    // if(this.checkoutService.reserva) return true;
+    // return true;
+    if(this.checkoutService.reserva) return true;
 
-    // return false;
+    return false;
   }
 }
