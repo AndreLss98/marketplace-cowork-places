@@ -96,11 +96,12 @@ export class HeaderComponent implements OnInit {
   }
 
   checkHome(){
-    if(this.router.url.includes('/home') || this.router.url == '/'){
+    if(this.router.url.includes('/user') || this.router.url.includes('/search')){
       return false;
     }
     return true;
   }
+
 
   comoFunciona(){
     if(!this.router.url.includes('/home')){

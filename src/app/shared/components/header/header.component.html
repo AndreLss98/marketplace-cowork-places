@@ -1,18 +1,19 @@
 <div class="content">
-  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": router.url.includes("/user") ? "absolute":"fixed"}'>
+  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": !checkHome() ? "absolute":"fixed"}'>
     <div class="d-flex flex-column align-content-start">
       <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
-      <div *ngIf="!router.url.includes('/user')">
+      <div *ngIf="checkHome()">
         <div style="margin: 20px 0px;"> 
           <a class="itemMenu" (click)="comoFunciona()">Como Funciona</a>
         </div>
         <div style="margin: 20px 0px;"> 
           <a class="itemMenu" target="_blank" href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
         </div>
-        <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" triggers="manual"
-        placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
       </div>
+      <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" triggers="manual"
+      placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
       <app-user-menu class="userMenu" *ngIf="router.url.includes('/user')"></app-user-menu>
+      <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
     </div>
   </div>
   <div class="router">

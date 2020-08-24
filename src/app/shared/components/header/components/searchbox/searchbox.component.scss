@@ -1,39 +1,31 @@
-@import '../../../../../place-et-theme.scss';
+@import '../../../../../../place-et-theme.scss';
 
 #searchBox {
     // Global
-    width: 330px;
-    min-height: 375px;
-    background-color: gray;
     border-radius: 20px;
+    width: 60%;
     // position: fixed;
-    padding: 30px 20px 15px 20px;
-    
-    .row{
-        // padding-top: 10px;
-        // padding-bottom: 10px;
-    }
+    padding: 20px 0;
 
     // Titulos
     span {
-        color: white;
+        color: black;
         font-size: 16px;
     }
 
     // Localização
     .inputCidade {
-        color: white;
+        color: black;
         font-size: 14px;
-        background-color: gray;
+        background-color: white;
         border: none;
         padding-bottom: 6px;
-        border-bottom: 2px solid white;
-        width: 100%;   
+        border-bottom: 2px solid $pl-gray; 
     }
 
     .inputCidade::placeholder{
         font-size: 14px;
-        color: white;
+        color: black;
     }
 
     .inputCidade:focus {
@@ -42,18 +34,7 @@
 
     // Tipo de serviço
     mat-select {
-        border-bottom: 2px solid white;
-        ::ng-deep { 
-            .mat-select-value {
-                color: white !important;
-            }
-            .mat-select-placeholder {
-                color: white !important;
-            }
-            .mat-select-arrow {
-                color: white !important;
-            }
-        }        
+        border-bottom: 2px solid $pl-gray;   
     }
 
     // Valor
@@ -66,10 +47,11 @@
             padding-right: 5px;
             padding-left: 5px;
             border-radius: 7px;
+            border: 1px solid $pl-gray;
         }
 
         input::placeholder {
-            color: gray;
+            color: black;
             text-transform: uppercase;
             font-size: 14px;
         }
@@ -90,10 +72,11 @@
             padding-right: 5px;
             padding-left: 5px;
             border-radius: 7px;
+            border: 1px solid $pl-gray;
         }
 
         input::placeholder {
-            color: gray;
+            color: black;
             text-transform: uppercase;
             font-size: 14px;
         }
