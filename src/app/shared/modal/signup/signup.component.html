@@ -82,7 +82,7 @@
                 <ng-template matStepLabel>Crie uma senha!</ng-template>
                 <mat-form-field class="w-100">
                     <mat-label>Senha</mat-label>
-                    <input matInput type="password" placeholder="*********" 
+                    <input matInput type="password" placeholder="*********" autocomplete="new-password"
                     formControlName="senha" required minlength="6" maxlength="16">
                     <mat-error *ngIf="quartoPasso.hasError('lengthMax')">
                         Senha muito grande!
@@ -93,8 +93,9 @@
                 </mat-form-field>
                 <mat-form-field class="w-100" style="margin-top: 5px;">
                     <mat-label>Confirme a senha</mat-label>
-                    <input matInput type="password" placeholder="*********" [errorStateMatcher]="matcher"
-                    formControlName="confirmar_senha" required minlength="6" maxlength="16">
+                    <input matInput type="password" autocomplete="new-password"
+                        placeholder="*********" [errorStateMatcher]="matcher"
+                        formControlName="confirmar_senha" required minlength="6" maxlength="16">
                     <mat-error *ngIf="quartoPasso.hasError('notSame')">
                         Senhas não conferem!
                     </mat-error>

@@ -24,14 +24,25 @@ export class HeaderComponent implements OnInit {
   public position;
 
   constructor(
-    private router: Router,
+    public router: Router,
     public user: UserService,
     public login: LoginService,
     private menuService: MenuService,
     public modalService: ModalService,
-  ) {}
+    ) {}
+    
+  ngOnInit(): void {
+    if($(window).width() < 426) this.mobile_mode = true;
+    
+    this.menuService.getAllHome().subscribe((response: any) => {
+      this.options = response.filter(tipo => tipo.disponivel);
+    });
+  
+    // if($(window).width() < 860) this.options.length = 3;
+    this.position = $(window).scrollTop(); 
+  }
 
-@HostListener('window:scroll', ['$event']) // for window scroll events
+  @HostListener('window:scroll', ['$event']) // for window scroll events
   scrollEvent(event) {
     var scroll = $(window).scrollTop();
     if(scroll > this.position + 30) {
@@ -50,7 +61,7 @@ export class HeaderComponent implements OnInit {
     if (id) queryParams.tipo_id = id;
     this.router.navigate([path], { queryParams });
   }
-  
+
   doLogin(popover?) {
     
     setTimeout(() => {     
@@ -83,15 +94,29 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
-  
-  ngOnInit(): void {
-    if($(window).width() < 426) this.mobile_mode = true;
-    
-    this.menuService.getAllHome().subscribe((response: any) => {
-      this.options = response.filter(tipo => tipo.disponivel);
-    });
 
-    // if($(window).width() < 860) this.options.length = 3;
-    this.position = $(window).scrollTop(); 
+  checkHome(){
+    if(this.router.url.includes('/user') || this.router.url.includes('/search')){
+      return false;
+    }
+    return true;
   }
+
+
+  comoFunciona(){
+    if(!this.router.url.includes('/home')){
+      this.router.navigate(['/home']).then( () => {
+        setTimeout(() => {
+          var el = document.getElementById('comoFunciona');
+          el.scrollIntoView({behavior: 'smooth'});
+          
+        }, 100);
+      })
+    }else{
+      var el = document.getElementById('comoFunciona');
+      el.scrollIntoView({behavior: 'smooth'});
+    }
+    
+  }
+  
 }

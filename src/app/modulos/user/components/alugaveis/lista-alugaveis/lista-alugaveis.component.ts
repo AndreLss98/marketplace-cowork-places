@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
@@ -13,7 +13,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 })
 export class ListaAlugaveisComponent implements OnInit {
 
-  public status: any =  Object.values(ALUGAVEL_STATUS);
+  public status: any =  Object.values(ALUGAVEL_STATUS).filter(status => status.value !== ALUGAVEL_STATUS.REMOVED.value);
 
   public alugaveis = [];
 

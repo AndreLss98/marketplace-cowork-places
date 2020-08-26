@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
 
 @Component({
   templateUrl: './locacoes.component.html',
@@ -23,32 +24,13 @@ export class LocacoesComponent implements OnInit {
     
     this.processaAlugueis();
   }
-
   private processaAlugueis(){
-    var today = moment().format();
-    this.alugueis.forEach(element => {
-      
-      // Unico
-      if(element.paypal_order_id){
-        
-        if(moment(element.data_saida).isAfter(today)){
-          this.ativos.push(element);
-        }else{
-          this.inativos.push(element)
-        }
-
-      // Mensal
-      }else if(element.paypal_plan_id){
-
-        if(moment(element.data_saida).isAfter(today)){
-          this.ativos.push(element);
-        }else{
-          this.inativos.push(element)
-        }
-
+    this.alugueis.forEach(aluguel => {
+      if(aluguel.status === ALUGUEL_STATUS.ACTIVE.value) {
+        this.ativos.push(aluguel);
+      }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value) {
+        this.inativos.push(aluguel)
       }
-
     });
   }
-
 }

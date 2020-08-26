@@ -1,0 +1,34 @@
+@import '../../../../../../place-et-theme.scss';
+
+#divCards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    border-radius: 25px 25px 15px 15px;
+    max-width: 350px;
+    margin-bottom: 20px;
+    display: inline-table;
+}
+
+.avatar {
+    border: 1px solid #00ffab;
+}
+
+.avatar.image {
+    background-size: cover;
+}
+
+.avatar.letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 500;
+    padding-top: 6px;
+}
+
+mat-card mat-card-content div span.subtitle {
+    font-weight: 500;
+}

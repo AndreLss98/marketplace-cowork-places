@@ -1,5 +1,8 @@
-import { AluguelService } from './../../service/aluguel.service';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
+
+import { AluguelService } from 'src/app/shared/service/aluguel.service';
 
 @Component({
   selector: 'app-alugueis-ativos',
@@ -8,22 +11,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AlugueisAtivosComponent implements OnInit {
 
-  @Input('locadorBool') locadorBool: boolean = false;
-  @Input('locatarioBool') locatarioBool: boolean = false;
-  @Input('aluguel_id') aluguel_id: any;
+  readonly BACK_BASE_URL = environment.apiUrl;
 
-  public aluguel;
+  @Input('aluguel') aluguel: any;
 
   constructor(
     public aluguelService: AluguelService,
   ) { }
 
   ngOnInit(): void {
-    this.aluguelService.getDetailsAluguel(this.aluguel_id)
-    .subscribe(res =>{
-      this.aluguel = res;
-      console.log(res);
-    });
+    
   }
 
 }

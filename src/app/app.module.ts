@@ -39,6 +39,8 @@ import { FeedbackButtonComponent } from './shared/components/feedback-button/fee
 import { environment } from '../environments/environment';
 
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
+import { UserMenuComponent } from './shared/components/header/components/user-menu/user-menu.component';
+import { SearchboxComponent } from './shared/components/header/components/searchbox/searchbox.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AuthInterceptorService } from './shared/service/authInterceptor.service
     RecuperarSenhaComponent,
     FeedbackButtonComponent,
     FeedbackModalComponent,
-    QuestionComponent
+    QuestionComponent,
+    UserMenuComponent,
+    SearchboxComponent,
   ],
   imports: [
     FormsModule,

@@ -22,6 +22,7 @@
     <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element" class="action-row">
+            <a mat-button [href]="'/about/' + element.sluq" target="_blank">Visualizar</a>
             <button
                 type="button"
                 class="danger"

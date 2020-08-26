@@ -9,6 +9,7 @@ export class MapsComponent implements OnInit {
 
   @Input() lngLatPlace;
   @Input() static: boolean = false;
+  @Input() height: string = '600px';
   @Output() localChange = new EventEmitter();
 
   readonly default_center = new google.maps.LatLng(-16.679301, -49.256769);

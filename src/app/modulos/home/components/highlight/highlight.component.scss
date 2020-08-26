@@ -1,10 +1,11 @@
 @import '../../../../../place-et-theme.scss';
 
 .content{
-    padding-bottom: 100px;
+    // padding-bottom: 50px;
     padding-top: 100px;
     overflow: hidden;
     background: linear-gradient( to top, $pl-verde-escuro 33.25%, #ffffff 33.25%);
+    border-radius: 0 0 0 100px;
     width: 100%;
 }
 

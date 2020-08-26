@@ -1,36 +1,23 @@
-<nav [hidden]="mobile_mode" class="navbar navbar-expand-sm container-fluid" id="navTop">
-    <img src="assets/imgs/logo/logo_preta-min.png" class="navbar-brand title" (click)="goTo('/home')">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" ></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav ml-auto my-dropdown" id='contentNav'>
-        <li class="nav-item" *ngFor="let itemMenu of menu">
-          <a [target]="itemMenu.target" [href]="itemMenu.rout" class="nav-link">{{ itemMenu.name }}</a>
-        </li>
-        <li class="nav-item">
-            <button *ngIf="!mobile_mode" class="btn btn-entrar" [ngbPopover]="popContent" container="body" triggers="manual"
-              placement="bottom-right"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
-        </li>
-      </ul>
-    </div>
-</nav>
-
-<!-- Alerta de site em desenvolvimento -->
-<!-- <div class="w-100">
-  <h1 class="w-100 text-center">SITE EM DESENVOLVIMENTO</h1>
-</div> -->
-
-<!-- Menu com os itens de pesquisa -->
-<div class="options" id="menuHeader" *ngIf="options.length > 0 && !mobile_mode">
-  <div class="h-100 d-flex flex-row justify-content-center align-items-center">
-    <div class="d-flex flex-column justify-content-center align-items-center" style="padding-top: 15px; padding-bottom: 15px; min-width: 120px;" *ngFor="let item of options" (click)="goTo('/search', item.id)">
-      <div class="imgs">
-        <img [src]="'assets/imgs/header/' + item.icone" style="width: 25px; height: 25px;">
+<div class="content">
+  <div class="header" *ngIf="!mobile_mode" [ngStyle]='{"position": !checkHome() ? "absolute":"fixed"}'>
+    <div class="d-flex flex-column align-content-start">
+      <img class="image" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
+      <div *ngIf="checkHome()">
+        <div style="margin: 20px 0px;"> 
+          <a class="itemMenu" (click)="comoFunciona()">Como Funciona</a>
+        </div>
+        <div style="margin: 20px 0px;"> 
+          <a class="itemMenu" target="_blank" href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
+        </div>
       </div>
-      <span style=" white-space: nowrap">{{item.nome}}</span>
+      <button *ngIf="!mobile_mode" class="btn-entrar" [ngbPopover]="popContent" matRipple container="body" triggers="manual"
+      placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
+      <app-user-menu class="userMenu" *ngIf="router.url.includes('/user')"></app-user-menu>
+      <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
     </div>
+  </div>
+  <div class="router">
+    <router-outlet></router-outlet>
   </div>
 </div>
 

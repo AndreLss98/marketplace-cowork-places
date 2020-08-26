@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
+import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS } from 'src/app/shared/constants/constants';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -21,8 +21,9 @@ export class DetalhesAlugaveisComponent implements OnInit {
   public displayedColumns = [ 'caracteristica', 'valor' ];
   public displayedDocumentsColumns = [ 'documento', 'action' ];
 
-  public status = Object.values(ALUGAVEL_STATUS);
+  public status = Object.values(ALUGAVEL_STATUS).filter(status => status.value !== ALUGAVEL_STATUS.REMOVED.value);
   readonly STATUS = ALUGAVEL_STATUS;
+  readonly USUARIO_STATUS = USUARIO_STATUS;
 
   public statusForm: FormGroup;
   
@@ -41,6 +42,7 @@ export class DetalhesAlugaveisComponent implements OnInit {
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data.alugavel;
     this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor = this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor === 'true'? 'Sim' : 'Não';
+    this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA - 1].valor = `${this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA - 1].valor} m2`;
     this.resetStatusForm();
   }
 

@@ -21,6 +21,8 @@ export class CheckoutComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
 
+  public backUrl = environment.apiUrl;
+
   public alugavel;
   public entrada;
   public saida;
@@ -49,16 +51,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.checkoutService.reserva)
     moment.locale('pt-BR');
     this.entrada = moment(this.checkoutService.reserva.dias_reservados.data_entrada);
     this.saida = moment(this.checkoutService.reserva.dias_reservados.data_saida);
-
+    
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = Number(response.taxa);
     });
-
+    
     this.alugaveis.getById(this.checkoutService.reserva.alugavel_id).subscribe(response => {
       this.alugavel = response;
+      console.log(this.alugavel)
     });
     
     if (this.checkoutService.reserva.paypal_plan_id) {

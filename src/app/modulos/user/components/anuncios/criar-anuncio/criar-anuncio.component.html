@@ -305,10 +305,23 @@
                         <mat-hint>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.</mat-hint>
                     </mat-form-field>
     
-                    <div class="w-100">
+                    <div class="w-100" style="margin-top: 10px;">
                         <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de serviço</span>
-                        <mat-slider class="w-100 showFixLabel" thumbLabel [step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
-                        <mat-hint>Taxa de serviço visível ao cliente</mat-hint>
+                        <div>
+                            <div class="d-flex flex-row justify-content-between" style="padding: 0 2px;">
+                                <div *ngFor="let item of generateThumb(); last as isLast" class="d-flex flex-row">
+                                    <span class="customThumb" style="text-align: center;">{{item}}</span>
+                                    <div *ngIf="!isLast" style="display: inline-block; border-bottom: 1px solid gray;"></div>
+                                </div>
+                            </div>
+                            <mat-slider class="w-100 showFixLabel"[step]="max_taxa/2" tickInterval="1" min="0" [max]="max_taxa" formControlName='taxa'></mat-slider>
+                        </div>
+                        <mat-hint>*Valores em porcentagem.</mat-hint>
+                    </div>
+
+                    <div class="taxaInfo" *ngIf="taxa.value != 0">
+                        <span class="taxaInfoTitle">Sobre a taxa</span>
+                        <span class="taxaInfoText">Uma taxa de {{max_taxa}}% sempre será cobrada, no entanto ao selecionar outra porcentagem, o valor da taxa selecionada será imbutido ou não no valor do dia ou mês, conforme na simulação. O valor da taxa selecionada não altera o valor total.</span>
                     </div>
                 </div>
                 
@@ -334,12 +347,48 @@
                                         <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
                                     </mat-form-field>
                                 </div>
-                                <span style="font-size: 20px; font-weight: 500;">Custo por dia: R$ {{ calculaCustoDia().toFixed(2) }}</span>
-                                <span style="font-size: 20px; font-weight: 500;">Custo por mês: R$ {{ calculaCustoMes().toFixed(2) }}</span>
-                                <span style="font-size: 20px; font-weight: 500;">Taxa de servico: R$ {{ calculaTaxa().toFixed(2) }}</span>
-                                <span style="font-size: 20px; font-weight: 500;">Total por dia: R$ {{ calculaTotal().toFixed(2) }}</span>
-                                <span style="font-size: 20px; font-weight: 500;">Total por Mês: R$ {{ calculaTotalMes().toFixed(2) }}</span>
-                                <span style="font-size: 20px; font-weight: 500; margin-top: 5px;">Total no periodo: R$ {{ calculaTotalPeriodo().toFixed(2)}}</span>
+
+                                <div class="simulacao simulacaoDia">
+                                    <span class="simulacaoTitle">Dia</span>
+                                    <div class="simulacaoValores">
+                                        <span>Custo por dia</span>
+                                        <span>{{ calculaCustoDia() | currency:'BRL':true }}</span>
+                                    </div>
+                                    <div class="simulacaoValores">
+                                        <span>Taxa de serviço</span>
+                                        <span>{{ calculaTaxa() | currency:'BRL':true }}</span>
+                                    </div>
+                                    <div class="simulacaoValores">
+                                        <span>Total por dia</span>
+                                        <span>{{calculaTotal() | currency:'BRL':true}}</span>
+                                    </div>
+                                    <div class="simulacaoTotal">
+                                        <span>Total</span>
+                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
+                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">Selecione um intervalo menor que 30 dias</span>
+                                    </div>
+                                </div>
+
+                                <div class="simulacao">
+                                    <span class="simulacaoTitle">Mês</span>
+                                    <div class="simulacaoValores">
+                                        <span>Custo por mês</span>
+                                        <span>{{ calculaCustoMes() | currency:'BRL':true }}</span>
+                                    </div>
+                                    <div class="simulacaoValores">
+                                        <span>Taxa de serviço</span>
+                                        <span>{{ calculaTaxaMes() | currency:'BRL':true }}</span>
+                                    </div>
+                                    <div class="simulacaoValores">
+                                        <span>Total por mês</span>
+                                        <span>{{calculaTotalMes() | currency:'BRL':true}}</span>
+                                    </div>
+                                    <div class="simulacaoTotal" ng>
+                                        <span>Total</span>
+                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
+                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">Selecione um intervalo maior que 30 dias</span>
+                                    </div>
+                                </div>
                             </div>
                         </mat-card-content>
                     </mat-card>

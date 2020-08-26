@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="aluguel">
     <mat-card-title>
         <div class="d-flex flex-row cardTitle">
             <span>{{aluguel.alugavel.titulo}}</span>
@@ -33,23 +33,29 @@
 
         <div style="height: 10px;"></div>
 
-        <div class="d-flex flex-row align-items-center justify-content-around nome" *ngIf="locadorBool">
-            <div id="img-perfil">{{ aluguel.locador.nome[0] }}</div>
+        <div class="d-flex flex-row align-items-center justify-content-around nome" *ngIf="aluguel.locador">
+            <div *ngIf="!aluguel.locador.img_perfil" class="imgPerfilLetter">{{ aluguel.locador.nome[0] }}</div>
+            <div *ngIf="aluguel.locador.img_perfil" class="imgPerfil">
+                <img [src]="BACK_BASE_URL + '/imgs/' + aluguel.locador.img_perfil" alt="imagem de perfil do locador">
+            </div>
             <div class="d-flex flex-column flex-wrap">
                 <span class="titulo">Locador</span>
                 <span class="content">{{ aluguel.locador.nome }} {{ aluguel.locador.sobrenome }}</span>
             </div>
         </div>
 
-        <div class="d-flex flex-row align-items-center justify-content-around nome"  *ngIf="locatarioBool">
-            <div id="img-perfil">{{ aluguel.locatario.nome[0] }}</div>
+        <div class="d-flex flex-row align-items-center justify-content-around nome"  *ngIf="aluguel.locatario">
+            <div *ngIf="!aluguel.locatario.img_perfil" class="imgPerfilLetter">{{ aluguel.locatario.nome[0] }}</div>
+            <div *ngIf="aluguel.locatario.img_perfil" class="imgPerfil">
+                <img [src]="BACK_BASE_URL + '/imgs/' + aluguel.locatario.img_perfil" alt="imagem de perfil do locatario">
+            </div>
             <div class="d-flex flex-column flex-wrap">
                 <span class="titulo">Locatário</span>
                 <span class="content">{{ aluguel.locatario.nome }} {{ aluguel.locatario.sobrenome }}</span>
             </div>
         </div>
 
-        <div class="d-flex flex-column flex-wrap contato" *ngIf="locadorBool">
+        <div class="d-flex flex-column flex-wrap contato" *ngIf="aluguel.locador">
             <span class="titulo">Contato</span>
             <span class="content">{{ aluguel.locador.email }}</span>
             <div class="d-flex flex-row">
@@ -58,7 +64,7 @@
             </div>
         </div>
 
-        <div class="d-flex flex-column flex-wrap contato" *ngIf="locatarioBool">
+        <div class="d-flex flex-column flex-wrap contato" *ngIf="aluguel.locatario">
             <span class="titulo">Contato</span>
             <span class="content">{{ aluguel.locatario.email }}</span>
             <div class="d-flex flex-row">
@@ -66,7 +72,5 @@
                 <span class="content" style="padding-left: 5px;">{{ aluguel.locatario.numero_2 }}</span>
             </div>
         </div>
-
-
     </mat-card-content>
 </mat-card>
