@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+@import '../../../../place-et-theme.scss';
+
+.feedback-button {
+    height:40px; 
+    border:solid 3px $pl-verde-escuro;
+    border-radius: 5px;
+    background: gray; 
+    width:100px; 
+    line-height:32px; 
+    -webkit-transform:rotate(-90deg); 
+    font-weight:600; 
+    color:$pl-verde-escuro; 
+    transform:rotate(-90deg);  
+    -ms-transform:rotate(-90deg);  
+    -moz-transform:rotate(-90deg); 
+    text-align:center; 
+    font-size:17px; 
+    position:fixed; 
+    right:-40px; 
+    top:45%; 
+    font-family: "Roboto", helvetica, arial, sans-serif; 
+    z-index:999; 
+}
+
+#feedback-button-blue{
+	font-family: "Roboto", helvetica, arial, sans-serif;
+	float:left;
+	width: 100%;
+	border: #fbfbfb solid 4px;
+	cursor:pointer;
+	background-color: #3498db;
+	color:white;
+	font-size:24px;
+	padding-top:22px;
+	padding-bottom:22px;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+  margin-top:-4px;
+  font-weight:700;
+}
+
+#feedback-button-blue:hover{
+	background-color: rgba(0,0,0,0);
+	color: #0493bd;
+}
+	
+.feedback-button-blue:hover {
+	color: #3498db;
+}

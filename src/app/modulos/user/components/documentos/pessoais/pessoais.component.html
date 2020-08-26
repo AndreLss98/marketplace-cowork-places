@@ -1,0 +1,93 @@
+<mat-table class="mat-elevation-z8 cursor-pointer" [dataSource]="documentos">
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="selectDocument(element)"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="selectDocument(element)">{{element.nome}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="avancado">
+        <mat-header-cell *matHeaderCellDef> Cadastro Avançado? </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="selectDocument(element)">{{element.avancado? 'Sim': 'Não'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-row">
+            <button
+                mat-raised-button
+                class="danger"
+                (click)="deletar(element.id)">Remover</button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<div id="cards-container">
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>Adicionar Documento</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="createForm" (ngSubmit)="saveDocument()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input formControlName="nome" matInput placeholder="Nome">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">   
+                    <mat-label>Icone</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option *ngFor="let icone of icones" [value]="icone">
+                            <div class="d-flex flex-row">
+                                <img [src]="'assets/svg/' + icone" width="35" height="35" />
+                                <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                    <mat-checkbox formControlName="avancado">Cadastro Avançado?</mat-checkbox>
+                </div>
+                <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="documento" class="card">
+        <mat-card-header>
+            <mat-card-title>Alterar Documento</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="editForm" (ngSubmit)="updateDocument()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="nome" placeholder="Nome">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">   
+                    <mat-label>Icone</mat-label>
+                    <mat-select formControlName="icone">
+                        <mat-option *ngFor="let icone of icones" [value]="icone">
+                            <div class="d-flex flex-row">
+                                <img [src]="'assets/svg/' + icone" width="35" height="35" />
+                                <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                    <mat-checkbox formControlName="avancado">Cadastro Avançado?</mat-checkbox>
+                </div>
+                <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

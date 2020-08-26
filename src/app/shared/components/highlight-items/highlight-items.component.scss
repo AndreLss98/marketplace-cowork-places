@@ -1,0 +1,67 @@
+@import '../../../../place-et-theme.scss';
+
+
+.card-body{
+    padding-bottom: 5px;;
+    border-radius: 25px 25px 15px 15px;
+    background-color: inherit !important;
+    cursor: pointer;
+}
+
+.card{
+    border-radius: 25px 25px 15px 15px;
+    max-width: 350px;
+    height: 500px;
+    margin-bottom: 20px;
+    // border: none;
+}
+
+.card:hover{
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+    box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+}
+
+.cardItem{
+    margin: 10px 16px auto 16px;
+}
+
+.carouselImage{
+    object-fit: contain;
+    height: 250px;
+    position: inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bg-image {
+    overflow: hidden;
+    /* The image used */
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    /* Full height */
+    height: 120%;
+    width: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+p.caracteristica {
+    color: gray;
+    font-size: 11px;
+    margin-bottom: 0;
+}
+
+img.caracteristica {
+    width: 24px;
+}
+
+div.clickable-area {
+    cursor: pointer;
+}

@@ -1,0 +1,111 @@
+<mat-table [dataSource]="tipos" class="mat-elevation-z8 cursor-pointer">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nome">
+    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="icone">
+    <mat-header-cell *matHeaderCellDef> Icone </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.icone}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="disponivel">
+    <mat-header-cell *matHeaderCellDef> Disponivel? </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.disponivel? 'Sim':'Não' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="action-row">
+      <button
+        type="button"
+        class="danger"
+        mat-raised-button
+        (click)="deleteTipo(element.id)">Excluir</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setEditComponent(row)"></mat-row>
+</mat-table>
+
+<div id="cards-container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Novo Tipo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="createForm" (ngSubmit)="createTipo()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input formControlName="nome" matInput placeholder="Nome">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Icone</mat-label>
+            <mat-select formControlName="icone">
+              <mat-option *ngFor="let icone of icones" [value]="icone">
+                <div class="d-flex flex-row">
+                  <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
+                  <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                </div>
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+        </mat-form-field>
+    
+        <div>
+            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+        </div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid || createForm.pristine">Criar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="tipo" class="example-card">
+    <mat-card-header>
+      <mat-card-title>Editar Tipo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="updateTipo()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" placeholder="Nome" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Icone</mat-label>
+            <mat-select formControlName="icone" required>
+              <mat-option *ngFor="let icone of icones" [value]="icone">
+                <div class="d-flex flex-row">
+                  <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
+                  <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                </div>
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+        </mat-form-field>
+    
+        <div>
+            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+        </div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

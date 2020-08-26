@@ -1,0 +1,103 @@
+@import '../../../../../../place-et-theme.scss';
+
+#searchBox {
+    // Global
+    border-radius: 20px;
+    width: 60%;
+    // position: fixed;
+    padding: 20px 0;
+
+    // Titulos
+    span {
+        color: black;
+        font-size: 16px;
+    }
+
+    // Localização
+    .inputCidade {
+        color: black;
+        font-size: 14px;
+        background-color: white;
+        border: none;
+        padding-bottom: 6px;
+        border-bottom: 2px solid $pl-gray; 
+    }
+
+    .inputCidade::placeholder{
+        font-size: 14px;
+        color: black;
+    }
+
+    .inputCidade:focus {
+        outline: none;
+    }
+
+    // Tipo de serviço
+    mat-select {
+        border-bottom: 2px solid $pl-gray;   
+    }
+
+    // Valor
+    #searchBoxValue {
+
+        .btn {
+            height: 45px;
+            color: $pl-amarelo;
+            background-color: white;
+            padding-right: 5px;
+            padding-left: 5px;
+            border-radius: 7px;
+            border: 1px solid $pl-gray;
+        }
+
+        input::placeholder {
+            color: black;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .btn:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    // Área
+    #searchBoxArea {
+
+        .btn {
+            height: 45px;
+            color: $pl-amarelo;
+            background-color: white;
+            padding-right: 5px;
+            padding-left: 5px;
+            border-radius: 7px;
+            border: 1px solid $pl-gray;
+        }
+
+        input::placeholder {
+            color: black;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .btn:focus {
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    // Limpar e aplicar filtro.
+    .limpar {
+        width: 100%;
+        // background-color: $pl-amarelo;
+    }
+
+
+    .submit {
+        width: 100%;
+        // background-color: $pl-amarelo;
+    }
+
+}
+

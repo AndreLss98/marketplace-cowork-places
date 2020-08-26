@@ -1,0 +1,252 @@
+@import '../../../place-et-theme.scss';
+
+.content{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .social{
+        padding: 45px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .infoTop{
+        position: relative;
+        z-index: 2;
+        width: 400px;
+        padding: 0px 50px;
+        margin-left: 50px;
+        .infoTopText{
+            line-height: 1.5;
+            font-size: 40px;
+        }
+    }
+
+    .search{
+        background-color: $pl-verde-escuro;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 100px;
+
+        border-radius: 100px 0px 0px 0px;
+
+        .searchTitle{
+            font-weight: bold;
+            font-size: 27px;
+            width: 250px;
+            padding: 25px 0px;
+            z-index: 2;
+            line-height: 1.5;
+        }
+
+        .searchContent{
+            font-size: 16px;
+            width: 250px;
+            padding: 25px 0px;
+            z-index: 2;
+        }
+
+        .searchImg{
+            position: absolute;
+            z-index: 1; 
+            bottom: 0;
+            right:  0;
+            height: 100%;
+        }
+
+        .searchInput{
+            z-index: 2;
+            width: 70%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 25px;
+            input{
+                color: black;
+                font-size: 15px;
+                height: 100%;
+                
+                border: none;
+                box-shadow: none;
+                width: 75%;
+                padding-left: 25px;
+            }
+    
+            input:focus{
+                outline: none;
+            }
+
+            .icon{
+                color: #707070;
+                margin-left: 15px;
+                font-size: 25px;
+            }
+    
+            button{
+                background-color: black;
+                height: 100%;
+                color: white;
+                border-radius: 0px 25px 25px 0px;
+                border: none;
+                padding-left: 40px;
+                padding-right: 40px;
+                padding-bottom: 8px;
+                padding-top: 8px;
+            }
+        }
+    }
+
+    .comoFunciona{
+        position: relative;
+        background-color: black;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        padding: 100px;
+
+        border-radius: 0px 0px 0px 100px;
+        margin-bottom: 150px;
+        overflow: hidden;
+
+        .comoFuncionaImg{
+            position: absolute;
+            z-index: 0; 
+            bottom: 0;
+            left: 0;
+            height: 100%;
+        }
+
+        .comoFuncionaTitle{
+            color: $pl-verde-escuro;
+            font-weight: bold;
+            font-size: 40px;
+            padding: 30px 0px;
+            margin: 0px 30px;
+
+        }
+
+        .comoFuncionaIcon{
+            color: $pl-verde-escuro;
+        }
+
+        .comoFuncionaContent{
+            display: flex;
+            flex-direction: row;
+            width: 250px;
+            padding: 10px 0px;
+            margin: 0px 30px;
+
+            img{
+                height: 22px;
+            }
+        }
+
+        .comoFuncionaText{
+            color: white;
+            padding-left: 10px;
+        }
+    }
+
+    .infoMiddle{
+    
+        padding: 0px 100px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 150px;
+        width: 100%;
+
+        .infoMiddelTitle{
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+
+        .infoMiddleContent{
+            display: flex;
+            flex-direction: row;
+            width: 40%;
+            margin: 20px 0px;
+            
+            img{
+                width: 65px;
+            }
+         
+            .infoMiddleContentTitle{
+                font-size: 25px;
+                font-weight: bold;
+                margin-bottom: 25px;
+            }
+
+            .infoMiddleContentText{
+                font-size: 16px;
+            }
+        }
+    }
+
+    .comoAnunciar{
+        display: flex;
+        flex-direction: column;
+        max-width: 888px;
+        margin: 0 auto 80px 0;
+
+        .comoAnunciarTitle{
+            height: 60px;
+            background-color: $pl-verde-escuro;
+            border-radius: 0 50px 0 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span{
+                font-weight: 500;
+                font-size: 25px;
+                text-align: center;
+            }
+        }
+
+        .comoAnunciarVideo{
+            background-size: contain;
+            width: 100%;
+        }
+    }
+
+    .comoAlugar{
+        display: flex;
+        flex-direction: column;
+        max-width: 888px;
+        margin: 0 auto 80px 0;
+
+        .comoAlugarTitle{
+            height: 60px;
+            background-color: $pl-amarelo;
+            border-radius: 0 50px 0 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span{
+                font-weight: 500;
+                font-size: 25px;
+                text-align: center;
+            }
+        }
+
+        .comoAlugarVideo{
+            background-size: contain;
+            width: 100%;
+        }
+
+
+    }
+}

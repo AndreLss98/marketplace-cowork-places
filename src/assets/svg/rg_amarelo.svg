@@ -1,0 +1,12 @@
+<svg width="187" height="265" viewBox="0 0 187 265" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="265" width="265" height="187" rx="15" transform="rotate(-90 0 265)" fill="#FFCD00"/>
+<rect x="38" y="147" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="132" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="162" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="177" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="192" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="207" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<rect x="38" y="222" width="111" height="1" rx="0.5" fill="black" fill-opacity="0.54"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M93.975 37C80.175 37 69 48.2 69 62C69 75.8 80.175 87 93.975 87C107.8 87 119 75.8 119 62C119 48.2 107.8 37 93.975 37ZM94 82C82.95 82 74 73.05 74 62C74 50.95 82.95 42 94 42C105.05 42 114 50.95 114 62C114 73.05 105.05 82 94 82ZM106.5 55.75C106.5 57.825 104.825 59.5 102.75 59.5C100.675 59.5 99 57.825 99 55.75C99 53.675 100.675 52 102.75 52C104.825 52 106.5 53.675 106.5 55.75ZM85.25 59.5C87.325 59.5 89 57.825 89 55.75C89 53.675 87.325 52 85.25 52C83.175 52 81.5 53.675 81.5 55.75C81.5 57.825 83.175 59.5 85.25 59.5ZM106.775 67C104.775 72.1 99.825 75.75 94 75.75C88.175 75.75 83.225 72.1 81.225 67H106.775Z" fill="black" fill-opacity="0.76"/>
+<rect x="1" y="264" width="263" height="185" rx="14" transform="rotate(-90 1 264)" stroke="black" stroke-opacity="0.54" stroke-width="2"/>
+</svg>

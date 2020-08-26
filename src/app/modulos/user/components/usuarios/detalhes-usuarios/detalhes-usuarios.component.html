@@ -1,0 +1,143 @@
+<mat-card>
+    <div id="headerContainer">
+        <div class="item">
+            <div *ngIf="!user.img_perfil" id="img-perfil-letter">{{ user.nome[0] }}</div>
+            <div *ngIf="user.img_perfil" id="img-perfil">
+                <img [src]="BACK_BASE_URL + '/imgs/' + user.img_perfil" alt="imagem de perfil do usuario">
+            </div>
+        </div>
+        <div class="item">
+            <form class="w-100" [formGroup]="validateForm" (ngSubmit)="validate()">
+                <div id="headerForm">
+                    <div style="margin-right: 10px;">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Status Perfil</mat-label>
+                            <mat-select formControlName="status_cadastro">
+                                <mat-option *ngFor="let stat of status" [value]="stat.value">{{ stat.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="!isLoading; else notLoading">
+                        <button
+                            mat-raised-button
+                            color="accent" type="submit"
+                            [disabled]="validateForm.invalid || validateForm.pristine">Atualizar</button>
+                    </div>
+                    <ng-template #notLoading>
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </ng-template>
+                </div>
+                <mat-form-field *ngIf="validateForm.controls.status_cadastro.value == USUARIO_STATUS.DISAPPROVED.value" class="w-100">
+                    <mat-label>Deixe uma observação</mat-label>
+                    <textarea matInput
+                        maxlength="500"
+                        formControlName="observacao"
+                        placeholder="EX.: Os documentos não são válidos...">
+                    </textarea>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+
+    <mat-card-title>Dados Pessoais</mat-card-title>
+    <mat-card-content>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome</mat-label>
+                    <input matInput value="{{ user.nome + ' ' + user.sobrenome }}"
+                        readonly />
+                </mat-form-field>
+            </td>
+            <td *ngIf="dataNascimento">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Nascimento</mat-label>
+                    <input matInput [value]="dataNascimento " readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput value="{{ user.email }}" readonly />
+                    <mat-hint *ngIf="!user.email_validado" align="end" style="color: red; font-size: 15px;">Email não verificado!</mat-hint>
+                </mat-form-field>
+            </td>
+        </table>
+        <table>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 1</mat-label>
+                    <input matInput value="{{ user.numero_1 }}" readonly />
+                </mat-form-field>
+            </td>
+            <td *ngIf="user.numero_2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefone 2</mat-label>
+                    <input matInput value="{{ user.numero_2 }}" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+    </mat-card-content>
+</mat-card>
+
+<mat-card >
+    <mat-card-title>Dados Bancários</mat-card-title>
+    <mat-card-content>
+        <table *ngIf="user.conta_bancaria; else semDadosBancarios">
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Banco</mat-label>
+                    <input matInput [value]="user.conta_bancaria.banco" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <input matInput [value]="user.conta_bancaria.tipo"  readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Agência</mat-label>
+                    <input matInput [value]="user.conta_bancaria.agencia" readonly />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Número da conta</mat-label>
+                    <input matInput [value]="user.conta_bancaria.numero" readonly />
+                </mat-form-field>
+            </td>
+        </table>
+        <ng-template #semDadosBancarios>
+            <h4>O usuário ainda não cadastrou seus dados bancários.</h4>
+        </ng-template>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-title>Documentos Pessoais</mat-card-title>
+    <mat-card-content>
+
+        <mat-table *ngIf="documentos && documentos.length > 0; else semDocumentos" class="mat-elevation-z8 w-50" [dataSource]="documentos">
+            <ng-container matColumnDef="nome">
+                <mat-header-cell *matHeaderCellDef>Documento</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" class="action-row">
+                    <a mat-flat-button color="primary" target="_blank" [href]="BACK_BASE_URL + '/docs/' + element.url">Visualizar</a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="documentsTableColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: documentsTableColumns;"></mat-row>
+        </mat-table>
+
+        <ng-template #semDocumentos>
+            <h4>O usuário ainda não enviou nenhum documento.</h4>
+        </ng-template>
+    </mat-card-content>
+</mat-card>

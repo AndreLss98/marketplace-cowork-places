@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col"><span mat-dialog-close class="material-icons">close</span></div>
+    <div class="col d-flex justify-content-center"><span mat-dialog-title>Cadastrar</span></div>
+    <div class="col"></div>
+</div>
+
+<div mat-dialog-content>
+    <mat-vertical-stepper linear="true" #signupStepper>
+        <mat-step [stepControl]="primeiroPasso" [editable]="editavel">
+            <form [formGroup]="primeiroPasso">
+                <ng-template matStepLabel>Preencha o seu email!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" name="email" placeholder="Email"
+                     formControlName="email" required email [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="!primeiroPasso.hasError('existe')">Preencha o campo corretamente!</mat-error>
+                    <mat-error *ngIf="primeiroPasso.hasError('existe')">Email já utilizado!</mat-error>
+                </mat-form-field>
+                <div class="d-flex">
+                    <button mat-button mat-raised-button color="primary" (click)="nextStep(signupStepper)">Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="segundoPasso" [editable]="editavel">
+            <form [formGroup]="segundoPasso">
+                <ng-template matStepLabel>Preencha o seus dados pessoais!</ng-template>
+                
+                <mat-form-field class="w-100">
+                    <mat-label>CPF</mat-label>
+                    <input #cpf matInput type="text" name="cpf" maxlength="14" placeholder="xxx.xxx.xxx-xx" formControlName="cpf" (keyup)=formatarCPF(cpf.value) required />
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" name="fname" autocomplete="given-name"  placeholder="Nome" formControlName="nome" required>
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Sobrenome</mat-label>
+                    <input matInput type="text" name="mname" autocomplete="additional-name" placeholder="sobrenome" formControlName="sobrenome" required>
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-50">
+                    <mat-label>Data de nascimento</mat-label>
+                    <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
+                        formControlName="data_nascimento" required [errorStateMatcher]="matcher" (dateChange)='checkAge()'>
+                    <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
+                    <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
+                </mat-form-field>
+
+                <div style="margin-top: 5px;">
+                    <button mat-button mat-raised-button color="primary" type="button" (click)="nextStep(signupStepper)">Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="terceiroPasso" [editable]="editavel">
+            <form [formGroup]="terceiroPasso">
+                <ng-template matStepLabel>Preencha o seus dados para contato!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Telefone 1</mat-label>
+                    <input matInput type="tel" name="phone" autocomplete="tel-national" placeholder="(62) 99999-9999" minlength="14" maxlength="15"
+                        formControlName="tel1" required (keyup)="formatarFone('tel1')">
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Telefone 2</mat-label>
+                    <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999" minlength="14" maxlength="15"
+                    formControlName="tel2" (keyup)="formatarFone('tel2')">
+                    <mat-error>Preencha o campo corretamente!</mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button mat-raised-button color="primary" (click)="nextStep(signupStepper)">Proximo</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="quartoPasso" [editable]="editavel">
+            <form [formGroup]="quartoPasso" (ngSubmit)="nextStep(signupStepper)">
+                <ng-template matStepLabel>Crie uma senha!</ng-template>
+                <mat-form-field class="w-100">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" placeholder="*********" autocomplete="new-password"
+                    formControlName="senha" required minlength="6" maxlength="16">
+                    <mat-error *ngIf="quartoPasso.hasError('lengthMax')">
+                        Senha muito grande!
+                    </mat-error>
+                    <mat-error *ngIf="quartoPasso.hasError('lengthMin')">
+                        Senha muito curta!
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100" style="margin-top: 5px;">
+                    <mat-label>Confirme a senha</mat-label>
+                    <input matInput type="password" autocomplete="new-password"
+                        placeholder="*********" [errorStateMatcher]="matcher"
+                        formControlName="confirmar_senha" required minlength="6" maxlength="16">
+                    <mat-error *ngIf="quartoPasso.hasError('notSame')">
+                        Senhas não conferem!
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button mat-raised-button color="primary" type="submit">Finalizar cadastro</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]='confirmar'>
+            <ng-template matStepLabel>Finalizar</ng-template>
+            <form [formGroup]='confirmar'>
+                <div class="d-flex flex-column">
+                    <!-- <mat-checkbox required formControlName='termo_privacidae'>Eu aceito os <a href="/about/politica_uso" target="_blank">Termos de Uso e serviço da Placeet</a>.</mat-checkbox> -->
+                    <mat-checkbox required formControlName='termo_servico'>Eu aceito e dou meu consentimento quanto a <a href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e Segurança</a>.</mat-checkbox>
+                </div>
+                <re-captcha formControlName='recaptcha'></re-captcha>
+                <div class="w-100" style="margin-top: 10px;">
+                    <button class="w-100" style="font-weight: 500;" type="submit"
+                    mat-button mat-raised-button color="accent" (click)="nextStep(signupStepper)">Concordar e concluir</button>
+                </div>
+                <div class="w-100" style="margin-top: 10px;" [ngStyle]="{'display': loader ? 'block' : 'none'}">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+            </form>
+        </mat-step>
+        
+
+    </mat-vertical-stepper>
+    <div class="d-flex justify-content-center" (click)="entrar()"
+        style="margin-top: 10px; border-top: 1px solid rgb(196, 196, 196); padding-top: 10px;">
+        <span style="font-size: 17px;" class="entrar">Já tem uma conta? <b>Entrar.</b></span>
+    </div>
+</div>

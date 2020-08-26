@@ -1,0 +1,59 @@
+<div [formGroup]="form">
+    <div [ngSwitch]="question.campo.tipo">
+        <div *ngSwitchCase="TIPOS_CAMPOS.INTERVALO.nome">
+            <span>{{ question.pergunta }}</span>
+            <mat-slider class="w-100"
+                thumbLabel
+                [formControlName]="question.nome_campo"
+                [min]="propriedades.min"
+                [max]="propriedades.max"
+                [step]="propriedades.step">
+            </mat-slider>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.AREA_TEXTO.nome">
+            <span class="w-100">{{question.pergunta}}</span>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Digite aqui!</mat-label>
+                <textarea matInput
+                    [formControlName]="question.nome_campo"
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    [cdkAutosizeMinRows]="propriedades.min_rows"
+                    [cdkAutosizeMaxRows]="propriedades.max_rows"
+                    [maxlength]="propriedades.max_length">
+                </textarea>
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome">
+            <span class="w-100">{{question.pergunta}}</span>
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput
+                [formControlName]="question.nome_campo"
+                [placeholder]="propriedades.placeholder"
+                type="text" />
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome">
+            <span class="w-100">{{question.pergunta}}</span>
+            <mat-form-field class="w-100" appearance="outline">
+                <input matInput
+                    [formControlName]="question.nome_campo"
+                    [placeholder]="propriedades.placeholder"
+                    type="number"/>
+            </mat-form-field>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome">
+            <mat-checkbox [formControlName]="question.nome_campo">{{ question.pergunta }}</mat-checkbox>
+        </div>
+        <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{ question.pergunta }}</mat-label>
+                <mat-select [formControlName]="question.nome_campo" [multiple]="propriedades.multiple" >
+                    <mat-option *ngFor="let possibilidade of propriedades.possibilidades" [value]="possibilidade.id">
+                        {{possibilidade.valor}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@import '../../../../place-et-theme.scss';
+
+#footer{
+    
+    font-family: sans-serif;
+    background: $pl-preto;
+    border-top: 1px solid rgba(128, 128, 128, 0.308);
+    position: relative;
+    bottom: 0;
+    height: 195px;
+    // min-width: 85%;
+}
+
+a{
+    color: white;
+    font-weight: lighter;
+    font-size: 14px;
+    padding: 5px 0 5px 0;
+}
+
+
+@media (max-width: 450px){
+    #footer{
+        display: none;
+    }
+}

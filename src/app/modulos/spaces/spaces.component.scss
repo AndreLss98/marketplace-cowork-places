@@ -1,0 +1,139 @@
+@import '../../../place-et-theme.scss';
+
+p.info {
+    color: #00fd00;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#content{
+    
+    padding-bottom: 30px;
+    padding-top: 30px;
+    // padding-left: 50px;
+    padding-right: 50px;
+    background-color: #f4f4f4;
+
+    .myCarousel{
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .endereco{
+        background-color: white;
+        margin-top: 15px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+        border-radius: 15px;
+        // height: 100%;
+    }
+}
+
+.carouselImage{
+    object-fit: contain;
+    height: 572px;
+    position: inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carousel-item{
+    background-color: white;
+    // border: 1px solid rgb(236, 236, 236);
+}
+
+.bg-image {
+    overflow: hidden;
+    /* The image used */
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    /* Full height */
+    height: 120%;
+    width: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+.myCard{
+    background-color: white;
+    border-radius: 15px;
+    padding-top: 15px;
+
+    .btn-reservar{
+        background: linear-gradient( to right, #00fd00, #00ffab);
+        width: 200px !important;
+        height: 50px;
+        border-radius: 15px;
+        font-weight: bold;
+    }
+}
+
+#avaliacoes{
+    background-color: white; 
+    border-top: 1px solid #b1b1b1;
+}
+
+span.nota {
+    color: white;
+    font-size: 20px;
+    border-radius: 7px;
+    background-color: black;
+    padding: 5px 10px 5px 10px;
+}
+
+span.nota-star {
+    width: 24px;
+    height: 24px;
+    color: black;
+    margin-left: 5px;
+}
+
+div.caracteristica {
+    padding: 0;
+}
+
+p.caracteristica {
+    color: gray;
+    font-size: 11px;
+    margin-bottom: 0;
+}
+
+img.caracteristica {
+    width: 24px;
+}
+
+span.endereco {
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+div.more-announcement {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    div{
+        padding: 5px 10px;
+    }
+}
+
+span.action-button-icon {
+    background: #00fd00;
+    border-radius: 25px;
+    padding:10px;
+    cursor: pointer;
+}
+
+@media (max-width: 450px){
+    .more-announcement{
+        div{
+            justify-content: center !important;
+        }
+    }
+}

@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col content">
+    <form>
+        <!-- Entrada / Saida -->
+        <div class="d-flex flex-column">
+            <div>
+                <mat-form-field style="width: 100%">
+                    <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
+                    <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerEntrada" disabled [min]="dados.disponibilidade.min" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field style="width: 100%">
+                    <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
+                    <input style="color: black; font-weight: 500;" matInput [matDatepicker]="pickerSaida" disabled [max]="dados.disponibilidade.max" [min]="dados.disponibilidade.min" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Valores -->
+        <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+            <span>Nº de pessoas</span>
+            <span style="text-align: right; padding-right: 6px;">{{dados.dadosEspaco.npessoas}}</span>
+        </div>
+        <div style="border-bottom: 1px solid black; height: 20px; margin-bottom: 10px;"></div>
+        <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+            <span>CUSTO/TEMPO</span>
+            <span style="text-align: right; padding-right: 6px;">R$ {{dados.valores.valor}}</span>
+        </div>
+        <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
+            <span>TAXAS</span>
+            <span style="text-align: right; padding-right: 6px;">R$ {{dados.valores.taxa}}</span>
+        </div>
+        <div class="d-flex" style="color: black; justify-content: space-between; font-weight: bold;">
+            <span>TOTAL</span>
+            <span style="text-align: right; padding-right: 6px;">R$ {{dados.valores.total}}</span>
+        </div>
+
+        <!-- botão reservar -->
+        <div class="d-flex align-items-center justify-content-center" style="padding: 20px;">
+            <button class="btn btn-reservar" type="submit">RESERVAR</button>
+        </div>
+
+        <!-- Adicionar mais itens à sua reserva. -->
+        <div class="d-flex align-items-center justify-content-center">
+            <a style="color: black; font-weight: 500;" href="">Adicione mais itens à sua reserva.</a>
+        </div>
+
+        <!-- Botões Compartilhar Salvar Localização -->
+        <div class="d-flex align-items-center justify-content-around flex-wrap"
+            style="padding-top: 20px; padding-right: auto; padding-left: auto;">
+            <div class="d-flex flex-column align-items-center">
+                <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">share</span>
+                <span style="font-size: 12px; font-weight: bold;">Compartilhar</span>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">favorite</span>
+                <span style="font-size: 12px; font-weight: bold;">Salvar</span>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <span class="material-icons" style="background: #00fd00; border-radius: 25px; padding:10px">location_on</span>
+                <span style="font-size: 12px; font-weight: bold;">Localização</span>
+            </div>
+        </div>
+
+        <!-- Politica de cancelamento -->
+        <div class="d-flex align-items-center justify-content-center" style="padding: 40px 20px 10px 20px">
+            <a style="color: black; font-weight: 500;" href="">*POLÍTICA DE CANCELAMENTO.</a>
+        </div>
+    </form>
+    </div>
+</div>

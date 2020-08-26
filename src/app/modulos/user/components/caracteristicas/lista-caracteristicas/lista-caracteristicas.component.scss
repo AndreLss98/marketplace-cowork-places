@@ -1,0 +1,13 @@
+#cards-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    margin-top: 50px;
+    max-width: 400px;
+}
+
+.mat-form-field {
+    width: 100%;
+}

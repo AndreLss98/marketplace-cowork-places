@@ -1,0 +1,149 @@
+<mat-horizontal-stepper [linear]="true" #stepper style="min-height: 90vh; margin-top: 100px; margin-bottom: 100px;">
+    <mat-step style="padding: 10px;">
+        <ng-template matStepLabel>Confirmar dados</ng-template>
+
+        <div class="confirmarDadosTitle">
+            <span>Confirmar Dados</span>
+        </div>
+        <div class="confirmarDados">
+            <div class="regras">
+                <span class="titulo">{{saida.diff(entrada, 'days') + 1}} dias em {{alugavel.titulo}}</span>
+                <div class="data">
+                    <div class="d-flex flex-row flex-wrap entrada">
+                        <img src="/assets/svg/calendar.svg" style="width: 40px;">
+                        <div class="d-flex flex-column flex-wrap justify-content-center" style="padding-left: 10px;">
+                            <span style="font-weight: bold">Entrada na {{entrada | date: 'EEEE'}}</span>
+                            <span>{{entrada | date: 'longDate'}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row flex-wrap saida">
+                        <img src="/assets/svg/calendar.svg" style="width: 40px;">
+                        <div class="d-flex flex-column flex-wrap justify-content-center" style="padding-left: 10px;">
+                            <span style="font-weight: bold">Saída na {{saida | date: 'EEEE'}}</span>
+                            <span>{{saida | date: 'longDate'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-elevation-z4 mapa" style=" margin-top: 20px;">
+                    <maps [height]='"326px"' [lngLatPlace]="{ latitude: alugavel.local.latitude, longitude: alugavel.local.longitude }" [static]="true"></maps>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardContent">
+                    <div class="d-flex flex-row flex-wrap header">
+                        <div class="d-flex flex-column">
+                            <span class="titulo">{{alugavel.titulo}}</span>
+                            <span class="content">
+                                {{alugavel.local.rua}},
+                                {{alugavel.local.numero ? alugavel.local.numero : ''}}
+                                {{alugavel.local.bairro}}
+                                {{alugavel.local.complemento != '' ? ', ' + alugavel.local.complemento:''}}
+                            </span>
+                        </div>
+                        <div style="margin-left: 10px;" class="cardImg">
+                            <img class="mat-elevation-z4" [src]=" backUrl + '/imgs/' + alugavel.imagens[0].url">
+                        </div>
+                    </div>
+
+                    <div class="cardValores">
+                        <div class="custoDia">
+                            <span>{{calculaCustoDia(alugavel.taxa, alugavel.valor) | currency:'BRL':true}} x {{saida.diff(entrada, 'days') + 1}} dias</span>
+                            <span>{{calculaTotalPeriodo(alugavel.taxa, alugavel.valor) | currency:'BRL':true}}</span>
+                        </div>
+                        <div class="custoTaxa">
+                            <span>Taxa de serviço</span>
+                            <span>{{calculaTaxa(alugavel.taxa, alugavel.valor) | currency:'BRL':true}}</span>
+                        </div>
+                        <div class="custoTotal">
+                            <span>Total</span>
+                            <span>{{checkoutService.reserva.valor | currency:'BRL':true}}</span>
+                        </div>
+                    </div>
+
+                    <div class="cardAviso">
+                        <span class="cardAvisoTitulo">Prazo de aceite.</span>
+                        <span class="cardAvisoTexto">O Locador tem um prazo de 24horas para confirmar a reserva. Após o aceite, entre em contato com o locador.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end" style="margin-top: 20px; width: 75%; margin-left: auto;
+                margin-right: auto;">
+            <button mat-button mat-raised-button matStepperNext color="primary">Confirmar e prosseguir</button>
+        </div>
+
+    </mat-step>
+    <mat-step [stepControl]='termos'>
+        <form [formGroup]='termos' (ngSubmit)="concordar(stepper)">
+            <ng-template matStepLabel style="word-wrap: break-word;">Termos deserviços</ng-template>
+            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                <button mat-button mat-raised-button type="submit" color="primary">Aceitar e prosseguir</button>
+            </div>
+            <div class="d-flex justify-content-center align-content-center flex-column">
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso
+                    </mat-expansion-panel-header>
+                    <div class="politicas">
+                        <app-md-viewer class="w-100" style="height: 500px; overflow: auto;"
+                            [source]="politica_pagamento"></app-md-viewer>
+                    </div>
+                    <div class="d-flex flex-row" style="margin-top: 10px;">
+                        <mat-checkbox formControlName='termo1' required style="margin-top: auto; margin-bottom: auto;">
+                        </mat-checkbox>
+                        <span style="margin-top: auto; margin-bottom: auto; margin-left: 10px;">Eu aceito as <a
+                                href="/about/politica_pagamento.md">Políticas de Pagamento, Cancelamento e
+                                Reembolso</a>.</span>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                    <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
+                    <div class="politicas">
+                        <app-md-viewer class="w-100" style="height: 500px; overflow: auto;" [source]="politica_uso">
+                        </app-md-viewer>
+                    </div>
+                    <div class="d-flex flex-row" style="margin-top: 10px;">
+                        <mat-checkbox formControlName='termo2' required style="margin-top: auto; margin-bottom: auto;">
+                        </mat-checkbox>
+                        <span style="margin-top: auto; margin-bottom: auto; margin-left: 10px;">Eu aceito as <a
+                                href="/about/politica_uso.md">Políticas de Uso e Responsabilidades</a>.</span>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Pagar e Finalizar!</ng-template>
+        <div class="d-flex justify-content-center">
+            <mat-card class="mat-elevation-z4 card-table" class="w-50">
+                <mat-card-title>
+                    <div class="d-flex justify-content-center w-100">
+                        <img src="assets/imgs/paypal/PP_logo_h_150x38.png">
+                    </div>
+                </mat-card-title>
+                <mat-card-content class="d-flex flex-column flex-wrap">
+                    <div class="d-flex flex-column">
+                        <!-- Copiado da kabum na cara dura mesmo  -->
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">credit_card</mat-icon>
+                            <span class="spanPaypal">Parcelamento</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">security</mat-icon>
+                            <span class="spanPaypal">Máxima proteção com PayPal</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <mat-icon color="primary">airplanemode_active</mat-icon>
+                            <span class="spanPaypal">Acumule milhas</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center w-100" style="margin-top: 10px;">
+                        <div class="w-100" #paypal></div>
+                    </div>
+                    <div class="d-flex justify-content-center w-100">
+                        <img src="assets/imgs/paypal/cc-badges-ppppcmcvdam.png">
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

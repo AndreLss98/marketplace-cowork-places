@@ -1,0 +1,24 @@
+mat-table {
+    margin: 15px;
+}
+
+#cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+.card {
+    margin-top: 50px;
+    max-width: 400px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+button.danger {
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+}
