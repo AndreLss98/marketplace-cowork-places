@@ -12,6 +12,7 @@ export class LocacoesComponent implements OnInit {
   private alugueis;
   public ativos = [];
   public inativos = [];
+  public cancelados = [];
 
 
   constructor(
@@ -30,6 +31,8 @@ export class LocacoesComponent implements OnInit {
         this.ativos.push(aluguel);
       }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value) {
         this.inativos.push(aluguel)
+      }else if(aluguel.status === ALUGUEL_STATUS.CANCELED.value) {
+        this.cancelados.push(aluguel)
       }
     });
   }

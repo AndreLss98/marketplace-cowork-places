@@ -11,9 +11,9 @@ export class MeusAlugueisComponent implements OnInit {
 
   private alugueis;
   // public em_processamento = [];
-  // public cancelados = [];
   public ativos = [];
   public inativos = [];
+  public cancelados = [];
 
   constructor(
     private route : ActivatedRoute
@@ -32,6 +32,8 @@ export class MeusAlugueisComponent implements OnInit {
         this.ativos.push(aluguel);
       }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value) {
         this.inativos.push(aluguel)
+      }else if (aluguel.status === ALUGUEL_STATUS.CANCELED.value) {
+        this.cancelados.push(aluguel);
       }
     });
   }
