@@ -71,6 +71,8 @@ export class InfoComponent implements OnInit {
   public data_nascimento = new FormControl(moment());
 
   public canEditCPF = false;
+  public documentosEnviados: any;
+  public backEndUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
@@ -99,6 +101,7 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.userService.user_data);
     if(!this.userService.user_data) this.login.logout();
     this.imgUrl = this.userService.user_data.img_perfil;
     if(
@@ -107,7 +110,7 @@ export class InfoComponent implements OnInit {
       !this.userService.user_data.data_nascimento ||
       !this.userService.user_data.data_nascimento ||
       !this.userService.user_data.numero_1) this.dadosPessoaisValido =  false;
-  
+
     if(this.userService.user_data.data_nascimento){
       this.userService.user_data.data_nascimento = this.userService.user_data.data_nascimento.split('T')[0];
       this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
@@ -152,7 +155,7 @@ export class InfoComponent implements OnInit {
     if (this.selectedFile) {
       let form = new FormData();
       form.append('file', this.selectedFile, this.selectedFile.name);
-      
+
       this.http.post(`${environment.apiUrl}/usuarios/img-perfil`, form, {
         reportProgress: true,
         observe: 'events'
@@ -195,9 +198,12 @@ export class InfoComponent implements OnInit {
   private configDocumentsTable() {
     this.documentosService.getAll().subscribe((response: any) => {
       this.documentos = response;
+      console.log(this.documentos);
       this.documentosService.getAllSended().subscribe((response: any) => {
-        const documentosEnviados = response.map(documento => documento.documento_id);
-        this.documentos = this.documentos.filter(documento => !documentosEnviados.includes(documento.id));
+        this.documentosEnviados = response;
+        const enviados = response.map(documento => documento.documento_id);
+        this.documentos = this.documentos.filter(documento => !enviados.includes(documento.id));
+        console.log('Documentos: ', this.documentos, " Enviados: ", this.documentosEnviados)
       });
     });
   }
