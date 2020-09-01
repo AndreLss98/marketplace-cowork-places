@@ -1,0 +1,22 @@
+<div *ngIf="!isLoading; else loading">
+    <span class="w-100">Deseja enviar um comentário?</span>
+    <form [formGroup]="cancelForm" (ngSubmit)="cancelContract()">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Digite aqui!</mat-label>
+            <textarea matInput
+                formControlName="comentario"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                maxlength="250">
+            </textarea>
+        </mat-form-field>
+        <Span>Você tem certeza que deseja cancelar a reserva?</Span>
+        <div class="w-100">
+            <button mat-raised-button type="button" (click)="cancelAction()">Não</button>
+            <button mat-raised-button class="danger" type="submit">Sim</button>
+        </div>
+    </form>
+</div>
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>

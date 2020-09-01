@@ -12,6 +12,7 @@ import { AlugueisAtivosComponent } from './components/alugueis-ativos/alugueis-a
 import { RouterModule } from '@angular/router';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
+import { CancelDialogComponent } from './components/alugueis-ativos/cancel-dialog/cancel-dialog.component';
 
 @NgModule({
   declarations: [ 
@@ -19,6 +20,7 @@ import { ImgCircularComponent } from './components/img-circular/img-circular.com
     MdViewerComponent,
     ImgCircularComponent,
     ErrorDialogComponent,
+    CancelDialogComponent,
     HighlightItemsComponent,
     AlugueisAtivosComponent,
   ],
@@ -38,7 +40,8 @@ import { ImgCircularComponent } from './components/img-circular/img-circular.com
     ReactiveFormsModule, 
     ErrorDialogComponent,
     ImgCircularComponent,
-    HighlightItemsComponent, 
+    CancelDialogComponent,
+    HighlightItemsComponent,
     AlugueisAtivosComponent,
   ]
 })

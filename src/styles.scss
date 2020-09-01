@@ -115,3 +115,8 @@ input[type=number] {
   font-weight: lighter;
   src: url('/assets/font/Centrale\ Sans/CentraleSansLight.otf') format("opentype");
 }
+
+button.danger {
+  background-color: red;
+  color: white;
+}

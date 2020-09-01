@@ -23,4 +23,8 @@ export class AluguelService {
 
     return this.http.get<any>(`${environment.apiUrl}/alugueis`, { params });
   }
+
+  public cancelContract(id, comentario) {
+    return this.http.post(`${environment.apiUrl}/alugueis/cancel/${id}`, comentario);
+  }
 }
