@@ -20,12 +20,13 @@ export class CancelDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CancelDialogComponent>,
   ) {
     this.cancelForm = formBuilder.group({
-      comentario: ["", [Validators.maxLength(250)]]
+      comentario: ["", [Validators.maxLength(250)]],
+      canceled_by_locador: [null, [Validators.required]]
     })
   }
 
   ngOnInit(): void {
-
+    this.cancelForm.controls['canceled_by_locador'].setValue(this.data.canceled_by_locador)
   }
 
   cancelAction() {
@@ -34,10 +35,12 @@ export class CancelDialogComponent implements OnInit {
 
   cancelContract() {
     this.isLoading = true;
+    console.log(this.cancelForm.value)
     this.aluguelService.cancelContract(this.data.id, this.cancelForm.value).subscribe(response => {
       this.dialogRef.close();
     }, (error) => {
       this.isLoading = false;
+      console.log(error);
     });
   }
 }

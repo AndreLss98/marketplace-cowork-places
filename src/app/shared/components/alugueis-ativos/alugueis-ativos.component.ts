@@ -34,7 +34,7 @@ export class AlugueisAtivosComponent implements OnInit {
 
   public cancelContract() {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
-      data: { id: this.aluguel.id },
+      data: { id: this.aluguel.id, canceled_by_locador: this.aluguel.locador? false: true },
       hasBackdrop: false
     });
 
