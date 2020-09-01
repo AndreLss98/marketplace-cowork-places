@@ -34,10 +34,7 @@
         <div style="height: 10px;"></div>
 
         <div class="d-flex flex-row align-items-center justify-content-around nome" *ngIf="aluguel.locador">
-            <div *ngIf="!aluguel.locador.img_perfil" class="imgPerfilLetter">{{ aluguel.locador.nome[0] }}</div>
-            <div *ngIf="aluguel.locador.img_perfil" class="imgPerfil">
-                <img [src]="BACK_BASE_URL + '/imgs/' + aluguel.locador.img_perfil" alt="imagem de perfil do locador">
-            </div>
+            <img-circular [firstLetter]="aluguel.locador.nome[0]" [imgUrl]="aluguel.locador.img_perfil"></img-circular>
             <div class="d-flex flex-column flex-wrap">
                 <span class="titulo">Locador</span>
                 <span class="content">{{ aluguel.locador.nome }} {{ aluguel.locador.sobrenome }}</span>
@@ -45,10 +42,7 @@
         </div>
 
         <div class="d-flex flex-row align-items-center justify-content-around nome"  *ngIf="aluguel.locatario">
-            <div *ngIf="!aluguel.locatario.img_perfil" class="imgPerfilLetter">{{ aluguel.locatario.nome[0] }}</div>
-            <div *ngIf="aluguel.locatario.img_perfil" class="imgPerfil">
-                <img [src]="BACK_BASE_URL + '/imgs/' + aluguel.locatario.img_perfil" alt="imagem de perfil do locatario">
-            </div>
+            <img-circular [firstLetter]="aluguel.locatario.nome[0]" [imgUrl]="aluguel.locatario.img_perfil"></img-circular>
             <div class="d-flex flex-column flex-wrap">
                 <span class="titulo">Locatário</span>
                 <span class="content">{{ aluguel.locatario.nome }} {{ aluguel.locatario.sobrenome }}</span>
