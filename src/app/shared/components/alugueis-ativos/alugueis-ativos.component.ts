@@ -1,5 +1,5 @@
 import { FormBuilder } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
 
@@ -16,6 +16,7 @@ import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 export class AlugueisAtivosComponent implements OnInit {
   
   @Input('aluguel') aluguel: any;
+  @Output('changeContracts') changeContracts = new EventEmitter();
   readonly ALUGUEL_STATUS = ALUGUEL_STATUS;
 
   constructor(
@@ -32,9 +33,21 @@ export class AlugueisAtivosComponent implements OnInit {
   }
 
   public cancelContract() {
-    this.dialog.open(CancelDialogComponent, {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
       data: { id: this.aluguel.id },
       hasBackdrop: false
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.changeContracts.emit('contracts-change');
+    })
+  }
+
+  public acceptContract() {
+    this.aluguelService.acceptContract(this.aluguel.id).subscribe(response => {
+      this.changeContracts.emit('contracts-change');
+    }, (error) => {
+      console.log(error);
     });
   }
 }
