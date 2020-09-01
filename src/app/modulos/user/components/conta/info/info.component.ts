@@ -57,7 +57,7 @@ export class InfoComponent implements OnInit {
   public dataNascimento = '';
   public selectedFile: File = null;
 
-  public imgName;
+  public imgUrl;
   public bankAccountTypes = [ 'Conta Corrente', 'Conta Poupança' ];
 
   public bancos: any = [];
@@ -100,9 +100,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.userService.user_data) this.login.logout();
-
-    if (this.userService.user_data.img_perfil) this.imgName = `${environment.apiUrl}/imgs/${this.userService.user_data.img_perfil}`;
-    
+    this.imgUrl = this.userService.user_data.img_perfil;
     if(
       !this.userService.user_data.cpf ||
       !this.userService.user_data.email_validado ||
@@ -143,7 +141,7 @@ export class InfoComponent implements OnInit {
     this.selectedFile = <File>event.target.files[0];
     let reader = new FileReader();
     reader.onload = (read) => {
-      this.imgName = read.target.result;
+      this.imgUrl = read.target.result;
       this.updateNewImage();
     };
 
@@ -162,7 +160,7 @@ export class InfoComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
-          this.imgName = `${environment.apiUrl}/imgs/${event.body.image_name}`;
+          this.imgUrl = `${environment.apiUrl}/imgs/${event.body.image_name}`;
           this.selectedFile = null;
         }
       }, (error) => {

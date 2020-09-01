@@ -11,11 +11,13 @@ import { HighlightItemsComponent } from './components/highlight-items/highlight-
 import { AlugueisAtivosComponent } from './components/alugueis-ativos/alugueis-ativos.component';
 import { RouterModule } from '@angular/router';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 
 @NgModule({
   declarations: [ 
     MapsComponent,
     MdViewerComponent,
+    ImgCircularComponent,
     ErrorDialogComponent,
     HighlightItemsComponent,
     AlugueisAtivosComponent,
@@ -35,6 +37,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MdViewerComponent, 
     ReactiveFormsModule, 
     ErrorDialogComponent,
+    ImgCircularComponent,
     HighlightItemsComponent, 
     AlugueisAtivosComponent,
   ]

@@ -8,10 +8,10 @@
 </div>
 
 <mat-card class="mat-elevation-z4 card-table">
-    <div *ngIf="!imgName" id="img-perfil-letter" (click)="imgInput.click()">{{ userService.user_data.nome[0] }}</div>
-    <div *ngIf="imgName" id="img-perfil" (click)="imgInput.click()">
-        <img [src]="imgName" alt="imagem de perfil do usuario">
-    </div>
+    <img-circular
+        [firstLetter]="userService.user_data.nome[0]"
+        [imgUrl]="imgUrl"
+        (click)="imgInput.click()"></img-circular>
     <input hidden  #imgInput type="file" (change)="onFileSelected($event)">
     
     <mat-card-title class="d-flex flex-row">

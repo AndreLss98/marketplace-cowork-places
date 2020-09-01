@@ -1,0 +1,6 @@
+<div>
+    <div *ngIf="!imgUrl" id="img-perfil-letter">{{ firstLetter }}</div>
+    <div *ngIf="imgUrl" id="img-perfil">
+        <img [src]="imgUrl" alt="imagem de perfil do usuario">
+    </div>
+</div>
