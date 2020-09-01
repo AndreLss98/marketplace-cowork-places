@@ -31,7 +31,7 @@ export class HighlightComponent implements OnInit {
     // let width = $(window).width();
     // if(width < 992){
     //   this.cardClass = "col-xl-6 d-flex justify-content-center";
-      // 
+      //
     // }else if(width < 1200){
     //   this.cardClass = "col-4";
     //   this.fetchAlugaveis(2);
@@ -43,10 +43,8 @@ export class HighlightComponent implements OnInit {
 
   private fetchAlugaveis(quantity: number) {
     this.highlights.getSome(quantity, 1).subscribe(response => {
+      console.log(response)
       this.rooms = response.results;
-    });
-    this.highlights.getSome(quantity, 2).subscribe(response => {
-      this.spaces = response.results;
     });
   }
 

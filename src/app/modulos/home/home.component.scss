@@ -56,7 +56,7 @@
 
         .searchImg{
             position: absolute;
-            z-index: 1; 
+            z-index: 1;
             bottom: 0;
             right:  0;
             height: 100%;
@@ -75,13 +75,13 @@
                 color: black;
                 font-size: 15px;
                 height: 100%;
-                
+
                 border: none;
                 box-shadow: none;
                 width: 75%;
                 padding-left: 25px;
             }
-    
+
             input:focus{
                 outline: none;
             }
@@ -91,7 +91,7 @@
                 margin-left: 15px;
                 font-size: 25px;
             }
-    
+
             button{
                 background-color: black;
                 height: 100%;
@@ -113,7 +113,7 @@
 
         display: flex;
         flex-direction: row;
-        padding: 100px;
+        // padding: 0100px;
 
         border-radius: 0px 0px 0px 100px;
         margin-bottom: 150px;
@@ -121,7 +121,7 @@
 
         .comoFuncionaImg{
             position: absolute;
-            z-index: 0; 
+            z-index: 0;
             bottom: 0;
             left: 0;
             height: 100%;
@@ -133,6 +133,7 @@
             font-size: 40px;
             padding: 30px 0px;
             margin: 0px 30px;
+            line-height: 1.2;
 
         }
 
@@ -141,6 +142,16 @@
         }
 
         .comoFuncionaContent{
+          display: flex;
+          flex-direction: column;
+          z-index: 2;
+          float: right;
+          height: 100%;
+          max-width: 620px;
+          margin: 100px 5vw 100px auto;
+        }
+
+        .comoFuncionaContentText{
             display: flex;
             flex-direction: row;
             width: 250px;
@@ -159,11 +170,11 @@
     }
 
     .infoMiddle{
-    
+
         padding: 0px 100px;
         display: flex;
         flex-direction: column;
-        margin-bottom: 150px;
+        margin-bottom: 50px;
         width: 100%;
 
         .infoMiddelTitle{
@@ -177,11 +188,11 @@
             flex-direction: row;
             width: 40%;
             margin: 20px 0px;
-            
+
             img{
                 width: 65px;
             }
-         
+
             .infoMiddleContentTitle{
                 font-size: 25px;
                 font-weight: bold;
@@ -198,7 +209,7 @@
         display: flex;
         flex-direction: column;
         max-width: 888px;
-        margin: 0 auto 80px 0;
+        margin: 50px auto 80px 0;
 
         .comoAnunciarTitle{
             height: 60px;
@@ -249,4 +260,16 @@
 
 
     }
+}
+
+.highligth{
+  margin: 50px 0;
+  background: linear-gradient( to top, $pl-verde-escuro 55%, #ffffff 40%);
+  border-radius: 0px 0px 0px 50px;
+}
+
+@media (max-width: 1200px){
+  .comoFuncionaImg{
+    display: none;
+  }
 }

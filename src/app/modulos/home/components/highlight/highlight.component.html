@@ -1,30 +1,12 @@
-<div class="content" id="highlight" *ngIf="(spaces && spaces.length > 0) || (rooms && rooms.length > 0)">
-    <div class="row" *ngIf="spaces && spaces.length > 0">
-        <div class="{{cardClass}}" style="margin-bottom: 30px">
-            <div class="highlightInfo">
-                <h4>Mais dinâmica pro seu negócio. Mais facilidade pro seu
-                    dia-a-dia.</h4>
-                <br>
-                <p>Trabalhar em um espaço totalmente equipado para a sua necessidade, sem se prender definitivamente há um mesmo local, é fácil, prático e pode ser ainda mais rentável para o seu negócio.</p>
-                <br>
-                <button class="btn btn-ofertas-verde" routerLink="/search">Ver mais ofertas</button>
-            </div>
-        </div>
-        <div class="highlightCards">
-            <app-highlight-items [data]="space" *ngFor="let space of spaces"></app-highlight-items>
-        </div>
-    </div>
-    <div style="height: 60px;" ></div>
-    <div class="d-flex flex-row flex-wrap" *ngIf="rooms && rooms.length > 0">
-        <div class="highlightInfo">
-            <h4 style="font-weight: 500; font-size: 30px;">Escolha onde trabalhar!</h4>
-            <br>
-            <p>Mesas compartilhadas com serviços que facilitam sua vida.</p>
-            <br>
-            <button class="btn btn-ofertas-preto" routerLink="/search">Ver mais ofertas</button>
-        </div>
-        <div class="highlightCards" >
-            <app-highlight-items [data]="room" *ngFor="let room of rooms"></app-highlight-items>
-        </div>
-    </div>
+<div class="d-flex flex-row flex-wrap" *ngIf="rooms && rooms.length > 0">
+  <div class="highlightInfo">
+      <h4 style="font-weight: 500; font-size: 30px;">Escolha onde trabalhar!</h4>
+      <br>
+      <p>Mesas compartilhadas com serviços que facilitam sua vida.</p>
+      <br>
+      <button class="btn btn-ofertas-preto" routerLink="/search">Ver mais ofertas</button>
+  </div>
+  <div class="highlightCards" >
+      <app-highlight-items [data]="room" *ngFor="let room of rooms"></app-highlight-items>
+  </div>
 </div>
