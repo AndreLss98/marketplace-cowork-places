@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   templateUrl: './locacoes.component.html',
@@ -14,9 +15,9 @@ export class LocacoesComponent implements OnInit {
   public inativos = [];
   public cancelados = [];
 
-
   constructor(
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +35,16 @@ export class LocacoesComponent implements OnInit {
       }else if(aluguel.status === ALUGUEL_STATUS.CANCELED.value) {
         this.cancelados.push(aluguel)
       }
+    });
+  }
+
+  onContractsChange() {
+    this.userService.getAlugueis(true).subscribe(response => {
+      this.alugueis = response;
+      this.ativos = [];
+      this.inativos = [];
+      this.cancelados = [];
+      this.processaAlugueis();
     });
   }
 }

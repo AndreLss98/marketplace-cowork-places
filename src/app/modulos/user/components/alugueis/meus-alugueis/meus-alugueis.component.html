@@ -2,14 +2,14 @@
     <mat-tab [label]="'Ativos ('+ ativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px;" *ngFor="let aluguel of ativos">
-                <app-alugueis-ativos [aluguel]="aluguel"></app-alugueis-ativos>
+                <app-alugueis-ativos [aluguel]="aluguel" (changeContracts)="onContractChanges()"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>
     <mat-tab [label]="'Em análise ('+ inativos.length +')'">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px;" *ngFor="let aluguel of inativos">
-                <app-alugueis-ativos [aluguel]="aluguel"></app-alugueis-ativos>
+                <app-alugueis-ativos [aluguel]="aluguel" (changeContracts)="onContractChanges()"></app-alugueis-ativos>
             </div>
         </div>
     </mat-tab>
@@ -18,7 +18,7 @@
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px;" *ngFor="let aluguel of cancelados">
                 <div>
-                    <app-alugueis-ativos [aluguel]="aluguel"></app-alugueis-ativos>
+                    <app-alugueis-ativos [aluguel]="aluguel" (changeContracts)="onContractChanges()"></app-alugueis-ativos>
                     <div class="comment-footer mat-elevation-z2">
                         <span class="comment-title">Comentário: </span>
                         <span class="comment-description" *ngIf="aluguel.comentario"> {{ aluguel.comentario }}</span>

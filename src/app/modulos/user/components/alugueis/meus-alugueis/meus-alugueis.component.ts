@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   templateUrl: './meus-alugueis.component.html',
@@ -16,13 +17,12 @@ export class MeusAlugueisComponent implements OnInit {
   public cancelados = [];
 
   constructor(
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.alugueis = this.route.snapshot.data.alugueis;
-    console.log(this.alugueis)
-    
     this.processaAlugueis();
   }
 
@@ -38,4 +38,13 @@ export class MeusAlugueisComponent implements OnInit {
     });
   }
 
+  onContractChanges() {
+    this.userService.getAlugueis().subscribe(response => {
+      this.alugueis = response;
+      this.ativos = [];
+      this.inativos = [];
+      this.cancelados = [];
+      this.processaAlugueis();
+    })
+  }
 }
