@@ -35,7 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './criar-anuncio.component.html',
   styleUrls: ['./criar-anuncio.component.scss'],
   providers: [
-    { 
+    {
       provide: MAT_DATE_LOCALE,
       useValue: 'pt-BR'
     },
@@ -56,10 +56,10 @@ export class CriarAnuncioComponent implements OnInit {
   public image_spinner = false;
 
   // caminho imagem documento espaço
-  public documentoEspacoImg = 'url("/assets/svg/documento_espaco_verde.svg")' 
-  public documentoEspacoImgAmarelo = 'url("/assets/svg/documento_espaco_amarelo.svg")' 
-  public cnhImg = 'url("/assets/svg/cnh_verde.svg")' 
-  public cnhImgAmarelo = 'url("/assets/svg/cnh_amarelo.svg")' 
+  public documentoEspacoImg = 'url("/assets/svg/documento_espaco_verde.svg")'
+  public documentoEspacoImgAmarelo = 'url("/assets/svg/documento_espaco_amarelo.svg")'
+  public cnhImg = 'url("/assets/svg/cnh_verde.svg")'
+  public cnhImgAmarelo = 'url("/assets/svg/cnh_amarelo.svg")'
 
   // Permite a edição dos campos;
   public editavel = true;
@@ -81,7 +81,7 @@ export class CriarAnuncioComponent implements OnInit {
   public entrada = moment();
   public saida = moment();
 
-  // Tipos 
+  // Tipos
   public categorias;
   // Estados e distritos
   public estados;
@@ -136,7 +136,7 @@ export class CriarAnuncioComponent implements OnInit {
   taxa = new FormControl(0, [Validators.required]);
   custo_dia = new FormControl('', [Validators.required, Validators.pattern(CURRENCY_PATTERN)]);
   custo_mes = new FormControl(null, [Validators.pattern(CURRENCY_PATTERN)]);
-  
+
   // imagens
   public imagens = [];
 
@@ -202,26 +202,26 @@ export class CriarAnuncioComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarCaracteristicas();
-    
+
     this.route.queryParams.subscribe(response => {
       if(response.edit){
         this.editMode = response.edit;
         this.espaco_id = response.id;
-        
+
         this.escritura.disable();
         this.loadData();
       }
     }).unsubscribe();
-    
-    
+
+
     this.ibge.getEstados().subscribe( response => {
       this.estados = response;
     });
-    
+
     this.tipos.getAll().subscribe( response => {
       this.categorias = response;
     });
-    
+
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = response.taxa;
       this.generateThumb();
@@ -311,12 +311,12 @@ export class CriarAnuncioComponent implements OnInit {
   public carregarDocumento(event, field){
     //console.log(event);
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.pdf)$/;
-   
-    if (!allowedExtensions.exec(event.target.files.item(0).name)) { 
+
+    if (!allowedExtensions.exec(event.target.files.item(0).name)) {
       this[field].value = '';
       // event.target.files = [];
       this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
-      return false; 
+      return false;
     }else{
       this.alugavelService.saveDoc(event.target.files.item(0), field).subscribe(response=>{
         let doc = {
@@ -325,9 +325,9 @@ export class CriarAnuncioComponent implements OnInit {
         }
         this.documentos.push(doc);
       })
-      // console.log(this.files); 
+      // console.log(this.files);
       // this.files.push(event.target.files.item(0))
-    }       
+    }
   }
 
   public checkBoxChange(elemento) {
@@ -355,7 +355,7 @@ export class CriarAnuncioComponent implements OnInit {
       if(!allowedExtensions.exec(mime)){
         this.image_spinner = false;
         this.snackBar.open('Formato invalido!', 'Ok', {duration: 5000})
-        return false; 
+        return false;
       }
       this.imageCompress.compressFile(image, 100, 50).then(
         result => {
@@ -437,7 +437,7 @@ export class CriarAnuncioComponent implements OnInit {
   public calculaTotalPeriodo():number {
     let b = this.entrada;
     let a = this.saida;
-    if(a == undefined || b == undefined){ 
+    if(a == undefined || b == undefined){
       return Number(1 * this.calculaTotal());
     } else  if ((a.diff(b, 'days') + 1) > 30 && this.custo_mes.value) {
       return ((a.diff(b, 'days') + 1) * this.calculaTotalMes()) / 31;
@@ -509,7 +509,7 @@ export class CriarAnuncioComponent implements OnInit {
       }, 1);
     }
   }
-  
+
   public addInfo(){
     if(this.info_text.value == '' || this.info_text.value == undefined) return;
     if(this.info.length >= INFORMACOES_ADICIONAIS_LIMITE){
@@ -550,7 +550,7 @@ export class CriarAnuncioComponent implements OnInit {
     alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_VAGAS, valor: this.vagas.value});
     alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.HORARIO_FUNCIONAMENTO, valor: this.horario_funcionamento.value});
     alugavel_caracteristicas.push({caracteristica_id: ENUM_ALUGAVEL_CARACTERISTICAS.QUANTIDADE_PESSOAS, valor: this.numero_pessoas.value});
-    
+
     this.caracteristicas.forEach(element => {
       alugavel_caracteristicas.push({caracteristica_id: element.id, valor: element.value.toString()})
     });
@@ -559,7 +559,7 @@ export class CriarAnuncioComponent implements OnInit {
     this.documentos.forEach(element => {
       alugavel_doc.push(element.id);
     });
-    
+
     let alugavel_imagens = [];
     this.imagens.forEach(element => {
       alugavel_imagens.push(element.id);
@@ -607,11 +607,9 @@ export class CriarAnuncioComponent implements OnInit {
       this.taxa.setValue(Number(response.taxa));
       this.custo_dia.setValue(Number(response.valor));
       this.custo_mes.setValue(Number(response.valor_mes));
-      
+
       // Carrega dados cadastrais
-      this.cep.disable()
-      this.numero.disable();
-      this.complemento.disable();
+
       this.titulo.setValue(response.titulo);
       this.tipo.setValue(response.tipo.id);
       this.descricao.setValue(response.descricao);
@@ -621,13 +619,16 @@ export class CriarAnuncioComponent implements OnInit {
       this.complemento.setValue(response.local.complemento);
       this.numero.setValue(response.local.numero);
       this.bairro.setValue(response.local.bairro);
+      this.cep.enable()
+      this.numero.enable();
+      this.complemento.enable();
       this.proprietario.setValue(response.proprietario.toString());
       this.documento_proprietario.disable();
 
       response.documentos.forEach(element => {
         this.documentos.push({nome: element.nome, id: element.id});
       });
-      
+
       response.imagens.forEach(element => {
         this.imagens.push({
           id: element.id,
