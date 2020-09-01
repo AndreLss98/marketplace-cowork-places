@@ -319,12 +319,12 @@
                         <mat-hint>*Valores em porcentagem.</mat-hint>
                     </div>
 
-                    <div class="taxaInfo" *ngIf="taxa.value != 0">
+                    <div class="taxaInfo">
                         <span class="taxaInfoTitle">Sobre a taxa</span>
-                        <span class="taxaInfoText">Uma taxa de {{max_taxa}}% sempre será cobrada, no entanto ao selecionar outra porcentagem, o valor da taxa selecionada será imbutido ou não no valor do dia ou mês, conforme na simulação. O valor da taxa selecionada não altera o valor total.</span>
+                        <span class="taxaInfoText">Uma taxa de {{max_taxa}}% sempre será cobrada, selecione a porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente embutida no valor da diária ou do mensal.</span>
                     </div>
                 </div>
-                
+
                 <div class="col">
                     <mat-card>
                         <mat-card-title class="text-center">Simulação de valores</mat-card-title>

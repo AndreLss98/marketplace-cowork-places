@@ -4,11 +4,11 @@
             <mat-card class="myCard" routerLink="/user/anuncios/criaranuncio" style="margin: 5px; outline: none;">
                 <div class="d-flex h-100 align-items-center justify-content-center flex-column">
                     <mat-icon>add</mat-icon>
-                    <span>Adicionar um espaço</span>  
+                    <span>Adicionar um espaço</span>
                 </div>
             </mat-card>
             <div style="margin: 5px; position: relative;" *ngFor="let aprovados of espacos_aprovados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu' 
+                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
                     [matMenuTriggerData]='{id: aprovados.id, status: aprovados.status}'
                     style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -19,7 +19,12 @@
     </mat-tab>
     <mat-tab [label]="'Em avaliação '+ espacos_em_avaliaco.length" style="margin-bottom: 10px;">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px;" *ngFor="let aguardando of espacos_em_avaliaco">
+            <div style="margin: 5px; position: relative;" *ngFor="let aguardando of espacos_em_avaliaco">
+                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
+                    [matMenuTriggerData]='{id: aguardando.id, status: aguardando.status}'
+                    style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
                 <app-highlight-items [data]='aguardando'></app-highlight-items>
             </div>
         </div>
@@ -27,7 +32,7 @@
     <mat-tab [label]="'Reprovados '+ espacos_reprovados.length" style="margin-bottom: 10px;">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px; position: relative;" *ngFor="let reprovados of espacos_reprovados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu' 
+                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
                     [matMenuTriggerData]='{id: reprovados.id, status: reprovados.status}'
                     style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -45,7 +50,7 @@
     <mat-tab [label]="'Desativados '+ espacos_desativados.length" style="margin-bottom: 10px;">
         <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
             <div style="margin: 5px; position: relative;" *ngFor="let removidos of espacos_desativados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu' 
+                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
                     [matMenuTriggerData]='{id: removidos.id, status: removidos.status}'
                     style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>

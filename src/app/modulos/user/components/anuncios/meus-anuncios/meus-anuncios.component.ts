@@ -25,13 +25,7 @@ export class MeusAnunciosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.alugavel.getAllByUser().subscribe(response => {
-      this.espacos_aprovados = response.filter(espaco =>  {return espaco.status == ALUGAVEL_STATUS.APPROVED.value});
-      this.espacos_em_avaliaco = response.filter(espaco => { return espaco.status ==  ALUGAVEL_STATUS.WAITING.value});
-      this.espacos_reprovados = response.filter(espaco => {return espaco.status ==  ALUGAVEL_STATUS.DISAPPROVED.value});
-      this.espacos_desativados = response.filter(espaco => {return espaco.status ==  ALUGAVEL_STATUS.REMOVED.value});
-      console.log(response);
-    });
+    this.carregaAlugavel();
   }
 
   editSpace(idSpace){
@@ -46,7 +40,17 @@ export class MeusAnunciosComponent implements OnInit {
       update = 'waiting'
     }
     this.alugavel.alterAvaible(id, update).subscribe(res => {
-      window.location.reload();
+      this.carregaAlugavel();
+    });
+  }
+
+  carregaAlugavel(){
+    this.alugavel.getAllByUser().subscribe(response => {
+      this.espacos_aprovados = response.filter(espaco =>  {return espaco.status == ALUGAVEL_STATUS.APPROVED.value});
+      this.espacos_em_avaliaco = response.filter(espaco => { return espaco.status ==  ALUGAVEL_STATUS.WAITING.value});
+      this.espacos_reprovados = response.filter(espaco => {return espaco.status ==  ALUGAVEL_STATUS.DISAPPROVED.value});
+      this.espacos_desativados = response.filter(espaco => {return espaco.status ==  ALUGAVEL_STATUS.REMOVED.value});
+      console.log(response);
     });
   }
 }
