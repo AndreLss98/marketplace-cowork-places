@@ -101,7 +101,6 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userService.user_data);
     if(!this.userService.user_data) this.login.logout();
     this.imgUrl = this.userService.user_data.img_perfil;
     if(
@@ -198,9 +197,10 @@ export class InfoComponent implements OnInit {
   private configDocumentsTable() {
     this.documentosService.getAll().subscribe((response: any) => {
       this.documentos = response;
-      console.log(this.documentos);
+      console.log("Documentos: ", this.documentos);
       this.documentosService.getAllSended().subscribe((response: any) => {
         this.documentosEnviados = response;
+        console.log("Docs response: ", response);
         const enviados = response.map(documento => documento.documento_id);
         this.documentos = this.documentos.filter(documento => !enviados.includes(documento.id));
         console.log('Documentos: ', this.documentos, " Enviados: ", this.documentosEnviados)

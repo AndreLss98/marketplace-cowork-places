@@ -43,7 +43,6 @@ export class HighlightComponent implements OnInit {
 
   private fetchAlugaveis(quantity: number) {
     this.highlights.getSome(quantity, 1).subscribe(response => {
-      console.log(response)
       this.rooms = response.results;
     });
   }

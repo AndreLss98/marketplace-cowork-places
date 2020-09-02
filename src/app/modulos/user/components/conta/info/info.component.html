@@ -199,11 +199,6 @@
                 <td mat-cell *matCellDef="let element" class="w-25"> {{element.nome}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="Arquivo">
-                <th mat-header-cell *matHeaderCellDef>Arquivo</th>
-                <td mat-cell *matCellDef="let element">{{ element.arquivo }}</td>
-            </ng-container>
-
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element">
@@ -230,15 +225,11 @@
               <td mat-cell *matCellDef="let element" class="w-25"> {{element.nome}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="Arquivo">
-              <th mat-header-cell *matHeaderCellDef>Arquivo</th>
-              <td mat-cell *matCellDef="let element">{{ element.arquivo }}</td>
-          </ng-container>
-
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element" class="d-flex justify-content-center">
-               <img [src]=" backEndUrl + '/docs/' + element.url" height="250px" style="margin: 10px; object-fit: contain;">
+                <a mat-stroked-button [href]="backEndUrl + '/docs/' + element.url" target="_blank">Visualizar</a>
+               <!-- <img [src]="" height="250px" style="margin: 10px; object-fit: contain;"> -->
                 <!-- <button mat-flat-button color="primary">Enviar</button> -->
             </td>
         </ng-container>

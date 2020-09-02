@@ -22,6 +22,20 @@
 
         <div class="d-flex flex-row justify-content-around">
             <div class="d-flex flex-column flex-wrap data">
+                <span class="titulo">Data do Contrato</span>
+                <span class="content">{{aluguel.data_criacao | date: 'longDate'}}</span>
+            </div>
+
+            <div class="d-flex flex-column flex-wrap data">
+                <span class="titulo">Valor total</span>
+                <span class="content">R$ {{aluguel.valor}}</span>
+            </div>
+        </div>
+
+        <div style="height: 10px;"></div>
+
+        <div class="d-flex flex-row justify-content-around">
+            <div class="d-flex flex-column flex-wrap data">
                 <span class="titulo">Data de entrada</span>
                 <span class="content">{{aluguel.dias_reservados.data_entrada | date: 'longDate'}}</span>
             </div>

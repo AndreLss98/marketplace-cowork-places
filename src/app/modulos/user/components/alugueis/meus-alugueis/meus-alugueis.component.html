@@ -20,8 +20,7 @@
                 <div>
                     <app-alugueis-ativos [aluguel]="aluguel" (changeContracts)="onContractChanges()"></app-alugueis-ativos>
                     <div class="comment-footer mat-elevation-z2">
-                        <span class="comment-title">Comentário: </span>
-                        <span class="comment-description" *ngIf="aluguel.comentario"> {{ aluguel.comentario }}</span>
+                        <span><b>{{ aluguel.canceled_by_locador? "Comentário:" : "Seu comentário:" }}</b> {{ aluguel.comentario }}</span>
                     </div>
                 </div>
             </div>

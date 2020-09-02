@@ -1,5 +1,5 @@
 <mat-card style="margin:0 20px 20px 20px">
-    <mat-card-title>Aluguel</mat-card-title>
+    <mat-card-title>Status do contrato: {{ ALUGUEL_STATUS[aluguel.status.toUpperCase()].name }}</mat-card-title>
     <mat-card-content style="display: flex; justify-content: space-between;">
         <div>
             <span>Data do Contrato: </span>
