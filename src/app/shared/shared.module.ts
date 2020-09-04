@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { CancelDialogComponent } from './components/alugueis-ativos/cancel-dialog/cancel-dialog.component';
+import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
 
 @NgModule({
   declarations: [ 
@@ -23,6 +24,7 @@ import { CancelDialogComponent } from './components/alugueis-ativos/cancel-dialo
     CancelDialogComponent,
     HighlightItemsComponent,
     AlugueisAtivosComponent,
+    QuestionAnsweredComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,7 @@ import { CancelDialogComponent } from './components/alugueis-ativos/cancel-dialo
     CancelDialogComponent,
     HighlightItemsComponent,
     AlugueisAtivosComponent,
+    QuestionAnsweredComponent
   ]
 })
 export class SharedModule { }

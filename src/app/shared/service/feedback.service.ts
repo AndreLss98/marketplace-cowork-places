@@ -14,15 +14,19 @@ export class FeedbackService {
   }
 
   public getAll() {
-    return this.http.get<any>(`${environment.apiUrl}/feedback`);
+    return this.http.get<any>(`${environment.apiUrl}/feedbacks`);
   }
 
   public getAllByUser() {
     return this.http.get<any>(`${environment.apiUrl}/usuarios/feedbacks`);
   }
 
+  public getAllByUsers() {
+    return this.http.get<any>(`${environment.apiUrl}/feedbacks/users`);
+  }
+
   public save(feedback) {
-    return this.http.post<any>(`${environment.apiUrl}/feedback`, feedback);
+    return this.http.post<any>(`${environment.apiUrl}/feedbacks`, feedback);
   }
 
   public reply(feedback) {
@@ -30,7 +34,7 @@ export class FeedbackService {
   }
 
   public delete(id) {
-    return this.http.delete<any>(`${environment.apiUrl}/feedback/${id}`);
+    return this.http.delete<any>(`${environment.apiUrl}/feedbacks/${id}`);
   }
 
 }

@@ -11,6 +11,8 @@ export class ImgCircularComponent implements OnInit {
   @Input() firstLetter: string;
   @Input() imgUrl: string;
 
+  @Input() size: string = 'lg';
+
   constructor() { }
 
   ngOnInit(): void {

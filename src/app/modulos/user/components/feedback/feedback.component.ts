@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 import { FeedbackService } from 'src/app/shared/service/feedback.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-feedback',
@@ -14,19 +15,21 @@ export class FeedbackComponent implements OnInit {
   readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
 
   public perguntas = [];
+  public feedbacks = [];
   public tiposCampos = [];
 
   public displayedColumns = ['id', 'pergunta', 'action'];
+  public feedbackDisplayedColumns = [];
 
   public feedbackForm: FormGroup;
   public novaPossibilidadeForm: FormGroup;
   public propriedadesForm: any = [];
   
   public possibilidades: any = [];
-
   constructor(
+    private router: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
   ) {
     this.feedbackForm = formBuilder.group({
       pergunta: ['', [Validators.required]],
@@ -43,6 +46,7 @@ export class FeedbackComponent implements OnInit {
 
   ngOnInit(): void {
     this.tiposCampos = Object.keys(TIPOS_CAMPOS);
+    this.feedbacks = this.router.snapshot.data.feedbacks;
     this.fetchAll();
   }
 

@@ -33,6 +33,7 @@ import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-r
 import { CriarAnuncioGuard } from './guard/criar-anuncio.guard';
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
 import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-resolver.service';
+import { FeedbacksResolverService } from './resolvers/feedbacks-resolver.service';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -50,7 +51,13 @@ const routes: Routes = [
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
     { path: 'caracteristicas', component: ListaCaracteristicasComponent},
     // { path: 'condicoes', component: CondicoesComponent},
-    { path: 'feedbacks', component: FeedbackComponent},
+    {
+      path: 'feedbacks',
+      resolve: {
+        feedbacks: FeedbacksResolverService
+      },
+      component: FeedbackComponent
+    },
     {
       path: 'contratos',
       resolve: {

@@ -197,13 +197,10 @@ export class InfoComponent implements OnInit {
   private configDocumentsTable() {
     this.documentosService.getAll().subscribe((response: any) => {
       this.documentos = response;
-      console.log("Documentos: ", this.documentos);
       this.documentosService.getAllSended().subscribe((response: any) => {
         this.documentosEnviados = response;
-        console.log("Docs response: ", response);
         const enviados = response.map(documento => documento.documento_id);
         this.documentos = this.documentos.filter(documento => !enviados.includes(documento.id));
-        console.log('Documentos: ', this.documentos, " Enviados: ", this.documentosEnviados)
       });
     });
   }
