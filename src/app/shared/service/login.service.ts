@@ -59,9 +59,19 @@ export class LoginService {
     if(this.user.user_data){
       this.user.user_data.data_nascimento = this.user.user_data.data_nascimento.split('T')[0];
     }
+    
+    setTimeout(() => {
+      this.autoLogin();
+    }, (this.expires_at - moment().unix() - 5) * 1000);
   }
 
-  public verifySession(){
+  autoLogin() {
+    this.refresh.refreshToken().subscribe(response => {
+      this.login(response);
+    }, (error) => {})
+  }
+
+  public verifySession() {
     let expire: number = + localStorage.getItem(EXPIRE_AT);
     if(expire > moment().unix()){
       return this.refresh.refreshToken().pipe(

@@ -18,7 +18,7 @@ const routes: Routes = [
   { 
     path: 'user', 
     loadChildren: () => import('./modulos/user/user.module').then(m => m.UserModule),
-    canLoad: [UserGuard]
+    // canLoad: [UserGuard]
   },
   { 
     path: 'search', 

@@ -21,9 +21,7 @@ export class AppComponent {
     public userService: UserService,
     public mobileService: MobileService
   ){
-    this.login.verifySession();
-
-    this.userService.checkPermission().subscribe(response => this.userService.isAdmin = true, err => this.userService.isAdmin = false);
+    this.login.autoLogin();
 
     this.route.queryParams.subscribe( params => {
       this.hideFooter = params["hideFooter"] || false;

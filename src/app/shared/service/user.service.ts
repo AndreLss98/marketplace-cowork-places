@@ -49,6 +49,7 @@ export class UserService {
 
   public cadastroValidado(){
     if(
+      !this.user_data ||
       !this.user_data.cpf ||
       !this.user_data.email_validado ||
       !this.user_data.data_nascimento ||

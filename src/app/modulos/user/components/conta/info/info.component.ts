@@ -101,8 +101,21 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!this.userService.user_data) this.login.logout();
+    if (this.userService.user_data) this.validateUserDatas();
+
+    this.bancoService.getAll().subscribe(response => {
+      this.bancos = response;
+    });
+
+    this.filteredBanks = this.editBankAccountForm.controls.banco.valueChanges.pipe(
+      startWith(''),
+      map(value => this.bankFilter(value))
+    );
+  }
+
+  private validateUserDatas() {
     this.imgUrl = this.userService.user_data.img_perfil;
+
     if(
       !this.userService.user_data.cpf ||
       !this.userService.user_data.email_validado ||
@@ -117,15 +130,6 @@ export class InfoComponent implements OnInit {
 
     this.canEditCPF = this.userService.user_data.cpf? false : true;
     this.resetInfoForm();
-
-    this.bancoService.getAll().subscribe(response => {
-      this.bancos = response;
-    });
-
-    this.filteredBanks = this.editBankAccountForm.controls.banco.valueChanges.pipe(
-      startWith(''),
-      map(value => this.bankFilter(value))
-    );
 
     if (this.userService.user_data.conta_bancaria) {
       this.resetBankAccountForm();

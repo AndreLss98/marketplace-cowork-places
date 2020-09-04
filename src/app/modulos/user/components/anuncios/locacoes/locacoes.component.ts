@@ -22,20 +22,12 @@ export class LocacoesComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugueis = this.route.snapshot.data.alugueis;
-    console.log(this.alugueis)
-    
     this.processaAlugueis();
   }
-  private processaAlugueis(){
-    this.alugueis.forEach(aluguel => {
-      if(aluguel.status === ALUGUEL_STATUS.ACTIVE.value) {
-        this.ativos.push(aluguel);
-      }else if(aluguel.status === ALUGUEL_STATUS.CREATED.value) {
-        this.inativos.push(aluguel)
-      }else if(aluguel.status === ALUGUEL_STATUS.CANCELED.value) {
-        this.cancelados.push(aluguel)
-      }
-    });
+  private processaAlugueis() {
+    this.ativos = this.alugueis.filter(contrato => contrato.status === ALUGUEL_STATUS.ACTIVE.value);
+    this.inativos = this.alugueis.filter(contrato => contrato.status === ALUGUEL_STATUS.CREATED.value);
+    this.cancelados = this.alugueis.filter(contrato => contrato.status === ALUGUEL_STATUS.CANCELED.value);
   }
 
   onContractsChange() {

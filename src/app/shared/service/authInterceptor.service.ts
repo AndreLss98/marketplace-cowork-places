@@ -11,7 +11,6 @@ import { LoginService } from 'src/app/shared/service/login.service';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  private isRefreshingToken: boolean = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
@@ -21,7 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(this.addToken(req, this.login.userToken), ).pipe(catchError((error: HttpErrorResponse) => {
-      if(error.status == 401) return this.handle401Error(req, next);
+      // if(error.status == 401) return this.handle401Error(req, next);
       return throwError(error);
     }));
   }
@@ -38,36 +37,12 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   logoutUser() {
     // Route to the login page (implementation up to you)
+    console.log('Usuario deslogado pelo interceptor');
     this.login.logout();
     return throwError("Usuario deslogado");
   }
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-    if (!this.isRefreshingToken) {
-      this.isRefreshingToken = true;
-      // Reset here so that the following requests wait until the token
-      // comes back from the refreshToken call.
-      this.tokenSubject.next(null);
-
-      return this.refresh.refreshToken().pipe(switchMap((user: any) => {
-        if (user.token) {
-          this.tokenSubject.next(user.token);
-          this.login.login(user);
-          return next.handle(this.addToken(req, user.token));
-        }
-        // If we don't get a new token, we are in trouble so logout.
-        return this.logoutUser();
-      }), catchError(error => {
-        if(error.url.includes('/usuarios/check-admin')) return throwError(error);
-          // If there is an exception calling 'refreshToken', bad news so logout.
-        return this.logoutUser();
-      }), finalize(() => {
-        this.isRefreshingToken = false;
-      }));
-    } else {
-      return this.tokenSubject.pipe(filter(token => token != null), take(1), switchMap(token => {
-        return next.handle(this.addToken(req, token));
-      }));
-    }
+    
   }
 }
