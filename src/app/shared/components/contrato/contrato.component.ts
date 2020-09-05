@@ -31,7 +31,7 @@ export class ContratoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   public cancelContract() {

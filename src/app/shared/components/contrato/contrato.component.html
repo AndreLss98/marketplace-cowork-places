@@ -91,6 +91,10 @@
             color="primary"
             *ngIf="aluguel.status === ALUGUEL_STATUS.ACTIVE.value && aluguel.locador && !aluguel.checkin" (click)="makeCheckin()">Check In</button>
         <button
+        mat-raised-button
+        color="primary"
+        *ngIf="aluguel.status === ALUGUEL_STATUS.ACTIVE.value && aluguel.locatario && aluguel.checkin === true">Confirmar check in</button>
+        <button
             mat-raised-button
             color="primary"
             *ngIf="aluguel.status === ALUGUEL_STATUS.CREATED.value && aluguel.locatario" (click)="acceptContract()">Aceitar</button>
