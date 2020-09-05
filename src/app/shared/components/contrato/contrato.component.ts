@@ -1,19 +1,20 @@
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
 
-import { UserService } from '../../service/user.service';
-import { AluguelService } from 'src/app/shared/service/aluguel.service';
-import { MatDialog } from '@angular/material/dialog';
 import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
+import { UserService } from '../../service/user.service';
+import { AluguelService } from 'src/app/shared/service/aluguel.service';
+
 @Component({
-  selector: 'app-alugueis-ativos',
-  templateUrl: './alugueis-ativos.component.html',
-  styleUrls: ['./alugueis-ativos.component.scss']
+  selector: 'contrato',
+  templateUrl: './contrato.component.html',
+  styleUrls: ['./contrato.component.scss']
 })
-export class AlugueisAtivosComponent implements OnInit {
+export class ContratoComponent implements OnInit {
   
   @Input('aluguel') aluguel: any;
   @Output('changeContracts') changeContracts = new EventEmitter();
