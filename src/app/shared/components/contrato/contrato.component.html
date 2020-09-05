@@ -89,7 +89,7 @@
         <button
             mat-raised-button
             color="primary"
-            *ngIf="aluguel.status === ALUGUEL_STATUS.ACTIVE.value && aluguel.locador" (click)="makeCheckin()">Check In</button>
+            *ngIf="aluguel.status === ALUGUEL_STATUS.ACTIVE.value && aluguel.locador && !aluguel.checkin" (click)="makeCheckin()">Check In</button>
         <button
             mat-raised-button
             color="primary"

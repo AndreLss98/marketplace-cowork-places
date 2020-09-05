@@ -59,7 +59,11 @@ export class ContratoComponent implements OnInit {
         data: { title: "Aviso!", message: "O checkin só será liberado no dia da entrada." }
       });
     } else {
-      console.log('Tudo certo para o login');
+      this.aluguelService.checkin(this.aluguel.id).subscribe(response => {
+        this.changeContracts.emit('contracts-change');
+      }, (error) => {
+        console.log(error);
+      });
     }
   }
 }

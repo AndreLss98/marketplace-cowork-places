@@ -25,10 +25,14 @@ export class AluguelService {
   }
 
   public cancelContract(id, form) {
-    return this.http.post(`${environment.apiUrl}/alugueis/cancel/${id}`, form);
+    return this.http.post<any>(`${environment.apiUrl}/alugueis/cancel/${id}`, form);
   }
 
   public acceptContract(id) {
-    return this.http.post(`${environment.apiUrl}/alugueis/accept/${id}`, {});
+    return this.http.post<any>(`${environment.apiUrl}/alugueis/accept/${id}`, {});
+  }
+
+  public checkin(id) {
+    return this.http.put<any>(`${environment.apiUrl}/alugueis/checkin/${id}`, {})
   }
 }
