@@ -7,8 +7,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 
 import { MapsComponent } from './maps/maps.component';
-import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
+import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
+import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
@@ -20,11 +21,12 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     MapsComponent,
     MdViewerComponent,
     ContratoComponent,
+    BasicModalComponent,
     ImgCircularComponent,
     ErrorDialogComponent,
     CancelDialogComponent,
     HighlightItemsComponent,
-    QuestionAnsweredComponent
+    QuestionAnsweredComponent,
   ],
   imports: [
     FormsModule,
@@ -40,12 +42,13 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     MaterialModule,
     MdViewerComponent,
     ContratoComponent,
+    BasicModalComponent,
     ReactiveFormsModule,
     ErrorDialogComponent,
     ImgCircularComponent,
     CancelDialogComponent,
     HighlightItemsComponent,
-    QuestionAnsweredComponent
+    QuestionAnsweredComponent,
   ]
 })
 export class SharedModule { }

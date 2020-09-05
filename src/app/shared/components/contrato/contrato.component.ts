@@ -8,6 +8,7 @@ import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
 import { UserService } from '../../service/user.service';
 import { AluguelService } from 'src/app/shared/service/aluguel.service';
+import { BasicModalComponent } from '../../modal/basic-modal/basic-modal.component';
 
 @Component({
   selector: 'contrato',
@@ -50,5 +51,15 @@ export class ContratoComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  public makeCheckin() {
+    if (new Date().setHours(0, 0, 0) < new Date(this.aluguel.dias_reservados.data_entrada).setHours(0, 0, 0)) {
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "O checkin só será liberado no dia da entrada." }
+      });
+    } else {
+      console.log('Tudo certo para o login');
+    }
   }
 }

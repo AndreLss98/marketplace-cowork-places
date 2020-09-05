@@ -81,8 +81,18 @@
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-flat-button class="danger" *ngIf="aluguel.status !== ALUGUEL_STATUS.CANCELED.value" (click)="cancelContract()">Cancelar</button>
-        <button mat-button *ngIf="aluguel.status === ALUGUEL_STATUS.CREATED.value && aluguel.locatario" (click)="acceptContract()">Aceitar</button>
+    <mat-card-actions class="mb-0">
+        <button
+            mat-raised-button
+            class="danger"
+            *ngIf="aluguel.status !== ALUGUEL_STATUS.CANCELED.value" (click)="cancelContract()">Cancelar</button>
+        <button
+            mat-raised-button
+            color="primary"
+            *ngIf="aluguel.status === ALUGUEL_STATUS.ACTIVE.value && aluguel.locador" (click)="makeCheckin()">Check In</button>
+        <button
+            mat-raised-button
+            color="primary"
+            *ngIf="aluguel.status === ALUGUEL_STATUS.CREATED.value && aluguel.locatario" (click)="acceptContract()">Aceitar</button>
     </mat-card-actions>
 </mat-card>
