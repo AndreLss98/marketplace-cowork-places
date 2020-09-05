@@ -9,7 +9,7 @@
 
 <div *ngIf="userService.user_data; else loading">
     <mat-card class="mat-elevation-z4 card-table">
-        <img-circular
+        <img-circular class="d-inline-block"
             [firstLetter]="userService.user_data.nome[0]"
             [imgUrl]="imgUrl"
             (click)="imgInput.click()"></img-circular>

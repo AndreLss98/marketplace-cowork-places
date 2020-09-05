@@ -20,7 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(this.addToken(req, this.login.userToken)).pipe(catchError((error: HttpErrorResponse) => {
-      if(error.status == 401) return this.handle401Error(req, next);
+      // if(error.status === 401) return this.handle401Error(req, next);
       return throwError(error);
     }));
   }
