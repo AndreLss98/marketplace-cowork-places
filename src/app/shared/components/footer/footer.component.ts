@@ -1,8 +1,9 @@
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { Component, OnInit } from '@angular/core';
 
-import { PoliticasService } from '../../service/politicas.service';
 import { UserService } from '../../service/user.service';
+import { PoliticasService } from '../../service/politicas.service';
+
 import { FeedbackModalComponent } from '../../modal/feedback-modal/feedback-modal.component';
 
 @Component({

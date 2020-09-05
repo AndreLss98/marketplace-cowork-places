@@ -21,7 +21,7 @@ export class UserGuard implements CanLoad {
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
     if(!this.userService.user_data) {
-      this.login.logout(); 
+      // this.login.logoutServer(); 
       return false;
     }
 

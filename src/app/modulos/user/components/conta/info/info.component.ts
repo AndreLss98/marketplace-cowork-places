@@ -235,11 +235,10 @@ export class InfoComponent implements OnInit {
       this.canEditCPF = false;
       this.userService.user_data.cpf = info.cpf;
       this.editInfoForm.markAsPristine();
-      this.login.verifySession().subscribe(res =>{
-        this.editDadosPessoais = false;
-        this.resetInfoForm();
-        this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
-      });
+      this.editDadosPessoais = false;
+      this.resetInfoForm();
+      
+      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
     }, (error) => {
       this.snack.dismiss();
       if(error.error.item == "CPF"){

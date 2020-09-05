@@ -1,7 +1,6 @@
 @import '../../../../place-et-theme.scss';
 
 #footer{
-    
     font-family: sans-serif;
     background: $pl-preto;
     border-top: 1px solid rgba(128, 128, 128, 0.308);
@@ -11,11 +10,16 @@
     // min-width: 85%;
 }
 
-a{
+a {
     color: white;
     font-weight: lighter;
     font-size: 14px;
     padding: 5px 0 5px 0;
+}
+
+a.cursor-pointer:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 

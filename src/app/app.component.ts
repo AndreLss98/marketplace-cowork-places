@@ -20,9 +20,9 @@ export class AppComponent {
     private route: ActivatedRoute,
     public userService: UserService,
     public mobileService: MobileService
-  ){
+  ) {
     this.login.autoLogin();
-
+    // addEventListener('storage', this.login.logoutServer)
     this.route.queryParams.subscribe( params => {
       this.hideFooter = params["hideFooter"] || false;
       this.hideHeader = params["hideHeader"] || false;

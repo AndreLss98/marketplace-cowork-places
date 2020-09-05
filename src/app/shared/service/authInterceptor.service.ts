@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { catchError, switchMap, finalize, filter, take } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 import { RefreshTokenService } from './refresh-token.service';
@@ -19,8 +19,8 @@ export class AuthInterceptorService implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.addToken(req, this.login.userToken), ).pipe(catchError((error: HttpErrorResponse) => {
-      // if(error.status == 401) return this.handle401Error(req, next);
+    return next.handle(this.addToken(req, this.login.userToken)).pipe(catchError((error: HttpErrorResponse) => {
+      if(error.status == 401) return this.handle401Error(req, next);
       return throwError(error);
     }));
   }
@@ -36,13 +36,11 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   logoutUser() {
-    // Route to the login page (implementation up to you)
-    console.log('Usuario deslogado pelo interceptor');
-    this.login.logout();
+    this.login.logoutServer();
     return throwError("Usuario deslogado");
   }
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-    
+    return this.logoutUser()
   }
 }
