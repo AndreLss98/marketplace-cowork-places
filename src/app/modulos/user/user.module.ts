@@ -16,12 +16,12 @@ import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
-import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
-import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
+import { ListaContratosComponent } from './components/admin/contratos/lista-contratos/lista-contratos.component';
 import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
+import { DetalhesContratoComponent } from './components/admin/contratos/detalhes-contrato/detalhes-contrato.component';
 import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesAlugaveisComponent } from './components/admin/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 import { DocumentosPessoaisComponent } from './components/admin/usuarios/documentos/pessoais/documentos-pessoais.component';
@@ -38,6 +38,7 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
     FeedbackComponent,
     LocacoesComponent,
     InfoModalComponent,
+    SafetyModalComponent,
     CriarAnuncioComponent, 
     MeusAnunciosComponent, 
     MeusAlugueisComponent,
@@ -47,12 +48,12 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
     ListaPoliticasComponent, 
     ListaAlugaveisComponent,
     ListaPerguntasComponent, 
+    DetalhesContratoComponent,
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent,
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
-    SafetyModalComponent, DetalhesContratoComponent,
   ],
   imports: [
     CommonModule,
