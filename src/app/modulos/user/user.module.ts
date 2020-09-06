@@ -16,7 +16,6 @@ import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
-import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaContratosComponent } from './components/admin/contratos/lista-contratos/lista-contratos.component';
 import { ListaPoliticasComponent } from './components/admin/politicas/lista-politicas/lista-politicas.component';
 import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
@@ -45,7 +44,6 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
     EspacosSalvosComponent,
     ListaPoliticasComponent,
     ListaAlugaveisComponent,
-    ListaPerguntasComponent, 
     DetalhesContratoComponent,
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent,

@@ -5,7 +5,6 @@ import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
-// import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
@@ -13,7 +12,6 @@ import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaPoliticasComponent } from './components/admin/politicas/lista-politicas/lista-politicas.component';
-// import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaContratosComponent } from './components/admin/contratos/lista-contratos/lista-contratos.component';
 import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
 import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
@@ -41,9 +39,7 @@ const routes: Routes = [
     { path: 'anuncios', component: ListaAlugaveisComponent},
     { path: 'politicas', component: ListaPoliticasComponent},
     { path: 'espacossalvos', component: EspacosSalvosComponent},
-    // { path: 'questionario', component: ListaPerguntasComponent},
     { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
-    // { path: 'condicoes', component: CondicoesComponent},
     {
       path: 'feedbacks',
       resolve: {
