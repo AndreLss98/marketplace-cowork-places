@@ -1,5 +1,5 @@
-<form style="margin: 0 20px" [formGroup]="filters">
-    <mat-form-field appearence="outline" class="w-100">
+<form class="mx-4" [formGroup]="filters">
+    <mat-form-field class="w-100">
         <mat-label>Status Contrato</mat-label>
         <mat-select formControlName="status">
             <mat-option *ngFor="let stat of status" [value]="stat.value">{{stat.name}}</mat-option>
@@ -34,7 +34,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    <mat-paginator style="margin: 0 20px"
+    <mat-paginator class="mx-4"
         [length]="pager.length"
         [pageSizeOptions]="pageSizes"
         (page)="pageUpdate($event)">

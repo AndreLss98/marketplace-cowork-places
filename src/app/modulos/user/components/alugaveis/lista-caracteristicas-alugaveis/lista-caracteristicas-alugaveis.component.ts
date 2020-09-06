@@ -4,11 +4,11 @@ import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.s
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-lista-caracteristicas',
-  templateUrl: './lista-caracteristicas.component.html',
-  styleUrls: ['./lista-caracteristicas.component.scss']
+  selector: 'lista-caracteristicas-alugaveis',
+  templateUrl: './lista-caracteristicas-alugaveis.component.html',
+  styleUrls: ['./lista-caracteristicas-alugaveis.component.scss']
 })
-export class ListaCaracteristicasComponent implements OnInit {
+export class ListaCaracteristicasAlugaveisComponent implements OnInit {
 
   public caracteristicas = [];
   public caracteristica;

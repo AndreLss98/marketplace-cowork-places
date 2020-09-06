@@ -1,4 +1,4 @@
-<mat-table [dataSource]="tipos" class="mat-elevation-z8 cursor-pointer">
+<mat-table [dataSource]="tipos" class="mat-elevation-z4 cursor-pointer">
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
@@ -52,7 +52,7 @@
               <mat-option *ngFor="let icone of icones" [value]="icone">
                 <div class="d-flex flex-row">
                   <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
-                  <span style="width: 100%; text-align: center;">{{ icone }}</span>
+                  <span class="w-100 text-center">{{ icone }}</span>
                 </div>
               </mat-option>
             </mat-select>

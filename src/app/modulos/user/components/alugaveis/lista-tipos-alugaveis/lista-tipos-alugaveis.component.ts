@@ -6,11 +6,11 @@ import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 @Component({
-  selector: 'app-tipos',
-  templateUrl: './lista-tipos.component.html',
-  styleUrls: ['./lista-tipos.component.scss']
+  selector: 'lista-tipos-alugaveis',
+  templateUrl: './lista-tipos-alugaveis.component.html',
+  styleUrls: ['./lista-tipos-alugaveis.component.scss']
 })
-export class ListaTiposComponent implements OnInit {
+export class ListaTiposAlugaveisComponent implements OnInit {
 
   public tipo;
   public tipos = [];
