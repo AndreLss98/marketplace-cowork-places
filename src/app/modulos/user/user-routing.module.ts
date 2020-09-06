@@ -12,14 +12,14 @@ import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salv
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
-import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
-import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
-import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
+import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 // import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
-import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
+import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
+import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
+import { DetalhesAlugaveisComponent } from './components/admin/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 
 import { FeedbacksResolverService } from './resolvers/feedbacks-resolver.service';
 import { ContratosListResolverService } from './resolvers/contratos-list-resolver.service';
