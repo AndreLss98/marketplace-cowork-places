@@ -1,5 +1,5 @@
-<form class="mx-4" [formGroup]="filters">
-    <mat-form-field class="w-100">
+<form class="mx-auto mt-4 w-50" [formGroup]="filters">
+    <mat-form-field class="w-100 mx-auto" appearance="outline">
         <mat-label>Status Contrato</mat-label>
         <mat-select formControlName="status">
             <mat-option *ngFor="let stat of status" [value]="stat.value">{{stat.name}}</mat-option>
