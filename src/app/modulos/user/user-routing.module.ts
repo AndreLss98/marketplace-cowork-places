@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
-import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 // import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
@@ -37,7 +36,6 @@ const routes: Routes = [
   { path: '', component: UserComponent,
   children:  [
     { path: 'conta/info', component: InfoComponent},
-    { path: 'payments', component: PaymentsComponent},
     { path: 'conta/safety', component: SafetyComponent},
     { path: 'usuarios', component: ListaUsuariosComponent},
     { path: 'anuncios', component: ListaAlugaveisComponent},

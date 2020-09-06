@@ -8,7 +8,6 @@ import { SharedModule } from './../../shared/shared.module';
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
-import { PaymentsComponent } from './components/payments/payments.component';
 import { InfoModalComponent } from './components/conta/info/info-modal.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
@@ -33,8 +32,7 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
   declarations: [
     UserComponent, 
     InfoComponent, 
-    SafetyComponent, 
-    PaymentsComponent,
+    SafetyComponent,
     FeedbackComponent,
     LocacoesComponent,
     InfoModalComponent,
