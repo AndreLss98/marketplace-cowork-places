@@ -20,7 +20,6 @@ declare var paypal;
 export class CheckoutComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
-  readonly ENVIRONMENTS = environment;
   public backUrl = environment.apiUrl;
   public alugavel;
   public entrada;
