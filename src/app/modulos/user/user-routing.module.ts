@@ -1,36 +1,37 @@
-import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
-import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
-import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
-import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
-import { SafetyComponent } from './components/conta/safety/safety.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
 import { InfoComponent } from './components/conta/info/info.component';
+import { SafetyComponent } from './components/conta/safety/safety.component';
 import { PaymentsComponent } from './components/payments/payments.component';
-import { FeedbackComponent } from './components/feedback/feedback.component';
+import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 // import { CondicoesComponent } from './components/condicoes/condicoes.component';
+import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
+import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
-import { ListaUsuariosComponent } from './components/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaAlugaveisComponent } from './components/alugaveis/lista-alugaveis/lista-alugaveis.component';
+import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaContratosComponent } from './components/contratos/lista-contratos/lista-contratos.component';
-import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
+import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 // import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 
+import { FeedbacksResolverService } from './resolvers/feedbacks-resolver.service';
 import { ContratosListResolverService } from './resolvers/contratos-list-resolver.service';
 import { DetalhesUsuarioResolverService } from './resolvers/detalhes-usuario-resolver.service';
 import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-resolver.service';
+import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-resolver.service';
+import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
+import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 
 import { CriarAnuncioGuard } from './guard/criar-anuncio.guard';
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
-import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-resolver.service';
-import { FeedbacksResolverService } from './resolvers/feedbacks-resolver.service';
+
 
 const routes: Routes = [
   { path: '', component: UserComponent,
