@@ -1,52 +1,59 @@
-<form style="margin: 0 20px" [formGroup]="filters">
-    <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Status Perfil</mat-label>
-        <mat-select formControlName="status_cadastro">
-          <mat-option *ngFor="let stat of status" [value]="stat.value">
-            {{stat.name}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-</form>
-
-<div id="tables-container" class="w-100">
-    <div class="table-container mat-elevation-z8 w-100">
-        <mat-table [dataSource]="users">
-            <caption>Validar cadastros</caption>
-            <ng-container matColumnDef="nome">
-                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.nome + ' ' + element.sobrenome}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="edit">
-                <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
-                <mat-cell *matCellDef="let element" style="display: contents;">
-                    <span (click)="viewUserDetails(element)" class="material-icons">create</span>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <div class="paginator">
-            <select [(ngModel)]="currentPageSize" (change)="fetchAll()">
-                <option *ngFor="let size of pageSizes" [value]="size">
-                    {{ size }}
-                </option>
-            </select>
-
-            <button mat-icon-button (click)="previousPage()" [disabled]="!hasPrevious">
-                <mat-icon>navigate_before</mat-icon>
-            </button>
-
-            <button mat-icon-button (click)="nextPage()" [disabled]="!hasNext">
-                <mat-icon>navigate_next</mat-icon>
-            </button>
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Usuários">
+        <form class="mx-auto mt-4 w-50" [formGroup]="filters">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Status Perfil</mat-label>
+                <mat-select formControlName="status_cadastro">
+                  <mat-option *ngFor="let stat of status" [value]="stat.value">
+                    {{stat.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+        
+        <div id="tables-container" class="w-100">
+            <div class="table-container mat-elevation-z8 w-100">
+                <mat-table [dataSource]="users">
+                    <caption>Validar cadastros</caption>
+                    <ng-container matColumnDef="nome">
+                        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.nome + ' ' + element.sobrenome}} </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="edit">
+                        <mat-header-cell *matHeaderCellDef style="display: contents;"></mat-header-cell>
+                        <mat-cell *matCellDef="let element" style="display: contents;">
+                            <span (click)="viewUserDetails(element)" class="material-icons">create</span>
+                        </mat-cell>
+                    </ng-container>
+        
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <div class="paginator">
+                    <select [(ngModel)]="currentPageSize" (change)="fetchAll()">
+                        <option *ngFor="let size of pageSizes" [value]="size">
+                            {{ size }}
+                        </option>
+                    </select>
+        
+                    <button mat-icon-button (click)="previousPage()" [disabled]="!hasPrevious">
+                        <mat-icon>navigate_before</mat-icon>
+                    </button>
+        
+                    <button mat-icon-button (click)="nextPage()" [disabled]="!hasNext">
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </mat-tab>
+    <mat-tab label="Documentos Pessoais">
+        <documentos-pessoais></documentos-pessoais>
+    </mat-tab>
+</mat-tab-group>

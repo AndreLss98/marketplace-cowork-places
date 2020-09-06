@@ -12,7 +12,6 @@ import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { CondicoesComponent } from './components/condicoes/condicoes.component';
 import { InfoModalComponent } from './components/conta/info/info-modal.component';
-import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
@@ -26,6 +25,7 @@ import { ListaPerguntasComponent } from './components/questionario/lista-pergunt
 import { DetalhesUsuariosComponent } from './components/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesContratoComponent } from './components/contratos/detalhes-contrato/detalhes-contrato.component';
 import { DetalhesAlugaveisComponent } from './components/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
+import { DocumentosPessoaisComponent } from './components/usuarios/documentos/pessoais/documentos-pessoais.component';
 import { ListaTiposAlugaveisComponent } from './components/alugaveis/lista-tipos-alugaveis/lista-tipos-alugaveis.component';
 import { ListaCaracteristicasAlugaveisComponent } from './components/alugaveis/lista-caracteristicas-alugaveis/lista-caracteristicas-alugaveis.component';
 
@@ -36,7 +36,6 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/alugaveis/l
     InfoComponent, 
     SafetyComponent, 
     PaymentsComponent,
-    PessoaisComponent, 
     FeedbackComponent, 
     LocacoesComponent,
     CondicoesComponent, 
@@ -52,6 +51,7 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/alugaveis/l
     ListaPerguntasComponent, 
     DetalhesUsuariosComponent, 
     DetalhesAlugaveisComponent, 
+    DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
     SafetyModalComponent, DetalhesContratoComponent,

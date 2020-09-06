@@ -11,7 +11,6 @@ import { InfoComponent } from './components/conta/info/info.component';
 import { PaymentsComponent } from './components/payments/payments.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 // import { CondicoesComponent } from './components/condicoes/condicoes.component';
-import { PessoaisComponent } from './components/documentos/pessoais/pessoais.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
@@ -39,7 +38,6 @@ const routes: Routes = [
     { path: 'conta/info', component: InfoComponent},
     { path: 'payments', component: PaymentsComponent},
     { path: 'conta/safety', component: SafetyComponent},
-    { path: 'documentos', component: PessoaisComponent},
     { path: 'usuarios', component: ListaUsuariosComponent},
     { path: 'anuncios', component: ListaAlugaveisComponent},
     { path: 'politicas', component: ListaPoliticasComponent},

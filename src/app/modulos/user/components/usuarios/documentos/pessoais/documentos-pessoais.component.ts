@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import { DocumentosService } from 'src/app/shared/service/documentos.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { DocumentosService } from 'src/app/shared/service/documentos.service';
+
 @Component({
-  selector: 'app-pessoais',
-  templateUrl: './pessoais.component.html',
-  styleUrls: ['./pessoais.component.scss']
+  selector: 'documentos-pessoais',
+  templateUrl: './documentos-pessoais.component.html',
+  styleUrls: ['./documentos-pessoais.component.scss']
 })
-export class PessoaisComponent implements OnInit {
+export class DocumentosPessoaisComponent implements OnInit {
 
   public documentos = [];
   public documento;
