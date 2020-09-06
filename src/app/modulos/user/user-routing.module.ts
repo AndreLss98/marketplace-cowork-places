@@ -11,8 +11,8 @@ import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salv
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
-import { ListaPoliticasComponent } from './components/politicas/lista-politicas/lista-politicas.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
+import { ListaPoliticasComponent } from './components/admin/politicas/lista-politicas/lista-politicas.component';
 // import { ListaPerguntasComponent } from './components/questionario/lista-perguntas/lista-perguntas.component';
 import { ListaContratosComponent } from './components/admin/contratos/lista-contratos/lista-contratos.component';
 import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
