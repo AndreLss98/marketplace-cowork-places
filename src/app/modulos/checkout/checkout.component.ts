@@ -1,8 +1,8 @@
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
-import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { CheckoutService } from './../../shared/service/checkout.service';
 import * as moment from 'moment';
@@ -20,9 +20,8 @@ declare var paypal;
 export class CheckoutComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   @ViewChild('stepper') stepper: MatStepper;
-
+  readonly ENVIRONMENTS = environment;
   public backUrl = environment.apiUrl;
-
   public alugavel;
   public entrada;
   public saida;
@@ -51,7 +50,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.checkoutService.reserva)
     moment.locale('pt-BR');
     this.entrada = moment(this.checkoutService.reserva.dias_reservados.data_entrada);
     this.saida = moment(this.checkoutService.reserva.dias_reservados.data_saida);
@@ -62,7 +60,6 @@ export class CheckoutComponent implements OnInit {
     
     this.alugaveis.getById(this.checkoutService.reserva.alugavel_id).subscribe(response => {
       this.alugavel = response;
-      console.log(this.alugavel)
     });
     
     if (this.checkoutService.reserva.paypal_plan_id) {
