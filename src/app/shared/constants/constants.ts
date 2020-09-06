@@ -1,4 +1,4 @@
-export const HOME_TEXT = 
+export const HOME_TEXT =
     {
         infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
         searchTitle: 'Seu negócio livre para evoluir.',
@@ -8,7 +8,6 @@ export const HOME_TEXT =
 export const HOME_COMO_FUNCIONA = [
     'Somos uma plataforma que ajuda os espaços e serviços a encontrarem as pessoas.',
     'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços.',
-    'A contratação é feita direta com o Proprietário. Não somos intermediários.',
     'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.',
     'Ajudamos na gestão de contratos e pagamentos.',
 ]
@@ -16,7 +15,7 @@ export const HOME_COMO_FUNCIONA = [
 export const HOME_INFO_MIDDLE = [
     {icon: 'mao.svg', title: 'Tudo num clique.' , text: 'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.'},
     {icon: 'play.svg', title: 'Todo controle.', text: 'Você tem controle de tudo e negocia como quiser. A contratação é feita direto como proprietário. '},
-    {icon: 'smile.svg', title: 'Sem preocupação.', text: 'Ajudamos na gestão de contrato e pagamentos.'},
+    {icon: 'smile.svg', title: 'Sem preocupação.', text: 'Ajudamos na gestão de contratos e pagamentos.'},
     {icon: 'relogio.svg', title: 'Mais tempo pra você. ', text: 'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços'}
 
 ]
