@@ -10,9 +10,10 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormGroupDirective, Ng
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 import { environment } from 'src/environments/environment';
-import { CURRENCY_PATTERN, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
 import { INFORMACOES_ADICIONAIS_LIMITE } from 'src/app/shared/constants/constants';
+import { CURRENCY_PATTERN, ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
 
+import { MapsService } from 'src/app/shared/service/maps.service';
 import { UserService } from 'src/app/shared/service/user.service';
 import { IbgeService } from 'src/app/shared/service/ibge.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
@@ -20,7 +21,6 @@ import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
-import { MapsService } from 'src/app/shared/service/maps.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

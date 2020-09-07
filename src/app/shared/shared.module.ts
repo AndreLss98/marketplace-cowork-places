@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 
-import { MapsComponent } from './maps/maps.component';
+import { MapsComponent } from './components/maps/maps.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
