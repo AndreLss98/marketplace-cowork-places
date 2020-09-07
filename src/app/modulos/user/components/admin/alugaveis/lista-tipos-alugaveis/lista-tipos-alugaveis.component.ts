@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TiposService } from 'src/app/shared/service/tipos.service';
-import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 
 @Component({
   selector: 'lista-tipos-alugaveis',
@@ -98,8 +98,8 @@ export class ListaTiposAlugaveisComponent implements OnInit {
       this.fetchAllType();
       this.tipo = null;
     }, (error) => {
-      this.dialog.open(ErrorDialogComponent, {
-        data: { message: "Não foi possível remover o tipo de anúncio pois já está sendo utilizado." }
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "Não foi possível remover o tipo de anúncio pois já está sendo utilizado." }
       });
     });
   }
