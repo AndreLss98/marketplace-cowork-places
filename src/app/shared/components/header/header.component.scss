@@ -3,51 +3,29 @@
 .content{
     display: flex;
     flex-direction: row;
-    width: 100%;
     background-color: white;
-    // flex-wrap: wrap;
 
-    .header{
-        overflow-y: hidden;
-        position: fixed;
-        margin: 40px;
-        .image{
+    .header {
+        max-width: 300px;
+        img {
             width: 15vw;
-            margin-bottom: 20px;
+            min-width: 180px;
+            max-width: 260px;
             cursor: pointer;
         }
 
-        .itemMenu{
+        .itemMenu {
             color: black;
-            text-align: start;
-            font-size: 1.4vw;
+            font-size: 1.4em;
             cursor: pointer;
-        }
-        .userMenu{
-            margin-top: 20px;
-            // max-height: 70vh;
-            // overflow-y: scroll;
+            line-height: initial;
         }
 
-        .btn-entrar{
-            margin-top: 10px;
-            border: 2px solid $pl-verde-escuro;
-            background-color: white;
-            outline: none;
-            width: 10vw;
-            height: 40px;
-            border-radius: 20px;
-            font-weight: bold;
+        .itemMenu:hover {
+            text-decoration: underline;
         }
-
-    }
-
-    .router{
-        width: 80vw;
-        margin-left: 20vw;
     }
 }
-
 
 .tabs{
     background-color: $pl-preto;

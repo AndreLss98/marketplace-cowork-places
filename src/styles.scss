@@ -116,7 +116,16 @@ input[type=number] {
   src: url('/assets/font/Centrale\ Sans/CentraleSansLight.otf') format("opentype");
 }
 
+button {
+  outline: none !important;
+}
+
 button.danger {
   background-color: red;
   color: white;
+}
+
+button.outline-primary {
+  background-color: white;
+  border: 2px solid $pl-verde-escuro;
 }

@@ -1,36 +1,6 @@
 @import '../../../../../../place-et-theme.scss';
 
 #searchBox {
-    // Global
-    border-radius: 20px;
-    width: 60%;
-    // position: fixed;
-    padding: 20px 0;
-
-    // Titulos
-    span {
-        color: black;
-        font-size: 16px;
-    }
-
-    // Localização
-    .inputCidade {
-        color: black;
-        font-size: 14px;
-        background-color: white;
-        border: none;
-        padding-bottom: 6px;
-        border-bottom: 2px solid $pl-gray; 
-    }
-
-    .inputCidade::placeholder{
-        font-size: 14px;
-        color: black;
-    }
-
-    .inputCidade:focus {
-        outline: none;
-    }
 
     // Tipo de serviço
     mat-select {

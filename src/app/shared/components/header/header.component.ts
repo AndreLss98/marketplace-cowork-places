@@ -1,18 +1,19 @@
 import { Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/shared/service/login.service';
 
 import * as $ from 'jquery'
 
-import { HEADER_MENU_OPTIONS , HEADER_NAV_OPTIONS} from '../../constants/constants';
+import { HEADER_NAV_OPTIONS} from 'src/app/shared/constants/constants';
 
-import { MenuService } from '../../service/menu.service';
-import { UserService } from './../../service/user.service';
+import { UserService } from 'src/app/shared/service/user.service';
+import { MenuService } from 'src/app/shared/service/menu.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 import { ModalService } from 'src/app/shared/service/modal.service';
+
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -102,21 +103,17 @@ export class HeaderComponent implements OnInit {
     return true;
   }
 
-
   comoFunciona(){
-    if(!this.router.url.includes('/home')){
+    if(!this.router.url.includes('/home')) {
       this.router.navigate(['/home']).then( () => {
         setTimeout(() => {
           var el = document.getElementById('comoFunciona');
           el.scrollIntoView({behavior: 'smooth'});
-          
         }, 100);
       })
-    }else{
+    } else {
       var el = document.getElementById('comoFunciona');
       el.scrollIntoView({behavior: 'smooth'});
-    }
-    
+    } 
   }
-  
 }

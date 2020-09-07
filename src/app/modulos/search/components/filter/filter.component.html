@@ -1,8 +1,0 @@
-<div id="searchFilter" class="container" style="margin-top: 10px;">
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-        <span class="title">CARACTERÍSTICAS DO ESPAÇO</span>
-        <div class="w-100 d-flex flex-column" style="padding-top: 10px;">
-            <mat-checkbox appearance="none" *ngFor="let item of items" color="warn">{{item}}</mat-checkbox>
-        </div>
-    </form>
-</div>

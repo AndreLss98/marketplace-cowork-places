@@ -1,17 +1,14 @@
-import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule }   from '@angular/forms';
 
-import { SearchRoutingModule } from './search-routing.module';
-import { SearchComponent } from './search.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { FilterComponent } from './components/filter/filter.component';
-import { SearchBoxMobileComponent } from './components/search-box-mobile/search-box-mobile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SearchRoutingModule } from './search-routing.module';
 
+import { SearchComponent } from './search.component';
 
 @NgModule({
-  declarations: [SearchComponent, FilterComponent, SearchBoxMobileComponent ],
+  declarations: [SearchComponent ],
   imports: [
     SharedModule,
     CommonModule,
