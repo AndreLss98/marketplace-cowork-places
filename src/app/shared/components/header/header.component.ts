@@ -13,7 +13,7 @@ import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 @Component({
-  selector: 'header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
