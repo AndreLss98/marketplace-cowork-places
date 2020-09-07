@@ -6,7 +6,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 import { HOME_TEXT, HOME_COMO_FUNCIONA, HOME_INFO_MIDDLE } from '../../shared/constants/constants';
 
 @Component({
-  selector: 'app-home',
+  selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
