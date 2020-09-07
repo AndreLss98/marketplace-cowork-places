@@ -1,12 +1,9 @@
-<div id="content" class="d-flex flex-row flex-wrap w-100">
-	<!-- <div id="searchBoxAndFilter" class="d-flex justify-content-center" style="margin: 5px;">
-		<app-searchbox id="searchScroll"></app-searchbox>
-	</div> -->
+<div class="d-flex flex-row flex-wrap min-vh-100 pt-5">
 	<div *ngIf="highlightService.searched && highlightService.searched.length > 0"
 		class="h-100 d-flex align-items-start flex-row flex-wrap"
 		id="searchHighlight" infiniteScroll
 		[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
-		<app-highlight-items *ngFor="let space of highlightService.searched" style="padding-bottom: 15px; margin: 5px;" [data]="space" width="210px"></app-highlight-items>
+		<app-highlight-items *ngFor="let space of highlightService.searched" [data]="space"></app-highlight-items>
 	</div>
 	<div *ngIf="!highlightService.searched || highlightService.searched.length === 0"
 		id="searchHighlight"

@@ -10,8 +10,6 @@ import { HighlightService } from 'src/app/shared/service/highlight.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
-  private offset = 'auto';
   
   private position;
 
@@ -40,13 +38,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     $('#navTop').removeClass('hide');
     $('#navTop').addClass('up');
   }
 
   onScrollContent() {
-    // this.result = this.highlight.getSomeSpaces(this.quantity)
+    
   }
 }

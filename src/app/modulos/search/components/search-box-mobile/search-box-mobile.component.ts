@@ -22,15 +22,14 @@ export class SearchBoxMobileComponent implements OnInit {
   constructor(
     private form: FormBuilder,
   ) { 
-    this.rangeValues = [20,80];
+    this.rangeValues = [20, 80];
     this.searchForm = this.form.group({
       location: this.location
     })
   }
-  handleChange(e) {
-    console.log(e)}
 
   ngOnInit(): void {
+
   }
 
   onSubmit(){}
