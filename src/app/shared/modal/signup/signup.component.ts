@@ -1,18 +1,37 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from './../../service/user.service';
-import { LoginService } from 'src/app/shared/service/login.service';
-import { User } from './../../interface/interface';
-import { ModalService } from 'src/app/shared/service/modal.service';
-import { SignupService } from './../../service/signup.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms'
-
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, ErrorStateMatcher } from '@angular/material/core';
-import { LoginComponent } from '../login/login.component';
 import { MatStepper } from '@angular/material/stepper';
-import { Passos_signup as Passos, emailPattern } from '../../constants/constants';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import {
+  NgForm,
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormControl,
+  FormGroupDirective,
+} from '@angular/forms';
+
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_FORMATS,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS,
+  ErrorStateMatcher,
+} from '@angular/material/core';
+
 import * as moment from 'moment';
+
+import { User } from 'src/app/shared/interface/interface';
+import { Passos_signup as Passos, emailPattern } from 'src/app/shared/constants/constants';
+
+import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
+import { ModalService } from 'src/app/shared/service/modal.service';
+import { SignupService } from 'src/app/shared/service/signup.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -226,9 +245,5 @@ export class SignupComponent implements OnInit {
     .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
     .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
     this.segundoPasso.controls['cpf'].setValue(formatted);
-  }
-
-  public entrar() {
-    this.modal.openModal(LoginComponent, true)
   }
 }
