@@ -1,0 +1,11 @@
+<basic-table
+  [data]="data"
+  [tableColumns]="tableColumns"
+  [displayedColumns]="displayedColumns"
+  [actions]="actions"
+  (visualizar)="emitEvent(viewEvent, $event)"
+  (deletar)="emitEvent(deleteEvent, $event)"
+  (editar)="emitEvent(editEvent, $event)"></basic-table>
+<mat-paginator class="mx-4 mb-2"
+    [length]="pager.length"
+    [pageSizeOptions]="pageSizes"></mat-paginator>

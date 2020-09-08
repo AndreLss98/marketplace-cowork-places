@@ -10,11 +10,12 @@ import { MapsComponent } from './components/maps/maps.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
+import { BasicTableComponent } from './components/basic-table/basic-table.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
+import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
-import { BasicTableComponent } from './components/basic-table/basic-table.component';
 
 @NgModule({
   declarations: [ 
@@ -26,7 +27,8 @@ import { BasicTableComponent } from './components/basic-table/basic-table.compon
     CancelDialogComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent
+    BasicTableComponent,
+    PageableTableComponent
   ],
   imports: [
     FormsModule,
@@ -48,7 +50,8 @@ import { BasicTableComponent } from './components/basic-table/basic-table.compon
     CancelDialogComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent
+    BasicTableComponent,
+    PageableTableComponent
   ]
 })
 export class SharedModule { }

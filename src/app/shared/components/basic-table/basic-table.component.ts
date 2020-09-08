@@ -55,6 +55,6 @@ export class BasicTableComponent implements OnInit {
   ngOnInit(): void {}
 
   public emitEvent(event, id) {
-    event.emit({id});
+    event.emit({ id });
   }
 }
