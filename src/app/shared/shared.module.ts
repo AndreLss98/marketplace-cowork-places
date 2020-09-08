@@ -14,6 +14,7 @@ import { ImgCircularComponent } from './components/img-circular/img-circular.com
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
+import { BasicTableComponent } from './components/basic-table/basic-table.component';
 
 @NgModule({
   declarations: [ 
@@ -25,6 +26,7 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     CancelDialogComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
+    BasicTableComponent
   ],
   imports: [
     FormsModule,
@@ -46,6 +48,7 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     CancelDialogComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
+    BasicTableComponent
   ]
 })
 export class SharedModule { }

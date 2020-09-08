@@ -33,8 +33,9 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
-<mat-paginator class="mx-4"
+<mat-paginator class="mx-4 mb-2"
     [length]="pager.length"
     [pageSizeOptions]="pageSizes"
     (page)="pageUpdate($event)">
 </mat-paginator>
+<ng-container *ngTemplateOutlet="basicTable"></ng-container>

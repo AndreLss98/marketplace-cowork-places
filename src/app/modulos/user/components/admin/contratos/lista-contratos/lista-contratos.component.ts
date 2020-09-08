@@ -7,13 +7,14 @@ import { formatDate } from 'src/app/shared/constants/functions';
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
 
 import { AluguelService } from 'src/app/shared/service/aluguel.service';
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
 selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss']
 })
-export class ListaContratosComponent implements OnInit {
+export class ListaContratosComponent extends BasicTableComponent {
 
   public contratos = [];
   public status: any =  Object.values(ALUGUEL_STATUS);
@@ -33,6 +34,7 @@ export class ListaContratosComponent implements OnInit {
     private aluguelService: AluguelService,
     private router: Router
   ) {
+    super();
     this.filters = formBuilder.group({
       status: [ALUGUEL_STATUS.CREATED.value, []]
     });
@@ -41,7 +43,7 @@ export class ListaContratosComponent implements OnInit {
       this.fetchContratos();
     });
   }
-
+  
   ngOnInit(): void {
     this.contratos = this.route.snapshot['data'].contratos.results;
     this.pager.length = this.route.snapshot['data'].contratos.total_itens;
