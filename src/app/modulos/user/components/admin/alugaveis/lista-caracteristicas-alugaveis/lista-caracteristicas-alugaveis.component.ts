@@ -76,12 +76,10 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public create() {
-    if (this.createForm.valid) {
-      this.caracteristicasService.save(this.createForm.value).subscribe((response) => {
-        this.resetCreateForm();
-        this.fetchAll();
-      });
-    }
+    this.caracteristicasService.save(this.createForm.value).subscribe((response) => {
+      this.resetCreateForm();
+      this.fetchAll();
+    });
   }
 
   public update() {
