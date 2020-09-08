@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 
@@ -8,21 +10,19 @@ import { DocumentosService } from 'src/app/shared/service/documentos.service';
   templateUrl: './documentos-pessoais.component.html',
   styleUrls: ['./documentos-pessoais.component.scss']
 })
-export class DocumentosPessoaisComponent implements OnInit {
+export class DocumentosPessoaisComponent extends BasicTableComponent {
 
-  public documentos = [];
   public documento;
-
   public editForm: FormGroup;
   public createForm: FormGroup;
-
   public icones = [ 'rg_verde.svg', 'cnh_verde.svg', 'selfie_verde.svg' ];
-  public displayedColumns = [ 'id', 'nome', 'avancado', 'action' ];
 
   constructor(
     private formBuilder: FormBuilder,
     private documentosService: DocumentosService
   ) {
+    super();
+
     this.createForm = formBuilder.group({
       nome: ["", Validators.required],
       icone: ["", []],
@@ -39,11 +39,23 @@ export class DocumentosPessoaisComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAll();
+    this.configTable();
+  }
+
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" },
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
+      { columnDef: "avancado", columnHeaderName: "Cadastro Avançado?", objectProperty: "avancado" }
+    ];
+    this.displayedColumns = ["nome", "avancado", "actions"];
+    this.actions = { editar: true, excluir: true, visualizar: false };
   }
 
   private fetchAll() {
     this.documentosService.getAll().subscribe(response => {
-      this.documentos = response;
+      response.forEach(element => element.avancado = element.avancado? "Sim":"Não");
+      this.data = response;
     });
   }
 
@@ -61,8 +73,8 @@ export class DocumentosPessoaisComponent implements OnInit {
     });
   }
 
-  public selectDocument(document) {
-    this.documento = document;
+  public selectDocument(event) {
+    this.documento = this.data.find(element => element.id === event.id);
     this.editForm.reset({
       id: this.documento.id,
       nome: this.documento.nome,
@@ -78,10 +90,9 @@ export class DocumentosPessoaisComponent implements OnInit {
     });
   }
 
-  public deletar(id) {
-    this.documentosService.deletar(id).subscribe(response => {
+  public deletar(event) {
+    this.documentosService.deletar(event.id).subscribe(response => {
       this.fetchAll();
     })
   }
-
 }

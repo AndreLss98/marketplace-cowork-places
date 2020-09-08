@@ -1,7 +1,22 @@
-<mat-table class="mat-elevation-z4 mx-4 mb-2" [dataSource]="dataSource">
+<mat-table class="mat-elevation-z4 mx-4 mb-2" [dataSource]="data">
     <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.columnDef">
         <mat-header-cell *matHeaderCellDef> {{ column.columnHeaderName }} </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row[column.objectProperty]}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
+            <span *ngIf="actions.visualizar"
+                class="material-icons cursor-pointer"
+                (click)="emitEvent(viewEvent, row[attributeId])">visibility</span>
+            <span *ngIf="actions.editar"
+                class="material-icons cursor-pointer"
+                (click)="emitEvent(editEvent, row[attributeId])">create</span>
+            <span *ngIf="actions.excluir"
+                class="material-icons cursor-pointer"
+                (click)="emitEvent(deleteEvent, row[attributeId])">delete</span>
+        </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

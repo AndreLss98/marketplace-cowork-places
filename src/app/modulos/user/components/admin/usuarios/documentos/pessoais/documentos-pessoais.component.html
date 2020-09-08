@@ -1,32 +1,10 @@
-<mat-table class="mat-elevation-z8 cursor-pointer" [dataSource]="documentos">
-    <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="selectDocument(element)"> {{element.id}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="nome">
-        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="selectDocument(element)">{{element.nome}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="avancado">
-        <mat-header-cell *matHeaderCellDef> Cadastro Avançado? </mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="selectDocument(element)">{{element.avancado? 'Sim': 'Não'}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element" class="action-row">
-            <button
-                mat-raised-button
-                class="danger"
-                (click)="deletar(element.id)">Remover</button>
-        </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+<basic-table
+    [data]="data"
+    [tableColumns]="tableColumns"
+    [displayedColumns]="displayedColumns"
+    [actions]="actions"
+    (deletar)="deletar($event)"
+    (editar)="selectDocument($event)"></basic-table>
 
 <div id="cards-container">
     <mat-card class="card">

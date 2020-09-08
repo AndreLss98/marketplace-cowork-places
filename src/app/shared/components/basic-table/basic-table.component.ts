@@ -1,9 +1,9 @@
 import {
   Input,
   OnInit,
-  ViewChild,
+  Output,
   Component,
-  TemplateRef,
+  EventEmitter,
 } from '@angular/core';
 
 export interface BasicTableColumn {
@@ -12,17 +12,19 @@ export interface BasicTableColumn {
   objectProperty: string;
 }
 
+export interface ActionsButtons {
+  editar: boolean;
+  excluir: boolean;
+  visualizar: boolean;
+}
+
 @Component({
   selector: 'basic-table',
   templateUrl: './basic-table.component.html',
   styleUrls: ['./basic-table.component.scss']
 })
 export class BasicTableComponent implements OnInit {
-
-  @ViewChild('basicTable') basicTable: TemplateRef<any>;
-
-  public dataSource: any[] = [];
-
+  
   @Input('data')
   public data: any[] = [];
 
@@ -32,9 +34,26 @@ export class BasicTableComponent implements OnInit {
   @Input('displayedColumns')
   public displayedColumns: string[] = [];
 
-  constructor() { }
+  @Input('actions')
+  public actions: ActionsButtons = { editar: true, excluir: true, visualizar: true };
 
-  ngOnInit(): void {
-    this.dataSource = this.data;
+  @Input('attributeId')
+  public attributeId: string = 'id';
+
+  @Output('editar')
+  public editEvent = new EventEmitter();
+
+  @Output('deletar')
+  public deleteEvent = new EventEmitter();
+
+  @Output('visualizar')
+  public viewEvent = new EventEmitter();
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  public emitEvent(event, id) {
+    event.emit({id});
   }
 }
