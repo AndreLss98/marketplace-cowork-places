@@ -1,9 +1,5 @@
 @import '../../../../../../place-et-theme.scss';
 
-.card-table {
-    margin: 20px;
-}
-
 .inputDocumento{
     background-repeat:no-repeat;
     background-position: center;
@@ -45,28 +41,5 @@
     }
     .content{
         font-size: 15px;
-    }
-}
-
-mat-icon {
-    cursor: pointer;
-}
-
-.alertCadastro{
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #dadada;
-    border-radius: 5px;
-    background-color: white;
-    padding: 10px;
-
-    .title{
-        font-weight: 500;
-        font-size: 16px;
-    }
-
-    .content{
-        font-size: 14px;
     }
 }

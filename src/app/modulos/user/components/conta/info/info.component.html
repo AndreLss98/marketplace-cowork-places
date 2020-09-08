@@ -1,14 +1,14 @@
-<div class="alertCadastro" *ngIf="userService.user_data?.status_cadastro == 'disapproved'">
-    <span class="title">Infelizmente seu cadastro não foi aprovado.</span>
-    <span class="content">{{userService.user_data.observacao}}</span>
+<div class="d-flex flex-column border border-danger rounded p-2 mb-3 mat-elevation-z2" *ngIf="userService.user_data?.status_cadastro == 'disapproved'">
+    <span class="font-weight-bold">Infelizmente seu cadastro não foi aprovado.</span>
+    <span>Motivo: {{userService.user_data.observacao}}</span>
 </div>
 
-<div class="alertCadastro" *ngIf="userService.user_data?.status_cadastro == 'waiting'">
-    <span class="title">Cadastro em análise.</span>
+<div class="d-flex flex-column border border-warning rounded p-2 mb-3 mat-elevation-z2" *ngIf="userService.user_data?.status_cadastro == 'waiting'">
+    <span class="font-weight-bold">Cadastro em análise.</span>
 </div>
 
-<div *ngIf="userService.user_data; else loading">
-    <mat-card class="mat-elevation-z4 card-table">
+<ng-container *ngIf="userService.user_data; else loading">
+    <mat-card class="mat-elevation-z2 mb-3">
         <img-circular class="d-inline-block"
             [firstLetter]="userService.user_data.nome[0]"
             [imgUrl]="imgUrl"
@@ -122,7 +122,7 @@
         </mat-card-content>
     </mat-card>
     
-    <mat-card class="mat-elevation-z4 card-table">
+    <mat-card class="mat-elevation-z2 mb-3">
         <mat-card-title class="d-flex flex-row">
             <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
                 [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
@@ -190,7 +190,7 @@
         </mat-card-content>
     </mat-card>
     
-    <mat-card *ngIf="documentos && documentos.length > 0" class="mat-elevation-z4 card-table">
+    <mat-card *ngIf="documentos && documentos.length > 0" class="mat-elevation-z2 mb-3">
         <mat-card-title>Documentos Pessoais</mat-card-title>
         <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>
         <mat-card-content>
@@ -216,7 +216,7 @@
         </mat-card-content>
     </mat-card>
     
-    <mat-card *ngIf="documentosEnviados && documentosEnviados.length > 0" class="mat-elevation-z4 card-table">
+    <mat-card *ngIf="documentosEnviados && documentosEnviados.length > 0" class="mat-elevation-z2 mb-3">
       <mat-card-title>Documentos Pessoais</mat-card-title>
       <mat-card-subtitle>Documentos enviados</mat-card-subtitle>
       <mat-card-content>
@@ -240,7 +240,7 @@
           </table>
       </mat-card-content>
     </mat-card>
-</div>
+</ng-container>
 
 <ng-template #loading>
     <mat-spinner></mat-spinner>

@@ -85,10 +85,6 @@ input[type=number] {
   background: transparent;
 }
 
-.cursor-pointer {
-  cursor: pointer !important;
-}
-
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
@@ -114,6 +110,10 @@ input[type=number] {
   font-family: CentraleSans;
   font-weight: lighter;
   src: url('/assets/font/Centrale\ Sans/CentraleSansLight.otf') format("opentype");
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
 button {
