@@ -1,28 +1,34 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { PoliticasService } from 'src/app/shared/service/politicas.service';
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { translateBoolValue } from 'src/app/shared/constants/functions';
+
+import { PoliticasService } from 'src/app/shared/service/politicas.service';
+
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
   selector: 'app-lista-politicas',
   templateUrl: './lista-politicas.component.html',
   styleUrls: ['./lista-politicas.component.scss']
 })
-export class ListaPoliticasComponent implements OnInit {
+export class ListaPoliticasComponent extends BasicTableComponent {
 
   public selectedFile: File;
   public updateFile: File;
   public politica;
-  public politicas = [];
-  public displayedColumns: string[] = ['id', 'nome', 'versao', 'aprovado', 'action'];
-
   public saveForm: FormGroup;
   public editForm: FormGroup;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private politicasService: PoliticasService,
   ) {
+    super();
+
     this.saveForm = formBuilder.group({
       nome: ["", Validators.required],
       arquivo: [null, Validators.required]
@@ -38,12 +44,29 @@ export class ListaPoliticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchPoliticas();
+    this.fetchAll();
+    this.configTable();
   }
 
-  private fetchPoliticas() {
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" },
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
+      { columnDef: "versao", columnHeaderName: "Versão", objectProperty: "versao" },
+      {
+        columnDef: "aprovado",
+        columnHeaderName: "Aprovada?",
+        objectProperty: "aprovado",
+        formatFunction: translateBoolValue
+      }
+    ];
+    this.displayedColumns = ["id", "nome", "versao", "aprovado", "actions"];
+    this.actions = { editar: true, excluir: true, visualizar: true };
+  }
+
+  private fetchAll() {
     this.politicasService.getAll().subscribe((response: any) => {
-      this.politicas = response;
+      this.data = response;
     });
   }
 
@@ -61,35 +84,31 @@ export class ListaPoliticasComponent implements OnInit {
     });
   }
 
-  public savePolitica(event) {
-    if (this.saveForm.valid) {
-      this.politicasService.save(this.saveForm.value, this.selectedFile).subscribe((event: any) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
-        } else if (event.type === HttpEventType.Response) {
-          this.fetchPoliticas();
-          this.resetSaveForm();
-        }
-      }, (error) => {
-        //console.log('Save error: ', error);
-      });
-    };
+  public create() {
+    this.politicasService.save(this.saveForm.value, this.selectedFile).subscribe((event: any) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+      } else if (event.type === HttpEventType.Response) {
+        this.fetchAll();
+        this.resetSaveForm();
+      }
+    }, (error) => {
+      //console.log('Save error: ', error);
+    });
   }
 
-  public updatePolitica(event) {
-    if (this.editForm.valid) {
-      this.politicasService.update(this.editForm.value, this.updateFile).subscribe((event: any) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
-        } else if (event.type === HttpEventType.Response) {
-          this.politica = null;
-          this.updateFile = null;
-          this.fetchPoliticas();
-        }
-      }, (error) => {
-        //console.log('Update error: ', error);
-      });
-    };
+  public update() {
+    this.politicasService.update(this.editForm.value, this.updateFile).subscribe((event: any) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
+      } else if (event.type === HttpEventType.Response) {
+        this.politica = null;
+        this.updateFile = null;
+        this.fetchAll();
+      }
+    }, (error) => {
+      //console.log('Update error: ', error);
+    });
   }
 
   public resetSaveForm() {
@@ -99,8 +118,8 @@ export class ListaPoliticasComponent implements OnInit {
     })
   }
 
-  public setEditForm(politica) {
-    this.politica = politica;
+  public edit(event) {
+    this.politica = this.data.find(element => element.id === event.id);
     this.editForm.reset({
       id: this.politica.id,
       nome: this.politica.nome,
@@ -110,14 +129,18 @@ export class ListaPoliticasComponent implements OnInit {
     });
   }
 
-  public deletePolitica(id) {
-    this.politicasService.delete(id).subscribe(response => {
+  public deletar(event) {
+    this.politicasService.delete(event.id).subscribe(response => {
       this.politica = null;
       this.updateFile = null;
-      this.fetchPoliticas();
+      this.fetchAll();
     }, (error) => {
       console.log('Error: ', error);
     });
   }
 
+  public visualizar(event) {
+    const { sluq } = this.data.find(element => element.id === event.id);
+    this.router.navigateByUrl(`/about/${sluq}`) ;
+  }
 }

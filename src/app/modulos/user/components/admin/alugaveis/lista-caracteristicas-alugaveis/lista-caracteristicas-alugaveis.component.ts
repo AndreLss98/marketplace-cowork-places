@@ -12,8 +12,6 @@ import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic
 export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent implements OnInit {
 
   public caracteristica;
-  public displayedColumns = [ 'id', 'nome', 'icone' ];
-
   public editForm: FormGroup;
   public createForm: FormGroup;
 

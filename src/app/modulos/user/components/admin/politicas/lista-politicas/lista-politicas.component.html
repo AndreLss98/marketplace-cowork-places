@@ -1,39 +1,11 @@
-<mat-table [dataSource]="politicas" class="mat-elevation-z8 cursor-pointer">
-    <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="nome">
-        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="versao">
-        <mat-header-cell *matHeaderCellDef> Versão </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.versao}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="aprovado">
-        <mat-header-cell *matHeaderCellDef> Aprovado </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.aprovado? 'Sim': 'Não'}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element" class="action-row">
-            <a mat-button [href]="'/about/' + element.sluq">Visualizar</a>
-            <button
-                type="button"
-                class="danger"
-                mat-raised-button
-                (click)="deletePolitica(element.id)">Remover</button>
-        </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setEditForm(row)"></mat-row>
-</mat-table>
+<basic-table
+  [data]="data"
+  [tableColumns]="tableColumns"
+  [displayedColumns]="displayedColumns"
+  [actions]="actions"
+  (visualizar)="visualizar($event)"
+  (deletar)="deletar($event)"
+  (editar)="edit($event)"></basic-table>
 
 <div id="cards-container">
     <mat-card class="card">
@@ -41,7 +13,7 @@
             <mat-card-title>Nova Politica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="saveForm" (ngSubmit)="savePolitica($event)">
+            <form [formGroup]="saveForm" (ngSubmit)="create()">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input formControlName="nome" matInput placeholder="Nome" required />
@@ -54,7 +26,7 @@
                 </mat-form-field>
                     <table>
                         <td>
-                            <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid">Criar</button>
+                            <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
                         </td>
                     </table>
             </form>
@@ -66,7 +38,7 @@
             <mat-card-title>Atualizar Politica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="editForm" (ngSubmit)="updatePolitica($event)">
+            <form [formGroup]="editForm" (ngSubmit)="update()">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input formControlName="nome" matInput placeholder="Nome" required />
