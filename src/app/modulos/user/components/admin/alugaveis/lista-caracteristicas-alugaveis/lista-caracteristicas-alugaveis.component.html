@@ -1,22 +1,9 @@
-<mat-table [dataSource]="caracteristicas" class="mx-4 mt-4 mat-elevation-z8 cursor-pointer">
-    <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="nome">
-        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.nome}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="icone">
-        <mat-header-cell *matHeaderCellDef> Icone </mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.icone}}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setCaracteristica(row)"></mat-row>
-</mat-table>
+<basic-table
+    [data]="data"
+    [tableColumns]="tableColumns"
+    [displayedColumns]="displayedColumns"
+    [actions]="actions"
+    (editar)="select($event)"></basic-table>
 
 <div id="cards-container">
     <mat-card class="card">
@@ -24,7 +11,7 @@
             <mat-card-title>Nova Caracteristica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="createForm" (ngSubmit)="saveCaracteristica()">
+            <form [formGroup]="createForm" (ngSubmit)="save()">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input formControlName="nome" matInput placeholder="Nome" required>
@@ -50,7 +37,7 @@
             <mat-card-title>Editar Caracteristica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="editForm" (ngSubmit)="updateCaracteristica()">
+            <form [formGroup]="editForm" (ngSubmit)="update()">
                 <mat-form-field appearance="outline">
                     <mat-label>Nome</mat-label>
                     <input matInput formControlName="nome" placeholder="Nome" required>

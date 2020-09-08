@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
   selector: 'lista-caracteristicas-alugaveis',
   templateUrl: './lista-caracteristicas-alugaveis.component.html',
   styleUrls: ['./lista-caracteristicas-alugaveis.component.scss']
 })
-export class ListaCaracteristicasAlugaveisComponent implements OnInit {
+export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent implements OnInit {
 
-  public caracteristicas = [];
   public caracteristica;
   public displayedColumns = [ 'id', 'nome', 'icone' ];
 
@@ -39,6 +39,8 @@ export class ListaCaracteristicasAlugaveisComponent implements OnInit {
     private formBuilder: FormBuilder,
     private caracteristicasService: CaracteristicasService
   ) {
+    super();
+
     this.createForm = formBuilder.group({
       nome: ["", Validators.required],
       icone: [""]
@@ -53,17 +55,27 @@ export class ListaCaracteristicasAlugaveisComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAll();
+    this.configTable();
+  }
+
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" }        ,
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
+    ];
+    this.displayedColumns = ["id", "nome", "actions"];
+    this.actions = { editar: true, excluir: false, visualizar: false };
   }
 
   private fetchAll() {
     this.caracteristicasService.getAll().subscribe((response: any) => {
-      this.caracteristicas = response;
+      this.data = response;
     }, (error) => {
       //console.log("Fetch error: ", error);
     });    
   }
 
-  public saveCaracteristica() {
+  public create() {
     if (this.createForm.valid) {
       this.caracteristicasService.save(this.createForm.value).subscribe((response) => {
         this.resetCreateForm();
@@ -72,7 +84,7 @@ export class ListaCaracteristicasAlugaveisComponent implements OnInit {
     }
   }
 
-  public updateCaracteristica() {
+  public update() {
     if (this.editForm.valid) {
       //console.log('Form: ', this.editForm);
       this.caracteristicasService.update(this.editForm.value).subscribe((response) => {
@@ -82,14 +94,8 @@ export class ListaCaracteristicasAlugaveisComponent implements OnInit {
     }
   }
 
-  private resetCreateForm() {
-    this.createForm.reset({
-      nome: ""
-    })
-  }
-
-  public setCaracteristica(caracteristica) {
-    this.caracteristica = caracteristica;
+  public select(event) {
+    this.caracteristica = this.data.find(element => element.id === event.id);
     this.editForm.reset({
       id: this.caracteristica.id,
       nome: this.caracteristica.nome,
@@ -97,4 +103,9 @@ export class ListaCaracteristicasAlugaveisComponent implements OnInit {
     })
   }
 
+  private resetCreateForm() {
+    this.createForm.reset({
+      nome: ""
+    })
+  }
 }
