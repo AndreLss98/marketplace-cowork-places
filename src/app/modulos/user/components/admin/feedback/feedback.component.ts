@@ -1,24 +1,23 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 import { FeedbackService } from 'src/app/shared/service/feedback.service';
-import { ActivatedRoute } from '@angular/router';
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss']
 })
-export class FeedbackComponent implements OnInit {
+export class FeedbackComponent extends BasicTableComponent implements OnInit {
   readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
 
-  public perguntas = [];
   public feedbacks = [];
   public tiposCampos = [];
 
-  public displayedColumns = ['id', 'pergunta', 'action'];
   public feedbackDisplayedColumns = [];
 
   public feedbackForm: FormGroup;
@@ -31,6 +30,8 @@ export class FeedbackComponent implements OnInit {
     private formBuilder: FormBuilder,
     private feedbackService: FeedbackService,
   ) {
+    super();
+
     this.feedbackForm = formBuilder.group({
       pergunta: ['', [Validators.required]],
       nome_campo: ['', [Validators.required]],
@@ -48,6 +49,14 @@ export class FeedbackComponent implements OnInit {
     this.tiposCampos = Object.keys(TIPOS_CAMPOS);
     this.feedbacks = this.router.snapshot.data.feedbacks;
     this.fetchAll();
+    this.configTable();
+  }
+
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "pergunta", columnHeaderName: "Pergunta", objectProperty: "pergunta" }
+    ];
+    this.displayedColumns = ["pergunta"];
   }
 
   onSubmit() {
@@ -112,15 +121,16 @@ export class FeedbackComponent implements OnInit {
 
   private fetchAll() {
     this.feedbackService.getAll().subscribe(response => {
-      this.perguntas = response;
+      this.data = response;
     });
   }
 
-  public delete(id) {
-    this.feedbackService.delete(id).subscribe(response => {
+  public deletar(event) {
+    console.log(event)
+    this.feedbackService.delete(event.id).subscribe(response => {
       this.fetchAll();
     }, (error) => {
-      //console.log(error);
+      console.log(error);
     });
   }
 }
