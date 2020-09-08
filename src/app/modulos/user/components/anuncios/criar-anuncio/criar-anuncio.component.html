@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="true"  #stepper>
+<mat-horizontal-stepper [linear]="false"  #stepper>
 
     <mat-step [stepControl]='termos' [editable]="editavel">
         <form [formGroup]='termos'>
@@ -41,7 +41,7 @@
                     <input matInput formControlName="titulo" placeholder="Ex: Escritório Urbano" maxlength="40" minlength="2">
                     <mat-error>Preencha o campo corretamente</mat-error>
                 </mat-form-field>
-    
+
                 <mat-form-field appearance="outline">
                     <mat-label>Categoria</mat-label>
                     <mat-select formControlName="tipo">
@@ -65,7 +65,7 @@
 
                 <!-- Endereço -->
                 <span class="w-100 text-center" style="margin-bottom: 5px;">Endereço</span>
-                <div class="w-100 d-flex flex-row flex-wrap"> 
+                <div class="w-100 d-flex flex-row flex-wrap">
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>CEP</mat-label>
                         <input matInput formControlName="cep"
@@ -76,12 +76,12 @@
                             Os nossos serviços ainda não estão disponíveis nessa cidade. Aguarde!
                         </mat-error>
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Rua</mat-label>
                         <input matInput formControlName="rua" minlength="2" maxlength="100">
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Complemento</mat-label>
                         <input matInput formControlName="complemento" minlength="2" maxlength="100">
@@ -92,19 +92,19 @@
                         <input matInput type="number"
                             formControlName="numero" (keyup)="formatarNumerio('numero')">
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="outline" class="w-75">
                         <mat-label>Bairro</mat-label>
                         <input matInput formControlName="bairro" minlength="2" maxlength="100">
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Estado</mat-label>
                         <mat-select formControlName="estado" (selectionChange)="loadDistritoByEstado()" matInput>
                             <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="outline" class="w-50">
                         <mat-label>Cidade</mat-label>
                         <mat-select formControlName="cidade" matInput (selectionChange)="verificaCidade()">
@@ -132,7 +132,7 @@
                             <input type="file"
                                 id="escritura" formControlName='escritura' (change)="carregarDocumento($event, 'escritura')">
                             <label for="escritura" aria-describedby="escrituraAddon0">
-                                {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }} 
+                                {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
                             </label>
                         </div>
                     </div>
@@ -152,8 +152,8 @@
                         <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do proprietário</span>
                         <div class="inputDocumentoProprietario" [ngStyle]="{'background-image':documento_proprietario.value ? cnhImg: cnhImgAmarelo}">
                             <input type="file" (change)="carregarDocumento($event, 'documento_proprietario')"
-                                id="documento_proprietario" formControlName='documento_proprietario'>                          
-                            <label for="documento_proprietario" 
+                                id="documento_proprietario" formControlName='documento_proprietario'>
+                            <label for="documento_proprietario"
                                 aria-describedby="documento_proprietarioAddon0">
                                 {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
                             </label>
@@ -182,7 +182,7 @@
                         <div class="d-flex h-100 align-items-center justify-content-center flex-column">
                             <mat-icon>add</mat-icon>
                             <span>Adicionar uma imagem*</span>
-                            <mat-spinner *ngIf="image_spinner"></mat-spinner> 
+                            <mat-spinner *ngIf="image_spinner"></mat-spinner>
                         </div>
                         <mat-card-footer class="d-flex justify-content-end">
                             <span style="width: 100%; text-align: right; font-size: 11px;">*PNG, JPEG e JPG  </span>
@@ -268,7 +268,7 @@
                             placeholder="Ex.: Proibido fumar" class="form-control">
                     </div>
                     <div class="input-group-append">
-                        <button class="input-group-text alert-success" type="button" (click)="addInfo()">Adicionar</button>    
+                        <button class="input-group-text alert-success" type="button" (click)="addInfo()">Adicionar</button>
                     </div>
                 </div>
                 <div class="w-50 input-group mb-3" *ngFor="let control of info; index as i">
@@ -276,10 +276,10 @@
                         <input [value]="control.descricao" class="form-control">
                     </div>
                     <div class="input-group-append">
-                        <button class="input-group-text alert-danger" type="button" (click)="removeInfo(i)">Remover</button>    
+                        <button class="input-group-text alert-danger" type="button" (click)="removeInfo(i)">Remover</button>
                     </div>
                 </div>
-                
+
                 <div class="w-100 d-flex justify-content-between flex-row" style="margin-bottom: 15px; margin-top: 15px;">
                     <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
                     <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
@@ -291,7 +291,7 @@
     <mat-step [stepControl]='valores' [editable]="editavel">
         <form [formGroup]='valores'>
             <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
-    
+
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline" class="w-100">
@@ -304,7 +304,7 @@
                         <input #custo_mensal matInput formControlName="custo_mes" (keyup)="custo_mensal.value = getFormattedPrice('custo_mes')" maxlength="10" />
                         <mat-hint>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.</mat-hint>
                     </mat-form-field>
-    
+
                     <div class="w-100" style="margin-top: 10px;">
                         <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de serviço</span>
                         <div>

@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="cardValores">
+                    <div class="cardValores" *ngIf="!mensal">
                         <div class="custoDia">
                             <span>{{calculaCustoDia(alugavel.taxa, alugavel.valor) | currency:'BRL':true}} x {{saida.diff(entrada, 'days') + 1}} dias</span>
                             <span>{{calculaTotalPeriodo(alugavel.taxa, alugavel.valor) | currency:'BRL':true}}</span>
@@ -59,6 +59,21 @@
                             <span>{{checkoutService.reserva.valor | currency:'BRL':true}}</span>
                         </div>
                     </div>
+
+                    <div class="cardValores" *ngIf="mensal">
+                      <div class="custoDia">
+                          <span class="w-50">{{calculaCustoMes(alugavel.taxa, alugavel.valor_mes, alugavel.valor) | currency:'BRL':true}} x {{saida.diff(entrada, 'month')}} mes(es) + {{saida.diff(entrada, 'days') - 30}} dias</span>
+                          <span>{{calculaTotalPeriodoMes(alugavel.taxa, alugavel.valor_mes, alugavel.valor) | currency:'BRL':true}}</span>
+                      </div>
+                      <div class="custoTaxa">
+                          <span>Taxa de serviço</span>
+                          <span>{{calculaTaxaMes(alugavel.taxa, alugavel.valor_mes) | currency:'BRL':true}}</span>
+                      </div>
+                      <div class="custoTotal">
+                          <span>Total</span>
+                          <span>{{checkoutService.reserva.valor | currency:'BRL':true}}</span>
+                      </div>
+                  </div>
 
                     <div class="cardAviso">
                         <span class="cardAvisoTitulo">Prazo de aceite.</span>

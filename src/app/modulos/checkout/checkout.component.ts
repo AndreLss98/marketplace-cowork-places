@@ -27,6 +27,8 @@ export class CheckoutComponent implements OnInit {
   private taxa;
   private max_taxa;
 
+  public mensal = false;
+
   public termos: FormGroup;
   termo1 = new FormControl('', [Validators.required]);
   termo2 = new FormControl('', [Validators.required]);
@@ -52,15 +54,23 @@ export class CheckoutComponent implements OnInit {
     moment.locale('pt-BR');
     this.entrada = moment(this.checkoutService.reserva.dias_reservados.data_entrada);
     this.saida = moment(this.checkoutService.reserva.dias_reservados.data_saida);
-    
+
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = Number(response.taxa);
     });
-    
+
     this.alugaveis.getById(this.checkoutService.reserva.alugavel_id).subscribe(response => {
       this.alugavel = response;
+      console.log('Alugavel: ', this.alugavel)
     });
-    
+
+    if( (this.saida.diff(this.entrada, 'days') + 1) >= 31){
+      this.mensal = true;
+      console.log("Mensal");
+    }
+
+    console.log('REserva: ', this.checkoutService.reserva);
+
     if (this.checkoutService.reserva.paypal_plan_id) {
       this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
     } else {
@@ -142,11 +152,26 @@ export class CheckoutComponent implements OnInit {
     return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
   }
 
+  public calculaTotalMes(taxa, custo_dia, custo_mes): number {
+    if (!custo_mes) return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
+    return Number(this.calculaCustoMes(taxa, custo_mes, custo_dia) + this.calculaTaxaMes(taxa, custo_mes));
+  }
+
   public calculaTotalPeriodo(taxa, custo_dia): number {
     let b = this.entrada;
     let a = this.saida;
     if (a == undefined || b == undefined) {
       return Number(this.calculaTotal(taxa, custo_dia));
+    } else {
+      return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
+    }
+  }
+
+  public calculaTotalPeriodoMes(taxa, custo_mes, custo_dia):number {
+    let b = this.entrada;
+    let a = this.saida;
+    if ((a.diff(b, 'days') + 1) > 30 && custo_mes) {
+      return ((a.diff(b, 'days') + 1) * this.calculaTotalMes(taxa, custo_dia, custo_mes)) / 31;
     } else {
       return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
     }
@@ -160,5 +185,21 @@ export class CheckoutComponent implements OnInit {
     } else {
       return Number(custo_dia * (this.max_taxa / 100 + 1))
     }
+  }
+
+  public calculaCustoMes(taxa, valor_mes, valor): number {
+    if (!valor_mes) {
+      return this.calculaCustoDia(taxa, valor);
+    } else if(taxa == this.max_taxa) {
+      return Number(valor_mes);
+    } else if(taxa == (this.max_taxa / 2)) {
+      return Number(valor_mes * (taxa/100 + 1))
+    } else {
+      return Number(valor_mes * (this.max_taxa/ 100 + 1))
+    }
+  }
+
+  public calculaTaxaMes(taxa, custo_mes): number {
+    return Number(custo_mes * (taxa/100))
   }
 }
