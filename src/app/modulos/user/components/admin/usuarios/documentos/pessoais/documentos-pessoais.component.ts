@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
+import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 @Component({
   selector: 'documentos-pessoais',
@@ -44,9 +45,13 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
 
   private configTable() {
     this.tableColumns = [
-      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" },
       { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
-      { columnDef: "avancado", columnHeaderName: "Cadastro Avançado?", objectProperty: "avancado" }
+      {
+        columnDef: "avancado",
+        columnHeaderName: "Cadastro Avançado?",
+        objectProperty: "avancado",
+        formatFunction: translateBoolValue
+      }
     ];
     this.displayedColumns = ["nome", "avancado", "actions"];
     this.actions = { editar: true, excluir: true, visualizar: false };
@@ -54,7 +59,6 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
 
   private fetchAll() {
     this.documentosService.getAll().subscribe(response => {
-      response.forEach(element => element.avancado = element.avancado? "Sim":"Não");
       this.data = response;
     });
   }
@@ -93,6 +97,6 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
   public deletar(event) {
     this.documentosService.deletar(event.id).subscribe(response => {
       this.fetchAll();
-    })
+    });
   }
 }

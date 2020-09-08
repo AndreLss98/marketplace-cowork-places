@@ -3,3 +3,7 @@ export function formatDate(date: Date) {
     const month = date.getMonth() + 1 < 10? `0${date.getMonth() + 1}`: date.getMonth() + 1;
     return `${day}/${month}/${date.getFullYear()}`;
 }
+
+export function translateBoolValue(value): string {
+    return value? "Sim" : "Não";
+}

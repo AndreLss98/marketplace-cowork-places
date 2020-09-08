@@ -10,6 +10,7 @@ export interface BasicTableColumn {
   columnDef: string;
   columnHeaderName: string;
   objectProperty: string;
+  formatFunction?: any;
 }
 
 export interface ActionsButtons {

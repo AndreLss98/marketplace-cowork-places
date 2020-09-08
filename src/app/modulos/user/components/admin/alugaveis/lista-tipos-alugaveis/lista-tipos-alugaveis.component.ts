@@ -4,18 +4,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 @Component({
   selector: 'lista-tipos-alugaveis',
   templateUrl: './lista-tipos-alugaveis.component.html',
   styleUrls: ['./lista-tipos-alugaveis.component.scss']
 })
-export class ListaTiposAlugaveisComponent implements OnInit {
+export class ListaTiposAlugaveisComponent extends BasicTableComponent implements OnInit {
 
   public tipo;
-  public tipos = [];
-  public displayedColumns: string[] = ['id', 'nome', 'disponivel', 'action'];
-
   public editForm: FormGroup;
   public createForm: FormGroup;
 
@@ -31,8 +30,10 @@ export class ListaTiposAlugaveisComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private tiposServive: TiposService,
+    private tiposServive: TiposService
   ) {
+    super();
+
     this.editForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
@@ -50,17 +51,32 @@ export class ListaTiposAlugaveisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchAllType();
+    this.configTable();
+    this.fetchAll();
   }
 
-  private fetchAllType() {
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
+      {
+        columnDef: "disponibilidade",
+        columnHeaderName: "Disponível?",
+        objectProperty: "disponivel",
+        formatFunction: translateBoolValue
+      }
+    ];
+    this.displayedColumns = ["nome", "disponibilidade", "actions"];
+    this.actions = { editar: true, excluir: true, visualizar: false };
+  }
+
+  private fetchAll() {
     this.tiposServive.getAll().subscribe((response: any) => {
-      this.tipos = response;
+      this.data = response;
     });
   }
 
-  public setEditComponent(tipo) {
-    this.tipo = tipo;
+  public select(event) {
+    this.tipo = this.data.find(element => element.id === event.id);
     this.editForm.reset({
       disponivel: this.tipo.disponivel,
       nome: this.tipo.nome,
@@ -70,21 +86,21 @@ export class ListaTiposAlugaveisComponent implements OnInit {
     });
   }
 
-  public updateTipo() {
+  public update() {
     if (this.editForm.status === "VALID") {
       let updateType = this.editForm.value;
       const id = updateType.id;
       delete updateType.id;
       this.tiposServive.update(id, updateType).subscribe((response) => {
-        this.fetchAllType();
+        this.fetchAll();
         this.tipo = null;
       });
     }
   }
 
-  public createTipo() {
+  public create() {
     this.tiposServive.create(this.createForm.value).subscribe((response) => {
-      this.fetchAllType();
+      this.fetchAll();
       this.createForm.reset({
         disponivel: false,
         nome: "",
@@ -93,9 +109,9 @@ export class ListaTiposAlugaveisComponent implements OnInit {
     });
   }
 
-  public deleteTipo(id) {
-    this.tiposServive.delete(id).subscribe(response => {
-      this.fetchAllType();
+  public deletar(event) {
+    this.tiposServive.delete(event.id).subscribe(response => {
+      this.fetchAll();
       this.tipo = null;
     }, (error) => {
       this.dialog.open(BasicModalComponent, {
