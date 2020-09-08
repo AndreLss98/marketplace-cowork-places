@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
-import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { Component, OnInit } from '@angular/core';
+
 import { highlightItem } from 'src/app/shared/interface/interface';
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
-
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 @Component({
   selector: 'app-meus-anuncios',
@@ -20,8 +20,8 @@ export class MeusAnunciosComponent implements OnInit {
   public espacos_desativados = [];
 
   constructor(
+    private router: Router,
     private alugavel: AlugavelService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,11 +34,12 @@ export class MeusAnunciosComponent implements OnInit {
 
   alterarStatus(id, status){
     let update;
-    if(status == 'approved'){
+    if(status === 'approved') {
       update = 'removed'
-    }else if(status == 'removed'){
+    }else if(status === 'removed') {
       update = 'waiting'
     }
+
     this.alugavel.alterAvaible(id, update).subscribe(res => {
       this.carregaAlugavel();
     });

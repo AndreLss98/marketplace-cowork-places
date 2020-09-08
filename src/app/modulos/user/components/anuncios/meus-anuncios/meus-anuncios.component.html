@@ -1,77 +1,86 @@
-<mat-tab-group class="w-100 myTabGroup" mat-align-tabs="center">
-    <mat-tab [label]="'Aprovados '+espacos_aprovados.length">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <mat-card class="myCard" routerLink="/user/anuncios/criaranuncio" style="margin: 5px; outline: none;">
-                <div class="d-flex h-100 align-items-center justify-content-center flex-column">
-                    <mat-icon>add</mat-icon>
-                    <span>Adicionar um espaço</span>
-                </div>
-            </mat-card>
-            <div style="margin: 5px; position: relative;" *ngFor="let aprovados of espacos_aprovados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
-                    [matMenuTriggerData]='{id: aprovados.id, status: aprovados.status}'
-                    style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
+<mat-tab-group class="w-100 pt-4" mat-align-tabs="center">
+    <mat-tab [label]="'Aprovados ('+ espacos_aprovados.length + ')'">
+        <div class="d-flex flex-row flex-wrap justify-content-start">
+            <div class="p-1">
+                <mat-card class="customCard cursor-pointer" routerLink="/user/anuncios/criaranuncio" style="outline: none;">
+                    <div class="d-flex h-100 align-items-center justify-content-center flex-column">
+                        <mat-icon>add</mat-icon>
+                        <span>Adicionar um espaço</span>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="position-relative p-1" *ngFor="let aprovados of espacos_aprovados">
+                <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
+                    [matMenuTriggerData]="{id: aprovados.id, status: aprovados.status}"
+                    class="position-absolute"
+                    style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]='aprovados'></app-highlight-items>
+                <app-highlight-items [data]="aprovados"></app-highlight-items>
             </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Em avaliação '+ espacos_em_avaliaco.length" style="margin-bottom: 10px;">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px; position: relative;" *ngFor="let aguardando of espacos_em_avaliaco">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
-                    [matMenuTriggerData]='{id: aguardando.id, status: aguardando.status}'
-                    style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
+
+    <mat-tab [label]="'Em avaliação ('+ espacos_em_avaliaco.length + ')'">
+        <div class="d-flex flex-row flex-wrap justify-content-start">
+            <div class="position-relative p-1" *ngFor="let aguardando of espacos_em_avaliaco">
+                <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
+                    [matMenuTriggerData]="{id: aguardando.id, status: aguardando.status}"
+                    class="position-absolute"
+                    style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]='aguardando'></app-highlight-items>
+                <app-highlight-items [data]="aguardando"></app-highlight-items>
             </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Reprovados '+ espacos_reprovados.length" style="margin-bottom: 10px;">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px; position: relative;" *ngFor="let reprovados of espacos_reprovados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
-                    [matMenuTriggerData]='{id: reprovados.id, status: reprovados.status}'
-                    style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
+    
+    <mat-tab [label]="'Reprovados ('+ espacos_reprovados.length + ')'">
+        <div class="d-flex flex-row flex-wrap justify-content-start">
+            <div class="position-relative p-1" *ngFor="let reprovados of espacos_reprovados">
+                <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
+                    [matMenuTriggerData]="{id: reprovados.id, status: reprovados.status}"
+                    class="position-absolute"
+                    style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <div class="d-flex flex-column">
-                    <app-highlight-items [data]='reprovados'></app-highlight-items>
-                    <div class="alertReprovados">
-                        <span class="title">Anúncio reprovado:</span>
-                        <span class="content">{{reprovados.observacao}}</span>
+                    <app-highlight-items [data]="reprovados"></app-highlight-items>
+                    <div class="alertReprovados position-relative pt-3 pl-3 pb-2 d-flex flex-direction-column flex-wrap">
+                        <span class="font-weight-bold">Anúncio reprovado:</span>
+                        <span>{{reprovados.observacao}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </mat-tab>
-    <mat-tab [label]="'Desativados '+ espacos_desativados.length" style="margin-bottom: 10px;">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
-            <div style="margin: 5px; position: relative;" *ngFor="let removidos of espacos_desativados">
-                <button type="button" mat-mini-fab [matMenuTriggerFor]='menu'
-                    [matMenuTriggerData]='{id: removidos.id, status: removidos.status}'
-                    style="position: absolute; top: 5px; right: 5px; z-index: 99; outline: none;">
+
+    <mat-tab [label]="'Desativados ('+ espacos_desativados.length + ')'">
+        <div class="d-flex flex-row flex-wrap justify-content-start">
+            <div class="position-relative p-1" *ngFor="let removidos of espacos_desativados">
+                <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
+                    [matMenuTriggerData]="{id: removidos.id, status: removidos.status}"
+                    class="position-absolute"
+                    style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]='removidos'></app-highlight-items>
+                <app-highlight-items [data]="removidos"></app-highlight-items>
             </div>
         </div>
     </mat-tab>
 </mat-tab-group>
 
-<mat-menu #menu='matMenu'>
-    <ng-template matMenuContent let-id='id' let-status='status'>
+<mat-menu #menu="matMenu">
+    <ng-template matMenuContent let-id="id" let-status="status">
         <button mat-menu-item
             (click)="editSpace(id)" style="outline: none;">
             <mat-icon>edit</mat-icon>
             <span>Editar</span>
         </button>
         <button mat-menu-item (click)="alterarStatus(id, status)"
-            *ngIf="status == 'approved' || status == 'removed'" style="outline: none;">
-            <mat-icon>{{status == 'removed'? 'visibility': 'visibility_off'}}</mat-icon>
-            <span>{{status == 'removed'? 'Ativar': 'Desativar'}}</span>
+            *ngIf="status === 'approved' || status === 'removed'" style="outline: none;">
+            <mat-icon>{{status === 'removed'? 'visibility': 'visibility_off'}}</mat-icon>
+            <span>{{status === 'removed'? 'Ativar': 'Desativar'}}</span>
         </button>
     </ng-template>
 </mat-menu>
