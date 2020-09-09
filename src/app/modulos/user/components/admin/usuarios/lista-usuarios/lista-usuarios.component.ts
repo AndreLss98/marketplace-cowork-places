@@ -15,7 +15,6 @@ import { PageableTableComponent } from 'src/app/shared/components/pageable-table
 export class ListaUsuariosComponent extends PageableTableComponent {
 
   public status: any =  Object.values(USUARIO_STATUS);
-
   public filters: FormGroup;
 
   constructor(

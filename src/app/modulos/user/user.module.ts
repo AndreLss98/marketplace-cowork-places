@@ -54,7 +54,7 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
   imports: [
     CommonModule,
     UserRoutingModule,
-    SharedModule,
+    SharedModule
   ]
 })
 export class UserModule { }
