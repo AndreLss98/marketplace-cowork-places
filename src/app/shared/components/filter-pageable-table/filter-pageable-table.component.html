@@ -1,0 +1,18 @@
+<form class="w-100 d-flex justify-content-around">
+  <mat-form-field appearance="legacy" *ngFor="let field of formFields">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [placeholder]="field.placeholder">
+      <mat-hint *ngIf="field.hint">fiel.hint</mat-hint>
+  </mat-form-field>
+</form>
+
+<pageable-table
+  [data]="data"
+  [tableColumns]="tableColumns"
+  [displayedColumns]="displayedColumns"
+  [actions]="actions"
+  [pager]="pager"
+  (visualizar)="emitEvent(viewEvent, $event)"
+  (deletar)="emitEvent(deleteEvent, $event)"
+  (editar)="emitEvent(editEvent, $event)"
+  (pageEvent)="emitPageEvent($event)"></pageable-table>

@@ -51,6 +51,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
 @NgModule({
   declarations: [ 
@@ -63,7 +64,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CancelDialogComponent,
     PageableTableComponent,
     HighlightItemsComponent,
-    QuestionAnsweredComponent
+    QuestionAnsweredComponent,
+    FilterPageableTableComponent
   ],
   imports: [
     FormsModule,
@@ -121,6 +123,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     PageableTableComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
+    FilterPageableTableComponent,
     
     MatBadgeModule,
     MdePopoverModule,
