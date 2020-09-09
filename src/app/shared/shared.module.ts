@@ -23,12 +23,12 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
+    BasicTableComponent,
     ImgCircularComponent,
     CancelDialogComponent,
+    PageableTableComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent,
-    PageableTableComponent
   ],
   imports: [
     FormsModule,
@@ -45,13 +45,13 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
+    BasicTableComponent,
     ReactiveFormsModule,
     ImgCircularComponent,
     CancelDialogComponent,
+    PageableTableComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent,
-    PageableTableComponent
   ]
 })
 export class SharedModule { }

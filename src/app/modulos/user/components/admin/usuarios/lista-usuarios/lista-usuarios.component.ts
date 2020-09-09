@@ -1,28 +1,20 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-
-import { UserService } from 'src/app/shared/service/user.service';
-import { USUARIO_STATUS } from 'src/app/shared/constants/constants';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { UserService } from 'src/app/shared/service/user.service';
+import { USUARIO_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
+
+import { PageableTableComponent } from 'src/app/shared/components/pageable-table/pageable-table.component';
+
 @Component({
-  selector: 'app-lista-usuarios',
+  selector: 'lista-usuarios',
   templateUrl: './lista-usuarios.component.html',
   styleUrls: ['./lista-usuarios.component.scss']
 })
-export class ListaUsuariosComponent implements OnInit {
+export class ListaUsuariosComponent extends PageableTableComponent {
 
   public status: any =  Object.values(USUARIO_STATUS);
-
-  public users = [];
-
-  private currentPage = 1;
-  public currentPageSize = 5;
-  public hasNext = false;
-  public hasPrevious = false;
-
-  public pageSizes = [5, 10, 20, 25];
-  public displayedColumns = [ 'nome', 'email', 'edit' ];
 
   public filters: FormGroup;
 
@@ -31,6 +23,8 @@ export class ListaUsuariosComponent implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder
   ) {
+    super();
+
     this.filters = formBuilder.group({
       status_cadastro: [USUARIO_STATUS.WAITING.value, []]
     });
@@ -42,29 +36,36 @@ export class ListaUsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAll();
+    this.configTable();
   }
 
-  public fetchAll() {
-    this.userService.getAll(this.currentPage, this.currentPageSize, this.filters.value).subscribe(response => {
-      this.users = response.results;
-      response.next? this.hasNext = true : this.hasNext = false;
-      response.previous? this.hasPrevious = true : this.hasPrevious = false;
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
+    ];
+    this.displayedColumns = ["nome", "actions"];
+    this.actions = { editar: false, excluir: false, visualizar: true };
+  }
+
+  public fetchAll(pager?) {
+    this.userService.getAll(
+      pager? pager.pageIndex + 1 : 1 ,
+      pager? this.pager.pageSize : FIRST_PAGE_SIZE ,
+      this.filters.value)
+    .subscribe(response => {
+      this.pager.length = response.total_itens;
+      this.data = response.results;
     }, (error) => {
       console.log("Error: ", error);
     });
   }
 
-  public nextPage() {
-    ++this.currentPage;
-    this.fetchAll();
+  public viewUserDetails(event) {
+    this.router.navigate([`user/usuarios/${event.id}`]);
   }
 
-  public previousPage() {
-    --this.currentPage;
-    this.fetchAll();
-  }
-
-  public viewUserDetails(user) {
-    this.router.navigate([`user/usuarios/${user.id}`]);
+  public pagerEvent(event) {
+    this.pager = event;
+    this.fetchAll(event); 
   }
 }

@@ -8,4 +8,5 @@
   (editar)="emitEvent(editEvent, $event)"></basic-table>
 <mat-paginator class="mx-4 mb-2"
     [length]="pager.length"
-    [pageSizeOptions]="pageSizes"></mat-paginator>
+    [pageSizeOptions]="pageSizes"
+    (page)="emitPageEvent($event)"></mat-paginator>

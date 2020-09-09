@@ -1,3 +1,4 @@
+export const FIRST_PAGE_SIZE = 5;
 export const HOME_TEXT =
     {
         infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
