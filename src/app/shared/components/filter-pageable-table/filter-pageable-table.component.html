@@ -1,9 +1,8 @@
-<form class="w-100 d-flex justify-content-around">
-  <mat-form-field appearance="legacy" *ngFor="let field of formFields">
-      <mat-label>{{ field.label }}</mat-label>
-      <input matInput [placeholder]="field.placeholder">
-      <mat-hint *ngIf="field.hint">fiel.hint</mat-hint>
-  </mat-form-field>
+<form class="mw-100 mx-4 d-flex flex-wrap justify-content-around">
+  <ng-container *ngFor="let field of formFields"
+  [ngTemplateOutlet]="field.type === 'text'? text : select"
+  [ngTemplateOutletContext]="{field:field}">
+  </ng-container>
 </form>
 
 <pageable-table
@@ -16,3 +15,21 @@
   (deletar)="emitEvent(deleteEvent, $event)"
   (editar)="emitEvent(editEvent, $event)"
   (pageEvent)="emitPageEvent($event)"></pageable-table>
+
+<ng-template #select let-field="field">
+  <mat-form-field appearance="standard" class="mx-1">
+    <mat-label>{{ field.label }}</mat-label>
+    <mat-select>
+      <mat-option>Nenhuma das opções</mat-option>
+      <mat-option *ngFor="let option of field.options; let i = index" [value]="i">{{ option.value }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #text let-field="field">
+  <mat-form-field appearance="standard" class="mx-1">
+    <mat-label>{{ field.label }}</mat-label>
+    <input matInput [placeholder]="field.placeholder">
+    <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+  </mat-form-field>
+</ng-template>
