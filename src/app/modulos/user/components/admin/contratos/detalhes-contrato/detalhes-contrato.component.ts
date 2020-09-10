@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { formatDate, formatMoneyValue } from 'src/app/shared/constants/functions';
 
 @Component({
   selector: 'app-detalhes-contrato',
@@ -25,22 +26,13 @@ export class DetalhesContratoComponent implements OnInit {
 
   ngOnInit(): void {
     this.aluguel = this.route.snapshot.data['aluguel'];
-    this.aluguel.data_criacao = this.formatDate(this.aluguel.data_criacao);
-    this.aluguel.dias_reservados.data_entrada = this.formatDate(this.aluguel.dias_reservados.data_entrada);
-    this.aluguel.dias_reservados.data_saida = this.formatDate(this.aluguel.dias_reservados.data_saida);
+    this.aluguel.data_criacao = formatDate(this.aluguel.data_criacao);
+    this.aluguel.dias_reservados.data_entrada = formatDate(this.aluguel.dias_reservados.data_entrada);
+    this.aluguel.dias_reservados.data_saida = formatDate(this.aluguel.dias_reservados.data_saida);
+    this.aluguel.valor = formatMoneyValue(this.aluguel.valor);
   }
 
   viewUser(id: number) {
     this.router.navigateByUrl(`user/usuarios/${id}`);
-  }
-
-  public formatDate(date: any) {
-    date = date.split('T')[0]
-    date = new Date(date);
-    let formattedDate = '';
-    formattedDate = date.getDate() + 1 < 10? `0${date.getDate() + 1}/` : `${date.getDate() + 1}/`;
-    formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}/` : `${date.getMonth() + 1}/`;
-    formattedDate += date.getFullYear();
-    return formattedDate;
   }
 }

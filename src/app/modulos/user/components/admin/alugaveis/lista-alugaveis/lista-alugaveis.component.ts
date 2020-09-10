@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
+import { formatMoneyValue } from 'src/app/shared/constants/functions';
 import { ALUGAVEL_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
 
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
@@ -31,9 +32,15 @@ export class ListaAlugaveisComponent extends FilterPageableTableComponent {
 
   private configTable() {
     this.tableColumns = [
-      { columnDef: "titulo", columnHeaderName: "Titulo", objectProperty: "titulo" }
+      { columnDef: "titulo", columnHeaderName: "Titulo", objectProperty: "titulo" },
+      {
+        columnDef: "valor",
+        columnHeaderName: "Valor",
+        objectProperty: "valor",
+        formatFunction: formatMoneyValue
+      }
     ];
-    this.displayedColumns = ["titulo", "actions"];
+    this.displayedColumns = ["titulo", "valor", "actions"];
     this.formFields = [
       {
         type: "select",
