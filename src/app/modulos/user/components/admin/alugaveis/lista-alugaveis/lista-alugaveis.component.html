@@ -1,6 +1,6 @@
 <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Anúncios">
-        <form class="mx-auto mt-4 w-50" [formGroup]="filters">
+     <mat-tab label="Anúncios">
+    <!-- <form class="mx-auto mt-4 w-50" [formGroup]="filters">
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Status Anúncio</mat-label>
                 <mat-select formControlName="status_cadastro">
@@ -30,7 +30,17 @@
     
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+        </mat-table> -->
+        <filter-pageable-table
+            [data]="data"
+            [tableColumns]="tableColumns"
+            [displayedColumns]="displayedColumns"
+            [actions]="actions"
+            [pager]="pager"
+            [formFields]="formFields"
+            (visualizar)="visualizarDetalhesAlugavel($event)"
+            (pageEvent)="pagerEvent($event)"
+            (filterChanges)="onFilterChanges($event)"></filter-pageable-table>
     </mat-tab>
     <mat-tab label="Tipos">
         <lista-tipos-alugaveis></lista-tipos-alugaveis>

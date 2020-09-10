@@ -35,6 +35,7 @@ export class PageableTableComponent extends BasicTableComponent {
   ngOnInit(): void {
 
   }
+  
   public emitEvent(event, {id}) {
     event.emit({ id });
   }

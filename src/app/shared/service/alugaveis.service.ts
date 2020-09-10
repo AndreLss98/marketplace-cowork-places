@@ -12,11 +12,11 @@ export class AlugaveisService {
 
   }
 
-  public getByStatus(page: number, size: number, status: string) {
+  public getByStatus(page: number, size: number, filters) {
     const params = new HttpParams()
     .set('page', page.toString())
     .set('limit', size.toString())
-    .set('filters', JSON.stringify({status}));
+    .set('filters', JSON.stringify(filters));
 
     return this.http.get<any>(`${environment.apiUrl}/alugaveis`, { params });
   }

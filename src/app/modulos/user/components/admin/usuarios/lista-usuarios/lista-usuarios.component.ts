@@ -15,6 +15,7 @@ import { FilterPageableTableComponent } from 'src/app/shared/components/filter-p
 export class ListaUsuariosComponent extends FilterPageableTableComponent {
 
   public status: any =  Object.values(USUARIO_STATUS);
+  private tempFilters = { status_cadastro: this.status[0].value };
 
   constructor(
     private router: Router,
@@ -59,7 +60,7 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
     this.userService.getAll(
       pager? pager.pageIndex + 1 : 1,
       pager? this.pager.pageSize : FIRST_PAGE_SIZE,
-      filters? filters : { status_cadastro: this.status[0].value })
+      this.tempFilters)
     .subscribe(response => {
       this.pager.length = response.total_itens;
       this.data = response.results;
@@ -79,6 +80,7 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
 
   public onFilterChanges(event) {
     this.pager.pageIndex = 0;
-    this.fetchAll(this.pager, event);
+    this.tempFilters = event;
+    this.fetchAll(this.pager, this.tempFilters);
   }
 }
