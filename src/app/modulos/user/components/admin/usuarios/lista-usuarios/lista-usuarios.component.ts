@@ -56,15 +56,11 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
   }
 
   public fetchAll(pager?, filters?) {
-    console.log('Pager: ', pager);
-    console.log('Filters: ', filters);
-
     this.userService.getAll(
       pager? pager.pageIndex + 1 : 1,
       pager? this.pager.pageSize : FIRST_PAGE_SIZE,
       filters? filters : { status_cadastro: this.status[0].value })
     .subscribe(response => {
-      console.log(response)
       this.pager.length = response.total_itens;
       this.data = response.results;
     }, (error) => {
