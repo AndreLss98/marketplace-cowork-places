@@ -16,9 +16,10 @@ import { PageableTableComponent } from './components/pageable-table/pageable-tab
 import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
+import { SidebarModule } from 'ng-sidebar';
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     MapsComponent,
     MdViewerComponent,
     ContratoComponent,
@@ -33,10 +34,11 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
   imports: [
     FormsModule,
     CommonModule,
-    RouterModule, 
+    RouterModule,
     MarkdownModule,
     MaterialModule,
     ReactiveFormsModule,
+    // SidebarModule.forRoot()
   ],
   exports: [
     FormsModule,

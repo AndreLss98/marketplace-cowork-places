@@ -1,82 +1,98 @@
-<div class="content">
-  <div class="header" *ngIf="!mobile_mode">
-    <div class="mt-4 ml-4">
-      <img class="d-block" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
-      <ng-container *ngIf="checkHome()">
-        <a class="itemMenu d-block text-left mt-4 mb-2 mx-0" (click)="comoFunciona()">Como Funciona</a>
-        <a
-          class="itemMenu d-block text-left mb-2 mx-0" target="_blank"
-          href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
-      </ng-container>
+<ng-sidebar-container>
+  <ng-sidebar [opened]="opened">
+    <div ng-sidebar-content>
+      <div class="content">
+        <div class="header" *ngIf="!mobile_mode">
+          <div class="mt-4 ml-4">
+            <img class="d-block" src="assets/imgs/logo/logo_preta.svg" (click)="goTo('/home')">
+            <ng-container *ngIf="checkHome()">
+              <a class="itemMenu d-block text-left mt-4 mb-2 mx-0" (click)="comoFunciona()">Como Funciona</a>
+              <a class="itemMenu d-block text-left mb-2 mx-0" target="_blank"
+                href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
+            </ng-container>
 
-      <button *ngIf="!mobile_mode"
-        mat-flat-button class="mb-4 outline-primary rounded-pill mt-4"
-        [ngbPopover]="popContent" container="body" triggers="manual"
-        placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
+            <button *ngIf="!mobile_mode" mat-flat-button class="mb-4 outline-primary rounded-pill mt-4"
+              [ngbPopover]="popContent" container="body" triggers="manual" placement="bottom-left" #p="ngbPopover"
+              (click)="doLogin(p)">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</button>
 
-      <app-user-menu *ngIf="router.url.includes('/user')"></app-user-menu>
-      <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
+            <app-user-menu *ngIf="router.url.includes('/user')"></app-user-menu>
+            <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de navegação celular -->
+      <div *ngIf="mobile_mode" id="navBottom" style="min-height: 64px;" [ngbPopover]="popContent" container="body"
+        triggers="manual" placement="top" popoverClass="popoverClass" #p="ngbPopover"
+        class="w-100 d-flex flex-row justify-content-around fixed-bottom tabs">
+        <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;"
+          (click)="goTo('/search')">
+          <span class="material-icons" style="color: white; font-size: 30px;">search</span>
+          <span style="font-size: 12px; color: white;">Buscar</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;"
+          (click)="goTo('/user/espacossalvos')">
+          <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
+          <span style="font-size: 12px; color: white;">Favoritos</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;"
+          (click)="doLogin(p)">
+          <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
+          <span style="font-size: 12px; color: white;">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</span>
+        </div>
+      </div>
+
+      <!-- Menu de itens -->
+      <ng-template #popContent>
+        <div id="popover">
+          <!-- <span class="popoverTitle" *ngIf="login.logged_status">Olá {{user.user_data.nome.split(' ')[0]}}</span> -->
+          <div style="margin-bottom: 5px;">
+            <mat-list>
+              <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
+                <span style="font-weight: 500;">
+                  Minha Conta
+                </span>
+              </mat-list-item>
+              <div class="espacamento"></div>
+              <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
+                <span style="font-weight: 500;">
+                  Salvos
+                </span>
+              </mat-list-item>
+              <div class="espacamento"></div>
+              <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
+                <span style="font-weight: 500;">
+                  Aluguéis
+                </span>
+              </mat-list-item>
+              <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
+                <span style="font-weight: 500;">
+                  Anúncios
+                </span>
+              </mat-list-item>
+              <div class="espacamento"></div>
+              <mat-list-item (click)="this.login.logoutServer()">
+                <span>
+                  Sair
+                </span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </ng-template>
     </div>
-  </div>
-  <div class="mx-4 pt-4 flex-fill">
+  </ng-sidebar>
+  <div ng-sidebar-content>
+    <div class="container" class="openClose-button">
+      <input type="checkbox" id="checkbox-menu" class="hamburguer" (click)="toggleSidebar()">
+
+      <label for="checkbox-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
     <router-outlet></router-outlet>
   </div>
-</div>
-
-<!-- Barra de navegação celular -->
-<div *ngIf="mobile_mode" id="navBottom" style="min-height: 64px;"
-    [ngbPopover]="popContent" container="body" triggers="manual"
-    placement="top" popoverClass="popoverClass" #p="ngbPopover"
-    class="w-100 d-flex flex-row justify-content-around fixed-bottom tabs">
-    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="goTo('/search')">
-      <span class="material-icons" style="color: white; font-size: 30px;">search</span>
-      <span style="font-size: 12px; color: white;">Buscar</span>
-    </div>
-    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="goTo('/user/espacossalvos')">
-      <span class="material-icons" style="color: #09fe9d; font-size: 30px;">favorite</span>
-      <span style="font-size: 12px; color: white;">Favoritos</span>
-    </div>
-    <div class="d-flex align-items-center justify-content-center flex-column" style="min-width: 66px;" (click)="doLogin(p)">
-      <span class="material-icons" style="color: white; font-size: 30px;">account_circle</span>
-      <span style="font-size: 12px; color: white;">{{ login.logged_status ? 'Minha conta' : 'Entrar' }}</span>
-    </div>
-</div>
-
-<!-- Menu de itens -->
-<ng-template #popContent>
-  <div id="popover">
-    <!-- <span class="popoverTitle" *ngIf="login.logged_status">Olá {{user.user_data.nome.split(' ')[0]}}</span> -->
-    <div style="margin-bottom: 5px;">
-      <mat-list>
-        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
-          <span style="font-weight: 500;">
-            Minha Conta
-          </span>
-        </mat-list-item>
-        <div class="espacamento"></div>
-        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
-          <span style="font-weight: 500;">
-            Salvos
-          </span>
-        </mat-list-item>
-        <div class="espacamento"></div>
-        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
-          <span style="font-weight: 500;">
-            Aluguéis
-          </span>
-        </mat-list-item>
-        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
-          <span style="font-weight: 500;">
-            Anúncios
-          </span>
-        </mat-list-item>
-        <div class="espacamento"></div>
-        <mat-list-item (click)="this.login.logoutServer()">
-          <span>
-            Sair
-          </span>
-        </mat-list-item>
-      </mat-list>
-    </div>
-  </div>
-</ng-template>
+</ng-sidebar-container>

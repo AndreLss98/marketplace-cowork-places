@@ -15,7 +15,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 
 import {
   RecaptchaModule,
-  RecaptchaSettings, 
+  RecaptchaSettings,
   RECAPTCHA_SETTINGS,
   RECAPTCHA_LANGUAGE,
   RecaptchaFormsModule
@@ -39,6 +39,7 @@ import { environment } from '../environments/environment';
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 import { UserMenuComponent } from './shared/components/header/components/user-menu/user-menu.component';
 import { SearchboxComponent } from './shared/components/header/components/searchbox/searchbox.component';
+import { SidebarModule } from 'ng-sidebar';
 
 registerLocaleData(localePt);
 
@@ -70,6 +71,8 @@ registerLocaleData(localePt);
     NgbModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
+    SidebarModule.forRoot()
+    ,
   ],
   providers: [
     NgxImageCompressService,

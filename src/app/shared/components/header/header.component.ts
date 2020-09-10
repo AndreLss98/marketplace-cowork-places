@@ -3,7 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 
 import * as $ from 'jquery'
 
-import { HEADER_NAV_OPTIONS} from 'src/app/shared/constants/constants';
+import { HEADER_NAV_OPTIONS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { MenuService } from 'src/app/shared/service/menu.service';
@@ -18,6 +18,7 @@ import { LoginComponent } from 'src/app/shared/modal/login/login.component';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  opened = false;
 
   public menu = HEADER_NAV_OPTIONS;
   public mobile_mode = false;
@@ -30,30 +31,30 @@ export class HeaderComponent implements OnInit {
     public login: LoginService,
     private menuService: MenuService,
     public modalService: ModalService,
-    ) {}
-    
+  ) { }
+
   ngOnInit(): void {
-    if($(window).width() < 426) this.mobile_mode = true;
-    
+    if ($(window).width() < 426) this.mobile_mode = true;
+
     this.menuService.getAllHome().subscribe((response: any) => {
       this.options = response.filter(tipo => tipo.disponivel);
     });
-  
+
     // if($(window).width() < 860) this.options.length = 3;
-    this.position = $(window).scrollTop(); 
+    this.position = $(window).scrollTop();
   }
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   scrollEvent(event) {
     var scroll = $(window).scrollTop();
-    if(scroll > this.position + 30) {
-        $('#navBottom').removeClass('up');
-        $('#navBottom').addClass('down');
-        this.position = scroll;
-    } else if (scroll < this.position){
-        $('#navBottom').removeClass('down');
-        $('#navBottom').addClass('up');
-        this.position = scroll;
+    if (scroll > this.position + 30) {
+      $('#navBottom').removeClass('up');
+      $('#navBottom').addClass('down');
+      this.position = scroll;
+    } else if (scroll < this.position) {
+      $('#navBottom').removeClass('down');
+      $('#navBottom').addClass('up');
+      this.position = scroll;
     }
   }
 
@@ -64,22 +65,22 @@ export class HeaderComponent implements OnInit {
   }
 
   doLogin(popover?) {
-    
-    setTimeout(() => {     
+
+    setTimeout(() => {
       $('#navBottom').addClass('down');
       $('#navBottom').removeClass('up');
     }, 100);
 
-    if(!this.login.logged_status){
+    if (!this.login.logged_status) {
 
       let config: any = {};
-      if(this.mobile_mode){
+      if (this.mobile_mode) {
         config = {
           maxWidth: '100vw',
           minWidth: '90vw',
           // minHeight: '90vh'
         }
-      }else{
+      } else {
         config = {
           // maxWidth: '100vw',
           minWidth: '30vw',
@@ -87,8 +88,8 @@ export class HeaderComponent implements OnInit {
         }
       }
       this.modalService.openModal(LoginComponent, false, config);
-    }else{
-      if(popover.isOpen()){
+    } else {
+      if (popover.isOpen()) {
         popover.close();
       } else {
         popover.open();
@@ -96,24 +97,32 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  checkHome(){
-    if(this.router.url.includes('/user') || this.router.url.includes('/search')){
+  checkHome() {
+    if (this.router.url.includes('/user') || this.router.url.includes('/search')) {
       return false;
     }
     return true;
   }
 
-  comoFunciona(){
-    if(!this.router.url.includes('/home')) {
-      this.router.navigate(['/home']).then( () => {
+  comoFunciona() {
+    if (!this.router.url.includes('/home')) {
+      this.router.navigate(['/home']).then(() => {
         setTimeout(() => {
           var el = document.getElementById('comoFunciona');
-          el.scrollIntoView({behavior: 'smooth'});
+          el.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       })
     } else {
       var el = document.getElementById('comoFunciona');
-      el.scrollIntoView({behavior: 'smooth'});
-    } 
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  // -- SIDEBAR -- //
+  toggleSidebar() {
+    this.opened = !this.opened
+    if (this.opened) {
+      $("router-outlet").addClass("open");
+    }
   }
 }
+
