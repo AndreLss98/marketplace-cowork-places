@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { formatDate } from 'src/app/shared/constants/functions';
+import { formatDate, formatMoneyValue } from 'src/app/shared/constants/functions';
 import { ALUGUEL_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
 
 import { AluguelService } from 'src/app/shared/service/aluguel.service';
@@ -23,21 +23,30 @@ export class ListaContratosComponent extends FilterPageableTableComponent {
     private aluguelService: AluguelService,
   ) {
     super();
-    
   }
   
   ngOnInit(): void {
     this.data = this.route.snapshot['data'].contratos.results;
     this.pager.length = this.route.snapshot['data'].contratos.total_itens;
-    this.processDatas();
     this.configTable();
   }
 
   private configTable() {
     this.tableColumns = [
-      { columnDef: "valor", columnHeaderName: "Valor", objectProperty: "valor" }
+      {
+        columnDef: "valor",
+        columnHeaderName: "Valor",
+        objectProperty: "valor",
+        formatFunction: formatMoneyValue
+      },
+      {
+        columnDef: "data_criacao",
+        columnHeaderName: "Data criação",
+        objectProperty: "data_criacao",
+        formatFunction: formatDate
+      }
     ];
-    this.displayedColumns = ["valor", "actions"];
+    this.displayedColumns = ["data_criacao", "valor", "actions"];
     this.formFields = [
       {
         type: "select",
@@ -57,16 +66,10 @@ export class ListaContratosComponent extends FilterPageableTableComponent {
       pager? this.pager.pageSize : FIRST_PAGE_SIZE,
       this.tempFilters)
     .subscribe(response => {
-      this.data = response.results;
       this.pager.length = response.total_itens;
-      this.processDatas();
-    });
-  }
-
-  private processDatas() {
-    this.data.forEach(contrato => {
-      contrato.dias_reservados.data_saida = formatDate(new Date(contrato.dias_reservados.data_saida))
-      contrato.dias_reservados.data_entrada =  formatDate(new Date(contrato.dias_reservados.data_entrada));
+      this.data = response.results;
+    }, (error) => {
+      console.log(error);
     });
   }
 

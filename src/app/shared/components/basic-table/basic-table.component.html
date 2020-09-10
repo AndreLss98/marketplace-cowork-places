@@ -1,7 +1,7 @@
 <mat-table class="mat-elevation-z2 mx-4 mb-2" [dataSource]="data">
     <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.columnDef">
         <mat-header-cell *matHeaderCellDef> {{ column.columnHeaderName }} </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ column.formatFunction? column.formatFunction(row[column.objectProperty]) : row[column.objectProperty]}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ column.formatFunction? column.formatFunction(Typy(row, column.objectProperty).safeObject) : Typy(row, column.objectProperty).safeObject}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
