@@ -9,4 +9,5 @@
 <mat-paginator class="mx-4 mb-2"
     [length]="pager.length"
     [pageSizeOptions]="pageSizes"
+    [pageIndex]="pager.pageIndex"
     (page)="emitPageEvent($event)"></mat-paginator>

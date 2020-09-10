@@ -25,7 +25,7 @@ export class PageableTableComponent extends BasicTableComponent {
   public pager: PageEvent = {
     length: 0,
     pageIndex: 0,
-    pageSize: 5
+    pageSize: FIRST_PAGE_SIZE
   };
 
   constructor() {
