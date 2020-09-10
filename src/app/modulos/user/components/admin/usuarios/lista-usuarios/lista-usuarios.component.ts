@@ -56,7 +56,7 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
     this.actions = { editar: false, excluir: false, visualizar: true };
   }
 
-  public fetchAll(pager?, filters?) {
+  public fetchAll(pager?) {
     this.userService.getAll(
       pager? pager.pageIndex + 1 : 1,
       pager? this.pager.pageSize : FIRST_PAGE_SIZE,
@@ -81,6 +81,6 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
   public onFilterChanges(event) {
     this.pager.pageIndex = 0;
     this.tempFilters = event;
-    this.fetchAll(this.pager, this.tempFilters);
+    this.fetchAll(this.pager);
   }
 }
