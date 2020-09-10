@@ -35,12 +35,18 @@ export class ListaAlugaveisComponent extends FilterPageableTableComponent {
       { columnDef: "titulo", columnHeaderName: "Titulo", objectProperty: "titulo" },
       {
         columnDef: "valor",
-        columnHeaderName: "Valor",
+        columnHeaderName: "Valor Diário",
         objectProperty: "valor",
+        formatFunction: formatMoneyValue
+      },
+      {
+        columnDef: "valor_mes",
+        columnHeaderName: "Valor Mensal",
+        objectProperty: "valor_mes",
         formatFunction: formatMoneyValue
       }
     ];
-    this.displayedColumns = ["titulo", "valor", "actions"];
+    this.displayedColumns = ["titulo", "valor", "valor_mes", "actions"];
     this.formFields = [
       {
         type: "select",
