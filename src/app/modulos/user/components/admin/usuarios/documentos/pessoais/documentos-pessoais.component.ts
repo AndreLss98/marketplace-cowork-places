@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
-import { translateBoolValue } from 'src/app/shared/constants/functions';
+
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
   selector: 'documentos-pessoais',

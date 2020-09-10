@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatDialogModule } from '@angular/material/dialog';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,8 +20,8 @@ import {
   RecaptchaFormsModule
 } from 'ng-recaptcha';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from './shared/material.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './shared/modal/login/login.component';
@@ -33,13 +32,13 @@ import { QuestionComponent } from './shared/components/question/question.compone
 import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
 import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recuperar-senha.component';
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
-
-import { environment } from '../environments/environment';
-
-import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 import { UserMenuComponent } from './shared/components/header/components/user-menu/user-menu.component';
 import { SearchboxComponent } from './shared/components/header/components/searchbox/searchbox.component';
 import { SidebarModule } from 'ng-sidebar';
+
+import { AuthInterceptorService } from './shared/service/authInterceptor.service';
+import { SharedModule } from './shared/shared.module';
+import { UserModule } from './modulos/user/user.module';
 
 registerLocaleData(localePt);
 
@@ -55,24 +54,22 @@ registerLocaleData(localePt);
     SearchboxComponent,
     FeedbackModalComponent,
     RecuperarSenhaComponent,
-    FeedbackButtonComponent,
+    FeedbackButtonComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
-    MaterialModule,
-    MatDialogModule,
-    AppRoutingModule,
     RecaptchaModule,
-    RecaptchaFormsModule,
+    AppRoutingModule,
     ReactiveFormsModule,
+    RecaptchaFormsModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgbModule,
+    SharedModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SidebarModule.forRoot()
-    ,
   ],
   providers: [
     NgxImageCompressService,
@@ -92,6 +89,7 @@ registerLocaleData(localePt);
     { provide: LOCALE_ID, useValue: "pt-BR" }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent]
+  entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent],
+  exports: []
 })
 export class AppModule { }

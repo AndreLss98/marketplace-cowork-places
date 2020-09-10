@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { MaterialModule } from './material.module';
-
 import { MapsComponent } from './components/maps/maps.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
@@ -18,42 +16,153 @@ import { CancelDialogComponent } from './components/contrato/cancel-dialog/cance
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
 import { SidebarModule } from 'ng-sidebar';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatSortModule } from '@angular/material/sort';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
+import { MdePopoverModule } from '@material-extended/mde';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
+
 @NgModule({
   declarations: [
     MapsComponent,
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
+    BasicTableComponent,
     ImgCircularComponent,
     CancelDialogComponent,
+    PageableTableComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent,
-    PageableTableComponent
+    FilterPageableTableComponent
   ],
   imports: [
     FormsModule,
     CommonModule,
     RouterModule,
     MarkdownModule,
-    MaterialModule,
     ReactiveFormsModule,
     // SidebarModule.forRoot()
+
+    MatBadgeModule,
+    MdePopoverModule,
+    ScrollingModule,
+    MatButtonModule,
+    MatTreeModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
-    FormsModule,
     MapsComponent,
-    MaterialModule,
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
+    BasicTableComponent,
     ReactiveFormsModule,
     ImgCircularComponent,
     CancelDialogComponent,
+    PageableTableComponent,
     HighlightItemsComponent,
     QuestionAnsweredComponent,
-    BasicTableComponent,
-    PageableTableComponent
+    FilterPageableTableComponent,
+
+    MatBadgeModule,
+    MdePopoverModule,
+    ScrollingModule,
+    MatButtonModule,
+    MatTreeModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
