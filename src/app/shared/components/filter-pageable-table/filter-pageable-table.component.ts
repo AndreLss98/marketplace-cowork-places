@@ -1,5 +1,5 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 import { PageableTableComponent } from '../pageable-table/pageable-table.component';
 
@@ -29,7 +29,7 @@ export class FilterPageableTableComponent extends PageableTableComponent {
   public filters: FormGroup;
   private _form: any = {};
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     super();
   }
 

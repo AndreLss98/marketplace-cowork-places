@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { formatDate } from 'src/app/shared/constants/functions';
@@ -21,11 +19,10 @@ export class ListaContratosComponent extends FilterPageableTableComponent {
 
   constructor(
     private router: Router,
-    formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private aluguelService: AluguelService,
   ) {
-    super(formBuilder);
+    super();
     
   }
   

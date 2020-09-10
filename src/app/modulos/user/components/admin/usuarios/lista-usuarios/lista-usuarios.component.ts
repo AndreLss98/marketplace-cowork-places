@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { USUARIO_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
@@ -20,17 +19,8 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    formBuilder: FormBuilder,
   ) {
-    super(formBuilder);
-
-    this.filters = formBuilder.group({
-      status_cadastro: [USUARIO_STATUS.WAITING.value, []]
-    });
-
-    this.filters.valueChanges.subscribe(() => {
-      this.fetchAll();
-    })
+    super();
   }
 
   ngOnInit(): void {
@@ -40,9 +30,10 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
 
   private configTable() {
     this.tableColumns = [
-      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
+      { columnDef: "email", columnHeaderName: "Email", objectProperty: "email" }
     ];
-    this.displayedColumns = ["nome", "actions"];
+    this.displayedColumns = ["nome", "email", "actions"];
     this.formFields = [
       {
         type: "select",
@@ -64,6 +55,10 @@ export class ListaUsuariosComponent extends FilterPageableTableComponent {
     .subscribe(response => {
       this.pager.length = response.total_itens;
       this.data = response.results;
+      this.data.forEach(user => {
+        user.nome = `${user.nome} ${user.sobrenome}`;
+        delete user.sobrenome;
+      })
     }, (error) => {
       console.log("Error: ", error);
     });

@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { ALUGAVEL_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
 
@@ -21,9 +20,8 @@ export class ListaAlugaveisComponent extends FilterPageableTableComponent {
   constructor(
     private router: Router,
     private alugaveisService: AlugaveisService,
-    formBuilder: FormBuilder
   ) {
-    super(formBuilder);
+    super();
   }
 
   ngOnInit(): void {
