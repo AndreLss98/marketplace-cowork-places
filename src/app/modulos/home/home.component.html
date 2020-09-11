@@ -50,18 +50,33 @@
         style="height: 150%; bottom: 0px; right: 0;">
 </div>
 
-<div class="position-relative pl-5 py-5 bg-dark text-white" id="comoFunciona">
-    <!-- <img src="assets/imgs/home/como_funciona-min.png"> -->
-    <div>
-        <span class="comoFuncionaTitle">Como funciona</span>
-        <div class="d-flex flex-row flex-wrap">
-            <div class="comoFuncionaContentText" *ngFor="let item of comoFunciona">
-                <img src="assets/svg/check_circle.svg">
-                <span class="comoFuncionaText">{{item}}</span>
+<div class="d-flex bg-dark pl-5 pb-5 text-white overflow-hidden" id="comoFunciona">
+    <img src="assets/imgs/home/como_funciona-min.png" class="h-100 ml-n5 mb-n5 mr-2 hide" />
+    <div class="flex-fill">
+        <p class="titulo mt-5 font-weight-bold" style="font-size: 1.15rem;">Como funciona</p>
+        <div class="row mt-5 mb-2">
+            <div class="col-sm d-flex align-items-start">
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[0]}"></ng-container>
+            </div>
+            <div class="col-sm d-flex align-items-start">
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[1]}"></ng-container>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm d-flex align-items-start">
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[2]}"></ng-container>
+            </div>
+            <div class="col-sm d-flex align-items-start">
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[3]}"></ng-container>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #itemComoFunciona let-text="text">
+    <img class="mr-2" src="assets/svg/check_circle.svg">
+    <span>{{text}}</span>
+</ng-template>
 
 <!-- <div class="infoMiddle">
     <span class="infoMiddelTitle">Mais praticidade para a sua rotina.</span>
