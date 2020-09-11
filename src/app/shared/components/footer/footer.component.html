@@ -1,51 +1,129 @@
-<div class="container-fluid" id="footer">
-    <div class="row" style="height: 100%; display: flex; align-content: center; justify-content: center;">
-        <div class="col-3 d-flex flex-row align-items-center justify-content-center">
-            <img src="assets/imgs/logo/logo_branco-min.png" style="width: 190px;">
+<!-- Footer -->
+<footer class="page-footer font-small black pt-4" style="background: black; color: white;">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mt-md-3 mt-4">
+
+                <!-- Content -->
+                <div class="align-items-center justify-content-center">
+                    <img src="assets/imgs/logo/logo_branco-min.png" style="width: 175px;">
+                </div>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-2 mb-md-0 mb-2">
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Sobre</h5>
+
+                <ul class="list-unstyled">
+                    <!--  <li>
+                <a [href]="'/about/' + politica.sluq" target="_blank">{{ politica.nome }}</a>
+            </li>-->
+
+                    <li>
+                        <a href="/home#info">A Empresa</a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 mb-md-0 mb-2">
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Descubra</h5>
+
+                <ul class="list-unstyled">
+                    <!--<li>
+                        <a href="">Noticias</a>
+                    </li>-->
+                    <li>
+                        <a href="/home#comoAnunciar">Como anunciar</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-2">
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Atendimento</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a target="_blank" href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!">Dúvidas e reclamações</a>
+                    </li>
+                    <li class="cursor-pointer">
+                        <a *ngIf="userService.user_data" (click)="openFeedback()">Feedback</a>
+                    </li>
+                    <!--<li>
+                        <a href="">Deixe sua sugestão</a>
+                    </li>-->
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 mb-md-0 mb-2">
+
+                <!-- Links -->
+                
+                    <div class="social">
+                        <span class="span">
+                            <a class="a" href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank"><img class="img" src="../../../../assets/svg/facebook.svg" ></a>
+                        </span>
+                        <span class="span">
+                            <a class="a" href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank"><img class="img" src="../../../../assets/svg/linkedin.svg" ></a>
+                        </span>
+                        <span class="span">
+                            <a class="a" href="https://www.instagram.com/placeet_" target="_blank"><img class="img" src="../../../../assets/svg/instagram.svg"></a>
+                        </span>
+                    </div> 
+                
+
+                
+                        <p class="text-center">
+                            <span style="color: white; font-size: 11px; font-weight: lighter;">PLACEET SERVICOS DIGITAIS LTDA</span>
+                        </p>            
+                    
+                    
+                        <p class="text-center">
+                            <span style="color: white; font-size: 11px; font-weight: lighter;">CNPJ 37.364.562/0001-24</span>
+                        </p> 
+                        
+                    
+                
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+
+
         </div>
-        <div class="col-2">
-            <div class="row cursor-pointer" *ngFor="let politica of politicas">
-                <a [routerLink]="'/about/' + politica.sluq">{{ politica.nome }}</a>
-            </div>
-            <div class="row">
-                <a href="/home#info">Empresa</a>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="row">
-                <span style="font-size: 15px; color: white; font-weight: bold;">Descubra</span>
-            </div>
-            <!-- <div class="row">
-                <a href="">Noticias</a>
-            </div> -->
-            <div class="row">
-                <a href="/home#comoAnunciar">Como anunciar</a>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="row">
-                <span style="font-size: 15px; color: white; font-weight: bold;">Atendimento</span>
-            </div>
-            <div class="row">
-                <a target="_blank" href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!">Dúvidas e reclamações</a>
-            </div>
-            <div class="row">
-                <a *ngIf="userService.user_data" style="color: white" class="cursor-pointer" (click)="openFeedback()">Feedback</a>
-            </div>
-            <div class="row">
-                <!-- <a href="">Deixe sua sugestão</a> -->
-            </div>
-        </div>
-        <div class="d-flex flex-column justify-content-between">
-            <div class="col-3 d-flex flex-row align-items-center">
-                <a href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank"><img src="../../../../assets/svg/facebook.svg" style="height: 24px; padding-right: 25px;"></a>
-                <a href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank"><img src="../../../../assets/svg/linkedin.svg" style="height: 24px; padding-right: 25px;"></a>
-                <a href="https://www.instagram.com/placeet_" target="_blank"><img src="../../../../assets/svg/instagram.svg" style="height: 24px; padding-right: 25px;"></a>
-            </div>
-            <div class="d-flex flex-column">
-                <span style="color: white; font-size: 11px; font-weight: lighter;">PLACEET SERVICOS DIGITAIS LTDA</span>
-                <span style="color: white; font-size: 11px; font-weight: lighter;">CNPJ 37.364.562/0001-24</span>
-            </div>
-        </div>
+        <!-- Grid row -->
+
     </div>
-</div>
+    <!-- Footer Links -->
+
+</footer>
+<!-- Footer -->
+
