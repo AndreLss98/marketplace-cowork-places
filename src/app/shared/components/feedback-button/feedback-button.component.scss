@@ -1,20 +1,17 @@
+@import '../../../../place-et-theme.scss';
+
 .feedback-button {
   position: fixed;
   top: 45%;
   right: -40px;
   height: 40px;
   z-index: 999;
-  color: #cf462f;
-  font-size: 17px;
-  line-height: 32px; 
   padding: 1px 11px;
   border-radius: 5px;
-  border: solid 3px #cf462f;
+  border: solid 3px $pl-amarelo;
   background: white;
-  -webkit-transform: rotate(-90deg); 
-  font-weight: 600;
+  -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);  
-  -moz-transform: rotate(-90deg); 
-  text-align: center;
+  -moz-transform: rotate(-90deg);
 }
