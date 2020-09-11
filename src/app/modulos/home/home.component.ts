@@ -2,10 +2,13 @@ import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { HOME_TEXT, HOME_COMO_FUNCIONA, HOME_INFO_MIDDLE } from 'src/app/shared/constants/constants';
+import {
+  HOME_TEXT,
+  HOME_INFO_MIDDLE,
+  HOME_COMO_FUNCIONA,
+} from 'src/app/shared/constants/constants';
 
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
-
 
 @Component({
   selector: 'home',
