@@ -1,29 +1,29 @@
 @import '../../../../place-et-theme.scss';
 
-.content{
-    display: flex;
-    flex-direction: row;
-    background-color: white;
+.header {
+    max-width: 300px;
+    img {
+        width: 15vw;
+        min-width: 180px;
+        max-width: 260px;
+        cursor: pointer;
+    }
 
-    .header {
-        max-width: 300px;
-        img {
-            width: 15vw;
-            min-width: 180px;
-            max-width: 260px;
-            cursor: pointer;
-        }
+    .itemMenu {
+        color: black;
+        font-size: 1.4em;
+        cursor: pointer;
+        line-height: initial;
+    }
 
-        .itemMenu {
-            color: black;
-            font-size: 1.4em;
-            cursor: pointer;
-            line-height: initial;
-        }
+    .itemMenu:hover {
+        text-decoration: underline;
+    }
+}
 
-        .itemMenu:hover {
-            text-decoration: underline;
-        }
+@media (max-width: 1050px ) {
+    div.header {
+        display: none;
     }
 }
 

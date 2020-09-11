@@ -1,40 +1,10 @@
-<form class="mx-auto mt-4 w-50" [formGroup]="filters">
-    <mat-form-field class="w-100 mx-auto" appearance="outline">
-        <mat-label>Status Contrato</mat-label>
-        <mat-select formControlName="status">
-            <mat-option *ngFor="let stat of status" [value]="stat.value">{{stat.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-</form>
-
-<mat-table class="mat-elevation-z4 mx-4 mb-2" [dataSource]="contratos">
-    <ng-container matColumnDef="entrada">
-        <mat-header-cell *matHeaderCellDef> Entrada </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row['dias_reservados']['data_entrada']}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="saida">
-        <mat-header-cell *matHeaderCellDef> Saída </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.dias_reservados.data_saida}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="valor_total">
-        <mat-header-cell *matHeaderCellDef> Valor Contrato </mat-header-cell>
-        <mat-cell *matCellDef="let row">R$ {{row.valor}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="view">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <a mat-button (click)="viewDetails(row.id)">Visualizar</a>
-        </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<mat-paginator class="mx-4 mb-2"
-    [length]="pager.length"
-    [pageSizeOptions]="pageSizes"
-    (page)="pageUpdate($event)">
-</mat-paginator>
+<filter-pageable-table
+[data]="data"
+    [tableColumns]="tableColumns"
+    [displayedColumns]="displayedColumns"
+    [actions]="actions"
+    [pager]="pager"
+    [formFields]="formFields"
+    (visualizar)="viewDetails($event)"
+    (pageEvent)="pagerEvent($event)"
+    (filterChanges)="onFilterChanges($event)"></filter-pageable-table>

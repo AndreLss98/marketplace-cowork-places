@@ -1,76 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { formatDate } from 'src/app/shared/constants/functions';
-import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { formatDate, formatMoneyValue } from 'src/app/shared/constants/functions';
+import { ALUGUEL_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
 
 import { AluguelService } from 'src/app/shared/service/aluguel.service';
-import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { FilterPageableTableComponent } from 'src/app/shared/components/filter-pageable-table/filter-pageable-table.component';
 
 @Component({
 selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss']
 })
-export class ListaContratosComponent extends BasicTableComponent {
+export class ListaContratosComponent extends FilterPageableTableComponent {
 
-  public contratos = [];
   public status: any =  Object.values(ALUGUEL_STATUS);
-  public filters: FormGroup;
-  public displayedColumns = ['entrada', 'saida', 'valor_total', 'view'];
-  public pageSizes = [ 5, 10, 20 ];
-  public total_itens = 0;
-  public pager: PageEvent = {
-    length: 0,
-    pageIndex: 0,
-    pageSize: 5
-  };
+  private tempFilters = { status: this.status[0].value };
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private aluguelService: AluguelService,
-    private router: Router
   ) {
     super();
-    this.filters = formBuilder.group({
-      status: [ALUGUEL_STATUS.CREATED.value, []]
-    });
-
-    this.filters.valueChanges.subscribe(() => {
-      this.fetchContratos();
-    });
   }
   
   ngOnInit(): void {
-    this.contratos = this.route.snapshot['data'].contratos.results;
+    this.data = this.route.snapshot['data'].contratos.results;
     this.pager.length = this.route.snapshot['data'].contratos.total_itens;
-    this.processDatas();
+    this.configTable();
   }
 
-  private fetchContratos() {
-    this.aluguelService.getAllOfPlatform(this.pager.pageIndex + 1, this.pager.pageSize, this.filters.value).subscribe(response => {
-      this.contratos = response.results;
+  private configTable() {
+    this.tableColumns = [
+      {
+        columnDef: "valor",
+        columnHeaderName: "Valor",
+        objectProperty: "valor",
+        formatFunction: formatMoneyValue
+      },
+      {
+        columnDef: "data_criacao",
+        columnHeaderName: "Data criação",
+        objectProperty: "data_criacao",
+        formatFunction: formatDate
+      }
+    ];
+    this.displayedColumns = ["data_criacao", "valor", "actions"];
+    this.formFields = [
+      {
+        type: "select",
+        nome_campo: "status",
+        label: "Status cadastro",
+        options: this.status,
+        resetOption: false,
+        valor_inicial: this.status[0].value
+      }
+    ]
+    this.actions = { editar: false, excluir: false, visualizar: true };
+  }
+
+  private fetchAll(pager?) {
+    this.aluguelService.getAllOfPlatform(
+      pager? this.pager.pageIndex + 1 : 1,
+      pager? this.pager.pageSize : FIRST_PAGE_SIZE,
+      this.tempFilters)
+    .subscribe(response => {
       this.pager.length = response.total_itens;
-      this.processDatas();
+      this.data = response.results;
+    }, (error) => {
+      console.log(error);
     });
   }
 
-  private processDatas() {
-    this.contratos.forEach(contrato => {
-      contrato.dias_reservados.data_saida = formatDate(new Date(contrato.dias_reservados.data_saida))
-      contrato.dias_reservados.data_entrada =  formatDate(new Date(contrato.dias_reservados.data_entrada));
-    });
-  }
-
-  public pageUpdate(event) {
-    this.pager = event;
-    this.fetchContratos();
-  }
-
-  public viewDetails(id) {
+  public viewDetails({id}) {
     this.router.navigateByUrl(`user/contratos/${id}`);
+  }
+
+  public pagerEvent(event) {
+    this.pager = event;
+    this.fetchAll(event);
+  }
+
+  public onFilterChanges(event) {
+    this.pager.pageIndex = 0;
+    this.tempFilters = event;
+    this.fetchAll(this.pager);
   }
 }

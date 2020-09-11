@@ -1,4 +1,4 @@
-<mat-card style="margin:0 20px 20px 20px">
+<mat-card class="mx-4 mb-2">
     <mat-card-title>Status do contrato: {{ ALUGUEL_STATUS[aluguel.status.toUpperCase()].name }}</mat-card-title>
     <mat-card-content style="display: flex; justify-content: space-between;">
         <div>
@@ -18,7 +18,7 @@
 
         <div>
             <span>Valor do Contrato: </span>
-            <span>R$ {{ aluguel.valor }}</span>
+            <span>{{ aluguel.valor }}</span>
         </div>
     </mat-card-content>
     <mat-card-content *ngIf="aluguel.status === ALUGUEL_STATUS.CANCELED.value && aluguel.comentario">
@@ -63,7 +63,7 @@
         </mat-card-actions>
     </mat-card>
     
-    <app-highlight-items *ngIf="aluguel" [data]="aluguel.alugavel" [custom-redirect]="'user/anuncios/'"></app-highlight-items>
+    <card-item-alugavel *ngIf="aluguel" [data]="aluguel.alugavel" [custom-redirect]="'user/anuncios/'"></card-item-alugavel>
     
     <mat-card class="card" style="margin-right: 20px;">
         <mat-card-header>

@@ -16,7 +16,7 @@
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]="aprovados"></app-highlight-items>
+                <card-item-alugavel [data]="aprovados"></card-item-alugavel>
             </div>
         </div>
     </mat-tab>
@@ -30,7 +30,7 @@
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]="aguardando"></app-highlight-items>
+                <card-item-alugavel [data]="aguardando"></card-item-alugavel>
             </div>
         </div>
     </mat-tab>
@@ -45,7 +45,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <div class="d-flex flex-column">
-                    <app-highlight-items [data]="reprovados"></app-highlight-items>
+                    <card-item-alugavel [data]="reprovados"></card-item-alugavel>
                     <div class="alertReprovados position-relative pt-3 pl-3 pb-2 d-flex flex-direction-column flex-wrap">
                         <span class="font-weight-bold">Anúncio reprovado:</span>
                         <span>{{reprovados.observacao}}</span>
@@ -64,7 +64,7 @@
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <app-highlight-items [data]="removidos"></app-highlight-items>
+                <card-item-alugavel [data]="removidos"></card-item-alugavel>
             </div>
         </div>
     </mat-tab>

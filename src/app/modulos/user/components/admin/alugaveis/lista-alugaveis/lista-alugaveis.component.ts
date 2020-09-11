@@ -1,68 +1,90 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
 
-import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
+import { formatMoneyValue } from 'src/app/shared/constants/functions';
+import { ALUGAVEL_STATUS, FIRST_PAGE_SIZE } from 'src/app/shared/constants/constants';
 
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
+import { FilterPageableTableComponent } from 'src/app/shared/components/filter-pageable-table/filter-pageable-table.component';
 
 @Component({
   selector: 'app-lista-alugaveis',
   templateUrl: './lista-alugaveis.component.html',
   styleUrls: ['./lista-alugaveis.component.scss']
 })
-export class ListaAlugaveisComponent implements OnInit {
+export class ListaAlugaveisComponent extends FilterPageableTableComponent {
 
   public status: any =  Object.values(ALUGAVEL_STATUS).filter(status => status.value !== ALUGAVEL_STATUS.REMOVED.value);
 
-  public alugaveis = [];
-
-  public currentPage = 1;
-  public currentPageSize = 5;
-  public hasNext = false;
-  public hasPrevious = false;
-
-  public displayedColumns = [ 'titulo', 'preco', 'edit' ];
-
-  public pageSizes = [ 5, 10, 20 ];
-  
-  public filters: FormGroup;
+  private tempFilters = { status: this.status[0].value };
 
   constructor(
     private router: Router,
     private alugaveisService: AlugaveisService,
-    private formBuilder: FormBuilder
   ) {
-    this.filters = formBuilder.group({
-      status_cadastro: [ALUGAVEL_STATUS.WAITING.value, []]
-    });
-
-    this.filters.valueChanges.subscribe(() => {
-      this.fetchAll();
-    })
+    super();
   }
 
   ngOnInit(): void {
+    this.configTable();
     this.fetchAll();
   }
 
-  visualizarDetalhesAlugavel(id) {
+  private configTable() {
+    this.tableColumns = [
+      { columnDef: "titulo", columnHeaderName: "Titulo", objectProperty: "titulo" },
+      {
+        columnDef: "valor",
+        columnHeaderName: "Valor Diário",
+        objectProperty: "valor",
+        formatFunction: formatMoneyValue
+      },
+      {
+        columnDef: "valor_mes",
+        columnHeaderName: "Valor Mensal",
+        objectProperty: "valor_mes",
+        formatFunction: formatMoneyValue
+      }
+    ];
+    this.displayedColumns = ["titulo", "valor", "valor_mes", "actions"];
+    this.formFields = [
+      {
+        type: "select",
+        nome_campo: "status",
+        label: "Status cadastro",
+        options: this.status,
+        resetOption: false,
+        valor_inicial: this.status[0].value
+      }
+    ]
+    this.actions = { editar: false, excluir: false, visualizar: true };
+  }
+
+  public fetchAll(pager?) {
+    this.alugaveisService.getByStatus(
+      pager? pager.pageIndex + 1 : 1,
+      pager? pager.pageSize: FIRST_PAGE_SIZE,
+      this.tempFilters)
+    .subscribe(response => {
+      this.pager.length = response.total_itens;
+      this.data = response.results;
+    }, (error) => {
+      console.log("Error: ", error);
+    });
+  }
+
+  visualizarDetalhesAlugavel({id}) {
     this.router.navigateByUrl(`user/anuncios/${id}`);
   }
 
-  public fetchAll() {
-    this.alugaveisService.getByStatus(this.currentPage, this.currentPageSize, this.filters.controls.status_cadastro.value).subscribe(response => {
-      this.alugaveis = response.results;
-    })
+  public pagerEvent(event) {
+    this.pager = event;
+    this.fetchAll(event); 
   }
 
-  public previousPage() {
-    --this.currentPage;
-    this.fetchAll();
-  }
-
-  public nextPage() {
-    ++this.currentPage;
-    this.fetchAll();
+  public onFilterChanges(event) {
+    this.pager.pageIndex = 0;
+    this.tempFilters = event;
+    this.fetchAll(this.pager);
   }
 }

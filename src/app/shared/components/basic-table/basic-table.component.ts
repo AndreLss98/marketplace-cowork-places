@@ -6,6 +6,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 
+import { t as Typy } from 'typy';
+
 export interface BasicTableColumn {
   columnDef: string;
   columnHeaderName: string;
@@ -25,7 +27,9 @@ export interface ActionsButtons {
   styleUrls: ['./basic-table.component.scss']
 })
 export class BasicTableComponent implements OnInit {
-  
+
+  readonly Typy = Typy;
+
   @Input('data')
   public data: any[] = [];
 

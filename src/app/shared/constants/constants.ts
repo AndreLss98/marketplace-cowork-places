@@ -1,10 +1,14 @@
 export const FIRST_PAGE_SIZE = 5;
-export const HOME_TEXT =
-    {
-        infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
-        searchTitle: 'Seu negócio livre para evoluir.',
-        searchContent: 'A liberdade de usar o espaço quando quiser e por quanto tempo precisar. Sem barreiras para o seu crescimento. Espaço certo pra sua necessidade, seja trabalho, descanso, estudo ou diversão. Você escolhe!'
-    }
+export const EXPIRE_AT = 'expires_at'
+export const USER_TOKEN = 'user_token';
+export const USER_SESSION = 'user_data';
+export const INFORMACOES_ADICIONAIS_LIMITE = 16;
+
+export const HOME_TEXT = {
+    infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
+    searchTitle: 'Seu negócio livre para evoluir.',
+    searchContent: 'A liberdade de usar o espaço quando quiser e por quanto tempo precisar. Sem barreiras para o seu crescimento. Espaço certo pra sua necessidade, seja trabalho, descanso, estudo ou diversão. Você escolhe!'
+}
 
 export const HOME_COMO_FUNCIONA = [
     'Somos uma plataforma que ajuda os espaços e serviços a encontrarem as pessoas.',
@@ -14,33 +18,74 @@ export const HOME_COMO_FUNCIONA = [
 ]
 
 export const HOME_INFO_MIDDLE = [
-    {icon: 'mao.svg', title: 'Tudo num clique.' , text: 'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.'},
-    {icon: 'play.svg', title: 'Todo controle.', text: 'Você tem controle de tudo e negocia como quiser. A contratação é feita direto como proprietário. '},
-    {icon: 'smile.svg', title: 'Sem preocupação.', text: 'Ajudamos na gestão de contratos e pagamentos.'},
-    {icon: 'relogio.svg', title: 'Mais tempo pra você. ', text: 'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços'}
-
+    {
+        icon: 'mao.svg',
+        title: 'Tudo num clique.',
+        text: 'Com a variedade de ofertas e a clareza na divulgação, acreditamos que encontrará o que procura.'
+    },
+    {
+        icon: 'play.svg',
+        title: 'Todo controle.',
+        text: 'Você tem controle de tudo e negocia como quiser. A contratação é feita direto como proprietário.'
+    },
+    {
+        icon: 'smile.svg',
+        title: 'Sem preocupação.',
+        text: 'Ajudamos na gestão de contratos e pagamentos.'
+    },
+    {
+        icon: 'relogio.svg',
+        title: 'Mais tempo pra você.',
+        text: 'Queremos com isso ajudar a otimizar o processo de locação compartilhada e oferta de serviços'
+    }
 ]
 
-
-
 export const HEADER_NAV_OPTIONS = [
-    { name: 'Como Funciona', rout: '/home#comoFunciona', target: '' },
+    {
+        name: 'Como Funciona',
+        rout: '/home#comoFunciona',
+        target: ''
+    },
     // { name: 'Anuncie', rout: '/user/anuncios/criaranuncio', target: '_self' },
-    { name: 'Ajuda', rout: 'https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!', target: '_blank' },
+    {
+        name: 'Ajuda',
+        rout: 'https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!',
+        target: '_blank'
+    }
 ]
 
 export const HEADER_MENU_OPTIONS = [
-    { name: 'Sala de Reunião', img: 'assets/imgs/header/sala_reuniao.jpg', rout: '/home' },
-    { name: 'Mesas', img: 'assets/imgs/header/mesas.jpg', rout: '/home' },
-    { name: 'Salas Privativas', img: 'assets/imgs/header/salas_privativas.jpg', rout: '/home' },
-    { name: 'Auditórios', img: 'assets/imgs/header/auditorios.jpg', rout: '/home' },
-    { name: 'Serviços', img: 'assets/imgs/header/servicos.jpg', rout: '/home' },
-    { name: 'Palestras e Cursos', img: 'assets/imgs/header/palestras.jpg', rout: '/home' },
-]
-
-export const USER_SESSION = 'user_data';
-export const USER_TOKEN = 'user_token';
-export const EXPIRE_AT = 'expires_at'
+    {
+        name: 'Sala de Reunião',
+        img: 'assets/imgs/header/sala_reuniao.jpg',
+        rout: '/home'
+    },
+    {
+        name: 'Mesas',
+        img: 'assets/imgs/header/mesas.jpg',
+        rout: '/home'
+    },
+    {
+        name: 'Salas Privativas',
+        img: 'assets/imgs/header/salas_privativas.jpg',
+        rout: '/home'
+    },
+    {
+        name: 'Auditórios',
+        img: 'assets/imgs/header/auditorios.jpg',
+        rout: '/home'
+    },
+    {
+        name: 'Serviços',
+        img: 'assets/imgs/header/servicos.jpg',
+        rout: '/home'
+    },
+    {
+        name: 'Palestras e Cursos',
+        img: 'assets/imgs/header/palestras.jpg',
+        rout: '/home'
+    }
+];
 
 export const enum Passos_signup {
     Primeiro = 0,
@@ -52,25 +97,57 @@ export const enum Passos_signup {
 export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export const CURRENCY_PATTERN = /^\$?([1-9]{1}[0-9]{0,2}(\,[0-9]{3})*(\.[0-9]{0,2})?|[1-9]{1}[0-9]{0,}(\.[0-9]{0,2})?|0(\.[0-9]{0,2})?|(\.[0-9]{1,2})?)$/
 
-export const INFORMACOES_ADICIONAIS_LIMITE = 16;
-
 export const ALUGAVEL_STATUS = {
-    WAITING: { value: 'waiting', name: 'Em Análise' },
-    APPROVED: { value: 'approved', name: 'Aprovado' },
-    DISAPPROVED: { value: 'disapproved', name: 'Reprovado' },
-    REMOVED: { value: 'removed', name: 'Removido' }
+    WAITING: {
+        value: 'waiting',
+        name: 'Em Análise'
+    },
+    APPROVED: {
+        value: 'approved',
+        name: 'Aprovado'
+    },
+    DISAPPROVED: {
+        value: 'disapproved',
+        name: 'Reprovado'
+    },
+    REMOVED: {
+        value: 'removed',
+        name: 'Removido'
+    }
 };
 
+export const TIPOS_ALUGAVEIS = {
+    sala_reuniao: 1
+}
+
 export const USUARIO_STATUS = {
-    WAITING: { value: 'waiting', name: 'Em Análise' },
-    APPROVED: { value: 'approved', name: 'Aprovado' },
-    DISAPPROVED: { value: 'disapproved', name: 'Reprovado' },
+    WAITING: {
+        value: 'waiting',
+        name: 'Em Análise'
+    },
+    APPROVED: {
+        value: 'approved',
+        name: 'Aprovado'
+    },
+    DISAPPROVED: {
+        value: 'disapproved',
+        name: 'Reprovado'
+    }
 };
 
 export const ALUGUEL_STATUS = {
-    CREATED: { value: 'created', name: 'Aguardando aprovação' },
-    ACTIVE: { value: 'active', name: 'Ativo' },
-    CANCELED: { value: 'canceled', name: 'Cancelado' }
+    CREATED: {
+        value: 'created',
+        name: 'Aguardando aprovação'
+    },
+    ACTIVE: {
+        value: 'active',
+        name: 'Ativo'
+    },
+    CANCELED: {
+        value: 'canceled',
+        name: 'Cancelado'
+    }
 };
 
 export enum ENUM_ALUGAVEL_CARACTERISTICAS {

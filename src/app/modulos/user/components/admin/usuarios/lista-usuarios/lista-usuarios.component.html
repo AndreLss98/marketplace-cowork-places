@@ -1,24 +1,15 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Usuários">
-        <form class="mx-auto mt-4 w-50" [formGroup]="filters">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Status Perfil</mat-label>
-                <mat-select formControlName="status_cadastro">
-                  <mat-option *ngFor="let stat of status" [value]="stat.value">
-                    {{stat.name}}
-                  </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-        
-        <pageable-table class="w-100"
+        <filter-pageable-table class="w-100"
             [data]="data"
             [tableColumns]="tableColumns"
             [displayedColumns]="displayedColumns"
             [actions]="actions"
             [pager]="pager"
+            [formFields]="formFields"
             (visualizar)="viewUserDetails($event)"
-            (pageEvent)="pagerEvent($event)"></pageable-table>
+            (pageEvent)="pagerEvent($event)"
+            (filterChanges)="onFilterChanges($event)"></filter-pageable-table>
     </mat-tab>
     <mat-tab label="Documentos Pessoais">
         <documentos-pessoais></documentos-pessoais>

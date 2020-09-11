@@ -1,6 +1,4 @@
-
 <mat-card class="card" style="position: relative;" *ngIf="data">
-    
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner" role="listbox" style="border-radius: 25px 25px 5px 5px;">
             <div *ngFor="let image of data.imagens; let i = index" class="carousel-item" [class.active]="i == 0">
@@ -23,11 +21,13 @@
             <mat-card-title style="max-width: 284px; margin-top: 5px;">
                 <span  style="white-space: pre-line; word-wrap: break-word;">{{data.titulo}}</span>
             </mat-card-title>
-            <mat-card-subtitle class="d-flex flex-row justify-content-between">
-                {{data.tipo.nome}}
-                <div class="d-flex flex-row cardItem" *ngIf="data.nota">
-                    <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0; padding: 5px; margin-right: 5px;">{{ data.nota.toFixed(2)}}</p>
-                    <span *ngFor="let item of countStars(data.nota)" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
+            <mat-card-subtitle class="d-flex flex-column justify-content-between">
+                <div>
+                    {{data.tipo.nome}}
+                </div>
+                <div class="d-flex flex-row" *ngIf="data.nota">
+                    <p class="badge badge-dark p-1 mr-1 mb-0 rounded-lg" style="font-size: .6rem;">{{ data.nota.toFixed(1)}}</p>
+                    <mat-icon *ngFor="let item of countStars(data.nota)">{{item}}</mat-icon>
                 </div>
             </mat-card-subtitle>
         </mat-card-header>
@@ -63,7 +63,7 @@
             <div class="d-flex justify-content-between"
                 style="padding-bottom: 15px; padding-top: 7px; border-top: 1px solid #858585;">
                 <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
-                <span style="font-size: 14px; font-weight: bold;">R$: {{custoDia().toFixed(2)}}</span>
+                <span style="font-size: 14px; font-weight: bold;">{{custoDia()}}</span>
             </div>
         </div>
     </div>
