@@ -1,7 +1,7 @@
 @import '../../../place-et-theme.scss';
 
 #searchContainer {
-    border-top-left-radius: 50px;
+    border-top-left-radius: 100px;
     background-color: $pl-verde-escuro;
     button.rounded-pill {
         border-top-left-radius: 0 !important;
@@ -21,19 +21,8 @@
     }
 }   
 
-@media (max-width: 700px) {
-    img.hide { display: none; }
-    div.expanded { width: 80% !important; }
-}
-
-@media (max-width: 400px) {
-    div.search-input {
-        display: none;
-    }
-}
-
 #comoFunciona {
-    border-bottom-left-radius: 50px;
+    border-bottom-left-radius: 100px;
 }
 
 .search {
@@ -195,8 +184,13 @@
   border-radius: 0px 0px 0px 50px;
 }
 
-@media (max-width: 1200px){
-  .comoFuncionaImg{
-    display: none;
-  }
+@media (max-width: 820px) {
+    img.hide { display: none; }
+    div.expanded { width: 80% !important; }
+}
+
+@media (max-width: 400px) {
+    div.search-input {
+        display: none;
+    }
 }
