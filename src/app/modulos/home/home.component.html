@@ -54,20 +54,22 @@
     <img src="assets/imgs/home/como_funciona-min.png" class="h-100 ml-n5 mb-n5 mr-2 hide" />
     <div class="flex-fill">
         <p class="titulo mt-5 font-weight-bold" style="font-size: 1.15rem;">Como funciona</p>
-        <div class="row mt-5">
+        <div class="row mt-4">
             <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[0]}"></ng-container>
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[0]}"></ng-container>
             </div>
             <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[1]}"></ng-container>
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[1]}"></ng-container>
             </div>
         </div>
         <div class="row">
             <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[2]}"></ng-container>
+                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[2]}"></ng-container>
             </div>
             <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:comoFunciona[3]}"></ng-container>
+                <ng-container
+                    [ngTemplateOutlet]="itemComoFunciona"
+                    [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[3]}"></ng-container>
             </div>
         </div>
     </div>
@@ -78,18 +80,44 @@
     <span>{{text}}</span>
 </ng-template>
 
-<!-- <div class="infoMiddle">
-    <span class="infoMiddelTitle">Mais praticidade para a sua rotina.</span>
-    <div class="d-flex flex-row flex-wrap justify-content-between">
-        <div class="infoMiddleContent" *ngFor="let info of infoMiddle">
-            <img [src]="'assets/svg/' + info.icon">
-            <div class="d-flex flex-column" style="margin-left: 30px;">
-                <span class="infoMiddleContentTitle">{{info.title}}</span>
-                <span class="infoMiddleContentText">{{info.text}}</span>
+<div id="infoMiddle" class="ml-5 mt-5">
+    <div class="container pl-0">
+        <p class="font-weight-bold" style="font-size: 1.15rem;">Mais praticidade para a sua rotina.</p>
+        <div class="row mt-4">
+            <div class="col-sm mb-2 d-flex align-items-center">
+                <ng-container
+                    [ngTemplateOutlet]="itemInfoMiddle"
+                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[0]}"></ng-container>
+            </div>
+            <div class="col-sm mb-2 d-flex align-items-center">
+                <ng-container
+                    [ngTemplateOutlet]="itemInfoMiddle"
+                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[1]}"></ng-container>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm mb-2 d-flex align-items-center">
+                <ng-container
+                    [ngTemplateOutlet]="itemInfoMiddle"
+                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[2]}"></ng-container>
+            </div>
+            <div class="col-sm mb-2 d-flex align-items-center">
+                <ng-container
+                    [ngTemplateOutlet]="itemInfoMiddle"
+                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[3]}"></ng-container>
             </div>
         </div>
     </div>
-</div> -->
+</div>
+
+<ng-template  #itemInfoMiddle let-info="info">
+    <img [src]="'assets/svg/' + info.icon" class="h-100 mr-2">
+    <div class="d-flex flex-column">
+        <p class="font-weight-bold" style="font-size: .8rem;">{{info.title}}</p>
+        <p>{{info.text}}</p>
+    </div>
+</ng-template>
 
 <!-- <div class="highligth">
   <app-highlight></app-highlight>
