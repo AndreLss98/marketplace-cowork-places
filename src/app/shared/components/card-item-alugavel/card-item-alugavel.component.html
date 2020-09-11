@@ -1,6 +1,4 @@
-
 <mat-card class="card" style="position: relative;" *ngIf="data">
-    
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner" role="listbox" style="border-radius: 25px 25px 5px 5px;">
             <div *ngFor="let image of data.imagens; let i = index" class="carousel-item" [class.active]="i == 0">
@@ -25,10 +23,10 @@
             </mat-card-title>
             <mat-card-subtitle class="d-flex flex-row justify-content-between">
                 {{data.tipo.nome}}
-                <div class="d-flex flex-row cardItem" *ngIf="data.nota">
+                <!-- <div class="d-flex flex-row cardItem" *ngIf="data.nota">
                     <p class="back-preto" style="color: white; font-size: 12px; border-radius: 7px; margin-bottom: 0; padding: 5px; margin-right: 5px;">{{ data.nota.toFixed(2)}}</p>
                     <span *ngFor="let item of countStars(data.nota)" class="material-icons color-verde" style="width: 24px; height: 24px;">{{item}}</span>
-                </div>
+                </div> -->
             </mat-card-subtitle>
         </mat-card-header>
     
