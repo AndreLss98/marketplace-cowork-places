@@ -1,6 +1,14 @@
 @import '../../../../place-et-theme.scss';
 
-.social{
+a, a:hover {
+    color: $pl-verde-escuro;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.social {
     text-align: center;   
 }
 
@@ -8,43 +16,13 @@
     padding: 0 4px;
 }
 
-.social .span .a{
+.social .span .a {
     width: 80px;
     height: 80px;
     line-height: 30px;
 }
 
-.social .span .a .img{
+.social .span .a .img {
     width: 20px;
     height: 20px;
-}
-
-
-/*#footer{
-    font-family: sans-serif;
-    background: $pl-preto;
-    border-top: 1px solid rgba(128, 128, 128, 0.308);
-    position: relative;
-    bottom: 0;
-    height: 195px;
-    // min-width: 85%;
-}
-
-a {
-    color: white;
-    font-weight: lighter;
-    font-size: 14px;
-    padding: 5px 0 5px 0;
-}
-
-a.cursor-pointer:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-
-@media (max-width: 450px){
-    #footer{
-        display: none;
-    }
-}*/
+}   
