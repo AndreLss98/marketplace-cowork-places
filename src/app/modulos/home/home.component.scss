@@ -46,59 +46,15 @@
     background: linear-gradient( to top, $pl-verde-escuro 55%, #ffffff 40%);
 }
 
-.search {
-    .comoAnunciar{
-        display: flex;
-        flex-direction: column;
-        max-width: 888px;
-        margin: 50px auto 80px 0;
-
-        .comoAnunciarTitle{
-            height: 60px;
-            background-color: $pl-verde-escuro;
-            border-radius: 0 50px 0 0;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            span{
-                font-weight: 500;
-                font-size: 25px;
-                text-align: center;
-            }
-        }
-
-        .comoAnunciarVideo{
-            background-size: contain;
-            width: 100%;
-        }
+#videosContainer {
+    height: 50vh;
+    .anunciar {
+        background-color: $pl-verde-escuro;
+        border-top-right-radius: 100px;
     }
-
-    .comoAlugar{
-        display: flex;
-        flex-direction: column;
-        max-width: 888px;
-        margin: 0 auto 80px 0;
-
-        .comoAlugarTitle{
-            height: 60px;
-            background-color: $pl-amarelo;
-            border-radius: 0 50px 0 0;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            span{
-                font-weight: 500;
-                font-size: 25px;
-                text-align: center;
-            }
-        }
-
-        .comoAlugarVideo{
-            background-size: contain;
-            width: 100%;
-        }
+    .alugar {
+        background-color: $pl-amarelo;
+        border-top-right-radius: 100px;
     }
 }
 

@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
+
+import { formatMoneyValue } from '../../constants/functions';
 import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
 
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
@@ -71,7 +73,8 @@ export class CardItemAlugavelComponent implements OnInit {
     return array;
   }
 
-  custoDia(){
-    return Number( this.data.valor * ( (this.taxaTotal / 100) + 1 ) );
+  custoDia() {
+    return formatMoneyValue(Number (this.data.valor * ((this.taxaTotal / 100) + 1)).toFixed(2));
+    // return Number(this.data.valor * ( (this.taxaTotal / 100) + 1));
   }
 }
