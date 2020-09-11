@@ -47,7 +47,10 @@
 }
 
 #videosContainer {
-    height: 50vh;
+    min-height: 45vh;
+    iframe {
+        min-height: 45vh;
+    }
     .anunciar {
         background-color: $pl-verde-escuro;
         border-top-right-radius: 100px;
