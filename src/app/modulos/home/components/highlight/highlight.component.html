@@ -7,6 +7,6 @@
       <button class="btn btn-dark btn-lg" routerLink="/search">Ver mais ofertas</button>
   </div>
   <div class="d-flex flex-row justify-content-around flex-wrap overflow-hidden">
-      <app-highlight-items [data]="room" *ngFor="let room of rooms"></app-highlight-items>
+      <card-item-alugavel [data]="room" *ngFor="let room of rooms"></card-item-alugavel>
   </div>
 </div>

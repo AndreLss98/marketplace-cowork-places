@@ -63,7 +63,7 @@
         </mat-card-actions>
     </mat-card>
     
-    <app-highlight-items *ngIf="aluguel" [data]="aluguel.alugavel" [custom-redirect]="'user/anuncios/'"></app-highlight-items>
+    <card-item-alugavel *ngIf="aluguel" [data]="aluguel.alugavel" [custom-redirect]="'user/anuncios/'"></card-item-alugavel>
     
     <mat-card class="card" style="margin-right: 20px;">
         <mat-card-header>

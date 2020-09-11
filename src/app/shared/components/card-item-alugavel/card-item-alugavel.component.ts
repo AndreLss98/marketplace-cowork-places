@@ -1,16 +1,18 @@
-import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
-import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
+
 import { environment } from 'src/environments/environment';
 import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
 
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
+
 @Component({
-  selector: 'app-highlight-items',
-  templateUrl: './highlight-items.component.html',
-  styleUrls: ['./highlight-items.component.scss']
+  selector: 'card-item-alugavel',
+  templateUrl: './card-item-alugavel.component.html',
+  styleUrls: ['./card-item-alugavel.component.scss']
 })
-export class HighlightItemsComponent implements OnInit {
+export class CardItemAlugavelComponent implements OnInit {
 
   @Input('data') data: any = undefined;
   @Input('width') width:string = '277px';

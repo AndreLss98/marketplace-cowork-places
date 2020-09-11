@@ -11,9 +11,10 @@ import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from './components/basic-table/basic-table.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
-import { HighlightItemsComponent } from './components/highlight-items/highlight-items.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
+import { CardItemAlugavelComponent } from './components/card-item-alugavel/card-item-alugavel.component';
+import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
@@ -51,7 +52,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
 @NgModule({
   declarations: [ 
@@ -63,9 +63,9 @@ import { FilterPageableTableComponent } from './components/filter-pageable-table
     ImgCircularComponent,
     CancelDialogComponent,
     PageableTableComponent,
-    HighlightItemsComponent,
     QuestionAnsweredComponent,
-    FilterPageableTableComponent
+    CardItemAlugavelComponent,
+    FilterPageableTableComponent,
   ],
   imports: [
     FormsModule,
@@ -121,8 +121,8 @@ import { FilterPageableTableComponent } from './components/filter-pageable-table
     ImgCircularComponent,
     CancelDialogComponent,
     PageableTableComponent,
-    HighlightItemsComponent,
     QuestionAnsweredComponent,
+    CardItemAlugavelComponent,
     FilterPageableTableComponent,
     
     MatBadgeModule,

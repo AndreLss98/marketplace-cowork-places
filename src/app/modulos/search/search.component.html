@@ -3,7 +3,7 @@
 		class="h-100 d-flex align-items-start flex-row flex-wrap"
 		id="searchHighlight" infiniteScroll
 		[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
-		<app-highlight-items *ngFor="let space of highlightService.searched" [data]="space"></app-highlight-items>
+		<card-item-alugavel *ngFor="let space of highlightService.searched" [data]="space"></card-item-alugavel>
 	</div>
 	<div *ngIf="!highlightService.searched || highlightService.searched.length === 0"
 		id="searchHighlight"
