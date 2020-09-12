@@ -1,446 +1,447 @@
-<mat-horizontal-stepper [linear]="false" #stepper>
 
-    <mat-step [stepControl]='termos' [editable]="editavel">
-        <form [formGroup]='termos'>
-            <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
-            <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
-                <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e
-                    prosseguir</button>
-            </div>
-            <div class="d-flex justify-content-center align-content-center flex-column">
-                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
-                    <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso
-                    </mat-expansion-panel-header>
-                    <div class="politicas">
-                        <app-md-viewer class="w-100" [source]="politica_pagamento"></app-md-viewer>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <mat-checkbox formControlName='termo1' required>Eu aceito as <a
-                                href="/about/politica_pagamento.md">Políticas de Pagamento, Cancelamento e
-                                Reembolso</a>.</mat-checkbox>
-                    </div>
-                </mat-expansion-panel>
-                <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
-                    <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
-                    <div class="politicas">
-                        <app-md-viewer class="w-100" [source]="politica_uso"></app-md-viewer>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <mat-checkbox formControlName='termo2' required>Eu aceito as <a
-                                href="/about/politica_uso.md">Políticas de Uso e Responsabilidades</a>.</mat-checkbox>
-                    </div>
-                </mat-expansion-panel>
-            </div>
-        </form>
-    </mat-step>
+    <mat-horizontal-stepper [linear]="false" #stepper>
 
-    <!-- Dados cadastrais -->
-    <mat-step [stepControl]='dados_cadastrais' [editable]="editavel">
-        <form [formGroup]='dados_cadastrais'>
-            <ng-template matStepLabel>Dados cadastrais</ng-template>
-            <div style="height: 30px;"></div>
-            <div class="d-flex flex-column w-100">
-                <span class="w-100 text-center" style="margin-bottom: 5px;">Informações sobre o espaço</span>
-                <mat-form-field appearance="outline">
-                    <mat-label>Título</mat-label>
-                    <input matInput formControlName="titulo" placeholder="Ex: Escritório Urbano" maxlength="40"
-                        minlength="2">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="tipo">
-                        <mat-option *ngFor="let tipo of categorias" [value]="tipo.id">{{tipo.nome}}</mat-option>
-                    </mat-select>
-                    <mat-error>Selecione uma categoria</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label style="font-size: 15px;">Descrição. Limite 500 caracteres.</mat-label>
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
-                        cdkAutosizeMaxRows="5" formControlName="descricao" maxlength="500">
-                    </textarea>
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <!-- Endereço -->
-                <span class="w-100 text-center" style="margin-bottom: 5px;">Endereço</span>
-                <div class="w-100 d-flex flex-row flex-wrap">
-                    <mat-form-field appearance="outline" class="w-50">
-                        <mat-label>CEP</mat-label>
-                        <input matInput formControlName="cep" (keyup)="formatarNumerio('cep')" (blur)="validarCep()"
-                            maxlength="8">
-                        <mat-error *ngIf="cep.hasError('notfound')">CEP não encontrado</mat-error>
-                        <mat-error *ngIf="!cep.hasError('notfound') && !this.cep.hasError('nao_disponivel')">Preencha o
-                            campo corretamente</mat-error>
-                        <mat-error *ngIf="this.cep.hasError('nao_disponivel')">
-                            Os nossos serviços ainda não estão disponíveis nessa cidade. Aguarde!
-                        </mat-error>
+        <mat-step [stepControl]='termos' [editable]="editavel">
+            <form [formGroup]='termos'>
+                <ng-template matStepLabel style="word-wrap: break-word;">Termos de responsabilidade</ng-template>
+                <div class="w-100 d-flex justify-content-end" style="margin-bottom: 15px; margin-top: 5px;">
+                    <button mat-button mat-raised-button (click)="nextStep(stepper)" type="button" color="primary">Aceitar e
+                        prosseguir</button>
+                </div>
+                <div class="d-flex justify-content-center align-content-center flex-column">
+                    <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                        <mat-expansion-panel-header>Políticas de Pagamento, Cancelamento e Reembolso
+                        </mat-expansion-panel-header>
+                        <div class="politicas">
+                            <app-md-viewer class="w-100" [source]="politica_pagamento"></app-md-viewer>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <mat-checkbox formControlName='termo1' required>Eu aceito as <a
+                                    href="/about/politica_pagamento.md">Políticas de Pagamento, Cancelamento e
+                                    Reembolso</a>.</mat-checkbox>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel style="margin-bottom: 10px;" [expanded]="true">
+                        <mat-expansion-panel-header>Políticas de Uso e Responsabilidades</mat-expansion-panel-header>
+                        <div class="politicas">
+                            <app-md-viewer class="w-100" [source]="politica_uso"></app-md-viewer>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <mat-checkbox formControlName='termo2' required>Eu aceito as <a
+                                    href="/about/politica_uso.md">Políticas de Uso e Responsabilidades</a>.</mat-checkbox>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
+            </form>
+        </mat-step>
+    
+        <!-- Dados cadastrais -->
+        <mat-step [stepControl]='dados_cadastrais' [editable]="editavel">
+            <form [formGroup]='dados_cadastrais'>
+                <ng-template matStepLabel>Dados cadastrais</ng-template>
+                <div style="height: 30px;"></div>
+                <div class="d-flex flex-column w-100">
+                    <span class="w-100 text-center" style="margin-bottom: 5px;">Informações sobre o espaço</span>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Título</mat-label>
+                        <input matInput formControlName="titulo" placeholder="Ex: Escritório Urbano" maxlength="40"
+                            minlength="2">
+                        <mat-error>Preencha o campo corretamente</mat-error>
                     </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Rua</mat-label>
-                        <input matInput formControlName="rua" minlength="2" maxlength="100">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Complemento</mat-label>
-                        <input matInput formControlName="complemento" minlength="2" maxlength="100">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-25">
-                        <mat-label>Numero</mat-label>
-                        <input matInput type="number" formControlName="numero" (keyup)="formatarNumerio('numero')">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-75">
-                        <mat-label>Bairro</mat-label>
-                        <input matInput formControlName="bairro" minlength="2" maxlength="100">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-50">
-                        <mat-label>Estado</mat-label>
-                        <mat-select formControlName="estado" (selectionChange)="loadDistritoByEstado()" matInput>
-                            <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
+    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select formControlName="tipo">
+                            <mat-option *ngFor="let tipo of categorias" [value]="tipo.id">{{tipo.nome}}</mat-option>
                         </mat-select>
+                        <mat-error>Selecione uma categoria</mat-error>
                     </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-50">
-                        <mat-label>Cidade</mat-label>
-                        <mat-select formControlName="cidade" matInput (selectionChange)="verificaCidade()">
-                            <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}
-                            </mat-option>
-                        </mat-select>
+    
+                    <mat-form-field appearance="outline">
+                        <mat-label style="font-size: 15px;">Descrição. Limite 500 caracteres.</mat-label>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+                            cdkAutosizeMaxRows="5" formControlName="descricao" maxlength="500">
+                        </textarea>
+                        <mat-error>Preencha o campo corretamente</mat-error>
                     </mat-form-field>
-                </div>
-                <div *ngIf="lngLatPlace">
-                    <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
-                </div>
-                <!-- Documentos -->
-                <span class="w-100 text-center" style="margin-bottom: 5px;" *ngIf="!editMode">Documentos do
-                    espaço</span>
-                <div class="w-100 d-flex flex-row flex-wrap" *ngIf="!editMode">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Você é o proprietário do espaço ?</mat-label>
-                        <mat-select formControlName="proprietario" matInput required>
-                            <mat-option value="true">Sim</mat-option>
-                            <mat-option value="false">Não</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <div class="w-100 input-group border-top">
-                        <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de
-                            alienação</span>
-                        <div class="inputDocumentoEspaco"
-                            [ngStyle]="{'background-image':escritura.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
-                            <input type="file" id="escritura" formControlName='escritura'
-                                (change)="carregarDocumento($event, 'escritura')">
-                            <label for="escritura" aria-describedby="escrituraAddon0">
-                                {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
-                            </label>
-                        </div>
+    
+                    <!-- Endereço -->
+                    <span class="w-100 text-center" style="margin-bottom: 5px;">Endereço</span>
+                    <div class="w-100 d-flex flex-row flex-wrap">
+                        <mat-form-field appearance="outline" class="w-50">
+                            <mat-label>CEP</mat-label>
+                            <input matInput formControlName="cep" (keyup)="formatarNumerio('cep')" (blur)="validarCep()"
+                                maxlength="8">
+                            <mat-error *ngIf="cep.hasError('notfound')">CEP não encontrado</mat-error>
+                            <mat-error *ngIf="!cep.hasError('notfound') && !this.cep.hasError('nao_disponivel')">Preencha o
+                                campo corretamente</mat-error>
+                            <mat-error *ngIf="this.cep.hasError('nao_disponivel')">
+                                Os nossos serviços ainda não estão disponíveis nessa cidade. Aguarde!
+                            </mat-error>
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Rua</mat-label>
+                            <input matInput formControlName="rua" minlength="2" maxlength="100">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Complemento</mat-label>
+                            <input matInput formControlName="complemento" minlength="2" maxlength="100">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-25">
+                            <mat-label>Numero</mat-label>
+                            <input matInput type="number" formControlName="numero" (keyup)="formatarNumerio('numero')">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-75">
+                            <mat-label>Bairro</mat-label>
+                            <input matInput formControlName="bairro" minlength="2" maxlength="100">
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-50">
+                            <mat-label>Estado</mat-label>
+                            <mat-select formControlName="estado" (selectionChange)="loadDistritoByEstado()" matInput>
+                                <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-50">
+                            <mat-label>Cidade</mat-label>
+                            <mat-select formControlName="cidade" matInput (selectionChange)="verificaCidade()">
+                                <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
-
-                    <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
-                        <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
-                        <div class="inputDocumentoEspaco"
-                            [ngStyle]="{'background-image':contrato_locacao.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
-                            <input type="file" (change)="carregarDocumento($event, 'contrato_locacao')"
-                                id="contrato_locacao" formControlName='contrato_locacao'>
-                            <label for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
-                                {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
-                            </label>
-                        </div>
+                    <div *ngIf="lngLatPlace">
+                        <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
                     </div>
-
-                    <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
-                        <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do
-                            proprietário</span>
-                        <div class="inputDocumentoProprietario"
-                            [ngStyle]="{'background-image':documento_proprietario.value ? cnhImg: cnhImgAmarelo}">
-                            <input type="file" (change)="carregarDocumento($event, 'documento_proprietario')"
-                                id="documento_proprietario" formControlName='documento_proprietario'>
-                            <label for="documento_proprietario" aria-describedby="documento_proprietarioAddon0">
-                                {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
-                            </label>
+                    <!-- Documentos -->
+                    <span class="w-100 text-center" style="margin-bottom: 5px;" *ngIf="!editMode">Documentos do
+                        espaço</span>
+                    <div class="w-100 d-flex flex-row flex-wrap" *ngIf="!editMode">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Você é o proprietário do espaço ?</mat-label>
+                            <mat-select formControlName="proprietario" matInput required>
+                                <mat-option value="true">Sim</mat-option>
+                                <mat-option value="false">Não</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+    
+                        <div class="w-100 input-group border-top">
+                            <span class="w-100 text-left" style="margin-top: 5px;">Escritura pública ou contrato de
+                                alienação</span>
+                            <div class="inputDocumentoEspaco"
+                                [ngStyle]="{'background-image':escritura.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
+                                <input type="file" id="escritura" formControlName='escritura'
+                                    (change)="carregarDocumento($event, 'escritura')">
+                                <label for="escritura" aria-describedby="escrituraAddon0">
+                                    {{ escritura.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
+                                </label>
+                            </div>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="w-100 d-flex flex-row justify-content-between" style="margin-bottom: 15px; margin-top: 15px;">
-                <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
-                <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
-            </div>
-        </form>
-    </mat-step>
-
-    <!-- Caracteristicas do espaço -->
-    <mat-step [stepControl]='caracteristicas_espaco' [editable]="editavel">
-        <form [formGroup]='caracteristicas_espaco'>
-            <ng-template matStepLabel style="word-wrap: break-word;">Características do espaço</ng-template>
-
-            <mat-expansion-panel [expanded]='true' style="margin-bottom: 5px;">
-                <mat-expansion-panel-header>Fotos do espaço</mat-expansion-panel-header>
-                <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
-                    <mat-card class="myCard" (click)="compressFile()" style="cursor: pointer;">
-                        <div class="d-flex h-100 align-items-center justify-content-center flex-column">
-                            <mat-icon>add</mat-icon>
-                            <span>Adicionar uma imagem*</span>
-                            <mat-spinner *ngIf="image_spinner"></mat-spinner>
+    
+                        <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
+                            <span class="w-100 text-left" style="margin-top: 5px;">Contrato de locação</span>
+                            <div class="inputDocumentoEspaco"
+                                [ngStyle]="{'background-image':contrato_locacao.value ? documentoEspacoImg: documentoEspacoImgAmarelo}">
+                                <input type="file" (change)="carregarDocumento($event, 'contrato_locacao')"
+                                    id="contrato_locacao" formControlName='contrato_locacao'>
+                                <label for="contrato_locacao" aria-describedby="contrato_locacaoAddon0">
+                                    {{contrato_locacao.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem'}}
+                                </label>
+                            </div>
                         </div>
-                        <mat-card-footer class="d-flex justify-content-end">
-                            <span style="width: 100%; text-align: right; font-size: 11px;">*PNG, JPEG e JPG </span>
-                        </mat-card-footer>
-                    </mat-card>
-
-                    <mat-card class="myCard" *ngFor="let foto of imagens; index as i">
-                        <button type="button" mat-mini-fab (click)="removeFoto(i)" color="warn"
-                            style="position: absolute; top: 0; right: 0;">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                        <img class="w-100 h-100" [src]="foto.base64 || foto.url">
-                        <button type="button" *ngIf="i > 0" mat-mini-fab (click)="changeOrder(i, i - 1)"
-                            style="position: absolute; top: 50%; left: 0; background-color: white;">
-                            <mat-icon>keyboard_arrow_left</mat-icon>
-                        </button>
-                        <button type="button" *ngIf="imagens.length > 1 && i < imagens.length - 1" mat-mini-fab
-                            (click)="changeOrder(i, i + 1)"
-                            style="position: absolute; top: 50%; right: 0; background-color: white;">
-                            <mat-icon>keyboard_arrow_right</mat-icon>
-                        </button>
-                    </mat-card>
-                </div>
-            </mat-expansion-panel>
-
-            <div class="w-100 d-flex flex-row flex-wrap">
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Área</mat-label>
-                    <input matInput maxlength="10" formControlName="area" placeholder="m²"
-                        (keyup)="formatarNumerio('area')">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Quantidade de Vagas de estacionamento</mat-label>
-                    <input matInput maxlength="10" formControlName="vagas" placeholder="Quantidade"
-                        (keyup)="formatarNumerio('vagas')">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Internet</mat-label>
-                    <mat-select matInput formControlName='internet'>
-                        <mat-option value='true'>Sim</mat-option>
-                        <mat-option value='false'>Não</mat-option>
-                    </mat-select>
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Quantidade de Mesas</mat-label>
-                    <input matInput maxlength="10" formControlName='quantidade_mesas'
-                        (keyup)="formatarNumerio('quantidade_mesas')">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Numero de pessoas</mat-label>
-                    <input matInput maxlength="10" formControlName='numero_pessoas'
-                        (keyup)="formatarNumerio('numero_pessoas')">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-50">
-                    <mat-label>Horário de Funcionamento</mat-label>
-                    <input matInput maxlength="100" formControlName='horario_funcionamento'
-                        placeholder="Ex.: 24 horas / 7 dias por semana">
-                    <mat-error>Preencha o campo corretamente</mat-error>
-                </mat-form-field>
-
-                <div class="w-100 input-group mb-3">
-                    <span class="w-100 text-left" style="margin-top: 5px;">Itens disponíveis</span>
-                    <div class="w-25 input-group mb-3" *ngFor="let control of caracteristicas; index as i">
-                        <div class="custom-file">
-                            <mat-checkbox (change)="checkBoxChange(control)" [checked]="control.value">{{control.nome}}
-                            </mat-checkbox>
+    
+                        <div class="w-100 input-group border-top" *ngIf="proprietario.value == 'false'">
+                            <span class="w-100 text-left" style="margin-top: 5px;">Documento com foto e CPF do
+                                proprietário</span>
+                            <div class="inputDocumentoProprietario"
+                                [ngStyle]="{'background-image':documento_proprietario.value ? cnhImg: cnhImgAmarelo}">
+                                <input type="file" (change)="carregarDocumento($event, 'documento_proprietario')"
+                                    id="documento_proprietario" formControlName='documento_proprietario'>
+                                <label for="documento_proprietario" aria-describedby="documento_proprietarioAddon0">
+                                    {{documento_proprietario.value.split('\\')[2] || 'Escolha um arquivo PDF ou Imagem' }}
+                                </label>
+                            </div>
                         </div>
+    
                     </div>
                 </div>
-
-                <div class="w-100 input-group mb-3">
-                    <span class="w-100 text-left" style="margin-top: 5px;">Informações adicionais</span>
-
-                    <input type="text" formControlName="info_text" maxlength="50" minlength="2"
-                        placeholder="Ex.: Proibido fumar" class="form-control outline-red">
-
-                    <div class="input-group-append">
-                        <button mat-button mat-raised-button type="button" color="primary"
-                            (click)="addInfo()">Adicionar</button>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-7">
-                <div class=" input-group mb-3" *ngFor="let control of info; index as i">
-                        
-                            <input [value]="control.descricao" class="form-control">
-                        <div class="input-group-append">
-                            <button class="input-group-text alert-danger" type="button" style="margin-right: 5px;"
-                                (click)="removeInfo(i)">Remover</button>
-                        </div>
-                        
-                    </div>
-                
-                </div>
-
-                <div class="w-100 d-flex justify-content-between flex-row"
-                    style="margin-bottom: 15px; margin-top: 15px;">
+    
+                <div class="w-100 d-flex flex-row justify-content-between" style="margin-bottom: 15px; margin-top: 15px;">
                     <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
                     <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
                 </div>
-            </div>
-        </form>
-    </mat-step>
-
-    <mat-step [stepControl]='valores' [editable]="editavel">
-        <form [formGroup]='valores'>
-            <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
-
-            <div class="row">
-                <div class="col">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Custo por dia</mat-label>
-                        <input #custo_diario matInput formControlName='custo_dia'
-                            (keyup)="custo_diario.value = getFormattedPrice('custo_dia')" maxlength="10" />
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Custo por mês</mat-label>
-                        <input #custo_mensal matInput formControlName="custo_mes"
-                            (keyup)="custo_mensal.value = getFormattedPrice('custo_mes')" maxlength="10" />
-                        <mat-hint>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.
-                        </mat-hint>
-                    </mat-form-field>
-
-                    <div class="w-100" style="margin-top: 10px;">
-                        <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de
-                            serviço</span>
-                        <div>
-                            <div class="d-flex flex-row justify-content-between" style="padding: 0 2px;">
-                                <div *ngFor="let item of generateThumb(); last as isLast" class="d-flex flex-row">
-                                    <span class="customThumb" style="text-align: center;">{{item}}</span>
-                                    <div *ngIf="!isLast" style="display: inline-block; border-bottom: 1px solid gray;">
-                                    </div>
-                                </div>
+            </form>
+        </mat-step>
+    
+        <!-- Caracteristicas do espaço -->
+        <mat-step [stepControl]='caracteristicas_espaco' [editable]="editavel">
+            <form [formGroup]='caracteristicas_espaco'>
+                <ng-template matStepLabel style="word-wrap: break-word;">Características do espaço</ng-template>
+    
+                <mat-expansion-panel [expanded]='true' style="margin-bottom: 5px;">
+                    <mat-expansion-panel-header>Fotos do espaço</mat-expansion-panel-header>
+                    <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
+                        <mat-card class="myCard" (click)="compressFile()" style="cursor: pointer;">
+                            <div class="d-flex h-100 align-items-center justify-content-center flex-column">
+                                <mat-icon>add</mat-icon>
+                                <span>Adicionar uma imagem*</span>
+                                <mat-spinner *ngIf="image_spinner"></mat-spinner>
                             </div>
-                            <mat-slider class="w-100 showFixLabel" [step]="max_taxa/2" tickInterval="1" min="0"
-                                [max]="max_taxa" formControlName='taxa'></mat-slider>
+                            <mat-card-footer class="d-flex justify-content-end">
+                                <span style="width: 100%; text-align: right; font-size: 11px;">*PNG, JPEG e JPG </span>
+                            </mat-card-footer>
+                        </mat-card>
+    
+                        <mat-card class="myCard" *ngFor="let foto of imagens; index as i">
+                            <button type="button" mat-mini-fab (click)="removeFoto(i)" color="warn"
+                                style="position: absolute; top: 0; right: 0;">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <img class="w-100 h-100" [src]="foto.base64 || foto.url">
+                            <button type="button" *ngIf="i > 0" mat-mini-fab (click)="changeOrder(i, i - 1)"
+                                style="position: absolute; top: 50%; left: 0; background-color: white;">
+                                <mat-icon>keyboard_arrow_left</mat-icon>
+                            </button>
+                            <button type="button" *ngIf="imagens.length > 1 && i < imagens.length - 1" mat-mini-fab
+                                (click)="changeOrder(i, i + 1)"
+                                style="position: absolute; top: 50%; right: 0; background-color: white;">
+                                <mat-icon>keyboard_arrow_right</mat-icon>
+                            </button>
+                        </mat-card>
+                    </div>
+                </mat-expansion-panel>
+    
+                <div class="w-100 d-flex flex-row flex-wrap">
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Área</mat-label>
+                        <input matInput maxlength="10" formControlName="area" placeholder="m²"
+                            (keyup)="formatarNumerio('area')">
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Quantidade de Vagas de estacionamento</mat-label>
+                        <input matInput maxlength="10" formControlName="vagas" placeholder="Quantidade"
+                            (keyup)="formatarNumerio('vagas')">
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Internet</mat-label>
+                        <mat-select matInput formControlName='internet'>
+                            <mat-option value='true'>Sim</mat-option>
+                            <mat-option value='false'>Não</mat-option>
+                        </mat-select>
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Quantidade de Mesas</mat-label>
+                        <input matInput maxlength="10" formControlName='quantidade_mesas'
+                            (keyup)="formatarNumerio('quantidade_mesas')">
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Numero de pessoas</mat-label>
+                        <input matInput maxlength="10" formControlName='numero_pessoas'
+                            (keyup)="formatarNumerio('numero_pessoas')">
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline" class="w-50">
+                        <mat-label>Horário de Funcionamento</mat-label>
+                        <input matInput maxlength="100" formControlName='horario_funcionamento'
+                            placeholder="Ex.: 24 horas / 7 dias por semana">
+                        <mat-error>Preencha o campo corretamente</mat-error>
+                    </mat-form-field>
+    
+                    <div class="w-100 input-group mb-3">
+                        <span class="w-100 text-left" style="margin-top: 5px;">Itens disponíveis</span>
+                        <div class="w-25 input-group mb-3" *ngFor="let control of caracteristicas; index as i">
+                            <div class="custom-file">
+                                <mat-checkbox (change)="checkBoxChange(control)" [checked]="control.value">{{control.nome}}
+                                </mat-checkbox>
+                            </div>
                         </div>
-                        <mat-hint>*Valores em porcentagem.</mat-hint>
                     </div>
-
-                    <div class="taxaInfo">
-                        <span class="taxaInfoTitle">Sobre a taxa</span>
-                        <span class="taxaInfoText">Uma taxa de {{max_taxa}}% sempre será cobrada, selecione a
-                            porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente
-                            embutida no valor da diária ou do mensal.</span>
+    
+                    <div class="w-100 input-group mb-3">
+                        <span class="w-100 text-left" style="margin-top: 5px;">Informações adicionais</span>
+    
+                        <input type="text" formControlName="info_text" maxlength="50" minlength="2"
+                            placeholder="Ex.: Proibido fumar" class="form-control outline-red">
+    
+                        <div class="input-group-append">
+                            <button mat-button mat-raised-button type="button" color="primary"
+                                (click)="addInfo()">Adicionar</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col">
-                    <mat-card>
-                        <mat-card-title class="text-center">Simulação de valores</mat-card-title>
-                        <!-- <mat-card-subtitle class="text-center">Assumindo um periodo de 1 mês</mat-card-subtitle> -->
-                        <mat-card-content>
-                            <div class="d-flex flex-column">
-                                <div>
-                                    <mat-form-field style="width: 100%">
-                                        <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
-                                        <input style="color: black; font-weight: 500;" matInput
-                                            [matDatepicker]="pickerEntrada" disabled
-                                            (dateChange)="addEvent('entrada', $event)">
-                                        <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
-                                        <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-form-field style="width: 100%">
-                                        <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
-                                        <input style="color: black; font-weight: 500;" matInput
-                                            [matDatepicker]="pickerSaida" disabled
-                                            (dateChange)="addEvent('saida', $event)">
-                                        <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
-                                        <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="simulacao simulacaoDia">
-                                    <span class="simulacaoTitle">Dia</span>
-                                    <div class="simulacaoValores">
-                                        <span>Custo por dia</span>
-                                        <span>{{ calculaCustoDia() | currency:'BRL':true }}</span>
-                                    </div>
-                                    <div class="simulacaoValores">
-                                        <span>Taxa de serviço</span>
-                                        <span>{{ calculaTaxa() | currency:'BRL':true }}</span>
-                                    </div>
-                                    <div class="simulacaoValores">
-                                        <span>Total por dia</span>
-                                        <span>{{calculaTotal() | currency:'BRL':true}}</span>
-                                    </div>
-                                    <div class="simulacaoTotal">
-                                        <span>Total</span>
-                                        <span
-                                            *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
-                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">Selecione um intervalo
-                                            menor que 30 dias</span>
-                                    </div>
-                                </div>
-
-                                <div class="simulacao">
-                                    <span class="simulacaoTitle">Mês</span>
-                                    <div class="simulacaoValores">
-                                        <span>Custo por mês</span>
-                                        <span>{{ calculaCustoMes() | currency:'BRL':true }}</span>
-                                    </div>
-                                    <div class="simulacaoValores">
-                                        <span>Taxa de serviço</span>
-                                        <span>{{ calculaTaxaMes() | currency:'BRL':true }}</span>
-                                    </div>
-                                    <div class="simulacaoValores">
-                                        <span>Total por mês</span>
-                                        <span>{{calculaTotalMes() | currency:'BRL':true}}</span>
-                                    </div>
-                                    <div class="simulacaoTotal" ng>
-                                        <span>Total</span>
-                                        <span
-                                            *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
-                                        <span *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">Selecione um intervalo
-                                            maior que 30 dias</span>
-                                    </div>
-                                </div>
+                    <div class="col-12 col-lg-7">
+                    <div class=" input-group mb-3" *ngFor="let control of info; index as i">
+                            
+                                <input [value]="control.descricao" class="form-control">
+                            <div class="input-group-append">
+                                <button class="input-group-text alert-danger" type="button" style="margin-right: 5px;"
+                                    (click)="removeInfo(i)">Remover</button>
                             </div>
-                        </mat-card-content>
-                    </mat-card>
+                            
+                        </div>
+                    
+                    </div>
+    
+                    <div class="w-100 d-flex justify-content-between flex-row"
+                        style="margin-bottom: 15px; margin-top: 15px;">
+                        <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
+                        <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
+                    </div>
                 </div>
+            </form>
+        </mat-step>
+    
+        <mat-step [stepControl]='valores' [editable]="editavel">
+            <form [formGroup]='valores'>
+                <ng-template matStepLabel style="word-wrap: break-word;">Preço e taxa</ng-template>
+    
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Custo por dia</mat-label>
+                            <input #custo_diario matInput formControlName='custo_dia'
+                                (keyup)="custo_diario.value = getFormattedPrice('custo_dia')" maxlength="10" />
+                        </mat-form-field>
+    
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Custo por mês</mat-label>
+                            <input #custo_mensal matInput formControlName="custo_mes"
+                                (keyup)="custo_mensal.value = getFormattedPrice('custo_mes')" maxlength="10" />
+                            <mat-hint>Para períodos de alocação a partir de 31 dias será cobrado do locador o valor mensal.
+                            </mat-hint>
+                        </mat-form-field>
+    
+                        <div class="w-100" style="margin-top: 10px;">
+                            <span class="w-100 text-left" style="margin-top: 5px; margin-bottom: 5px;">Taxa de
+                                serviço</span>
+                            <div>
+                                <div class="d-flex flex-row justify-content-between" style="padding: 0 2px;">
+                                    <div *ngFor="let item of generateThumb(); last as isLast" class="d-flex flex-row">
+                                        <span class="customThumb" style="text-align: center;">{{item}}</span>
+                                        <div *ngIf="!isLast" style="display: inline-block; border-bottom: 1px solid gray;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <mat-slider class="w-100 showFixLabel" [step]="max_taxa/2" tickInterval="1" min="0"
+                                    [max]="max_taxa" formControlName='taxa'></mat-slider>
+                            </div>
+                            <mat-hint>*Valores em porcentagem.</mat-hint>
+                        </div>
+    
+                        <div class="taxaInfo">
+                            <span class="taxaInfoTitle">Sobre a taxa</span>
+                            <span class="taxaInfoText">Uma taxa de {{max_taxa}}% sempre será cobrada, selecione a
+                                porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente
+                                embutida no valor da diária ou do mensal.</span>
+                        </div>
+                    </div>
+    
+                    <div class="col">
+                        <mat-card>
+                            <mat-card-title class="text-center">Simulação de valores</mat-card-title>
+                            <!-- <mat-card-subtitle class="text-center">Assumindo um periodo de 1 mês</mat-card-subtitle> -->
+                            <mat-card-content>
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label style="color: black; font-weight: 500;">Entrada</mat-label>
+                                            <input style="color: black; font-weight: 500;" matInput
+                                                [matDatepicker]="pickerEntrada" disabled
+                                                (dateChange)="addEvent('entrada', $event)">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerEntrada"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerEntrada disabled="false" format></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field style="width: 100%">
+                                            <mat-label style="color: black; font-weight: 500;">Saída</mat-label>
+                                            <input style="color: black; font-weight: 500;" matInput
+                                                [matDatepicker]="pickerSaida" disabled
+                                                (dateChange)="addEvent('saida', $event)">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerSaida"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerSaida disabled="false" format></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+    
+                                    <div class="simulacao simulacaoDia">
+                                        <span class="simulacaoTitle">Dia</span>
+                                        <div class="simulacaoValores">
+                                            <span>Custo por dia</span>
+                                            <span>{{ calculaCustoDia() | currency:'BRL':true }}</span>
+                                        </div>
+                                        <div class="simulacaoValores">
+                                            <span>Taxa de serviço</span>
+                                            <span>{{ calculaTaxa() | currency:'BRL':true }}</span>
+                                        </div>
+                                        <div class="simulacaoValores">
+                                            <span>Total por dia</span>
+                                            <span>{{calculaTotal() | currency:'BRL':true}}</span>
+                                        </div>
+                                        <div class="simulacaoTotal">
+                                            <span>Total</span>
+                                            <span
+                                                *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
+                                            <span *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">Selecione um intervalo
+                                                menor que 30 dias</span>
+                                        </div>
+                                    </div>
+    
+                                    <div class="simulacao">
+                                        <span class="simulacaoTitle">Mês</span>
+                                        <div class="simulacaoValores">
+                                            <span>Custo por mês</span>
+                                            <span>{{ calculaCustoMes() | currency:'BRL':true }}</span>
+                                        </div>
+                                        <div class="simulacaoValores">
+                                            <span>Taxa de serviço</span>
+                                            <span>{{ calculaTaxaMes() | currency:'BRL':true }}</span>
+                                        </div>
+                                        <div class="simulacaoValores">
+                                            <span>Total por mês</span>
+                                            <span>{{calculaTotalMes() | currency:'BRL':true}}</span>
+                                        </div>
+                                        <div class="simulacaoTotal" ng>
+                                            <span>Total</span>
+                                            <span
+                                                *ngIf="(saida.diff(entrada, 'days') + 1) > 30 ">{{calculaTotalPeriodo() | currency:'BRL':true}}</span>
+                                            <span *ngIf="(saida.diff(entrada, 'days') + 1) < 30 ">Selecione um intervalo
+                                                maior que 30 dias</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="w-100 d-flex justify-content-between flex-row" style="margin-bottom: 15px; margin-top: 15px;">
+                    <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
+                    <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
+                </div>
+            </form>
+    
+        </mat-step>
+    
+        <mat-step>
+            <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
+            <div class="w-100 d-flex justify-content-center align-items-center flex-column">
+                <img src="assets/svg/checkmark.svg" class="checkmark">
+                <span
+                    style="font-weight: 500; font-size: 30px;">{{ editMode ? 'Edição Finalizada!': 'Cadastro Finalizado!' }}</span>
+                <span>Aguarde a avaliação do seu espaço antes da publicação.</span>
             </div>
-            <div class="w-100 d-flex justify-content-between flex-row" style="margin-bottom: 15px; margin-top: 15px;">
-                <button mat-button mat-raised-button matStepperPrevious>Voltar</button>
-                <button mat-button mat-raised-button (click)="nextStep(stepper)" color="primary">Prosseguir</button>
-            </div>
-        </form>
-
-    </mat-step>
-
-    <mat-step>
-        <ng-template matStepLabel style="word-wrap: break-word;">Finalizar!</ng-template>
-        <div class="w-100 d-flex justify-content-center align-items-center flex-column">
-            <img src="assets/svg/checkmark.svg" class="checkmark">
-            <span
-                style="font-weight: 500; font-size: 30px;">{{ editMode ? 'Edição Finalizada!': 'Cadastro Finalizado!' }}</span>
-            <span>Aguarde a avaliação do seu espaço antes da publicação.</span>
-        </div>
-        <button mat-button mat-raised-button routerLink="/user/anuncios/meusanuncios">Home</button>
-    </mat-step>
-</mat-horizontal-stepper>
+            <button mat-button mat-raised-button routerLink="/user/anuncios/meusanuncios">Home</button>
+        </mat-step>
+    </mat-horizontal-stepper>
