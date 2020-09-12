@@ -15,6 +15,12 @@
     box-shadow: 0px 0px 5px 1px $pl-verde-escuro;   
 }
 
+.form-control:focus {
+    border-color: $pl-verde-escuro;
+    box-shadow: none;
+    border-width: 2px;
+} 
+
 .checkmark{
     width: 200px;
     color: $pl-verde-escuro;
