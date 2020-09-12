@@ -5,9 +5,43 @@
     </ng-sidebar>
 
     <div ng-sidebar-content>
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
+            <a class="navbar-brand" href="/home">
+                <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg" loading="lazy">
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <div class="navbar-nav">
+                    <a
+                        class="nav-link"
+                        href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank">
+                        <img src="assets/svg/facebook_preto.svg">
+                    </a>
+                    <a
+                        class="nav-link"
+                        href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank">
+                        <img src="assets/svg/linkedin_preto.svg">
+                    </a>
+                    <a
+                        class="nav-link"
+                        href="https://www.instagram.com/placeet_" target="_blank">
+                        <img src="assets/svg/instagram_preto.svg">
+                    </a>
+                </div>
+            </div>
+        </nav>
         <div class="d-flex">
-            <app-sidemenu id="sidebar"></app-sidemenu>
-            <router-outlet></router-outlet>
+            <app-sidemenu class="d-none d-md-block"></app-sidemenu>
+            <div class="flex-fill">
+                <router-outlet></router-outlet>
+            </div>
         </div>
         <app-footer></app-footer>
         <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>

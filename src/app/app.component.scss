@@ -1,12 +1,15 @@
-router-outlet {
-    max-width: 100%;
+nav img.logo {
+    width: 20vw;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+a.nav-link img {
+    max-width: 25px;
+    max-height: 25px;
 }
 
 ::ng-deep .ng-sidebar {
     z-index: 5 !important;
     background-color: white;
-}
-
-@media (max-width: 1055px) {
-    #sidebar { display: none; }
 }

@@ -52,6 +52,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
+    HeaderComponent,
   ],
   imports: [
     FormsModule,
