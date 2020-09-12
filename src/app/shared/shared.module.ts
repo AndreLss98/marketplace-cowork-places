@@ -16,45 +16,46 @@ import { QuestionAnsweredComponent } from './components/question-answered/questi
 import { CardItemAlugavelComponent } from './components/card-item-alugavel/card-item-alugavel.component';
 import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatCardModule} from '@angular/material/card';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatTreeModule} from '@angular/material/tree'; 
-import {MatSortModule} from '@angular/material/sort';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatInputModule} from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
-import {MatBadgeModule} from '@angular/material/badge';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatSortModule } from '@angular/material/sort';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
 import { MdePopoverModule } from '@material-extended/mde';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatMomentDateModule} from "@angular/material-moment-adapter";
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     MapsComponent,
     MdViewerComponent,
     ContratoComponent,
@@ -66,11 +67,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
+    HeaderComponent,
   ],
   imports: [
     FormsModule,
     CommonModule,
-    RouterModule, 
+    RouterModule,
     MarkdownModule,
     ReactiveFormsModule,
 
@@ -124,7 +126,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
-    
+
     MatBadgeModule,
     MdePopoverModule,
     ScrollingModule,

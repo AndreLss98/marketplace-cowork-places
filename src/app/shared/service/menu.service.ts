@@ -14,9 +14,9 @@ export class MenuService {
   }
 
   public getAllHome() {
-    const params =
-    new HttpParams()
-    .set('filters', JSON.stringify({used: true}));
+    const params = new HttpParams()
+      .set('filters', JSON.stringify({used: true}));
+      
     return this.http.get(`${environment.apiUrl}/tipos`, {params});
   }
 }

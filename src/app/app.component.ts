@@ -1,8 +1,7 @@
-import { MobileService } from './shared/service/mobile.service';
-import { UserService } from './shared/service/user.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoginService } from './shared/service/login.service';
 import { Component } from '@angular/core';
+
+import { UserService } from './shared/service/user.service';
+import { LoginService } from './shared/service/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'place-et';
+  title = 'placeet';
 
-  public hideHeader = false;
-  public hideFooter = false;
+  public sidenavOpened = false;
 
   constructor(
     private login: LoginService,
-    private route: ActivatedRoute,
-    public userService: UserService,
-    public mobileService: MobileService
+    public userService: UserService
   ) {
     this.login.autoLogin();
-    // addEventListener('storage', this.login.logoutServer)
-    this.route.queryParams.subscribe( params => {
-      this.hideFooter = params["hideFooter"] || false;
-      this.hideHeader = params["hideHeader"] || false;
-    }).unsubscribe();
   }
 }
 
