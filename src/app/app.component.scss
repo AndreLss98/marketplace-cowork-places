@@ -12,4 +12,6 @@ a.nav-link img {
 ::ng-deep .ng-sidebar {
     z-index: 5 !important;
     background-color: white;
+    padding: 0 2rem;
+    box-shadow: 0 0 .9rem rgba(0, 0, 0, .5);
 }

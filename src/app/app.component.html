@@ -1,12 +1,20 @@
 <ng-sidebar-container class="min-vh-100">
     <ng-sidebar #sidebar [opened]="sidenavOpened">
-        <!-- <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute">close</mat-icon> -->
-        <app-sidemenu id="sidenav"></app-sidemenu>
+        <mat-icon
+            style="top: 5px; right: 10px;"
+            class="cursor-pointer position-absolute"
+            (click)="sidenavOpened = false">close</mat-icon>
+        <img
+            routerLink="/home"
+            class="cursor-pointer my-4 d-block"
+            style="outline: none;"
+            src="assets/imgs/logo/logo_preta.svg">
+        <app-sidemenu></app-sidemenu>
     </ng-sidebar>
 
     <div ng-sidebar-content>
         <nav class="navbar navbar-expand-md navbar-light bg-white">
-            <a class="navbar-brand" href="/home">
+            <a class="navbar-brand" routerLink="/home">
                 <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg" loading="lazy">
             </a>
             <button
@@ -14,7 +22,8 @@
                 type="button"
                 data-toggle="collapse"
                 aria-expanded="false"
-                aria-label="Toggle navigation">
+                aria-label="Toggle navigation"
+                (click)="sidenavOpened = !sidenavOpened">
                 <span class="navbar-toggler-icon"></span></button>
 
             <div class="collapse navbar-collapse justify-content-end">
@@ -38,7 +47,7 @@
             </div>
         </nav>
         <div class="d-flex">
-            <app-sidemenu class="d-none d-md-block"></app-sidemenu>
+            <app-sidemenu class="ml-3 d-none d-md-block"></app-sidemenu>
             <div class="flex-fill">
                 <router-outlet></router-outlet>
             </div>
