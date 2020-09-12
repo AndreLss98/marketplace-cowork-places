@@ -1,24 +1,22 @@
-import { MobileService } from './../../shared/service/mobile.service';
-import { LoginService } from 'src/app/shared/service/login.service';
+import { Component, OnInit } from '@angular/core';
+
 import { UserService } from './../../shared/service/user.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit {
 
   public user:any;
-  public opened: boolean = true && !this.mobileService.isMobile();
-  public currentSelection: string = '';
   public isAdmin: boolean = false;
+  public currentSelection: string = '';
   
   constructor(
     private login: LoginService,
     public userService: UserService,
-    public mobileService: MobileService
   ) {
 
   }
@@ -28,21 +26,14 @@ export class UserComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-    $('#menuHeader').hide();
-
     if (this.userService.user_data) {
       this.userService.checkPermission().subscribe(() => {
         this.isAdmin = true;
         this.userService.isAdmin = true;
       }, (error) => {
-        //console.log(error);
         this.userService.isAdmin = false;
         this.isAdmin = false;
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    $('#menuHeader').show();
   }
 }

@@ -1,3 +1,58 @@
-<app-header [hidden]="hideHeader"></app-header>
-<app-footer [hidden]="hideFooter"></app-footer>
-<app-feedback-button *ngIf="userService.user_data != undefined && !mobileService.isMobile()"></app-feedback-button>
+<ng-sidebar-container class="min-vh-100">
+    <ng-sidebar #sidebar [opened]="sidenavOpened">
+        <mat-icon
+            style="top: 5px; right: 10px;"
+            class="cursor-pointer position-absolute"
+            (click)="sidenavOpened = false">close</mat-icon>
+        <img
+            routerLink="/home"
+            class="cursor-pointer my-4 d-block"
+            style="outline: none;"
+            src="assets/imgs/logo/logo_preta.svg">
+        <app-sidemenu></app-sidemenu>
+    </ng-sidebar>
+
+    <div ng-sidebar-content>
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
+            <a class="navbar-brand" routerLink="/home">
+                <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg" loading="lazy">
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                (click)="sidenavOpened = !sidenavOpened">
+                <span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <div class="navbar-nav">
+                    <a
+                        class="nav-link"
+                        href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank">
+                        <img src="assets/svg/facebook_preto.svg">
+                    </a>
+                    <a
+                        class="nav-link"
+                        href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank">
+                        <img src="assets/svg/linkedin_preto.svg">
+                    </a>
+                    <a
+                        class="nav-link"
+                        href="https://www.instagram.com/placeet_" target="_blank">
+                        <img src="assets/svg/instagram_preto.svg">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex">
+            <app-sidemenu class="ml-3 d-none d-md-block"></app-sidemenu>
+            <div class="flex-fill">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footer></app-footer>
+        <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
+    </div>
+</ng-sidebar-container>
