@@ -26,9 +26,7 @@ import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-r
 import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 
-import { CriarAnuncioGuard } from './guard/criar-anuncio.guard';
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
-
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -68,8 +66,7 @@ const routes: Routes = [
     },
     { 
       path: 'anuncios/criaranuncio', 
-      component: CriarAnuncioComponent,
-      canActivate: [CriarAnuncioGuard]
+      component: CriarAnuncioComponent
     },
     { 
       path: 'anuncios/locacoes', 

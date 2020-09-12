@@ -1,3 +1,15 @@
-<app-header [hidden]="hideHeader"></app-header>
-<app-footer [hidden]="hideFooter"></app-footer>
-<app-feedback-button *ngIf="userService.user_data != undefined && !mobileService.isMobile()"></app-feedback-button>
+<ng-sidebar-container class="min-vh-100">
+    <ng-sidebar #sidebar [opened]="sidenavOpened">
+        <!-- <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute">close</mat-icon> -->
+        <app-header id="sidenav"></app-header>
+    </ng-sidebar>
+
+    <div ng-sidebar-content>
+        <div class="d-flex">
+            <app-header id="sidebar"></app-header>
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+        <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
+    </div>
+</ng-sidebar-container>

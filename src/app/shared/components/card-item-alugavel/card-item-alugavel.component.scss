@@ -1,6 +1,5 @@
 @import '../../../../place-et-theme.scss';
 
-
 .card-body{
     padding-bottom: 5px;;
     border-radius: 25px 25px 15px 15px;
@@ -10,6 +9,7 @@
 
 .card{
     border-radius: 25px 25px 15px 15px;
+    width: 315px;
     max-width: 350px;
     height: 500px;
     margin-bottom: 20px;

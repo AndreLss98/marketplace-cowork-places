@@ -20,6 +20,10 @@ $placeet-typography: mat-typography-config(
 @include angular-material-theme($place-et-theme);
 @include angular-material-typography($placeet-typography);
 
+html {
+  font-size: 1.6rem;
+}
+
 body {
   margin: 0;
   font-family: 'CentraleSans', "Helvetica Neue", sans-serif;
@@ -97,6 +101,12 @@ input[type=number] {
   src: url('/assets/font/Centrale\ Sans/CentraleSansLight.otf') format("opentype");
 }
 
+@media (max-width: 630px) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
 .cursor-pointer {
   cursor: pointer !important;
 }
@@ -110,7 +120,11 @@ button.danger {
   color: white;
 }
 
+button.btn {
+  font-size: .7rem;
+}
+
 button.outline-primary {
   background-color: white;
-  border: 2px solid $pl-verde-escuro;
+  border: 1px solid $pl-verde-escuro;
 }

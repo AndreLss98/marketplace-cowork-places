@@ -1,185 +1,23 @@
-@import '../../../../place-et-theme.scss';
-
-// -- HAMBURGER -- //
-  #checkbox-menu{
-    opacity: 0;
-  }
-  
-  label{
-    cursor: pointer;
-    position: relative;
-    display: block;
-    height: 22px;
-    width: 30px;
-  }
-  
-  label span{
-    position: absolute;
-    display: block;
-    height: 5px;
+#content {
     width: 100%;
-    border-radius: 30px;
-    background: #00ffab;
-    transition: 0.25s ease-in-out;
-  }
-  
-  label span:nth-child(1){
-    top: 0;
-  }
-  
-  label span:nth-child(2){
-    top: 8px;
-  }
-  
-  label span:nth-child(3){
-    top: 16px;
-  }
-  
-  #checkbox-menu:checked + label span:nth-child(1){
-    transform: rotate(-45deg);
-    top: 8px;
-  }
-  
-  #checkbox-menu:checked + label span:nth-child(2){
-    opacity: 0;
-  }
-  
-  #checkbox-menu:checked + label span:nth-child(3){
-    transform: rotate(45deg);
-    top:8px;
-  }
-// -- FIM HAMBURGER -- //
-
-ng-sidebar-container{
-    height: 100vh;
-}
-
-::ng-deep .ng-sidebar{
-    display: flex;
-
-    background-color: white;
-    width: 300px;
-    padding: 2em 3em;
-    left: 0;
-}
-
-.openClose-button {
-    position: fixed;
-    top: 2%;
-    z-index: 999;
-    color: #00ffab;
-    font-size: 17px;
-    padding: 0px 11px;
-    border-radius: 5px;
-    border: solid 3px #00ffab;
-    background: white;
-    font-weight: 600;
-    text-align: center;
-}
-
-.content{
-    display: flex;
-    flex-direction: row;
-    background-color: white;
-
-    .header {
-        max-width: 300px;
-        img {
-            width: 15vw;
-            min-width: 180px;
-            max-width: 260px;
-            cursor: pointer;
-        }
-
-        .itemMenu {
-            color: black;
-            font-size: 1.4em;
-            cursor: pointer;
-            line-height: initial;
-        }
-
-        .itemMenu:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
-.tabs{
-    background-color: $pl-preto;
-}
-
-.title{
-    width: 160px;
-}
-
-.title:hover{
-    cursor: pointer;
-}
-
-.options{
-    background: linear-gradient(to right, $pl-verde-claro, $pl-verde-escuro);
-    font-weight: 500;
-    width: 100%;
-    span{
+    max-width: 300px;
+    img {
+        width: 15vw;
+        min-width: 180px;
+        max-width: 260px;
         cursor: pointer;
     }
 
-    .imgs{
+    .itemMenu {
+        color: black;
+        font-size: 1.4em;
         cursor: pointer;
-        background-color: white;
-        border-radius: 50%;
-        padding: 15px;
-        border: 2px solid #00000000;
+        line-height: initial;
     }
 
-    .imgs:hover{
-      transition: linear 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-      border: 2px solid rgba(0, 0, 0, 0.432);
-      box-shadow: inset 0px 0px 5px 1px rgba(153,153,153,1);
+    .itemMenu:hover {
+        text-decoration: underline;
     }
-}
-
-
-
-
-li{
-    margin: 0 5px 0 5px;
-}
-
-.up{
-    transition: -ms-transform .2s cubic-bezier(0.455, 0.030, 0.515, 0.955),
-    -webkit-transform .2s cubic-bezier(0.455, 0.030, 0.515, 0.955),
-    transform .2s cubic-bezier(0.455, 0.030, 0.515, 0.955), visibility .2s !important;
-}
-
-.down{
-    transform: translateY(100%) !important;
-    transition: -ms-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    -webkit-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s, visibility 0.2s ease 0s !important;
-}
-
-.hide{
-    transform: translateY(-120%) !important;
-    transition: -ms-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    -webkit-transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s, transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s,
-    visibility 0.2s ease 0s !important;
-}
-
-.list-item{
-    color: #000000de;
-    width: 200px !important;
-    margin-left: -12px;
-    margin-right: -12px;
-    span{
-        text-align: left;
-    }
-}
-
-.list-item:hover{
-    transition: opacity 0.3s;
-    background-color: #f5f5f5;
-
 }
 
 #popover {
@@ -187,9 +25,4 @@ li{
         cursor: pointer;
     }
     border-radius: 21px !important;
-}
-
-.espacamento{
-    margin: 5px -12px;
-    border-bottom: 1px solid #e6e6e6;
 }

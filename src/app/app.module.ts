@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
+import { SidebarModule } from 'ng-sidebar';
 import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import localePt from '@angular/common/locales/pt';
@@ -11,7 +12,6 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import {
   RecaptchaModule,
   RecaptchaSettings,
@@ -21,6 +21,8 @@ import {
 } from 'ng-recaptcha';
 
 import { environment } from '../environments/environment';
+
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -34,11 +36,8 @@ import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recupera
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
 import { UserMenuComponent } from './shared/components/header/components/user-menu/user-menu.component';
 import { SearchboxComponent } from './shared/components/header/components/searchbox/searchbox.component';
-import { SidebarModule } from 'ng-sidebar';
 
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
-import { SharedModule } from './shared/shared.module';
-import { UserModule } from './modulos/user/user.module';
 
 registerLocaleData(localePt);
 
@@ -57,19 +56,19 @@ registerLocaleData(localePt);
     FeedbackButtonComponent
   ],
   imports: [
+    NgbModule,
     FormsModule,
+    SharedModule,
     BrowserModule,
     RecaptchaModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     RecaptchaFormsModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    NgbModule,
-    SharedModule,
-    HttpClientModule,
+    SidebarModule.forRoot(),
     MarkdownModule.forRoot({ loader: HttpClient }),
-    SidebarModule.forRoot()
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     NgxImageCompressService,
