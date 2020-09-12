@@ -10,13 +10,13 @@ import { ModalService } from 'src/app/shared/service/modal.service';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-sidemenu',
+  templateUrl: './sidemenu.component.html',
+  styleUrls: ['./sidemenu.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  public menu = HEADER_NAV_OPTIONS;
+export class SidemenuComponent implements OnInit {
   public options = [];
+  public menu = HEADER_NAV_OPTIONS;
 
   constructor(
     public router: Router,
@@ -25,9 +25,7 @@ export class HeaderComponent implements OnInit {
     public modalService: ModalService,
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   goTo(path: string, id?: number) {
     let queryParams: any = {};

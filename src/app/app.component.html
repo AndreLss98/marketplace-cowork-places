@@ -1,12 +1,12 @@
 <ng-sidebar-container class="min-vh-100">
     <ng-sidebar #sidebar [opened]="sidenavOpened">
         <!-- <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute">close</mat-icon> -->
-        <app-header id="sidenav"></app-header>
+        <app-sidemenu id="sidenav"></app-sidemenu>
     </ng-sidebar>
 
     <div ng-sidebar-content>
         <div class="d-flex">
-            <app-header id="sidebar"></app-header>
+            <app-sidemenu id="sidebar"></app-sidemenu>
             <router-outlet></router-outlet>
         </div>
         <app-footer></app-footer>

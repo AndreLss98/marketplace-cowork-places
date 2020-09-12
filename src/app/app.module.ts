@@ -29,13 +29,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './shared/modal/login/login.component';
 import { SignupComponent } from './shared/modal/signup/signup.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { HeaderComponent } from './shared/components/header/header.component';
+
 import { QuestionComponent } from './shared/components/question/question.component';
 import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-modal.component';
 import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recuperar-senha.component';
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
-import { UserMenuComponent } from './shared/components/header/components/user-menu/user-menu.component';
-import { SearchboxComponent } from './shared/components/header/components/searchbox/searchbox.component';
+
+import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
+import { UserMenuComponent } from './shared/components/sidemenu/components/user-menu/user-menu.component';
+import { SearchboxComponent } from './shared/components/sidemenu/components/searchbox/searchbox.component';
 
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 
@@ -45,7 +47,6 @@ registerLocaleData(localePt);
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent,
     FooterComponent,
     SignupComponent,
     QuestionComponent,
@@ -53,7 +54,8 @@ registerLocaleData(localePt);
     SearchboxComponent,
     FeedbackModalComponent,
     RecuperarSenhaComponent,
-    FeedbackButtonComponent
+    FeedbackButtonComponent,
+    SidemenuComponent
   ],
   imports: [
     NgbModule,
