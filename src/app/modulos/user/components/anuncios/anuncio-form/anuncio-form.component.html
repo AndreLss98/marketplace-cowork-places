@@ -124,13 +124,13 @@
                 <div class="col-sm">
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Custo por dia</mat-label>
-                        <input formControlName="valor" matInput placeholder="R$ 100,00" />
+                        <input formControlName="valor" matInput placeholder="R$ 100" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Custo por mês</mat-label>
-                        <input formControlName="valor_mes" matInput placeholder="R$ 1000,00" />
+                        <input formControlName="valor_mes" matInput placeholder="R$ 1000" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
                     </mat-form-field>
                 </div>
             </div>

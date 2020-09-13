@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
+import { formatMoneyValue } from 'src/app/shared/constants/functions';
+
 @Component({
   selector: 'app-criar-anuncio',
   templateUrl: './anuncio-form.component.html',
@@ -11,17 +13,17 @@ import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 })
 export class AnuncioFormComponent implements OnInit {
 
-  public maxTax: number;
+  readonly formatMoneyValue = formatMoneyValue;
 
   public tipos = [];
+  public maxTax: number;
+  public thumbsTaxs = [];
 
   public informacoesForm: FormGroup;
   public caracteristicasForm: FormGroup;
   public enderecoForm: FormGroup;
   public documentosForm: FormGroup;
   public valoresForm: FormGroup;
-
-  public thumbsTaxs = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -65,5 +67,9 @@ export class AnuncioFormComponent implements OnInit {
   private configTax() {
     this.maxTax = this.route.snapshot.data['taxa'].taxa;
     this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
+  }
+
+  public formatField(field: string, form: FormGroup, formatFunction) {
+    form.controls[field].setValue(formatFunction(form.controls[field].value));
   }
 }
