@@ -1,44 +1,27 @@
-@import '../../../../place-et-theme.scss';
-
-header{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
-    padding-bottom: 2px;
-    margin-bottom: 15px;
+@mixin hideTapHighlightColor() {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-footer{
-    border-top: 1px solid rgba(0, 0, 0, 0.096);
-    margin-top: 15px;
+@mixin hardwareAccel() {
+	transform: translateZ(0);
 }
 
-input{
-    width: 100%;
-    margin: 5px;
-    height: 45px;
-    border: 2px solid rgba(0, 0, 0, 0.178);
-    border-radius: 7px;
-    padding-left: 10px;
-
+@mixin improveAntiAlias() {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
 
-input:focus, textarea:focus, select:focus{
-    outline: none;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 7px;
-}
+.button {
+	display: inline-block;
+	transition-duration: 3s;
+	transition-property: transform;
 
-.login-social{
-    margin: 5px;
-    border: 1px solid #aaaaaa; 
-    border-radius: 7px;
-}
+	@include hideTapHighlightColor();
+	@include hardwareAccel();
+	@include improveAntiAlias();
 
-.entrar{
-    width: 100%;
-    background-color: $pl-verde-escuro;
-    color: rgb(0, 0, 0);
-    margin: 5px;
-    font-weight: bolder;
+	&:hover {
+		transform: scale(1.2);
+	}
 }
 
 .cadastrar{
@@ -67,4 +50,27 @@ input:focus, textarea:focus, select:focus{
     background-color: #f3f3f3;
 }
 
+.or {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+.or .bar {
+    flex: auto;
+    border: none;
+    height: 1px;
+    background: #aaa;
+}
+
+.or span {
+    color: #ccc;
+    padding: 0 0.8rem;
+}
+
+.bar {
+    flex: auto;
+    border: none;
+    height: 1px;
+    background: #aaa;
+}

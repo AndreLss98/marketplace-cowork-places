@@ -5,12 +5,10 @@
       href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
   </ng-container>
 
-  <button
-    mat-flat-button class="mb-4 outline-primary rounded-pill mt-2"
-    [ngbPopover]="popContent" container="body" triggers="manual"
-    placement="bottom-left"  #p="ngbPopover" (click)="doLogin(p)">
-      {{ login.logged_status ? "Minha conta" : "Entrar" }}
-    </button>
+  <button mat-raised-button class="mb-4 outline-primary rounded-pill mt-2" [ngbPopover]="popContent" container="body"
+    triggers="manual" placement="bottom-left" #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
+    {{ login.logged_status ? "Minha conta" : "Entrar" }}
+  </button>
 
   <app-user-menu *ngIf="router.url.includes('/user')"></app-user-menu>
   <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
