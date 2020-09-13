@@ -53,6 +53,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeaderComponent } from './components/header/header.component';
+import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { HeaderComponent } from './components/header/header.component';
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
     HeaderComponent,
+    ReservaCardComponent,
   ],
   imports: [
     FormsModule,

@@ -33,12 +33,22 @@
                     </mat-form-field>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-sm">
+                    <h2>Em construçao...</h2>
+                </div>
+            </div>
         </form>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Características</ng-template>
-      <h2>Em construçao...</h2>
+      <div class="row">
+          <div class="col-sm">
+              <h2>Em construçao...</h2>
+          </div>
+      </div>
     </mat-step>
 
     <mat-step [stepControl]="enderecoForm">
@@ -114,6 +124,11 @@
                     </mat-form-field>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm">
+                    <h2>Em construçao...</h2>
+                </div>
+            </div>
         </form>
     </mat-step>
 
@@ -121,40 +136,47 @@
         <form [formGroup]="valoresForm">
             <ng-template matStepLabel>Preços e Taxas</ng-template>
             <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
-                        <mat-label>Custo por dia</mat-label>
-                        <input formControlName="valor" matInput placeholder="R$ 100" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
-                        <mat-label>Custo por mês</mat-label>
-                        <input formControlName="valor_mes" matInput placeholder="R$ 1000" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <h4 class="font-weight-bold">Sobre a taxa</h4>
-                    <p>Uma taxa de 13% sempre será cobrada, selecione a porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente embutida no valor da diária ou do mensal.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <div class="d-flex flex-row justify-content-between">
-                        <div *ngFor="let tax of thumbsTaxs; last as isLast" class="d-flex flex-row">
-                            <span>{{tax}}%</span>
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="col-sm">
+                            <mat-form-field appearance="legacy" class="w-100">
+                                <mat-label>Custo por dia</mat-label>
+                                <input formControlName="valor" matInput placeholder="R$ 100" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm">
+                            <mat-form-field appearance="legacy" class="w-100">
+                                <mat-label>Custo por mês</mat-label>
+                                <input formControlName="valor_mes" matInput placeholder="R$ 1000" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
+                            </mat-form-field>
                         </div>
                     </div>
-                    <mat-slider
-                        min="0"
-                        [max]="maxTax"
-                        [step]="maxTax/2"
-                        tickInterval="1"
-                        class="w-100"
-                        formControlName="taxa">
-                    </mat-slider>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h4 class="font-weight-bold">Sobre a taxa</h4>
+                            <p>Uma taxa de 13% sempre será cobrada, selecione a porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente embutida no valor da diária ou do mensal.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div *ngFor="let tax of thumbsTaxs; last as isLast" class="d-flex flex-row">
+                                    <span>{{tax}}%</span>
+                                </div>
+                            </div>
+                            <mat-slider
+                                min="0"
+                                [max]="maxTax"
+                                [step]="maxTax/2"
+                                tickInterval="1"
+                                class="w-100"
+                                formControlName="taxa">
+                            </mat-slider>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <h2>Em construçao...</h2>
                 </div>
             </div>
         </form>
