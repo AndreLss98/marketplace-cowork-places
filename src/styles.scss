@@ -128,3 +128,7 @@ button.outline-primary {
   background-color: white;
   border: 1px solid $pl-verde-escuro;
 }
+
+[type=button], [type=reset], [type=submit], button {
+  -webkit-appearance: none !important;
+}

@@ -28,7 +28,7 @@
     border:1px solid #ccc !important;
 }
 
-.cadastrar{
+.cadastrar {
     font-size: 17px;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
@@ -37,33 +37,8 @@
     border-bottom: 1px solid black;
 }
 
-.or {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.or .bar {
-    flex: auto;
-    border: none;
-    height: 1px;
-    background: #aaa;
-}
-
-.or span {
-    color: #ccc;
-    padding: 0 0.8rem;
-}
-
-.bar {
-    flex: auto;
-    border: none;
-    height: 1px;
-    background: #aaa;
-}
-
 @media (max-width: 440px) {
     button.google.button span{
         display: none;
     }
-  }
+}
