@@ -27,6 +27,7 @@ import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-r
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
+import { TiposResolverService } from './resolvers/tipos-resolver.service';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -65,7 +66,10 @@ const routes: Routes = [
       canActivate: [EditarAnuncioGuard]
     },
     { 
-      path: 'anuncios/criaranuncio', 
+      path: 'anuncios/criaranuncio',
+      resolve: {
+        tipos: TiposResolverService
+      },
       component: CriarAnuncioComponent
     },
     { 
