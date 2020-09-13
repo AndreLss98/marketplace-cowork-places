@@ -8,7 +8,6 @@ import { FeedbackComponent } from './components/admin/feedback/feedback.componen
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
-import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaPoliticasComponent } from './components/admin/politicas/lista-politicas/lista-politicas.component';
@@ -28,6 +27,7 @@ import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusal
 
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
 import { TiposResolverService } from './resolvers/tipos-resolver.service';
+import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -61,16 +61,16 @@ const routes: Routes = [
       component: DetalhesContratoComponent
     },
     { 
-      path: 'anuncios/editaranuncio', 
-      component: CriarAnuncioComponent,
+      path: 'anuncios/edit/:id',
+      component: AnuncioFormComponent,
       canActivate: [EditarAnuncioGuard]
     },
     { 
-      path: 'anuncios/criaranuncio',
+      path: 'anuncios/new',
       resolve: {
         tipos: TiposResolverService
       },
-      component: CriarAnuncioComponent
+      component: AnuncioFormComponent
     },
     { 
       path: 'anuncios/locacoes', 

@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-criar-anuncio',
-  templateUrl: './criar-anuncio.component.html',
-  styleUrls: ['./criar-anuncio.component.scss']
+  templateUrl: './anuncio-form.component.html',
+  styleUrls: ['./anuncio-form.component.scss']
 })
-export class CriarAnuncioComponent implements OnInit {
+export class AnuncioFormComponent implements OnInit {
 
   public tipos = [];
 
