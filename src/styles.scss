@@ -8,7 +8,7 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-$place-et-warn: mat-palette($md-amarelo);
+$place-et-warn: mat-palette($md-vermelho);
 $place-et-primary: mat-palette($md-verde);
 $place-et-accent: mat-palette($md-verdeescuro);
 $place-et-theme: mat-light-theme($place-et-primary, $place-et-accent, $place-et-warn);
