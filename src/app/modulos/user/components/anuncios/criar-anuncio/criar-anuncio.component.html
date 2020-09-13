@@ -100,9 +100,21 @@
         </form>
     </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>Documentos</ng-template>
-        <h2>Em construçao...</h2>
+    <mat-step [stepControl]="documentosForm">
+        <form [formGroup]="documentosForm">
+            <ng-template matStepLabel>Documentos</ng-template>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Você é o proprietário do espaço ?</mat-label>
+                        <mat-select formControlName="proprietario" matInput required>
+                            <mat-option value="true">Sim</mat-option>
+                            <mat-option value="false">Não</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
     </mat-step>
 
     <mat-step>

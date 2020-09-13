@@ -14,6 +14,7 @@ export class CriarAnuncioComponent implements OnInit {
   public dadosCadastraisForm: FormGroup;
   public caracteristicasForm: FormGroup;
   public enderecoForm: FormGroup;
+  public documentosForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,10 @@ export class CriarAnuncioComponent implements OnInit {
       estado: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
       cidade: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]]
     });
+
+    this.documentosForm = formBuilder.group({
+      proprietario: [null, [Validators.required]]
+    })
   }
 
   ngOnInit(): void {
