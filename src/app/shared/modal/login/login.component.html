@@ -1,46 +1,64 @@
-<header>
-    <div style="width: 100%; display: flex; flex-direction: row;">
-        <div style="width: 10%; cursor: pointer;" (click)="close()"><span class="material-icons">clear</span></div>
-        <div style="width: 80%; display: flex; justify-content: center; font-weight: 500; font-size: 20px;">Entrar</div>
-        <div style="width: 10%;"></div>
-    </div>
-</header>
+<mat-icon class="cursor-pointer" mat-dialog-close>close</mat-icon>
 
-<div class="container" style="width: 100%;">
-    <div class="alert alert-danger row d-flex justify-content-center" *ngIf="loginError">
-        <span style="max-width: 400px; text-align: center;">{{errorMessage}}</span>
-    </div>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <input formControlName="user" name="email" autocomplete="username" type="email" placeholder="Email" email (focus)="inputFocus('email')">
-        </div>
-        <div class="row">
-            <input formControlName="password" autocomplete="current-password" type="password" placeholder="Senha" (focus)="inputFocus('senha')">
-        </div>
-        <div style="border: 1px solid #aaaaaa77; margin: 2px;"></div>
-        <div class="w-100 d-flex align-items-center justify-content-end">
-            <button type="submit" mat-button mat-raised-button class="entrar">Entrar</button>
-        </div>
-        <div class="w-100" [ngStyle]="{'display': showLoading ? 'block': 'none'}">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
-        <div class="w-100">
-            <div  class="google-button d-flex justify-content-center" (click)="loginGoogle()">
-                <img src="assets/svg/google.svg" style="width: 50px; padding: 5px 10px 5px 10px;">
-                <span style="margin-top: auto; margin-bottom: auto; font-weight: 500;">Entrar com o Google!</span>
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Login">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-3">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="user" name="email" autocomplete="email" type="email" email
+                    (focus)="inputFocus('email')">
+                <mat-error *ngIf="loginForm.controls['user'].invalid">{{getErrorMessageEmail()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>Senha</mat-label>
+                <input matInput formControlName="password" autocomplete="password" type="password"
+                    (focus)="inputFocus('senha')">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessagePassword()}}</mat-error>
+            </mat-form-field>
+            <div class="alert alert-danger row d-flex justify-content-center" *ngIf="loginError">
+                <span class="text-center">{{errorMessage}}</span>
             </div>
-        </div>
-    </form>
-</div>
 
-<footer>
-    <div class="d-flex align-items-center justify-content-center" style="margin-top: 15px;">
-        <span (click)="openRecuperarSenha()" style="cursor: pointer;" class="cadastrar">Esqueceu sua senha?</span>
-    </div>
-    <div class="d-flex align-items-center justify-content-center" style="margin-top: 15px;">
-        <span (click)="openCadastrar()" style="cursor: pointer;" class="cadastrar">Não possui conta? <b>Cadastrar</b></span>
-    </div>
-    <div class="d-flex justify-content-center" style="margin-top: 10px;">
-        <a href="/about/politica_privacidade.md" target="_blank">Politica de privacidade</a>
-    </div>
-</footer>
+            <div class="d-flex align-items-center justify-content-center my-3">
+                <button class="w-75" [ngClass]="loginForm.valid ? 'button' : null" style="font-weight: 500;"
+                    type="submit" mat-button mat-raised-button color="primary"
+                    [disabled]="loginForm.invalid">Entrar</button>
+            </div>
+
+            <div class="d-flex flex-row align-items-center">
+                <div class="flex-fill flex-grow-1">
+                    <mat-divider></mat-divider>
+                </div>
+                <span class="flex-fill flex-shrink-1 text-center">OU</span>
+                <div class="flex-fill flex-grow-1">
+                    <mat-divider></mat-divider>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center my-3">
+                <button mat-button mat-raised-button class="button google w-75" color="default" rel="shrink">
+                    <img src="assets/svg/google.svg" class="pr-1 py-1" style="max-width: 20px;">
+                    <span>Entrar com o Google!</span>
+                </button>
+            </div>
+
+            <div class="w-100" *ngIf="showLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center mt-3">
+                <span (click)="openRecuperarSenha()" class="cursor-pointer cadastrar">
+                    Esqueceu sua senha?
+                </span>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <a href="/about/politica_privacidade.md" target="_blank">Politica de privacidade</a>
+            </div>
+        </form>
+    </mat-tab>
+
+    <mat-tab label="Registrar-se">
+        <app-signup></app-signup>
+    </mat-tab>
+</mat-tab-group>

@@ -1,13 +1,14 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div style="display: flex; justify-content: center;">
-        <h6>Informe um email para recuperar a senha:</h6>
-    </div>
-    <mat-form-field appearance="fill" class="w-100 mb-10">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required />
-        <mat-hint>As informções serão enviadas para o email informado.</mat-hint>
-    </mat-form-field>
-    <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
-        <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">Enviar</button>
-    </div>
-</form>
+<h2 mat-dialog-title align="center">Informe um email para recuperar a senha</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="legacy" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required />
+            <mat-hint>As informções serão enviadas para o email informado.</mat-hint>
+        </mat-form-field>
+        <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
+            <button mat-flat-button type="submit" [ngClass]="form.valid ? 'button' : null" color="primary"
+                [disabled]="form.invalid">Enviar</button>
+        </div>
+    </form>
+</mat-dialog-content>

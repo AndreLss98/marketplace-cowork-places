@@ -1,13 +1,13 @@
 @import '../../../../../../place-et-theme.scss';
 
-.myCard{
-    height: 300px; 
+.myCard {
+    height: 300px;
     width: 300px;
     margin: 5px;
     cursor: pointer;
 }
 
-.myCard:hover{
+.myCard:hover {
     transition: linear 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
     color: $pl-verde-escuro;
     -webkit-box-shadow: 0px 0px 5px 1px $pl-verde-escuro;
@@ -21,12 +21,12 @@
     border-width: 2px;
 } 
 
-.checkmark{
+.checkmark {
     width: 200px;
     color: $pl-verde-escuro;
 }
 
-.inputDocumentoEspaco{
+.inputDocumentoEspaco {
     background-image: url('/assets/svg/documento_espaco_amarelo.svg');
     background-repeat:no-repeat;
     background-position: center;
@@ -39,23 +39,23 @@
     cursor: pointer;
 }
 
-.inputDocumentoEspaco > input{
+.inputDocumentoEspaco > input {
     height: 100%;
     width: 100%;
     opacity: 0;
     cursor: pointer;
 }
 
-.inputDocumentoEspaco:hover{
+.inputDocumentoEspaco:hover {
     background-color: rgba(0, 0, 0, 0.055);
     border-radius: 5px;
 }
 
-.inputDocumentoEspaco > label{
+.inputDocumentoEspaco > label {
     text-align: center;
 }
 
-.inputDocumentoProprietario{
+.inputDocumentoProprietario {
     background-image: url('/assets/svg/cnh_amarelo.svg');
     background-repeat:no-repeat;
     background-position: center;
@@ -68,34 +68,34 @@
     cursor: pointer;
 }
 
-.inputDocumentoProprietario:hover{
+.inputDocumentoProprietario:hover {
     background-color: rgba(0, 0, 0, 0.055);
     border-radius: 5px;
 }
 
-.inputDocumentoProprietario > input{
+.inputDocumentoProprietario > input {
     height: 100%;
     width: 100%;
     opacity: 0;
     cursor: pointer;
 }
 
-.inputDocumentoProprietario > label{
+.inputDocumentoProprietario > label {
     text-align: center;
 }
 
-.politicas{
+.politicas {
     max-height: 500px; 
     overflow: scroll; 
     overflow-x: hidden;
 }
 
-.customThumb{
+.customThumb {
     position: relative;
     bottom: -5px;
 }
 
-.taxaInfo{
+.taxaInfo {
     display: flex;
     flex-direction: column;
 
@@ -115,16 +115,16 @@
     }
 }
 
-.simulacao{
+.simulacao {
     display: flex;
     flex-direction: column;
     
-    .simulacaoTitle{
+    .simulacaoTitle {
         font-size: 18px;
         font-weight: 500;
     }
 
-    .simulacaoValores{
+    .simulacaoValores {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -135,22 +135,21 @@
         }
     }
 
-    .simulacaoTotal{
+    .simulacaoTotal {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        span{
+        span {
             font-size: 17px;
             font-weight: 500;
         }
     }
 }
 
-.simulacaoDia{
+.simulacaoDia {
     margin: 10px 0;
     padding: 10px 0;
     border-bottom: 1px solid $pl-gray;
     border-top: 1px solid $pl-gray;
-
 }

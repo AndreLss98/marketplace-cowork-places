@@ -1,47 +1,34 @@
-@import '../../../../place-et-theme.scss';
-
-header{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
-    padding-bottom: 2px;
-    margin-bottom: 15px;
+@mixin hideTapHighlightColor() {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-footer{
-    border-top: 1px solid rgba(0, 0, 0, 0.096);
-    margin-top: 15px;
+@mixin hardwareAccel() {
+	transform: translateZ(0);
 }
 
-input{
-    width: 100%;
-    margin: 5px;
-    height: 45px;
-    border: 2px solid rgba(0, 0, 0, 0.178);
-    border-radius: 7px;
-    padding-left: 10px;
-
+@mixin improveAntiAlias() {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
 
-input:focus, textarea:focus, select:focus{
-    outline: none;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 7px;
+.button {
+	display: inline-block;
+	transition-duration: 3s;
+	transition-property: transform;
+
+	@include hideTapHighlightColor();
+	@include hardwareAccel();
+	@include improveAntiAlias();
+
+	&:hover {
+		transform: scale(1.2);
+	}
 }
 
-.login-social{
-    margin: 5px;
-    border: 1px solid #aaaaaa; 
-    border-radius: 7px;
+.button.google{
+    border:1px solid #ccc !important;
 }
 
-.entrar{
-    width: 100%;
-    background-color: $pl-verde-escuro;
-    color: rgb(0, 0, 0);
-    margin: 5px;
-    font-weight: bolder;
-}
-
-.cadastrar{
+.cadastrar {
     font-size: 17px;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
@@ -50,21 +37,8 @@ input:focus, textarea:focus, select:focus{
     border-bottom: 1px solid black;
 }
 
-.google-button{
-    transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.2s;
-    margin: 5px;
-    border-radius: 7px;
-    box-shadow: 
-        0px 3px 1px -2px rgba(0, 0, 0, 0.2), 
-        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
-        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    background-color: #ffffff;
-    cursor: pointer;
+@media (max-width: 440px) {
+    button.google.button span{
+        display: none;
+    }
 }
-
-.google-button:hover{
-    transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.2s;
-    background-color: #f3f3f3;
-}
-
-

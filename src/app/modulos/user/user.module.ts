@@ -11,8 +11,8 @@ import { SafetyComponent } from './components/conta/safety/safety.component';
 import { InfoModalComponent } from './components/conta/info/info-modal.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
+import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
-import { CriarAnuncioComponent } from './components/anuncios/criar-anuncio/criar-anuncio.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
@@ -36,7 +36,7 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
     LocacoesComponent,
     InfoModalComponent,
     SafetyModalComponent,
-    CriarAnuncioComponent, 
+    AnuncioFormComponent,
     MeusAnunciosComponent, 
     MeusAlugueisComponent,
     ListaUsuariosComponent, 

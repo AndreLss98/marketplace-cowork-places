@@ -5,9 +5,9 @@ import { HEADER_NAV_OPTIONS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
-import { ModalService } from 'src/app/shared/service/modal.service';
 
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidemenu',
@@ -22,7 +22,7 @@ export class SidemenuComponent implements OnInit {
     public router: Router,
     public user: UserService,
     public login: LoginService,
-    public modalService: ModalService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void { }
@@ -33,15 +33,11 @@ export class SidemenuComponent implements OnInit {
     this.router.navigate([path], { queryParams });
   }
 
-  doLogin(popover?) {
+  openModalOrOpenPopover(popover?) {
     if (!this.login.logged_status) {
-      this.modalService.openModal(LoginComponent, false);
+      this.dialog.open(LoginComponent);
     } else {
-      if (popover.isOpen()) {
-        popover.close();
-      } else {
-        popover.open();
-      }
+      popover.isOpen() ? popover.close() : popover.open();
     }
   }
 
