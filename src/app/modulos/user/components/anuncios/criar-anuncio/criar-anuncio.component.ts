@@ -1,6 +1,6 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -11,16 +11,17 @@ export class CriarAnuncioComponent implements OnInit {
 
   public tipos = [];
 
-  public dadosCadastraisForm: FormGroup;
+  public informacoesForm: FormGroup;
   public caracteristicasForm: FormGroup;
   public enderecoForm: FormGroup;
   public documentosForm: FormGroup;
+  public valoresForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {
-    this.dadosCadastraisForm = formBuilder.group({
+    this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo: [null, [Validators.required]],
       descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]]
@@ -40,12 +41,17 @@ export class CriarAnuncioComponent implements OnInit {
 
     this.documentosForm = formBuilder.group({
       proprietario: [null, [Validators.required]]
-    })
+    });
+
+    this.valoresForm = formBuilder.group({
+      valor: ['', [Validators.required]],
+      valor_mes: ['', []],
+      taxa: [null, [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
     this.tipos = this.route.snapshot.data['tipos'];
-    console.log(this.tipos);
   }
 
 }

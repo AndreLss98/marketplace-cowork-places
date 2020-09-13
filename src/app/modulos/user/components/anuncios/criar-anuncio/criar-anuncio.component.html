@@ -1,6 +1,6 @@
 <mat-vertical-stepper [linear]="false" #stepper>
-    <mat-step [stepControl]="dadosCadastraisForm">
-        <form [formGroup]="dadosCadastraisForm">
+    <mat-step [stepControl]="informacoesForm">
+        <form [formGroup]="informacoesForm">
             <ng-template matStepLabel>Informações</ng-template>
             <div class="row">
                 <div class="col-sm">
@@ -117,8 +117,37 @@
         </form>
     </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>Preços e Taxas</ng-template>
-        <h2>Em construçao...</h2>
-      </mat-step>
+    <mat-step [stepControl]="valoresForm">
+        <form [formGroup]="valoresForm">
+            <ng-template matStepLabel>Preços e Taxas</ng-template>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Custo por dia</mat-label>
+                        <input formControlName="valor" matInput placeholder="R$ 100,00" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Custo por mês</mat-label>
+                        <input formControlName="valor_mer" matInput placeholder="R$ 1000,00" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-slider
+                        min="0"
+                        max="10"
+                        step="2"
+                        tickInterval="1"
+                        class="w-100"
+                        formControlName="taxa">
+                    </mat-slider>
+                </div>
+            </div>
+        </form>
+    </mat-step>
   </mat-vertical-stepper>
