@@ -1,128 +1,167 @@
-<div mat-dialog-content>
-    <mat-vertical-stepper linear="true" #signupStepper>
-        <mat-step [stepControl]="primeiroPasso" [editable]="editavel">
-            <form [formGroup]="primeiroPasso">
-                <ng-template matStepLabel>Preencha o seu email!</ng-template>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" name="email" formControlName="email" autocomplete="email" required
-                        email [errorStateMatcher]="email.value ? matcher : null">
-                    <mat-error *ngIf="!primeiroPasso.hasError('existe')">Preencha o
-                        campo corretamente!</mat-error>
-                    <mat-error *ngIf="primeiroPasso.hasError('existe')">Email já utilizado!</mat-error>
-                </mat-form-field>
-                <div style="margin-top: 15px;">
-                    <button mat-button mat-raised-button color="primary"
-                        (click)="nextStep(signupStepper)">Proximo</button>
+<mat-vertical-stepper linear="true" #signupStepper>
+    <mat-step [stepControl]="primeiroPasso" [editable]="editavel">
+        <form [formGroup]="primeiroPasso">
+            <ng-template matStepLabel>Email</ng-template>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" name="email" formControlName="email" autocomplete="email" required
+                            email [errorStateMatcher]="email.value ? matcher : null">
+                        <mat-error *ngIf="!primeiroPasso.hasError('existe')">Preencha o
+                            campo corretamente!</mat-error>
+                        <mat-error *ngIf="primeiroPasso.hasError('existe')">Email já utilizado!</mat-error>
+                    </mat-form-field>
                 </div>
-            </form>
-        </mat-step>
+            </div>
+            <button
+                class="my-2"
+                mat-button
+                mat-raised-button
+                color="primary"
+                (click)="nextStep(signupStepper)">Proximo</button>
+        </form>
+    </mat-step>
 
-        <mat-step [stepControl]="segundoPasso" [editable]="editavel">
-            <form [formGroup]="segundoPasso">
-                <ng-template matStepLabel>Preencha o seus dados pessoais!</ng-template>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>CPF</mat-label>
-                    <input #cpf matInput type="text" name="cpf" maxlength="14" formControlName="cpf"
-                        (keyup)=formatarCPF(cpf.value) required />
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" name="fname" autocomplete="name" formControlName="nome" required>
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Sobrenome</mat-label>
-                    <input matInput type="text" name="mname" formControlName="sobrenome" required>
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="legacy" class="w-50">
-                    <mat-label>Data de nascimento</mat-label>
-                    <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
-                        formControlName="data_nascimento" required (dateChange)='checkAge()'
-                        [errorStateMatcher]="data_nascimento.touched ? matcher : null">
-                    <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
-                    <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!
-                    </mat-error>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
-                </mat-form-field>
-                <div style="margin-top: 15px;">
-                    <button mat-button mat-raised-button color="primary" type="button"
-                        (click)="nextStep(signupStepper)">Proximo</button>
+    <mat-step [stepControl]="segundoPasso" [editable]="editavel">
+        <form [formGroup]="segundoPasso">
+            <ng-template matStepLabel>Dados pessoais</ng-template>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" name="fname" autocomplete="name" formControlName="nome" required>
+                        <mat-error>Preencha o campo corretamente!</mat-error>
+                    </mat-form-field>
                 </div>
-            </form>
-        </mat-step>
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Sobrenome</mat-label>
+                        <input matInput type="text" name="mname" formControlName="sobrenome" required>
+                        <mat-error>Preencha o campo corretamente!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>CPF</mat-label>
+                        <input #cpf matInput type="text" name="cpf" maxlength="14" formControlName="cpf"
+                            (keyup)=formatarCPF(cpf.value) required />
+                        <mat-error>Preencha o campo corretamente!</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Data de nascimento</mat-label>
+                        <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
+                            formControlName="data_nascimento" required (dateChange)='checkAge()'
+                            [errorStateMatcher]="data_nascimento.touched ? matcher : null">
+                        <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
+                        <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!
+                        </mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button
+                class="my-2"
+                mat-button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="nextStep(signupStepper)">Proximo</button>
+        </form>
+    </mat-step>
 
-        <mat-step [stepControl]="terceiroPasso" [editable]="editavel">
-            <form [formGroup]="terceiroPasso">
-                <ng-template matStepLabel>Preencha o seus dados para contato!</ng-template>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Telefone 1</mat-label>
-                    <input matInput type="tel" name="phone" autocomplete="tel-national" placeholder="(62) 99999-9999"
-                        minlength="14" maxlength="15" formControlName="tel1" required (keyup)="formatarFone('tel1')">
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Telefone 2</mat-label>
-                    <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999" minlength="14"
-                        maxlength="15" formControlName="tel2" (keyup)="formatarFone('tel2')">
-                    <mat-error>Preencha o campo corretamente!</mat-error>
-                </mat-form-field>
-                <div style="margin-top: 15px;">
-                    <button mat-button mat-raised-button color="primary" type="button"
-                        (click)="nextStep(signupStepper)">Proximo</button>
+    <mat-step [stepControl]="terceiroPasso" [editable]="editavel">
+        <form [formGroup]="terceiroPasso">
+            <ng-template matStepLabel>Dados para contato</ng-template>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Telefone 1</mat-label>
+                        <input matInput type="tel" name="phone" autocomplete="tel-national" placeholder="(62) 99999-9999"
+                            minlength="14" maxlength="15" formControlName="tel1" required (keyup)="formatarFone('tel1')">
+                        <mat-error>Preencha o campo corretamente!</mat-error>
+                    </mat-form-field>
                 </div>
-            </form>
-        </mat-step>
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Telefone 2</mat-label>
+                        <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999" minlength="14"
+                            maxlength="15" formControlName="tel2" (keyup)="formatarFone('tel2')">
+                        <mat-error>Preencha o campo corretamente!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button
+                class="my-2"
+                mat-button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="nextStep(signupStepper)">Proximo</button>
+        </form>
+    </mat-step>
 
-        <mat-step [stepControl]="quartoPasso" [editable]="editavel">
-            <form [formGroup]="quartoPasso" (ngSubmit)="nextStep(signupStepper)">
-                <ng-template matStepLabel>Crie uma senha!</ng-template>
-                <mat-form-field appearance="legacy" class="w-100">
-                    <mat-label>Senha</mat-label>
-                    <input matInput type="password" placeholder="*********" autocomplete="new-password"
-                        formControlName="senha" required minlength="6" maxlength="16">
-                    <mat-error *ngIf="quartoPasso.hasError('lengthMax')">
-                        Senha muito grande!
-                    </mat-error>
-                    <mat-error *ngIf="quartoPasso.hasError('lengthMin')">
-                        Senha muito curta!
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="legacy" class="w-100" style="margin-top: 5px;">
-                    <mat-label>Confirme a senha</mat-label>
-                    <input matInput type="password" autocomplete="new-password" placeholder="*********"
-                        [errorStateMatcher]="matcher" formControlName="confirmar_senha" required minlength="6"
-                        maxlength="16">
-                    <mat-error *ngIf="quartoPasso.hasError('notSame')">
-                        Senhas não conferem!
-                    </mat-error>
-                </mat-form-field>
-                <div style="margin-top: 15px;">
-                    <button mat-button mat-raised-button color="primary" type="submit">Finalizar cadastro</button>
+    <mat-step [stepControl]="quartoPasso" [editable]="editavel">
+        <form [formGroup]="quartoPasso" (ngSubmit)="nextStep(signupStepper)">
+            <ng-template matStepLabel>Crie uma senha!</ng-template>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Senha</mat-label>
+                        <input matInput type="password" placeholder="*********" autocomplete="new-password"
+                            formControlName="senha" required minlength="6" maxlength="16">
+                        <mat-error *ngIf="quartoPasso.hasError('lengthMax')">
+                            Senha muito grande!
+                        </mat-error>
+                        <mat-error *ngIf="quartoPasso.hasError('lengthMin')">
+                            Senha muito curta!
+                        </mat-error>
+                    </mat-form-field>
                 </div>
-            </form>
-        </mat-step>
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Confirme a senha</mat-label>
+                        <input matInput type="password" autocomplete="new-password" placeholder="*********"
+                            [errorStateMatcher]="matcher" formControlName="confirmar_senha" required minlength="6"
+                            maxlength="16">
+                        <mat-error *ngIf="quartoPasso.hasError('notSame')">
+                            Senhas não conferem!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button
+                class="my-2"
+                mat-button
+                mat-raised-button
+                color="primary"
+                type="submit">Finalizar cadastro</button>
+        </form>
+    </mat-step>
 
-        <mat-step [stepControl]='confirmar'>
-            <ng-template matStepLabel>Finalizar</ng-template>
-            <form [formGroup]='confirmar'>
-                <div class="d-flex flex-column">
-                    <mat-checkbox required formControlName='termo_servico'>Eu aceito e dou meu consentimento quanto a <a
-                            href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e
-                            Segurança</a>.</mat-checkbox>
-                </div>
-                <re-captcha formControlName='recaptcha'></re-captcha>
-                <div style="margin-top: 15px;">
-                    <button class="w-100" style="font-weight: 500;" type="submit" mat-button mat-raised-button
-                        color="accent" (click)="nextStep(signupStepper)">Concordar e concluir</button>
-                </div>
-                <div class="w-100" style="margin-top: 10px;" [ngStyle]="{'display': loader ? 'block' : 'none'}">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div>
-            </form>
-        </mat-step>
-    </mat-vertical-stepper>
-</div>
+    <mat-step [stepControl]="confirmar">
+        <ng-template matStepLabel>Finalizar</ng-template>
+        <form [formGroup]="confirmar">
+            <div class="d-flex flex-column">
+                <mat-checkbox required formControlName="termo_servico">Eu aceito e dou meu consentimento quanto a <a
+                    href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e
+                    Segurança</a>.</mat-checkbox>
+            </div>
+            <re-captcha formControlName="recaptcha"></re-captcha>
+            <button
+                class="w-100 my-2"
+                type="submit"
+                mat-button mat-raised-button
+                color="accent"
+                (click)="nextStep(signupStepper)">Concordar e concluir</button>
+            <div class="w-100 mb-2" *ngIf="loader">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+        </form>
+    </mat-step>
+</mat-vertical-stepper>
