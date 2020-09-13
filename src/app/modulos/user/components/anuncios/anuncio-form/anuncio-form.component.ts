@@ -2,12 +2,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+
 @Component({
   selector: 'app-criar-anuncio',
   templateUrl: './anuncio-form.component.html',
   styleUrls: ['./anuncio-form.component.scss']
 })
 export class AnuncioFormComponent implements OnInit {
+
+  public maxTax: number;
 
   public tipos = [];
 
@@ -17,9 +21,12 @@ export class AnuncioFormComponent implements OnInit {
   public documentosForm: FormGroup;
   public valoresForm: FormGroup;
 
+  public thumbsTaxs = [];
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private alugavelService: AlugavelService
   ) {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
@@ -52,6 +59,11 @@ export class AnuncioFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipos = this.route.snapshot.data['tipos'];
+    this.configTax();
   }
 
+  private configTax() {
+    this.maxTax = this.route.snapshot.data['taxa'].taxa;
+    this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
+  }
 }
