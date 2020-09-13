@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { LoginService } from 'src/app/shared/service/login.service';
-import { ModalService } from 'src/app/shared/service/modal.service';
-import { SignupComponent } from '../signup/signup.component';
 import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public login: LoginService,
-    private modal: ModalService,
+    public dialog: MatDialog
   ) { }
 
   loginGoogle() {
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
       this.login.signInWithEmail(this.loginForm.value.user, this.loginForm.value.password)
         .subscribe(response => {
           this.login.login(response);
-          this.modal.closeAllModals();
+          this.dialog.closeAll();
         }, err => {
           if (err.status === 405) {
             this.login.signInWithGoogle();
@@ -76,16 +75,13 @@ export class LoginComponent implements OnInit {
     this.loginError = false;
   }
 
-  openCadastrar() {
-    this.modal.openModal(SignupComponent, true, { minHeight: '500px' })
-  }
-
   openRecuperarSenha() {
-    this.modal.openModal(RecuperarSenhaComponent, true, { minHeight: '500px' })
+    this.dialog.closeAll()
+    this.dialog.open(RecuperarSenhaComponent)
   }
 
   close() {
-    this.modal.closeAllModals();
+    this.dialog.closeAll();
   }
 
   ngOnInit(): void {
