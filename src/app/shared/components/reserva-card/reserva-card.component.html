@@ -1,1 +1,24 @@
-
+<mat-card>
+    <mat-card-content>
+        <form>
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="legacy" class="w-100">
+                        <mat-label>Selecione o período</mat-label>
+                        <mat-date-range-input>
+                          <input #entrada
+                            matStartDate
+                            placeholder="Entrada"
+                            disabled="true" />
+                          <input #saida
+                            matEndDate
+                            placeholder="Saída" />
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

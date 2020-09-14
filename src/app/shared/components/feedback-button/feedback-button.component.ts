@@ -1,6 +1,7 @@
-import { FeedbackModalComponent } from './../../modal/feedback-modal/feedback-modal.component';
-import { ModalService } from 'src/app/shared/service/modal.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
+import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feedback-modal.component';
 
 @Component({
   selector: 'app-feedback-button',
@@ -10,14 +11,13 @@ import { Component, OnInit } from '@angular/core';
 export class FeedbackButtonComponent implements OnInit {
 
   constructor(
-    private modalService: ModalService
+    private matDialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   openModal(){
-    this.modalService.openModal(FeedbackModalComponent, true);
+    this.matDialog.open(FeedbackModalComponent);
   }
 
 }

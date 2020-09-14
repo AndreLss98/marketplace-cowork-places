@@ -1,10 +1,10 @@
-import { ModalService } from 'src/app/shared/service/modal.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
-import { UserService } from '../../service/user.service';
-import { PoliticasService } from '../../service/politicas.service';
+import { UserService } from 'src/app/shared/service/user.service';
+import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
-import { FeedbackModalComponent } from '../../modal/feedback-modal/feedback-modal.component';
+import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feedback-modal.component';
 
 @Component({
   selector: 'app-footer',
@@ -16,9 +16,9 @@ export class FooterComponent implements OnInit {
   public politicas = [];
 
   constructor(
+    private matDialog: MatDialog,
+    public userService: UserService,
     private politicasService: PoliticasService,
-    private modalService: ModalService,
-    public userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class FooterComponent implements OnInit {
   }
 
   openFeedback(){
-    this.modalService.openModal(FeedbackModalComponent, true);
+    this.matDialog.open(FeedbackModalComponent);
   }
 
 }

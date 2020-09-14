@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-reserva-card',
+  selector: 'reserva-card',
   templateUrl: './reserva-card.component.html',
   styleUrls: ['./reserva-card.component.scss']
 })

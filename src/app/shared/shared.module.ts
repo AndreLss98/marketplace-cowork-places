@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MapsComponent } from './components/maps/maps.component';
+import { HeaderComponent } from './components/header/header.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from './components/basic-table/basic-table.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
+import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
@@ -52,24 +54,22 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HeaderComponent } from './components/header/header.component';
-import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
 
 @NgModule({
   declarations: [
     MapsComponent,
+    HeaderComponent,
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
     BasicTableComponent,
     ImgCircularComponent,
+    ReservaCardComponent,
     CancelDialogComponent,
     PageableTableComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
-    HeaderComponent,
-    ReservaCardComponent,
   ],
   imports: [
     FormsModule,
@@ -128,6 +128,7 @@ import { ReservaCardComponent } from './components/reserva-card/reserva-card.com
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
+    ReservaCardComponent,
 
     MatBadgeModule,
     MdePopoverModule,
