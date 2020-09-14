@@ -1,21 +1,26 @@
-<div class="search">
-	<div class="btn-filter">
-		<button mat-button mat-raised-button color="primary"ype="button"><div style="padding: 2px 36px 2px 36px;">Filtrar</div></button>
-	</div>
-	
-	<div class="search-body">
-		<div class="d-flex flex-row flex-wrap min-vh-100 pt-5">
-			<div *ngIf="highlightService.searched && highlightService.searched.length > 0"
-				class="h-100 d-flex align-items-start flex-row flex-wrap"
-				id="searchHighlight" infiniteScroll
-				[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
-				<card-item-alugavel *ngFor="let space of highlightService.searched" [data]="space"></card-item-alugavel>
-			</div>
-			<div *ngIf="!highlightService.searched || highlightService.searched.length === 0"
-				id="searchHighlight"
-				class="w-100 d-flex justify-content-center" infiniteScroll [infiniteScrollDistance]="2">
-				<span class="txt-notfound" style="font-size: 25px; font-weight: 500; color: #818181;">Não encontramos nenhum resultado para sua busca.</span>
-			</div>
+<div class="d-md-none d-flex justify-content-center pb-3">
+	<button class="px-5" mat-button mat-raised-button color="primary" type="button">
+		<div class="d-flex flex-column justify-content-center align-items-center">
+			<span>Filtros</span>
+			<mat-icon>keyboard_arrow_down</mat-icon>
 		</div>
+	</button>
+</div>
+
+<div class="search-body">
+	<div class="d-flex"
+		id="searchHighlight"
+		*ngIf="highlightService.searched && highlightService.searched.length > 0; else emptySearch"
+		class="d-flex justify-content-center flex-wrap min-vh-100"
+		infiniteScroll
+		[infiniteScrollDistance]="2"
+		(scrolled)="onScrollContent()">
+		<card-item-alugavel class="mx-2" *ngFor="let space of highlightService.searched" [data]="space"></card-item-alugavel>
 	</div>
 </div>
+
+<ng-template #emptySearch>
+	<div class="d-flex justify-content-center min-vh-100 mt-1">
+		<span class="font-weigh-bold" style="font-size: 2rem; line-height: 1.5rem; color: #818181;">Não encontramos nenhum resultado para sua busca.</span>
+	</div>
+</ng-template>

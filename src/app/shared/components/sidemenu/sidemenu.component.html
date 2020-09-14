@@ -11,7 +11,7 @@
   </button>
 
   <app-user-menu *ngIf="router.url.includes('/user')"></app-user-menu>
-  <app-searchbox *ngIf="router.url.includes('/search')"></app-searchbox>
+  <app-searchbox class="d-sm-none d-md-block" *ngIf="router.url.includes('/search')"></app-searchbox>
 </div>
 
 <ng-template #popContent>
