@@ -1,1 +1,17 @@
 
+.btn-filter{
+    display: none;
+}
+
+@media(max-width: 767px){
+    .btn-filter{display: block;}
+}
+
+
+.search{
+    text-align: center;
+}
+
+.txt-notfound{
+    text-align: center;
+}

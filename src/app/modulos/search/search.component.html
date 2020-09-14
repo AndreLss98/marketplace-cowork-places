@@ -1,13 +1,21 @@
-<div class="d-flex flex-row flex-wrap min-vh-100 pt-5">
-	<div *ngIf="highlightService.searched && highlightService.searched.length > 0"
-		class="h-100 d-flex align-items-start flex-row flex-wrap"
-		id="searchHighlight" infiniteScroll
-		[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
-		<card-item-alugavel *ngFor="let space of highlightService.searched" [data]="space"></card-item-alugavel>
+<div class="search">
+	<div class="btn-filter">
+		<button mat-button mat-raised-button color="primary"ype="button"><div style="padding: 2px 36px 2px 36px;">Filtrar</div></button>
 	</div>
-	<div *ngIf="!highlightService.searched || highlightService.searched.length === 0"
-		id="searchHighlight"
-		class="h-100 d-flex align-items-start flex-row flex-wrap" infiniteScroll [infiniteScrollDistance]="2">
-		<span style="font-size: 25px; font-weight: 500; color: #818181; text-align: center;">Não encontramos nenhum resultado para sua busca.</span>
+	
+	<div class="search-body">
+		<div class="d-flex flex-row flex-wrap min-vh-100 pt-5">
+			<div *ngIf="highlightService.searched && highlightService.searched.length > 0"
+				class="h-100 d-flex align-items-start flex-row flex-wrap"
+				id="searchHighlight" infiniteScroll
+				[infiniteScrollDistance]="2" (scrolled)="onScrollContent()">
+				<card-item-alugavel *ngFor="let space of highlightService.searched" [data]="space"></card-item-alugavel>
+			</div>
+			<div *ngIf="!highlightService.searched || highlightService.searched.length === 0"
+				id="searchHighlight"
+				class="h-100 d-flex align-items-start flex-row flex-wrap" infiniteScroll [infiniteScrollDistance]="2">
+				<span class="txt-notfound" style="font-size: 25px; font-weight: 500; color: #818181;">Não encontramos nenhum resultado para sua busca.</span>
+			</div>
+		</div>
 	</div>
 </div>
