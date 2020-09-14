@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
-import { InfoComponent } from './components/conta/info/info.component';
+import { InfoPessoaisComponent } from './components/conta/info-pessoais/info-pessoais.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
@@ -30,77 +30,78 @@ import { TiposResolverService } from './resolvers/tipos-resolver.service';
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 
 const routes: Routes = [
-  { path: '', component: UserComponent,
-  children:  [
-    { path: 'conta/info', component: InfoComponent},
-    { path: 'conta/safety', component: SafetyComponent},
-    { path: 'usuarios', component: ListaUsuariosComponent},
-    { path: 'anuncios', component: ListaAlugaveisComponent},
-    { path: 'politicas', component: ListaPoliticasComponent},
-    { path: 'espacossalvos', component: EspacosSalvosComponent},
-    { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent},
-    {
-      path: 'feedbacks',
-      resolve: {
-        feedbacks: FeedbacksResolverService
+  {
+    path: '', component: UserComponent,
+    children: [
+      { path: 'conta/info', component: InfoPessoaisComponent },
+      { path: 'conta/safety', component: SafetyComponent },
+      { path: 'usuarios', component: ListaUsuariosComponent },
+      { path: 'anuncios', component: ListaAlugaveisComponent },
+      { path: 'politicas', component: ListaPoliticasComponent },
+      { path: 'espacossalvos', component: EspacosSalvosComponent },
+      { path: 'anuncios/meusanuncios', component: MeusAnunciosComponent },
+      {
+        path: 'feedbacks',
+        resolve: {
+          feedbacks: FeedbacksResolverService
+        },
+        component: FeedbackComponent
       },
-      component: FeedbackComponent
-    },
-    {
-      path: 'contratos',
-      resolve: {
-        contratos: ContratosListResolverService
+      {
+        path: 'contratos',
+        resolve: {
+          contratos: ContratosListResolverService
+        },
+        component: ListaContratosComponent
       },
-      component: ListaContratosComponent
-    },
-    {
-      path: 'contratos/:id',
-      resolve: {
-        aluguel: DetalhesContratoResolverService
+      {
+        path: 'contratos/:id',
+        resolve: {
+          aluguel: DetalhesContratoResolverService
+        },
+        component: DetalhesContratoComponent
       },
-      component: DetalhesContratoComponent
-    },
-    { 
-      path: 'anuncios/edit/:id',
-      component: AnuncioFormComponent,
-      canActivate: [EditarAnuncioGuard]
-    },
-    { 
-      path: 'anuncios/new',
-      resolve: {
-        tipos: TiposResolverService
+      {
+        path: 'anuncios/edit/:id',
+        component: AnuncioFormComponent,
+        canActivate: [EditarAnuncioGuard]
       },
-      component: AnuncioFormComponent
-    },
-    { 
-      path: 'anuncios/locacoes', 
-      resolve: {
-        alugueis: AnunciosLocacoesResolverService
+      {
+        path: 'anuncios/new',
+        resolve: {
+          tipos: TiposResolverService
+        },
+        component: AnuncioFormComponent
       },
-      component: LocacoesComponent,
-    },
-    { 
-      path: 'anuncios/:id',
-      resolve: {
-        alugavel: DetalhesAlugavelResolverService
+      {
+        path: 'anuncios/locacoes',
+        resolve: {
+          alugueis: AnunciosLocacoesResolverService
+        },
+        component: LocacoesComponent,
       },
-      component: DetalhesAlugaveisComponent
-    },
-    { 
-      path: 'usuarios/:id',
-      resolve: {
-        user: DetalhesUsuarioResolverService
+      {
+        path: 'anuncios/:id',
+        resolve: {
+          alugavel: DetalhesAlugavelResolverService
+        },
+        component: DetalhesAlugaveisComponent
       },
-      component: DetalhesUsuariosComponent
-    },
-    { 
-      path: 'alugueis',
-      resolve: {
-        alugueis: AlugueisMeusalugueisResolverService
+      {
+        path: 'usuarios/:id',
+        resolve: {
+          user: DetalhesUsuarioResolverService
+        },
+        component: DetalhesUsuariosComponent
       },
-      component: MeusAlugueisComponent
-    },
-  ]
+      {
+        path: 'alugueis',
+        resolve: {
+          alugueis: AlugueisMeusalugueisResolverService
+        },
+        component: MeusAlugueisComponent
+      },
+    ]
   },
 ];
 

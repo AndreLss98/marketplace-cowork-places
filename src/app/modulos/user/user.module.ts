@@ -6,9 +6,8 @@ import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 
 import { UserComponent } from './user.component';
-import { InfoComponent } from './components/conta/info/info.component';
+import { InfoPessoaisComponent } from './components/conta/info-pessoais/info-pessoais.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
-import { InfoModalComponent } from './components/conta/info/info-modal.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
@@ -29,23 +28,22 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
 
 @NgModule({
   declarations: [
-    UserComponent, 
-    InfoComponent, 
+    UserComponent,
+    InfoPessoaisComponent,
     SafetyComponent,
     FeedbackComponent,
     LocacoesComponent,
-    InfoModalComponent,
     SafetyModalComponent,
     AnuncioFormComponent,
-    MeusAnunciosComponent, 
+    MeusAnunciosComponent,
     MeusAlugueisComponent,
-    ListaUsuariosComponent, 
+    ListaUsuariosComponent,
     ListaContratosComponent,
     EspacosSalvosComponent,
     ListaPoliticasComponent,
     ListaAlugaveisComponent,
     DetalhesContratoComponent,
-    DetalhesUsuariosComponent, 
+    DetalhesUsuariosComponent,
     DetalhesAlugaveisComponent,
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
