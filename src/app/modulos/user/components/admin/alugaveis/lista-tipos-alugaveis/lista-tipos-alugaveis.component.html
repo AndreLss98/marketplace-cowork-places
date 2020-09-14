@@ -13,12 +13,12 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="createForm" (ngSubmit)="create()">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Nome</mat-label>
           <input formControlName="nome" matInput placeholder="Nome">
         </mat-form-field>
     
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
             <mat-label>Icone</mat-label>
             <mat-select formControlName="icone">
               <mat-option *ngFor="let icone of icones" [value]="icone">
@@ -30,7 +30,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Descrição</mat-label>
           <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
           <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
@@ -50,12 +50,12 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="editForm" (ngSubmit)="update()">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Nome</mat-label>
           <input matInput formControlName="nome" placeholder="Nome" required>
         </mat-form-field>
     
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
             <mat-label>Icone</mat-label>
             <mat-select formControlName="icone" required>
               <mat-option *ngFor="let icone of icones" [value]="icone">
@@ -67,7 +67,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="legacy">
           <mat-label>Descrição</mat-label>
           <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
           <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
