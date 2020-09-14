@@ -1,36 +1,26 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab>
         <ng-template mat-tab-label>
-            <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
-                [matBadgeHidden]=" this.dadosPessoaisValido">
+            <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false" [matBadgeHidden]="this.dadosPessoaisValido">
                 Dados Pessoais
             </span>
         </ng-template>
-        <div class="d-flex flex-column border border-danger rounded p-2 mb-3 mat-elevation-z2"
-            *ngIf="userService.user_data?.status_cadastro == 'disapproved'">
-            <span class="font-weight-bold">Infelizmente seu cadastro não foi aprovado.</span>
-            <span>Motivo: {{userService.user_data.observacao}}</span>
-        </div>
-
-        <div class="d-flex flex-column border border-warning rounded p-2 mb-3 mat-elevation-z2"
-            *ngIf="userService.user_data?.status_cadastro == 'waiting'">
-            <span class="font-weight-bold">Cadastro em análise.</span>
-        </div>
         <mat-card class="mat-elevation-z2 mb-3" *ngIf="userService.user_data; else loading">
+            <div class="d-flex flex-column border border-danger rounded p-2 mb-3 mat-elevation-z2"
+                *ngIf="userService.user_data?.status_cadastro == 'disapproved'">
+                <span class="font-weight-bold">Infelizmente seu cadastro não foi aprovado.</span>
+                <span>Motivo: {{userService.user_data.observacao}}</span>
+            </div>
+            <div class="d-flex flex-column border border-warning rounded p-2 mb-3 mat-elevation-z2"
+                *ngIf="userService.user_data?.status_cadastro == 'waiting'">
+                <span class="font-weight-bold">Cadastro em análise.</span>
+            </div>
             <div class="d-flex align-items-center justify-content-center my-3">
                 <img-circular class="d-inline-block" [firstLetter]="userService.user_data.nome[0]" [imgUrl]="imgUrl"
                     (click)="imgInput.click()">
                 </img-circular>
                 <input hidden #imgInput type="file" (change)="onFileSelected($event)">
             </div>
-            <mat-card-title class="d-flex flex-row mt-2">
-                <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
-                    [matBadgeHidden]=" this.dadosPessoaisValido">
-                    Dados Pessoais
-                </span>
-                <mat-icon style="margin-left: 15px;" (click)="editDadosPessoais = !editDadosPessoais">edit</mat-icon>
-            </mat-card-title>
-
             <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
                 <div class="row">
                     <div class="col-sm">
@@ -69,7 +59,6 @@
                             <mat-hint *ngIf="!userService.user_data.cpf" style="color: red;">Informe o CPF.
                             </mat-hint>
                         </mat-form-field>
-
                     </div>
                 </div>
                 <div class="row">
@@ -92,91 +81,15 @@
                         </mat-form-field>
                     </div>
                 </div>
-
-
-                <button mat-raised-button color="primary" type="submit" style="margin-top: 10px;"
-                    [disabled]="editInfoForm.invalid || editInfoForm.pristine">
-                    Atualizar
-                </button>
+                <div class="d-flex align-items-center justify-content-center my-3">
+                    <button mat-raised-button color="primary" type="submit" style="margin-top: 10px;"
+                        [disabled]="editInfoForm.invalid || editInfoForm.pristine">
+                        Atualizar
+                    </button>
+                </div>
             </form>
         </mat-card>
-        <!-- <mat-card class="mat-elevation-z2 mb-3">
-                <mat-card-title class="d-flex flex-row">
-                    <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
-                    [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
-                    Dados Bancários
-                </span>
-                <mat-icon style="margin-left: 15px;" (click)="editDadosBancarios = !editDadosBancarios">edit</mat-icon>
-            </mat-card-title>
-            <mat-card-content>
-                
-                <div class="d-flex flex-column justify-content-start"
-                *ngIf="!editDadosBancarios && userService.user_data.conta_bancaria">
-                <div class="d-flex flex-column dadosPessoais">
-                    <span class="title">Banco</span>
-                    <span class="content">{{ userService.user_data.conta_bancaria.banco }}</span>
-                </div>
-                <div class="d-flex flex-column dadosPessoais">
-                    <span class="title">Tipo</span>
-                    <span class="content">{{ userService.user_data.conta_bancaria.tipo }}</span>
-                </div>
-                <div class="d-flex flex-column dadosPessoais">
-                    <span class="title">Agência</span>
-                    <span class="content">{{ userService.user_data.conta_bancaria.agencia }}</span>
-                </div>
-                <div class="d-flex flex-column dadosPessoais">
-                    <span class="title">Número da conta</span>
-                    <span class="content">{{ userService.user_data.conta_bancaria.numero }}</span>
-                </div>
-            </div>
-            
-            <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()"
-            *ngIf="editDadosBancarios || !userService.user_data.conta_bancaria">
-            <table class="example-full-width" cellspacing="0">
-                <tr>
-                    <td>
-                        <mat-form-field appearance="legacy" class="w-100 example-full-width">
-                            <mat-label>Banco</mat-label>
-                            <input type="text" matInput formControlName="banco" [matAutocomplete]="auto"
-                            placeholder="Banco">
-                            <mat-autocomplete #auto="matAutocomplete">
-                                <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">{{ bank }}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="legacy" class="w-100">
-                            <mat-label>Tipo</mat-label>
-                            <mat-select formControlName="tipo" required>
-                                <mat-option *ngFor="let type of bankAccountTypes" [value]="type">
-                                    {{type}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="legacy" class="w-100">
-                            <mat-label>Agência</mat-label>
-                            <input matInput formControlName="agencia" placeholder="Agência sem dígito" required />
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="legacy" class="w-100">
-                            <mat-label>Número da conta</mat-label>
-                            <input matInput formControlName="numero" placeholder="Conta com o dígito" required />
-                        </mat-form-field>
-                    </td>
-                    <button mat-raised-button color="primary" type="submit"
-                    [disabled]="editBankAccountForm.invalid || editBankAccountForm.pristine">Atualizar dados
-                    Bancários</button>
-                </tr>
-            </table>
-        </form>
-    </mat-card-content>
-</mat-card> -->
-
-        <mat-card *ngIf="documentos && documentos.length > 0" class="mat-elevation-z2 mb-3">
+        <!-- <mat-card *ngIf="documentos && documentos.length > 0" class="mat-elevation-z2 mb-3">
             <mat-card-title>Documentos Pessoais</mat-card-title>
             <mat-card-subtitle>Documentos que faltam para finalizar o cadastro</mat-card-subtitle>
             <mat-card-content>
@@ -185,7 +98,6 @@
                         <th mat-header-cell *matHeaderCellDef>Documento</th>
                         <td mat-cell *matCellDef="let element" class="w-25"> {{element.nome}} </td>
                     </ng-container>
-
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element">
@@ -194,16 +106,13 @@
                                 <input #fileInput style="display: none;" type="file"
                                     (change)="updateDocument($event, element)">
                             </div>
-                            <!-- <button mat-flat-button color="primary">Enviar</button> -->
                         </td>
                     </ng-container>
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
             </mat-card-content>
         </mat-card>
-
         <mat-card *ngIf="documentosEnviados && documentosEnviados.length > 0" class="mat-elevation-z2 mb-3">
             <mat-card-title>Documentos Pessoais</mat-card-title>
             <mat-card-subtitle>Documentos enviados</mat-card-subtitle>
@@ -213,24 +122,29 @@
                         <th mat-header-cell *matHeaderCellDef>Documento</th>
                         <td mat-cell *matCellDef="let element" class="w-25"> {{element.nome}} </td>
                     </ng-container>
-
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element" class="d-flex justify-content-center">
                             <a mat-stroked-button [href]="backEndUrl + '/docs/' + element.url"
                                 target="_blank">Visualizar</a>
-                            <!-- <img [src]="" height="250px" style="margin: 10px; object-fit: contain;"> -->
-                            <!-- <button mat-flat-button color="primary">Enviar</button> -->
                         </td>
                     </ng-container>
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
             </mat-card-content>
-        </mat-card>
+        </mat-card> -->
         <ng-template #loading>
             <mat-spinner></mat-spinner>
         </ng-template>
+    </mat-tab>
+    <mat-tab label="Dados Bancários">
+        <ng-template mat-tab-label>
+            <span matBadge="!" matBadgeColor="warn" matBadgeOverlap="false"
+                [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
+                Dados Bancários
+            </span>
+        </ng-template>
+        <app-dados-bancarios></app-dados-bancarios>
     </mat-tab>
 </mat-tab-group>
