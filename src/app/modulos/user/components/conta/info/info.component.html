@@ -8,7 +8,7 @@
 </div>
 
 <ng-container *ngIf="userService.user_data; else loading">
-    <mat-card class="mat-elevation-z2 mb-3">
+    <mat-card class="mat-elevation-z2 mb-3 col-12">
         <img-circular class="d-inline-block"
             [firstLetter]="userService.user_data.nome[0]"
             [imgUrl]="imgUrl"
@@ -23,7 +23,7 @@
                 [matBadgeHidden]=" this.dadosPessoaisValido" >
                 Dados Pessoais
             </span>
-            <mat-icon style="margin-left: 15px;" (click)="editDadosPessoais = !editDadosPessoais">edit</mat-icon>
+            <mat-icon style="margin-left: 15px;" (click)="editDadosPessoais = !editDadosPessoais" style="cursor: pointer;">edit</mat-icon>
         </mat-card-title>
         <mat-card-content>
             <div class="d-flex flex-column justify-content-start" *ngIf="!editDadosPessoais">
@@ -50,29 +50,29 @@
                 </div>
                 <div class="d-flex flex-column dadosPessoais" *ngIf="userService.user_data.numero_2">
                     <span class="title">Telefone 2</span>
-                    <span class="content">{{ userService.user_data.numero_2 }}</span>
+                    <span class="content">{{ userService.user_data.numero_2 || 'Não informado'}}</span>
                 </div>
             </div>
             <form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()" [hidden]="!editDadosPessoais">
                 <div style="margin-bottom: 7px;">
                     <span style="font-size: 18px; font-weight: 500;">Editar</span>
                 </div>
-                <div class="w-100 d-flex flex-row flex-wrap">
+                
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-50">
                             <mat-label>Nome</mat-label>
                             <input matInput value="{{ userService.user_data.nome + ' ' + userService.user_data.sobrenome}}" readonly />
                         </mat-form-field>
                     </div>
                     <div *ngIf="dataNascimento; else selectDate">
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-50">
                             <mat-label>Data Nascimento</mat-label>
                             <input matInput value="{{ dataNascimento }}" readonly />
                         </mat-form-field>
                     </div>
                     <ng-template #selectDate>
                         <div>
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="legacy" class="w-50">
                                 <mat-label>Data de nascimento</mat-label>
                                 <input
                                     matInput
@@ -88,30 +88,30 @@
                         </div>
                     </ng-template>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Email</mat-label>
                             <input matInput value="{{ userService.user_data.email }}" readonly />
                             <mat-hint *ngIf="!userService.user_data.email_validado" style="color: red;">E-mail ainda não verificiado!</mat-hint>
                         </mat-form-field>
                     </div>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>CPF</mat-label>
                             <input #cpf formControlName="cpf" maxlength="14" matInput (keyup)="formatarCPF(cpf.value)" [readonly]="!canEditCPF" [required]="canEditCPF" />
                             <mat-hint *ngIf="!userService.user_data.cpf" style="color: red;">Informe o CPF.</mat-hint>
                         </mat-form-field>
                     </div>
-                </div>
+                
                 <div class="w-100 d-flex flex-wrap">
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-50">
                             <mat-label>Telefone 1</mat-label>
                             <input matInput formControlName="numero_1" maxlength="15" (keyup)="formatarTelefone('numero_1')" required />
                             <mat-hint *ngIf="!userService.user_data.numero_1" style="color: red;">Informe o seu número de telefone.</mat-hint>
                         </mat-form-field>
                     </div>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-50">
                             <mat-label>Telefone 2</mat-label>
                             <input matInput formControlName="numero_2" maxlength="15" (keyup)="formatarTelefone('numero_2')" placeholder="Opcional" />
                         </mat-form-field>
@@ -128,7 +128,7 @@
                 [matBadgeHidden]="userService.user_data.conta_bancaria != undefined">
                 Dados Bancários
             </span>
-            <mat-icon style="margin-left: 15px;" (click)="editDadosBancarios = !editDadosBancarios">edit</mat-icon>
+            <mat-icon style="margin-left: 15px;" (click)="editDadosBancarios = !editDadosBancarios" style="cursor: pointer;">edit</mat-icon>
         </mat-card-title>
         <mat-card-content>
     
@@ -154,7 +154,7 @@
             <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()" *ngIf="editDadosBancarios || !userService.user_data.conta_bancaria">
                 <div class="w-100 d-flex flex-row flex-wrap">
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Banco</mat-label>
                             <input type="text" matInput formControlName="banco" [matAutocomplete]="auto" placeholder="Banco">
                             <mat-autocomplete #auto="matAutocomplete">
@@ -163,7 +163,7 @@
                         </mat-form-field>
                     </div>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Tipo</mat-label>
                             <mat-select formControlName="tipo" required>
                                 <mat-option *ngFor="let type of bankAccountTypes" [value]="type">
@@ -173,13 +173,13 @@
                         </mat-form-field>
                     </div>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Agência</mat-label>
                             <input matInput formControlName="agencia" placeholder="Agência sem dígito" required />
                         </mat-form-field>
                     </div>
                     <div>
-                        <mat-form-field appearance="outline" class="w-100">
+                        <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Número da conta</mat-label>
                             <input matInput formControlName="numero" placeholder="Conta com o dígito" required />
                         </mat-form-field>
