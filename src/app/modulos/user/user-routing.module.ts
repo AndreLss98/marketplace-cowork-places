@@ -70,7 +70,8 @@ const routes: Routes = [
       {
         path: 'anuncios/new',
         resolve: {
-          tipos: TiposResolverService
+          tipos: TiposResolverService,
+          taxa: TaxaResolverService
         },
         component: AnuncioFormComponent
       },
