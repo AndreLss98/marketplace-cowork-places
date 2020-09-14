@@ -176,7 +176,16 @@
                     </div>
                 </div>
                 <div class="col-lg">
-                    <reserva-card></reserva-card>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h2 class="text-center">Simulação de valores</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <reserva-card [valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)" [valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"></reserva-card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

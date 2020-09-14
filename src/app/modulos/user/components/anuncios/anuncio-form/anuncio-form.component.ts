@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { formatMoneyValue } from 'src/app/shared/constants/functions';
+import { formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -14,6 +14,7 @@ import { formatMoneyValue } from 'src/app/shared/constants/functions';
 export class AnuncioFormComponent implements OnInit {
 
   readonly formatMoneyValue = formatMoneyValue;
+  readonly desformatMoneyValue = desformatMoneyValue;
 
   public tipos = [];
   public maxTax: number;
