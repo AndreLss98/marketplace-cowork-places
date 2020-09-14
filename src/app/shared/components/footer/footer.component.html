@@ -10,7 +10,7 @@
             <div class="col-md-4">
                 <h5 class="text-uppercase font-weight-bold">Sobre</h5>
                 <ul class="list-unstyled">
-                     <li *ngFor="let politica of politicas">
+                    <li *ngFor="let politica of politicas">
                         <a [href]="'/about/' + politica.sluq">{{ politica.nome }}</a>
                     </li>
                 </ul>
@@ -27,7 +27,9 @@
                 <h5 class="text-uppercase font-weight-bold">Atendimento</h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a target="_blank" href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!">Dúvidas e reclamações</a>
+                        <a target="_blank"
+                            href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!">Dúvidas
+                            e reclamações</a>
                     </li>
                     <li class="cursor-pointer">
                         <a *ngIf="userService.user_data" (click)="openFeedback()">Feedback</a>
@@ -37,23 +39,39 @@
             <div class="col-md-2 mb-md-0 mb-2">
                 <div class="social">
                     <span class="span">
-                        <a class="a" href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank"><img class="img" src="../../../../assets/svg/facebook.svg" ></a>
+                        <a class="a" href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537"
+                            target="_blank"><img class="img" src="../../../../assets/svg/facebook.svg"></a>
                     </span>
                     <span class="span">
-                        <a class="a" href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank"><img class="img" src="../../../../assets/svg/linkedin.svg" ></a>
+                        <a class="a" href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais"
+                            target="_blank"><img class="img" src="../../../../assets/svg/linkedin.svg"></a>
                     </span>
                     <span class="span">
-                        <a class="a" href="https://www.instagram.com/placeet_" target="_blank"><img class="img" src="../../../../assets/svg/instagram.svg"></a>
+                        <a class="a" href="https://www.instagram.com/placeet_" target="_blank"><img class="img"
+                                src="../../../../assets/svg/instagram.svg"></a>
                     </span>
-                </div>                 
+                </div>
                 <p class="text-center">
-                    <span style="color: white; font-size: 11px; font-weight: lighter;">PLACEET SERVICOS DIGITAIS LTDA</span>
-                </p>        
+                    <span style="color: white; font-size: 11px; font-weight: lighter;">PLACEET SERVICOS DIGITAIS
+                        LTDA</span>
+                </p>
                 <p class="text-center">
                     <span style="color: white; font-size: 11px; font-weight: lighter;">CNPJ 37.364.562/0001-24</span>
                 </p>
             </div>
         </div>
     </div>
+    <hr class="hr">
+    <div class="footer-copyright text-center py-1" style="color: grey;">
+        2020 © Placeet - Todos os direitos reservados
+        
+        <p class="text-center" style="margin-top: 10px;">
+            <span style="color: white; font-size: 15px; font-weight: lighter;">Feito com amor
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill iconHeart" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                </svg> Goiânia-GO </span>
+        </p>
+    </div>
 </footer>
-
