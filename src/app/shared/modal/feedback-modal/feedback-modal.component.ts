@@ -1,8 +1,8 @@
-import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { ModalService } from 'src/app/shared/service/modal.service';
 import { FeedbackService } from 'src/app/shared/service/feedback.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-feedback-modal',
@@ -10,13 +10,14 @@ import { FeedbackService } from 'src/app/shared/service/feedback.service';
   styleUrls: ['./feedback-modal.component.scss']
 })
 export class FeedbackModalComponent implements OnInit {
+
   public form: any = {};
   public formFeedback: FormGroup;
 
   public questions = [];
   
   constructor(
-    private modalService: ModalService,
+    private matDialog: MatDialog,
     private feedbackSevice: FeedbackService,
   ) {
     
@@ -48,7 +49,7 @@ export class FeedbackModalComponent implements OnInit {
     });
     //console.log(answers);
     this.feedbackSevice.reply(answers).subscribe(response => {
-      this.modalService.closeAllModals();
+      this.matDialog.closeAll();
     });
   }
 }

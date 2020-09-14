@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -16,6 +17,7 @@ import {
   MAT_MOMENT_DATE_FORMATS,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
+
 import {
   DateAdapter,
   MAT_DATE_LOCALE,
@@ -30,7 +32,6 @@ import { Passos_signup as Passos, emailPattern } from 'src/app/shared/constants/
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
-import { ModalService } from 'src/app/shared/service/modal.service';
 import { SignupService } from 'src/app/shared/service/signup.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -90,12 +91,12 @@ export class SignupComponent implements OnInit {
   recaptcha = new FormControl('', [Validators.required]);
 
   constructor(
-    private signup: SignupService,
     private form: FormBuilder,
-    private modal: ModalService,
-    private login: LoginService,
     private user: UserService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private login: LoginService,
+    private matDialog: MatDialog,
+    private signup: SignupService,
   ) {
 
     // Inicia o formulario.
@@ -187,7 +188,7 @@ export class SignupComponent implements OnInit {
           this.loader = true;
           this.signup.cadastrar(this.criarUsuario()).subscribe(response => {
             this.login.login(response);
-            this.modal.closeAllModals();
+            this.matDialog.closeAll();
           }, error => {
             this.editavel = true;
             this.loader = false;

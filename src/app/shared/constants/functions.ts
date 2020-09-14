@@ -6,7 +6,10 @@ export function formatDate(date: any) {
 }
 
 export function formatMoneyValue(value) {
-    return `R$ ${value.replace(/\./g, ',')}`;
+    return value.replace(/(\.00)/g, '')
+        .replace(/\D/g, '')
+        .replace(/^R$ /g, '')
+        .replace(/(\d{1,})/, 'R$ $1');
 }
 
 export function translateBoolValue(value): string {

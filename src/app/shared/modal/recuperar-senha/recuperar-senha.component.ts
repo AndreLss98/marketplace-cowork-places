@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { UserService } from '../../service/user.service';
-import { ModalService } from '../../service/modal.service';
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
   selector: 'app-recuperar-senha',
@@ -16,28 +16,26 @@ export class RecuperarSenhaComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
+    private matDialog: MatDialog,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private modalService: ModalService,
   ) {
     this.form = formBuilder.group({
       email: ["", [Validators.required, Validators.email]]
     })
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onSubmit() {
-    //console.log(this.form.value);
     this.userService.recoverPassword(this.form.value).subscribe(response => {
       this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
-      this.modalService.closeAllModals();
+      this.matDialog.closeAll();
     }, (error) => {
-      //console.log(error);
+      console.log(error);
       this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
-      this.modalService.closeAllModals();
+    }, () => {
+      this.matDialog.closeAll();
     });
   }
 
