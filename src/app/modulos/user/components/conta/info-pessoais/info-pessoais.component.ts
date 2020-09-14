@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 import * as moment from 'moment';
 
@@ -30,9 +30,9 @@ const CUSTOM_DATE_FORMAT = {
 };
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss'],
+  selector: 'app-info-pessoais',
+  templateUrl: './info-pessoais.component.html',
+  styleUrls: ['./info-pessoais.component.scss'],
   providers: [
     {
       provide: DateAdapter,
@@ -48,7 +48,7 @@ const CUSTOM_DATE_FORMAT = {
     }
   ]
 })
-export class InfoComponent implements OnInit {
+export class InfoPessoaisComponent implements OnInit {
 
   public dadosPessoaisValido = true;
   public editDadosPessoais = false;
@@ -58,13 +58,13 @@ export class InfoComponent implements OnInit {
   public selectedFile: File = null;
 
   public imgUrl;
-  public bankAccountTypes = [ 'Conta Corrente', 'Conta Poupança' ];
+  public bankAccountTypes = ['Conta Corrente', 'Conta Poupança'];
 
   public bancos: any = [];
   public filteredBanks: Observable<string[]>;
 
   public documentos = [];
-  public displayedColumns = [ 'Nome', 'action' ];
+  public displayedColumns = ['Nome', 'action'];
 
   public editInfoForm: FormGroup;
   public editBankAccountForm: FormGroup;
@@ -116,19 +116,19 @@ export class InfoComponent implements OnInit {
   private validateUserDatas() {
     this.imgUrl = this.userService.user_data.img_perfil;
 
-    if(
+    if (
       !this.userService.user_data.cpf ||
       !this.userService.user_data.email_validado ||
       !this.userService.user_data.data_nascimento ||
       !this.userService.user_data.data_nascimento ||
-      !this.userService.user_data.numero_1) this.dadosPessoaisValido =  false;
+      !this.userService.user_data.numero_1) this.dadosPessoaisValido = false;
 
-    if(this.userService.user_data.data_nascimento){
+    if (this.userService.user_data.data_nascimento) {
       this.userService.user_data.data_nascimento = this.userService.user_data.data_nascimento.split('T')[0];
       this.dataNascimento = this.formatDate(new Date(this.userService.user_data.data_nascimento));
     }
 
-    this.canEditCPF = this.userService.user_data.cpf? false : true;
+    this.canEditCPF = this.userService.user_data.cpf ? false : true;
     this.resetInfoForm();
 
     if (this.userService.user_data.conta_bancaria) {
@@ -210,19 +210,19 @@ export class InfoComponent implements OnInit {
   }
 
   public actionBankAccountForm() {
-    this.snack.open('Salvando ...', 'OK', {verticalPosition: 'top'});
+    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'top' });
     this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value, this.bancos).subscribe((response: any) => {
       this.userService.user_data.conta_bancaria = response;
       this.resetBankAccountForm();
-      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'top' });
     }, (error) => {
-      this.snack.open('Ocorreu algum erro!', 'OK', {duration: 2000, verticalPosition: 'top'});
+      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'top' });
       //console.log("Update account error: ", error);
     });
   }
 
   public actionInfoForm() {
-    this.snack.open('Salvando ...', 'OK', {verticalPosition: 'top'});
+    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'top' });
     let info = this.editInfoForm.value;
     if (!this.dataNascimento) {
       info.data_nascimento = this.formatDate(new Date(info.data_nascimento.subtract(1, 'd')), true);
@@ -237,14 +237,14 @@ export class InfoComponent implements OnInit {
       this.editInfoForm.markAsPristine();
       this.editDadosPessoais = false;
       this.resetInfoForm();
-      
-      this.snack.open('Salvo com sucesso!', 'OK', {duration: 2000, verticalPosition: 'top'});
+
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'top' });
     }, (error) => {
       this.snack.dismiss();
-      if(error.error.item == "CPF"){
-        this.snack.open('CPF já em uso!', 'OK', {duration: 2000, verticalPosition: 'top'});
-      }else{
-        this.snack.open('Ocorreu algum erro!', 'OK', {duration: 2000, verticalPosition: 'top'});
+      if (error.error.item == "CPF") {
+        this.snack.open('CPF já em uso!', 'OK', { duration: 2000, verticalPosition: 'top' });
+      } else {
+        this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'top' });
       }
     });
   }
@@ -270,32 +270,32 @@ export class InfoComponent implements OnInit {
   public formatarCPF(cpf: string) {
     let formatted = cpf;
     formatted = formatted.replace(/\D/g, "")
-    .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
-    .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
-    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
-    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
+      .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
     this.editInfoForm.controls['cpf'].setValue(formatted);
   }
 
   public formatarTelefone(campo: string) {
     let formatted = this.editInfoForm.value[campo];
     formatted = formatted.replace(/\D/g, '')
-    .replace(/^(\d{2})(\d)/, "($1) $2")
-    .replace(/^(\(\d{2}\) \d{5})(\d)/, "$1-$2")
-    .replace(/^(\(\d{2}\) \d{5}-\d{4})(.)/, "$1");
+      .replace(/^(\d{2})(\d)/, "($1) $2")
+      .replace(/^(\(\d{2}\) \d{5})(\d)/, "$1-$2")
+      .replace(/^(\(\d{2}\) \d{5}-\d{4})(.)/, "$1");
     this.editInfoForm.controls[campo].setValue(formatted);
   }
 
   private formatDate(date: Date, forSave = false): string {
     let formattedDate = '';
     if (!forSave) {
-      formattedDate = date.getDate() + 1 < 10? `0${date.getDate() + 1}/` : `${date.getDate() + 1}/`;
-      formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}/` : `${date.getMonth() + 1}/`;
+      formattedDate = date.getDate() + 1 < 10 ? `0${date.getDate() + 1}/` : `${date.getDate() + 1}/`;
+      formattedDate += date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}/` : `${date.getMonth() + 1}/`;
       formattedDate += date.getFullYear();
     } else {
       formattedDate = `${date.getFullYear()}-`;
-      formattedDate += date.getMonth() + 1 < 10? `0${date.getMonth() + 1}-` : `${date.getMonth() + 1}-`;
-      formattedDate += date.getDate() + 1 < 10? `0${date.getDate() + 1}` : `${date.getDate() + 1}`;
+      formattedDate += date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}-` : `${date.getMonth() + 1}-`;
+      formattedDate += date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : `${date.getDate() + 1}`;
     }
     return formattedDate;
   }

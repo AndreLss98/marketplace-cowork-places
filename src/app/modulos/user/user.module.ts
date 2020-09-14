@@ -6,9 +6,8 @@ import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 
 import { UserComponent } from './user.component';
-import { InfoComponent } from './components/conta/info/info.component';
+import { InfoPessoaisComponent } from './components/conta/info-pessoais/info-pessoais.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
-import { InfoModalComponent } from './components/conta/info/info-modal.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
@@ -25,31 +24,32 @@ import { DetalhesAlugaveisComponent } from './components/admin/alugaveis/detalhe
 import { DocumentosPessoaisComponent } from './components/admin/usuarios/documentos/pessoais/documentos-pessoais.component';
 import { ListaTiposAlugaveisComponent } from './components/admin/alugaveis/lista-tipos-alugaveis/lista-tipos-alugaveis.component';
 import { ListaCaracteristicasAlugaveisComponent } from './components/admin/alugaveis/lista-caracteristicas-alugaveis/lista-caracteristicas-alugaveis.component';
+import { DadosBancariosComponent } from './components/conta/dados-bancarios/dados-bancarios.component';
 
 
 @NgModule({
   declarations: [
-    UserComponent, 
-    InfoComponent, 
+    UserComponent,
+    InfoPessoaisComponent,
     SafetyComponent,
     FeedbackComponent,
     LocacoesComponent,
-    InfoModalComponent,
     SafetyModalComponent,
     AnuncioFormComponent,
-    MeusAnunciosComponent, 
+    MeusAnunciosComponent,
     MeusAlugueisComponent,
-    ListaUsuariosComponent, 
+    ListaUsuariosComponent,
     ListaContratosComponent,
     EspacosSalvosComponent,
     ListaPoliticasComponent,
     ListaAlugaveisComponent,
     DetalhesContratoComponent,
-    DetalhesUsuariosComponent, 
+    DetalhesUsuariosComponent,
     DetalhesAlugaveisComponent,
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
+    DadosBancariosComponent,
   ],
   imports: [
     CommonModule,
