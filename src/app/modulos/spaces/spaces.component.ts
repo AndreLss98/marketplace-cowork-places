@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +14,6 @@ import { ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constant
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
-import { ModalService } from 'src/app/shared/service/modal.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { CheckoutService } from 'src/app/shared/service/checkout.service';
 import { FavoritosService } from 'src/app/shared/service/favoritos.service';
@@ -62,11 +62,11 @@ export class SpacesComponent implements OnInit {
   constructor(
     private router: Router,
     private login: LoginService,
+    private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     public userService: UserService,
     private formBuilder: FormBuilder,
-    private modalService: ModalService,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
     private favoritoService: FavoritosService,
@@ -130,8 +130,10 @@ export class SpacesComponent implements OnInit {
 
   public checkout() {
     if(!this.login.checkLogedIn()){
-      return this.modalService.openModal(LoginComponent);
+      this.matDialog.open(LoginComponent);
+      return;
     }
+
     this.checkoutService.reserva = {
       dias_reservados: {
         data_entrada: this.formatDate(this.reservaForm.controls['entrada'].value),

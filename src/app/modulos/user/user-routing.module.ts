@@ -28,6 +28,7 @@ import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusal
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
 import { TiposResolverService } from './resolvers/tipos-resolver.service';
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
+import { TaxaResolverService } from './resolvers/taxa-resolver.service';
 
 const routes: Routes = [
   { path: '', component: UserComponent,
@@ -68,7 +69,8 @@ const routes: Routes = [
     { 
       path: 'anuncios/new',
       resolve: {
-        tipos: TiposResolverService
+        tipos: TiposResolverService,
+        taxa: TaxaResolverService
       },
       component: AnuncioFormComponent
     },

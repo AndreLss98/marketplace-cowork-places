@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-content>
+        <form [formGroup]="intervalForm">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Selecione o período</mat-label>
+                        <mat-date-range-input [min]="minDate" [rangePicker]="picker">
+                          <input #entrada
+                            matStartDate
+                            disabled="true"
+                            formControlName="entrada"
+                            placeholder="Entrada" />
+                          <input #saida
+                            matEndDate
+                            disabled="true"
+                            placeholder="Saída"
+                            formControlName="saida"
+                            (dateInput)="validateRange()"/>
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="intervalForm.valid && valorDiaria">
+                <div class="col">
+                    <p>
+                        {{ formatMoneyValue(valorDiaria) }} x {{ diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1 }} {{ diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1 > 1? 'dias' : 'dia' }}</p>
+                </div>
+                <div class="col">
+                    <p>{{ formatMoneyValue(valorDiaria *( diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1)) }}</p>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

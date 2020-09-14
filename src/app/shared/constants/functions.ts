@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export function formatDate(date: any) {
     if (typeof date === "string") date = new Date(date);
     const day = date.getDate() + 1 < 10? `0${date.getDate() + 1}`: date.getDate() + 1;
@@ -5,8 +7,26 @@ export function formatDate(date: any) {
     return `${day}/${month}/${date.getFullYear()}`;
 }
 
+export function addDays(date: Date, days) {
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+export function diffDates(date1: Date, date2: Date) {
+    if (date1 > date2) return moment(date1).diff(moment(date2), 'days');
+    return moment(date2).diff(moment(date1), 'days');
+}
+
 export function formatMoneyValue(value) {
-    return `R$ ${value.replace(/\./g, ',')}`;
+    if (typeof value === "number") value = value.toString();
+    return value.replace(/(\.00)/g, '')
+        .replace(/\D/g, '')
+        .replace(/^R$ /g, '')
+        .replace(/(\d{1,})/, 'R$ $1');
+}
+
+export function desformatMoneyValue(value: string) {
+    return Number(value.replace(/\D/g, ''));
 }
 
 export function translateBoolValue(value): string {

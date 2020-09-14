@@ -2,6 +2,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+
+import { formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
+
 @Component({
   selector: 'app-criar-anuncio',
   templateUrl: './anuncio-form.component.html',
@@ -9,7 +13,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AnuncioFormComponent implements OnInit {
 
+  readonly formatMoneyValue = formatMoneyValue;
+  readonly desformatMoneyValue = desformatMoneyValue;
+
   public tipos = [];
+  public maxTax: number;
+  public thumbsTaxs = [];
 
   public informacoesForm: FormGroup;
   public caracteristicasForm: FormGroup;
@@ -20,6 +29,7 @@ export class AnuncioFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private alugavelService: AlugavelService
   ) {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
@@ -52,6 +62,15 @@ export class AnuncioFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipos = this.route.snapshot.data['tipos'];
+    this.configTax();
   }
 
+  private configTax() {
+    this.maxTax = this.route.snapshot.data['taxa'].taxa;
+    this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
+  }
+
+  public formatField(field: string, form: FormGroup, formatFunction) {
+    form.controls[field].setValue(formatFunction(form.controls[field].value));
+  }
 }

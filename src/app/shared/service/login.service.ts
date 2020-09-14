@@ -1,34 +1,33 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { timeout } from 'rxjs/operators';
-import { Injectable, HostListener } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import * as moment from 'moment';
 
+import { environment } from 'src/environments/environment';
+
+import { authUser } from 'src/app/shared/interface/interface';
+import { EXPIRE_AT } from 'src/app/shared/constants/constants';
+
 import { UserService } from './user.service';
 import { RefreshTokenService } from './refresh-token.service';
-import { ModalService } from 'src/app/shared/service/modal.service';
-
-import { authUser } from '../interface/interface';
-import { EXPIRE_AT } from '../constants/constants'
-import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private _logged_status: boolean;
-  private _user_token: string;
-  private _expires_at: any = undefined;
   private silent_refresh;
+  private _user_token: string;
+  private _logged_status: boolean;
+  private _expires_at: any = undefined;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private user: UserService,
-    private modal: ModalService,
     private refresh: RefreshTokenService
   ) { 
     this.logged_status = this.checkLogedIn();
