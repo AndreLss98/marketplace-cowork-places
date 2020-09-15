@@ -24,6 +24,14 @@
                 </div>
             </div>
 
+            <ng-container *ngIf="intervalForm.valid && (valorDiaria && valorMensal) && valorMensal < totalDiaria(qtdDias(), valorDiaria) && qtdDias() < 31">
+                <div class="row">
+                    <div class="col">
+                        <p class="text-muted">Recomendamos uma reserva de mais de 30 dias</p>
+                    </div>
+                </div>
+            </ng-container>
+
             <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal)">
                 <div class="row">
                     <div class="col">
