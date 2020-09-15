@@ -18,11 +18,12 @@ export function diffDates(date1: Date, date2: Date) {
 }
 
 export function formatMoneyValue(value) {
-    if (typeof value === "number") value = value.toString();
-    return value.replace(/(\.00)/g, '')
-        .replace(/\D/g, '')
-        .replace(/^R$ /g, '')
-        .replace(/(\d{1,})/, 'R$ $1');
+    if (typeof value === "number") value = value.toFixed(2);
+    return value
+        .replace(/R\$ /, '')
+        .replace(/\./g, ',')
+        .replace(/^([0-9])/, 'R$ $1')
+        .replace(/(R\$ [0-9]+,[0-9]{2})./, '$1');
 }
 
 export function desformatMoneyValue(value: string) {

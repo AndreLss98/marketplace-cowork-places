@@ -132,3 +132,7 @@ button.outline-primary {
 [type=button], [type=reset], [type=submit], button {
   -webkit-appearance: none !important;
 }
+
+.border-primary {
+  border-color: $pl-verde-escuro !important;
+}

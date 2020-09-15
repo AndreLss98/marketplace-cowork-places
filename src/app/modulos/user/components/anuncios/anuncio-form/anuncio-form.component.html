@@ -4,13 +4,13 @@
             <ng-template matStepLabel>Informações</ng-template>
             <div class="row">
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Título</mat-label>
-                        <input formControlName="titulo" matInput placeholder="Ex: Escritório Urbano" minlength="1" maxlength="40" />
+                        <input formControlName="titulo" autocomplete="off" matInput placeholder="Ex: Escritório Urbano" minlength="1" maxlength="40" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Categoria</mat-label>
                         <mat-select formControlName="tipo">
                             <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.nome}}</mat-option>
@@ -56,49 +56,49 @@
             <ng-template matStepLabel>Endereço</ng-template>
             <div class="row">
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>CEP</mat-label>
-                        <input formControlName="cep" matInput placeholder="xx.xxx.xxx" maxlength="10" />
+                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Rua</mat-label>
-                        <input formControlName="rua" matInput placeholder="Avenida Paulista" minlength="1" maxlength="200" />
+                        <input formControlName="rua" matInput autocomplete="off" placeholder="Avenida Paulista" minlength="1" maxlength="200" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Número</mat-label>
-                        <input formControlName="numero" matInput placeholder="Ex: Escritório Urbano" />
+                        <input formControlName="numero" autocomplete="off" matInput />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Bairro</mat-label>
-                        <input formControlName="bairro" matInput placeholder="Setor Bueno" minlength="1" maxlength="200" />
+                        <input formControlName="bairro" autocomplete="off" matInput placeholder="Setor Bueno" minlength="1" maxlength="200" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Complemento</mat-label>
-                        <input formControlName="complemento" matInput placeholder="Bloco, apartamento..." minlength="1" maxlength="250" />
+                        <input formControlName="complemento" autocomplete="off" matInput placeholder="Bloco, apartamento..." minlength="1" maxlength="250" />
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Estado</mat-label>
-                        <input formControlName="estado" matInput placeholder="Goiás" minlength="1" maxlength="200" />
+                        <input formControlName="estado" matInput autocomplete="off" placeholder="Goiás" minlength="1" maxlength="200" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Cdidade</mat-label>
-                        <input formControlName="cidade" matInput placeholder="Goiânia" minlength="1" maxlength="200" />
+                        <input formControlName="cidade" matInput autocomplete="off" placeholder="Goiânia" minlength="1" maxlength="200" />
                     </mat-form-field>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             <ng-template matStepLabel>Documentos</ng-template>
             <div class="row justify-content-center">
                 <div class="col-10">
-                    <mat-form-field appearance="legacy" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Você é o proprietário do espaço ?</mat-label>
                         <mat-select formControlName="proprietario" matInput required>
                             <mat-option value="true">Sim</mat-option>
@@ -139,15 +139,15 @@
                 <div class="col-lg">
                     <div class="row">
                         <div class="col-sm">
-                            <mat-form-field appearance="legacy" class="w-100">
+                            <mat-form-field appearance="standard" class="w-100">
                                 <mat-label>Custo por dia</mat-label>
-                                <input formControlName="valor" matInput placeholder="R$ 100" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
+                                <input formControlName="valor" matInput placeholder="R$ 100" autocomplete="off" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
                             </mat-form-field>
                         </div>
                         <div class="col-sm">
-                            <mat-form-field appearance="legacy" class="w-100">
+                            <mat-form-field appearance="standard" class="w-100">
                                 <mat-label>Custo por mês</mat-label>
-                                <input formControlName="valor_mes" matInput placeholder="R$ 1000" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
+                                <input formControlName="valor_mes" matInput placeholder="R$ 1000" autocomplete="off" [readonly]="!valoresForm.controls['valor'].value" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
                             </mat-form-field>
                         </div>
                     </div>
@@ -183,7 +183,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <reserva-card [valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)" [valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"></reserva-card>
+                            <reserva-card
+                                [valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)"
+                                [valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"
+                                [taxa]="valoresForm.controls['taxa'].value">
+                            </reserva-card>
                         </div>
                     </div>
                 </div>

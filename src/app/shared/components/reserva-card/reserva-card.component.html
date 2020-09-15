@@ -3,7 +3,7 @@
         <form [formGroup]="intervalForm">
             <div class="row">
                 <div class="col-sm">
-                    <mat-form-field appearance="fill" class="w-100">
+                    <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Selecione o período</mat-label>
                         <mat-date-range-input [min]="minDate" [rangePicker]="picker">
                           <input #entrada
@@ -23,15 +23,51 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="row" *ngIf="intervalForm.valid && valorDiaria">
-                <div class="col">
-                    <p>
-                        {{ formatMoneyValue(valorDiaria) }} x {{ diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1 }} {{ diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1 > 1? 'dias' : 'dia' }}</p>
+
+            <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal)">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="font-weight-bold">Diárias</h4>
+                    </div>
                 </div>
-                <div class="col">
-                    <p>{{ formatMoneyValue(valorDiaria *( diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1)) }}</p>
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            {{ formatMoneyValue(qtdDias() >= 31 && valorMensal? valorMensal : valorDiaria) }} x
+                            {{ qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : '' }} {{qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''}}
+                            {{ qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1? qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : '' }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">{{ formatMoneyValue(qtdDias() >= 31 && valorMensal? totalMensal(qtdDias(), valorMensal) : totalDiaria(qtdDias(), valorDiaria)) }}</p>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal) && taxa">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="font-weight-bold">Taxas</h4>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">{{ formatMoneyValue(calcularTaxas(qtdDias(), qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria, taxa)) }}</p>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <mat-divider class="border-primary"></mat-divider>
                 </div>
             </div>
+            <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal)">
+                <div class="row mt-2">
+                    <div class="col">
+                        <p class="font-weight-bold">Total</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">{{ formatMoneyValue(totalPeriodo(qtdDias(), qtdDias() >= 31 && valorMensal? valorMensal : valorDiaria, taxa, qtdDias() >= 31 && valorMensal? true: false))}}</p>
+                    </div>
+                </div>
+            </ng-container>
         </form>
     </mat-card-content>
 </mat-card>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { Financeiro } from 'src/app/shared/classes/financeiro';
+
 import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
 
 @Component({
@@ -8,7 +10,7 @@ import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/f
   templateUrl: './reserva-card.component.html',
   styleUrls: ['./reserva-card.component.scss']
 })
-export class ReservaCardComponent implements OnInit {
+export class ReservaCardComponent extends Financeiro implements OnInit {
 
   readonly diffDates = diffDates;
   readonly formatMoneyValue = formatMoneyValue;
@@ -23,11 +25,10 @@ export class ReservaCardComponent implements OnInit {
   public valorMensal: number;
 
   public intervalForm: FormGroup;
-  
-  public qtdDias: number;
   public minDate = addDays(new Date(), 2);
 
   constructor(private formBuilder: FormBuilder) {
+    super();
     this.intervalForm = formBuilder.group({
       entrada: ['', [Validators.required]],
       saida: ['', [Validators.required]],
@@ -40,6 +41,14 @@ export class ReservaCardComponent implements OnInit {
 
   public validateRange() {
 
+  }
+
+  public qtdDias() {
+    return diffDates(this.intervalForm.controls['entrada'].value, this.intervalForm.controls['saida'].value) + 1;
+  }
+
+  public qtdMeses() {
+    return Math.floor(this.qtdDias() / 31);
   }
 
 }
