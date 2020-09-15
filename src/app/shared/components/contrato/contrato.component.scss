@@ -1,10 +1,11 @@
+@import '../../../../place-et-theme.scss';
+
 .cardTitle{
     span{
-        font-size: 20px;
+        font-size: 15px;
     }
     a{
         font-size: 12px;
-        font-weight: normal;
         padding-left: 5px;
     }
 }
@@ -14,7 +15,6 @@
     .titulo{
         span{
             font-size: 18px;
-            font-weight: 500;
         }
         a{
             font-size: 12px;
@@ -29,12 +29,11 @@
 .data{
     width: 170px;
     margin-bottom: 5px;
-    .titulo{
-        font-size: 18px;
-        font-weight: 500;
-    }
     .content{
         font-size: 16px;
+    }
+    #link{
+        color: #00ffab;
     }
 }
 
@@ -48,17 +47,11 @@
     justify-content: center;
     border: 1px solid #00ffab;
     font-size: 35px;
-    font-weight: bold;
+    
     margin-bottom: 15px;
 }
 
 .imgPerfil {
-    border-radius: 50px;
-    height: 100px;
-    width: 100px;
-    overflow: hidden;
-    border: 1px solid #00ffab;
-    cursor: pointer;
     margin-bottom: 15px;
     img {
         width: 100%;
@@ -66,23 +59,19 @@
     }
 }
 
-.nome{
-    .titulo{
-        font-size: 18px;
-        font-weight: 500;
-    }
+
+.title{
+    display: flex;
+    margin-top: 15px;
     .content{
-        font-size: 16px;
+        font-weight: normal;
+        font-size: 15px;
+        text-align: start;
+        
     }
 }
-   
 
-.contato{
-    .titulo{
-        font-size: 18px;
-        font-weight: 500;
-    }
-    .content{
-        font-size: 16px;
-    }
+.itemTitle{
+    color: gray;
+    font-size: 13px;
 }
