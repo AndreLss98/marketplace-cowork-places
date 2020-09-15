@@ -5,9 +5,6 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-
-import { DocumentosService } from 'src/app/shared/service/documentos.service';
-import { LoginService } from 'src/app/shared/service/login.service';
 import { UserService } from 'src/app/shared/service/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -24,9 +21,9 @@ const CUSTOM_DATE_FORMAT = {
 };
 
 @Component({
-  selector: 'app-info-pessoais',
-  templateUrl: './info-pessoais.component.html',
-  styleUrls: ['./info-pessoais.component.scss'],
+  selector: 'app-dados-pessoais',
+  templateUrl: './dados-pessoais.component.html',
+  styleUrls: ['./dados-pessoais.component.scss'],
   providers: [
     {
       provide: DateAdapter,
@@ -42,7 +39,7 @@ const CUSTOM_DATE_FORMAT = {
     }
   ]
 })
-export class InfoPessoaisComponent implements OnInit {
+export class DadosPessoaisComponent implements OnInit {
 
   public dadosPessoaisValido = true;
   public editDadosPessoais = false;

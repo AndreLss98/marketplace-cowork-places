@@ -14,6 +14,7 @@ export class DocPessoaisComponent implements OnInit {
   public documentos = [];
   public displayedColumns = ['Nome', 'action'];
   public documentosEnviados: any;
+  public backEndUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,

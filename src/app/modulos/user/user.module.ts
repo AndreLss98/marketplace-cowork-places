@@ -6,7 +6,6 @@ import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 
 import { UserComponent } from './user.component';
-import { InfoPessoaisComponent } from './components/conta/info-pessoais/info-pessoais.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
@@ -24,14 +23,14 @@ import { DetalhesAlugaveisComponent } from './components/admin/alugaveis/detalhe
 import { DocumentosPessoaisComponent } from './components/admin/usuarios/documentos/pessoais/documentos-pessoais.component';
 import { ListaTiposAlugaveisComponent } from './components/admin/alugaveis/lista-tipos-alugaveis/lista-tipos-alugaveis.component';
 import { ListaCaracteristicasAlugaveisComponent } from './components/admin/alugaveis/lista-caracteristicas-alugaveis/lista-caracteristicas-alugaveis.component';
-import { DadosBancariosComponent } from './components/conta/dados-bancarios/dados-bancarios.component';
-import { DocPessoaisComponent } from './components/conta/doc-pessoais/doc-pessoais.component';
+import { DadosPessoaisComponent } from './components/conta/informacoes-pessoais/dados-pessoais/dados-pessoais.component';
+import { DocPessoaisComponent } from './components/conta/informacoes-pessoais/doc-pessoais/doc-pessoais.component';
+import { DadosBancariosComponent } from './components/conta/informacoes-pessoais/dados-bancarios/dados-bancarios.component';
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    InfoPessoaisComponent,
     SafetyComponent,
     FeedbackComponent,
     LocacoesComponent,
@@ -50,8 +49,9 @@ import { DocPessoaisComponent } from './components/conta/doc-pessoais/doc-pessoa
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
-    DadosBancariosComponent,
-    DocPessoaisComponent
+    DadosPessoaisComponent,
+    DocPessoaisComponent,
+    DadosBancariosComponent
   ],
   imports: [
     CommonModule,

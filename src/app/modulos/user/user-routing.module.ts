@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UserComponent } from './user.component';
-import { InfoPessoaisComponent } from './components/conta/info-pessoais/info-pessoais.component';
 import { SafetyComponent } from './components/conta/safety/safety.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
@@ -29,12 +28,13 @@ import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
 import { TiposResolverService } from './resolvers/tipos-resolver.service';
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 import { TaxaResolverService } from './resolvers/taxa-resolver.service';
+import { DadosPessoaisComponent } from './components/conta/informacoes-pessoais/dados-pessoais/dados-pessoais.component';
 
 const routes: Routes = [
   {
     path: '', component: UserComponent,
     children: [
-      { path: 'conta/info', component: InfoPessoaisComponent },
+      { path: 'conta/info', component: DadosPessoaisComponent },
       { path: 'conta/safety', component: SafetyComponent },
       { path: 'usuarios', component: ListaUsuariosComponent },
       { path: 'anuncios', component: ListaAlugaveisComponent },
