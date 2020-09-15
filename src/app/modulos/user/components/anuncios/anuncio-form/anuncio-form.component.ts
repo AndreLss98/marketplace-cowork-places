@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 import { formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -12,6 +13,8 @@ import { formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/
   styleUrls: ['./anuncio-form.component.scss']
 })
 export class AnuncioFormComponent implements OnInit {
+
+  readonly sendImgsUrl = `${environment.apiUrl}/alugaveis/imagem`;
 
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;

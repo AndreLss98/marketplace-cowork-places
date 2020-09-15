@@ -54,11 +54,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DropzoneComponent } from './components/dropzone/dropzone.component';
 
 @NgModule({
   declarations: [
     MapsComponent,
     HeaderComponent,
+    DropzoneComponent,
     MdViewerComponent,
     ContratoComponent,
     BasicModalComponent,
@@ -129,6 +131,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
     ReservaCardComponent,
+    DropzoneComponent,
 
     MatBadgeModule,
     MdePopoverModule,
