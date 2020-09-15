@@ -25,6 +25,7 @@ import { DocumentosPessoaisComponent } from './components/admin/usuarios/documen
 import { ListaTiposAlugaveisComponent } from './components/admin/alugaveis/lista-tipos-alugaveis/lista-tipos-alugaveis.component';
 import { ListaCaracteristicasAlugaveisComponent } from './components/admin/alugaveis/lista-caracteristicas-alugaveis/lista-caracteristicas-alugaveis.component';
 import { DadosBancariosComponent } from './components/conta/dados-bancarios/dados-bancarios.component';
+import { DocPessoaisComponent } from './components/conta/doc-pessoais/doc-pessoais.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { DadosBancariosComponent } from './components/conta/dados-bancarios/dado
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
     DadosBancariosComponent,
+    DocPessoaisComponent
   ],
   imports: [
     CommonModule,
