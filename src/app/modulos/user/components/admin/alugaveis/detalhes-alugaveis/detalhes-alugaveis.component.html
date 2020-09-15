@@ -11,85 +11,114 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button style="margin-left: 10px;" mat-raised-button color="accent" type="submit" [disabled]="statusForm.invalid || statusForm.pristine">Atualizar</button>
+        <button style="margin-left: 10px;" mat-raised-button color="accent" type="submit"
+            [disabled]="statusForm.invalid || statusForm.pristine">Atualizar</button>
         <mat-form-field *ngIf="statusForm.value.status === STATUS.DISAPPROVED.value" class="w-100">
             <mat-label>Deixe uma observação</mat-label>
-            <textarea matInput
-                maxlength="500"
-                formControlName="observacao"
+            <textarea matInput maxlength="500" formControlName="observacao"
                 placeholder="EX.: Os documentos não são válidos...">
             </textarea>
         </mat-form-field>
     </form>
     <mat-card-content>
-        <h3 [routerLink]="'/user/usuarios/' + alugavel.anunciante_id" class="link" *ngIf="alugavel.anunciante_avaliado !== USUARIO_STATUS.APPROVED.value">O anunciante não possui o cadastro validado! Visualizar anunciante.</h3>
+        <h3 [routerLink]="'/user/usuarios/' + alugavel.anunciante_id" class="link"
+            *ngIf="alugavel.anunciante_avaliado !== USUARIO_STATUS.APPROVED.value">O anunciante não possui o cadastro
+            validado! Visualizar anunciante.</h3>
         <h4>Descrição</h4>
-        <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>
-        <table>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Valor Diário</mat-label>
-                    <input matInput [value]="'R$ ' + alugavel.valor" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Valor Mensal</mat-label>
-                    <input matInput [value]="'R$ ' + alugavel.valor_mes" readonly />
-                </mat-form-field>
-            </td>
+<!--        <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>-->
+        <table = class="table">
+            <div class="row">
+                <div class="col-sm">
+
+                    <mat-form-field appearance="legacy" class="100">
+                        <mat-label>Valor Diário</mat-label>
+                        <input matInput [value]="'R$ ' + alugavel.valor" readonly />
+                    </mat-form-field>
+
+                </div>
+                <div class="col-sm">
+
+                    <mat-form-field appearance="legacy" class="100">
+                        <mat-label>Valor Mensal</mat-label>
+                        <input matInput [value]="'R$ ' + alugavel.valor_mes" readonly />
+                    </mat-form-field>
+
+                </div>
+                <div class="col-sm">
+
+                    <mat-form-field appearance="legacy" class="100">
+                        <mat-label>Bairro</mat-label>
+                        <input matInput [value]="alugavel.local.bairro" readonly />
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <td>
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Rua</mat-label>
+                            <input matInput [value]="alugavel.local.rua" readonly />
+                        </mat-form-field>
+                    </td>
+                </div>
+                <div class="col-sm">
+                    <td>
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Número</mat-label>
+                            <input matInput [value]="alugavel.local.numero" readonly />
+                        </mat-form-field>
+                    </td>
+                </div>
+
+
+                <div class="col-sm">
+                    <td>
+                        <mat-form-field appearance="legacy">
+                            <mat-label>CEP</mat-label>
+                            <input matInput [value]="alugavel.local.cep" readonly />
+                        </mat-form-field>
+                    </td>
+                </div>
+            </div>
+            <div class="col-sm">
+                <td>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Complemento</mat-label>
+                        <input matInput [value]="alugavel.local.complemento" readonly />
+                    </mat-form-field>
+                </td>
+            </div>
+            <div class="col-sm">
+                <td>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>País</mat-label>
+                        <input matInput [value]="alugavel.local.pais" readonly />
+                    </mat-form-field>
+                </td>
+            </div>
+            <div class="col-sm">
+                <td>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Cidade</mat-label>
+                        <input matInput [value]="alugavel.local.cidade" readonly />
+                    </mat-form-field>
+                </td>
+            </div>
+            <div class="col-sm">
+                <td>
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Estado</mat-label>
+                        <input matInput [value]="alugavel.local.estado" readonly />
+                    </mat-form-field>
+                </td>
+            </div>
         </table>
         <table *ngIf="alugavel.local">
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Bairro</mat-label>
-                    <input matInput [value]="alugavel.local.bairro" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Rua</mat-label>
-                    <input matInput [value]="alugavel.local.rua" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Número</mat-label>
-                    <input matInput [value]="alugavel.local.numero" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>CEP</mat-label>
-                    <input matInput [value]="alugavel.local.cep" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Complemento</mat-label>
-                    <input matInput [value]="alugavel.local.complemento" readonly />
-                </mat-form-field>
-            </td>
+
         </table>
         <table *ngIf="alugavel.local">
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>País</mat-label>
-                    <input matInput [value]="alugavel.local.pais" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput [value]="alugavel.local.cidade" readonly />
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <input matInput [value]="alugavel.local.estado" readonly />
-                </mat-form-field>
-            </td>
+
         </table>
     </mat-card-content>
 </mat-card>
