@@ -1,18 +1,23 @@
 
-  <mat-tab-group class="w-100 pt-4" mat-align-tabs="center">
+<mat-tab-group class="w-100 pt-4" mat-align-tabs="center">
     <mat-tab [label]="'Aprovados ('+ espacos_aprovados.length + ')'">
-        <div class="d-flex flex-row flex-wrap justify-content-start">
+
+        <div class="d-flex flex-row flex-wrap justify-content-center">
             <div class="p-1">
-                <mat-card class="customCard cursor-pointer" routerLink="/user/anuncios/new" style="outline: none;">
-                    <div class="d-flex h-100 align-items-center justify-content-center flex-column">
+                <mat-card class="customCard cursor-pointer"
+                    routerLink="/user/anuncios/new" style="outline: none;">
+                    <div class="d-flex h-100 align-items-center
+                        justify-content-center flex-column">
                         <mat-icon>add</mat-icon>
                         <span>Adicionar um espaço</span>
                     </div>
                 </mat-card>
             </div>
-            <div class="position-relative p-1" *ngFor="let aprovados of espacos_aprovados">
+            <div class="position-relative p-1" *ngFor="let aprovados of
+                espacos_aprovados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
-                    [matMenuTriggerData]="{id: aprovados.id, status: aprovados.status}"
+                    [matMenuTriggerData]="{id: aprovados.id, status:
+                    aprovados.status}"
                     class="position-absolute"
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -20,13 +25,16 @@
                 <card-item-alugavel [data]="aprovados"></card-item-alugavel>
             </div>
         </div>
+
     </mat-tab>
 
     <mat-tab [label]="'Em avaliação ('+ espacos_em_avaliaco.length + ')'">
-        <div class="d-flex flex-row flex-wrap justify-content-start">
-            <div class="position-relative p-1" *ngFor="let aguardando of espacos_em_avaliaco">
+        <div class="d-flex flex-row flex-wrap justify-content-center">
+            <div class="position-relative p-1" *ngFor="let aguardando of
+                espacos_em_avaliaco">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
-                    [matMenuTriggerData]="{id: aguardando.id, status: aguardando.status}"
+                    [matMenuTriggerData]="{id: aguardando.id, status:
+                    aguardando.status}"
                     class="position-absolute"
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -35,19 +43,22 @@
             </div>
         </div>
     </mat-tab>
-    
+
     <mat-tab [label]="'Reprovados ('+ espacos_reprovados.length + ')'">
-        <div class="d-flex flex-row flex-wrap justify-content-start">
-            <div class="position-relative p-1" *ngFor="let reprovados of espacos_reprovados">
+        <div class="d-flex flex-row flex-wrap justify-content-center">
+            <div class="position-relative p-1" *ngFor="let reprovados of
+                espacos_reprovados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
-                    [matMenuTriggerData]="{id: reprovados.id, status: reprovados.status}"
+                    [matMenuTriggerData]="{id: reprovados.id, status:
+                    reprovados.status}"
                     class="position-absolute"
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <div class="d-flex flex-column">
                     <card-item-alugavel [data]="reprovados"></card-item-alugavel>
-                    <div class="alertReprovados position-relative pt-3 pl-3 pb-2 d-flex flex-direction-column flex-wrap">
+                    <div class="alertReprovados position-relative pt-3 pl-3 pb-2
+                        d-flex flex-direction-column flex-wrap">
                         <span class="font-weight-bold">Anúncio reprovado:</span>
                         <span>{{reprovados.observacao}}</span>
                     </div>
@@ -57,10 +68,12 @@
     </mat-tab>
 
     <mat-tab [label]="'Desativados ('+ espacos_desativados.length + ')'">
-        <div class="d-flex flex-row flex-wrap justify-content-start">
-            <div class="position-relative p-1" *ngFor="let removidos of espacos_desativados">
+        <div class="d-flex flex-row flex-wrap justify-content-center">
+            <div class="position-relative p-1" *ngFor="let removidos of
+                espacos_desativados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu"
-                    [matMenuTriggerData]="{id: removidos.id, status: removidos.status}"
+                    [matMenuTriggerData]="{id: removidos.id, status:
+                    removidos.status}"
                     class="position-absolute"
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -79,7 +92,8 @@
             <span>Editar</span>
         </button>
         <button mat-menu-item (click)="alterarStatus(id, status)"
-            *ngIf="status === 'approved' || status === 'removed'" style="outline: none;">
+            *ngIf="status === 'approved' || status === 'removed'"
+            style="outline: none;">
             <mat-icon>{{status === 'removed'? 'visibility': 'visibility_off'}}</mat-icon>
             <span>{{status === 'removed'? 'Ativar': 'Desativar'}}</span>
         </button>
