@@ -33,4 +33,8 @@ export class TiposService {
   public delete(id) {
     return this.http.delete(`${environment.apiUrl}/tipos/${id}`);
   }
+
+  public getAllCaracteristicasByTipo(id) {
+    return this.http.get<any>(`${environment.apiUrl}/tipos/${id}/caracteristicas`);
+  }
 }

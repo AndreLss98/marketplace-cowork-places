@@ -42,13 +42,34 @@
         </form>
     </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Características</ng-template>
-      <div class="row">
-          <div class="col-sm">
-              <h2>Em construçao...</h2>
-          </div>
-      </div>
+    <mat-step [stepControl]="caracteristicasForm">
+        <ng-template matStepLabel>Características</ng-template>
+        <div class="row">
+            <div class="col-sm">
+                <div class="col-xl" *ngFor="let caracteristica of caracteristicas">
+                    <ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
+                        <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.nome">{{ caracteristica.nome }}</mat-checkbox>
+                        
+                        <mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
+                            <mat-label>{{ caracteristica.nome }}</mat-label>
+                            <input matInput [formControlName]="caracteristica.nome" autocomplete="off" type="number" />
+                        </mat-form-field>
+                    
+                        <mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard" class="w-100">
+                            <mat-label>{{ caracteristica.nome }}</mat-label>
+                            <input matInput [formControlName]="caracteristica.nome" autocomplete="off" type="text" />
+                        </mat-form-field>
+
+                        <mat-form-field *ngSwitchCase="'selecao'" appearance="standard" class="w-100">
+                            <mat-label>{{ caracteristica.nome }}</mat-label>
+                            <mat-select [formControlName]="caracteristica.nome" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
+                                <mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
     </mat-step>
 
     <mat-step [stepControl]="enderecoForm">
@@ -58,7 +79,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>CEP</mat-label>
-                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" />
+                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" (blur)="validarCep()" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
@@ -70,7 +91,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Número</mat-label>
-                        <input formControlName="numero" autocomplete="off" matInput />
+                        <input formControlName="numero" autocomplete="off" matInput type="number" min="0" />
                     </mat-form-field>
                 </div>
             </div>
@@ -92,19 +113,23 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Estado</mat-label>
-                        <input formControlName="estado" matInput autocomplete="off" placeholder="Goiás" minlength="1" maxlength="200" />
+                        <mat-select formControlName="estado" matInput (selectionChange)="loadDistritoByEstado()">
+                            <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Cdidade</mat-label>
-                        <input formControlName="cidade" matInput autocomplete="off" placeholder="Goiânia" minlength="1" maxlength="200" />
+                        <mat-label>Cidade</mat-label>
+                        <mat-select formControlName="cidade" matInput>
+                            <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="lngLatPlace">
                 <div class="col">
-                    <maps></maps>
+                    <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
                 </div>
             </div>
         </form>
