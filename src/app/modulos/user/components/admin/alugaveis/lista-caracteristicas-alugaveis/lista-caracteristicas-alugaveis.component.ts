@@ -73,7 +73,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
     ];
     this.displayedColumns = ["id", "nome", "actions"];
-    this.actions = { editar: true, excluir: false, visualizar: false };
+    this.actions = { editar: false, excluir: false, visualizar: false };
   }
 
   private fetchAll() {
@@ -92,7 +92,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       propriedades: this.createForm.controls['propriedades'].value
     }
 
-    if (caracteristica.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+    if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
       caracteristica.tipo_campo.propriedades.possibilidades = this.possibilidadadesSelecao;
     }
 
@@ -100,14 +100,6 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       this.fetchAll();
       this.resetCreateForm();
       this.possibilidadadesSelecao = [];
-    });
-  }
-
-  public update() {
-    //console.log('Form: ', this.editForm);
-    this.caracteristicasService.update(this.editForm.value).subscribe((response) => {
-      this.caracteristica = null;
-      this.fetchAll();
     });
   }
 

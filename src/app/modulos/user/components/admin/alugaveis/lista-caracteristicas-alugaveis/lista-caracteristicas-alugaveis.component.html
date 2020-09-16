@@ -2,11 +2,10 @@
     [data]="data"
     [tableColumns]="tableColumns"
     [displayedColumns]="displayedColumns"
-    [actions]="actions"
-    (editar)="select($event)"></basic-table>
+    [actions]="actions"></basic-table>
 
-<div class="row mx-4">
-    <div class="col-xl p-1">
+<div class="row mx-3">
+    <div class="col-xl">
         <mat-card class="w-100">
             <mat-card-header>
                 <mat-card-title>Nova Caracteristica</mat-card-title>
@@ -47,7 +46,7 @@
         </mat-card>
     </div>
 
-    <div *ngIf="caracteristica" class="col-xl p-1">
+    <!-- <div *ngIf="caracteristica" class="col-xl p-1">
         <mat-card class="w-100">
             <mat-card-header>
                 <mat-card-title>Editar Caracteristica</mat-card-title>
@@ -86,5 +85,5 @@
                 </form>
             </mat-card-content>
         </mat-card>
-    </div>
+    </div> -->
 </div>
