@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MapsComponent } from './components/maps/maps.component';
 import { HeaderComponent } from './components/header/header.component';
+import { DropzoneComponent } from './components/dropzone/dropzone.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
@@ -14,6 +15,7 @@ import { ImgCircularComponent } from './components/img-circular/img-circular.com
 import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
+import { FormCreateFieldComponent } from './components/form-create-field/form-create-field.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
 import { CardItemAlugavelComponent } from './components/card-item-alugavel/card-item-alugavel.component';
 import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
@@ -54,7 +56,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DropzoneComponent } from './components/dropzone/dropzone.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
     ReservaCardComponent,
     CancelDialogComponent,
     PageableTableComponent,
+    FormCreateFieldComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
@@ -121,17 +123,18 @@ import { DropzoneComponent } from './components/dropzone/dropzone.component';
     MapsComponent,
     MdViewerComponent,
     ContratoComponent,
+    DropzoneComponent,
     BasicModalComponent,
     BasicTableComponent,
     ReactiveFormsModule,
     ImgCircularComponent,
+    ReservaCardComponent,
     CancelDialogComponent,
     PageableTableComponent,
+    FormCreateFieldComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
-    ReservaCardComponent,
-    DropzoneComponent,
 
     MatBadgeModule,
     MdePopoverModule,

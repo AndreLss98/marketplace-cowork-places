@@ -5,56 +5,82 @@
     [actions]="actions"
     (editar)="select($event)"></basic-table>
 
-<div id="cards-container">
-    <mat-card class="card">
-        <mat-card-header>
-            <mat-card-title>Nova Caracteristica</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form [formGroup]="createForm" (ngSubmit)="create()">
-                <mat-form-field appearance="legacy">
-                    <mat-label>Nome</mat-label>
-                    <input formControlName="nome" matInput placeholder="Nome" required>
-                </mat-form-field>
-                <mat-form-field appearance="legacy">
-                    <mat-label>Icone</mat-label>
-                    <mat-select formControlName="icone">
-                        <mat-option value="">Sem icone</mat-option>
-                        <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
-                            {{ icone.nome }}
-                            <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
-                            <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+<div class="row mx-4">
+    <div class="col-xl p-1">
+        <mat-card class="w-100">
+            <mat-card-header>
+                <mat-card-title>Nova Caracteristica</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="createForm" (ngSubmit)="create()">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Nome</mat-label>
+                                <input formControlName="nome" matInput autocomplete="off" placeholder="Nome" required />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Icone</mat-label>
+                                <mat-select formControlName="icone">
+                                    <mat-option value="">Sem icone</mat-option>
+                                    <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
+                                        {{ icone.nome }}
+                                        <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
+                                        <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button> -->
+                </form>
+                <form-create-field></form-create-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
 
-    <mat-card *ngIf="caracteristica" class="card">
-        <mat-card-header>
-            <mat-card-title>Editar Caracteristica</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form [formGroup]="editForm" (ngSubmit)="update()">
-                <mat-form-field appearance="legacy">
-                    <mat-label>Nome</mat-label>
-                    <input matInput formControlName="nome" placeholder="Nome" required>
-                </mat-form-field>
-                <mat-form-field appearance="legacy">
-                    <mat-label>Icones</mat-label>
-                    <mat-select formControlName="icone">
-                        <mat-option value="">Sem icone</mat-option>
-                        <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
-                            {{ icone.nome }}
-                            <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
-                            <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+    <div *ngIf="caracteristica" class="col-xl p-1">
+        <mat-card class="w-100">
+            <mat-card-header>
+                <mat-card-title>Editar Caracteristica</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="editForm" (ngSubmit)="update()">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Nome</mat-label>
+                                <input matInput formControlName="nome" autocomplete="off" placeholder="Nome" required />
+                            </mat-form-field>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <mat-label>Icones</mat-label>
+                                <mat-select formControlName="icone">
+                                    <mat-option value="">Sem icone</mat-option>
+                                    <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
+                                        {{ icone.nome }}
+                                        <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
+                                        <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <button
+                        mat-flat-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="editForm.invalid || editForm.pristine">Atualizar</button> -->
+                </form>
+                <form-create-field></form-create-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

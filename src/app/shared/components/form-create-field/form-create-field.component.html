@@ -1,0 +1,63 @@
+<form [formGroup]="fieldForm">
+    <div class="row">
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Tipo de Pergunta</mat-label>
+                <mat-select formControlName="tipo_campo" matNativeControl>
+                    <mat-option *ngFor="let tipo of tipos_campo" [value]="tipo">{{tipo | uppercase}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl" *ngFor="let field of propriedadeFields">
+            <ng-container [ngSwitch]="field.type" [formGroup]="fieldForm.controls['propriedades']">
+                <mat-checkbox *ngSwitchCase="'boolean'" [formControlName]="field.name">{{ field.label }}</mat-checkbox>
+                
+                <mat-form-field *ngSwitchCase="'number'" appearance="standard" class="w-100">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input matInput [formControlName]="field.name" autocomplete="off" [type]="field.type" />
+                </mat-form-field>
+            
+                <mat-form-field *ngSwitchCase="'text'" appearance="standard" class="w-100">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input matInput [formControlName]="field.name" autocomplete="off" [type]="field.type" />
+                </mat-form-field>
+            </ng-container>
+        </div>
+    </div>
+    <div *ngIf="fieldForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome">
+        <div class="row">
+            <div class="col-10">
+                <mat-form-field appearance="standard" class="w-100">
+                    <mat-label>Valor possível para seleção</mat-label>
+                    <input #possibilidade matInput type="text" required />
+                </mat-form-field>
+            </div>
+            <div class="col-2 align-self-center">
+                <button class="w-100"
+                type="button"
+                mat-raised-button
+                color="primary"
+                (click)="adicionarPossibilidade(possibilidade.value); possibilidade.value = ''"
+                [disabled]="!possibilidade.value">Adicionar</button>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="fieldForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidades && possibilidades.length">
+        <div class="row" *ngFor="let possibilidade of possibilidades; let i = index">
+            <div class="col-10">
+                <mat-form-field appearance="standard" class="w-100">
+                    <input matInput [value]="possibilidade.valor" type="text" readonly />
+                </mat-form-field>
+            </div>
+            <div class="col-2 align-self-center">
+                <button class="w-100"
+                    type="button"
+                    mat-raised-button
+                    class="danger"
+                    (click)="removePossibilidade(i)">Remover</button>
+            </div>
+        </div>
+    </ng-container>
+</form>
