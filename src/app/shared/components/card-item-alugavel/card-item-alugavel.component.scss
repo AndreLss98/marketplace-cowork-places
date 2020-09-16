@@ -11,8 +11,10 @@
     border-radius: 25px 25px 15px 15px;
     width: 315px;
     max-width: 350px;
-    height: 510px;
-    margin-bottom: 20px;
+    height: 500px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
     // border: none;
 }
 
@@ -23,7 +25,8 @@
 }
 
 .cardItem{
-    margin: 10px 16px auto 16px;
+    justify-content: start;
+    padding-top: 7px;
 }
 
 .carouselImage{
