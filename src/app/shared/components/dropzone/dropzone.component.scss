@@ -1,0 +1,15 @@
+@import '../../../../place-et-theme.scss';
+
+#dropzone {
+    border: 1px;
+    border-style: dashed;
+}
+
+#dropzone:hover {
+    border-color: $pl-verde-escuro;
+    color: $pl-verde-escuro;
+}
+
+span:hover {
+    text-decoration: underline;
+}

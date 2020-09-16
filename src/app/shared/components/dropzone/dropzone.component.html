@@ -1,0 +1,21 @@
+<div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">
+    Clique ou arraste uma imagem
+</div>
+
+<input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
+
+<div class="row my-2" *ngFor="let file of files; let i = index">
+    <div class="col-2">
+        <img [src]="file.src" class="rounded mh-100 mw-100" />
+    </div>
+    <div class="col align-self-center">
+        <p class="font-weight-bold">{{file.object.name}}</p>
+        <p>
+            <span *ngIf="file.success || file.error" class="text-danger mr-1 cursor-pointer" (click)="removeFile(i)">Excluir</span>
+            <span *ngIf="file.error" class="text-primary cursor-pointer" (click)="sendImg(file)">Reenviar</span>
+        </p>
+    </div>
+    <div *ngIf="!file.success && !file.error" class="col-2 align-self-center">
+        <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+    </div>
+</div>
