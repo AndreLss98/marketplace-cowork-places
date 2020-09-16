@@ -37,7 +37,8 @@
             <div class="cardItem">
                 <span class="endereco"><mat-icon>location_on</mat-icon> {{data.local.rua}} - {{data.local.cidade}} - {{data.local.estado}}</span>
             </div>
-    
+
+            
             <div class="d-flex flex-row justify-content-between cardItem">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                     <span class="material-icons">aspect_ratio</span>
@@ -56,15 +57,15 @@
                     <p class="caracteristica">Internet</p>
                 </div>
             </div>
+
+            
+                <div class="d-flex justify-content-between"
+                    style="margin-bottom: 7px; padding-top: 7px; border-top: 1px solid #858585;">
+                    <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
+                    <span style="font-size: 14px; font-weight: bold;">{{custoDia()}}</span>
+                </div>
+            
             
         </mat-card-content>
-    
-        <div style="position: absolute; bottom: 0; width: 91%;">
-            <div class="d-flex justify-content-between"
-                style="padding-bottom: 15px; padding-top: 7px; border-top: 1px solid #858585;">
-                <span style="font-size: 14px; font-weight: bold;">INVESTIMENTO/DIA</span>
-                <span style="font-size: 14px; font-weight: bold;">{{custoDia()}}</span>
-            </div>
-        </div>
     </div>
 </mat-card>

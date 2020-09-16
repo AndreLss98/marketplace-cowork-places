@@ -7,7 +7,6 @@
     border-radius: 25px 25px 15px 15px;
     max-width: 350px;
     margin-bottom: 20px;
-    display: inline-table;
 }
 
 .avatar {
@@ -29,4 +28,26 @@
 
 mat-card mat-card-content div span.subtitle {
     font-weight: 500;
+}
+
+.status{
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.content{
+    font-size: 14px;
+}
+
+@media(max-width: 1215px){
+    #divCards {
+        display: flex;        
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .card{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
 }
