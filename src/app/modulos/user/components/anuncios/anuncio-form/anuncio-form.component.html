@@ -94,7 +94,7 @@
             <ng-container *ngFor="let documento of documentos">
                 <div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
                     <div class="col">
-                        <dropzone [url]="sendDocsUrl" [label]="documento.nome"></dropzone>
+                        <dropzone [url]="sendDocsUrl" [label]="documento.nome" [single]="true" [customFields]="[{ fieldName: 'nome', value: documento.nome }]"></dropzone>
                     </div>
                 </div>
             </ng-container>

@@ -40,9 +40,9 @@ export class AnuncioFormComponent implements OnInit {
   public distritos;
   public documentosForm: FormGroup;
   public documentos = [
-    { proprietario: null, nome: "Escritura pública ou contrato de alienação" },
-    { proprietario: false, nome: "Contrato de locação" },
-    { proprietario: false, nome: "Documento com foto e CPF do proprietário" },
+    { proprietario: null, nome: "Escritura pública ou contrato de alienação", id: null },
+    { proprietario: false, nome: "Contrato de locação", id: null },
+    { proprietario: false, nome: "Documento com foto e CPF do proprietário", id: null },
   ];
   public valoresForm: FormGroup;
 

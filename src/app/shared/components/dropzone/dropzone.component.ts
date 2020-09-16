@@ -1,5 +1,10 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+
+export interface customFormField {
+  fieldName: string;
+  value: any;
+}
 
 export interface displayFile {
   src: any;
@@ -15,14 +20,23 @@ export interface displayFile {
 })
 export class DropzoneComponent implements OnInit {
 
+  @ViewChild('dropzone', { static: true })
+  public dropzone: ElementRef;
+
   @Input('url')
   public url: string;
 
   @Input('label')
-  public label: string = 'Clique ou arraste uma ou mais imagens';
+  public label: string;
 
-  @ViewChild('dropzone', { static: true })
-  public dropzone: ElementRef;
+  @Input('single')
+  public singleFile: boolean = false;
+
+  @Input('fileField')
+  public fileField: string = 'file';
+
+  @Input('customFields')
+  public customFields: customFormField[] = [];
 
   public files: displayFile[] = [];
 
@@ -30,7 +44,9 @@ export class DropzoneComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.label = this.singleFile && !this.label? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
+  }
 
   ngAfterViewInit() {
     this.dropzone.nativeElement.addEventListener('drop', (event) => {
@@ -44,8 +60,10 @@ export class DropzoneComponent implements OnInit {
     });
   }
 
+  // index < this.singleFile? files.length : 1
+
   public handleFiles(files) {
-    for (let index = 0; index < files.length; index++) {
+    for (let index = 0; this.singleFile? index < 1 : index < files.length ; index++) {
       let reader = new FileReader();
       reader.readAsDataURL(files[index]);
       reader.onload = (read) => {
@@ -54,16 +72,24 @@ export class DropzoneComponent implements OnInit {
           object: files[index]
         };
         this.files.push(file);
-        this.sendImg(file);
+        this.sendFile(file);
       }
     }
   }
 
-  public sendImg(file: displayFile) {
+  public sendFile(file: displayFile) {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    
     const form = new FormData();
-    form.append('file', file.object, file.object.name);
+    form.append(this.fileField, file.object, file.object.name);
+
+    this.customFields.forEach(field => {
+      form.append(field.fieldName, field.value)
+    });
 
     this.http.post(this.url, form, {
+      headers,
       reportProgress: true,
       observe: 'events'
     }).subscribe((event) => {

@@ -10,7 +10,7 @@
         <p class="font-weight-bold">{{file.object.name}}</p>
         <p>
             <span *ngIf="file.success || file.error" class="text-danger mr-1 cursor-pointer" (click)="removeFile(i)">Excluir</span>
-            <span *ngIf="file.error" class="text-primary cursor-pointer" (click)="sendImg(file)">Reenviar</span>
+            <span *ngIf="file.error" class="text-primary cursor-pointer" (click)="sendFile(file)">Reenviar</span>
         </p>
     </div>
     <div *ngIf="!file.success && !file.error" class="col-2 align-self-center">
