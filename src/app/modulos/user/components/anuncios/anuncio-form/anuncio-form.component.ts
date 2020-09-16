@@ -143,7 +143,6 @@ export class AnuncioFormComponent implements OnInit {
       });
 
       this.ibgeService.getMunicipioPorId(response['ibge']).subscribe( data => {
-        console.log(data);
         this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].id);
         this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].id);
         this.enderecoForm.controls['estado'].disable();
