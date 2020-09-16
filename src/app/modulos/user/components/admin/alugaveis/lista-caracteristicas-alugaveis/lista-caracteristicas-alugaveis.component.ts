@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
@@ -56,7 +56,9 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     this.editForm = formBuilder.group({
       id: [null, Validators.required],
       nome: ["", Validators.required],
-      icone: [""]
+      icone: [""],
+      tipo_campo: ['', [Validators.required]],
+      propriedades: ['']
     });
   }
 
@@ -78,7 +80,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     this.caracteristicasService.getAll().subscribe((response: any) => {
       this.data = response;
     }, (error) => {
-      //console.log("Fetch error: ", error);
+      console.log("Fetch error: ", error);
     });
   }
 
@@ -102,22 +104,36 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public update() {
-    if (this.editForm.valid) {
-      //console.log('Form: ', this.editForm);
-      this.caracteristicasService.update(this.editForm.value).subscribe((response) => {
-        this.caracteristica = null;
-        this.fetchAll();
-      });
-    }
+    //console.log('Form: ', this.editForm);
+    this.caracteristicasService.update(this.editForm.value).subscribe((response) => {
+      this.caracteristica = null;
+      this.fetchAll();
+    });
   }
 
   public select(event) {
+    let propriedadesGroup = {};
     this.caracteristica = this.data.find(element => element.id === event.id);
+
+    if (this.caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+      this.possibilidadadesSelecao = this.caracteristica.tipo_campo.propriedades.possibilidades;
+      delete this.caracteristica.tipo_campo.propriedades.possibilidades;
+    }
+
     this.editForm.reset({
       id: this.caracteristica.id,
       nome: this.caracteristica.nome,
-      icone: this.caracteristica.icone? this.caracteristica.icone : ""
+      icone: this.caracteristica.icone? this.caracteristica.icone : "",
+      tipo_campo: this.caracteristica.tipo_campo.tipo.toUpperCase()
     });
+
+    Object.keys(TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos).forEach(campo => {
+      let field = TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos[campo];
+      field.name = campo;
+      propriedadesGroup[campo] = field.required ? new FormControl(this.caracteristica.tipo_campo.propriedades[campo], [Validators.required]) : new FormControl(this.caracteristica.tipo_campo.propriedades[campo]);
+    });
+
+    this.editForm.controls['propriedades'] = new FormGroup(propriedadesGroup);
   }
 
   private resetCreateForm() {
