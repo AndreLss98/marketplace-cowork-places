@@ -18,6 +18,9 @@ export class DropzoneComponent implements OnInit {
   @Input('url')
   public url: string;
 
+  @Input('label')
+  public label: string = 'Clique ou arraste uma ou mais imagens';
+
   @ViewChild('dropzone', { static: true })
   public dropzone: ElementRef;
 

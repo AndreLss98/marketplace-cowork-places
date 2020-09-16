@@ -1,6 +1,4 @@
-<div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">
-    Clique ou arraste uma imagem
-</div>
+<div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">{{label}}</div>
 
 <input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
 

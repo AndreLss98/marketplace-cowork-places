@@ -1,5 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
@@ -7,11 +8,10 @@ import { environment } from 'src/environments/environment';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ViacepService } from 'src/app/shared/service/viacep.service';
-import { MapsService } from 'src/app/shared/service/maps.service';
+import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP } from 'src/app/shared/constants/functions';
 import { IbgeService } from 'src/app/shared/service/ibge.service';
+import { MapsService } from 'src/app/shared/service/maps.service';
+import { ViacepService } from 'src/app/shared/service/viacep.service';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -21,9 +21,11 @@ import { IbgeService } from 'src/app/shared/service/ibge.service';
 export class AnuncioFormComponent implements OnInit {
 
   readonly sendImgsUrl = `${environment.apiUrl}/alugaveis/imagem`;
+  readonly sendDocsUrl = `${environment.apiUrl}/alugaveis/documentos`;
 
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;
+  readonly formatCEP = formatCEP;
 
   public tipos = [];
   public maxTax: number;
@@ -37,6 +39,11 @@ export class AnuncioFormComponent implements OnInit {
   public estados;
   public distritos;
   public documentosForm: FormGroup;
+  public documentos = [
+    { proprietario: null, nome: "Escritura pública ou contrato de alienação" },
+    { proprietario: false, nome: "Contrato de locação" },
+    { proprietario: false, nome: "Documento com foto e CPF do proprietário" },
+  ];
   public valoresForm: FormGroup;
 
   constructor(
@@ -120,7 +127,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public validarCep() {
-    this.cepService.validaCep(this.enderecoForm.controls['cep'].value).subscribe( response => {
+    this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value)).subscribe( response => {
       this.lngLatPlace = null;
       this.enderecoForm.controls['estado'].enable();
         this.enderecoForm.controls['cidade'].enable();

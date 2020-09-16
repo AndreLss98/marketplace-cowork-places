@@ -30,6 +30,17 @@ export function desformatMoneyValue(value: string) {
     return Number(value.replace(/\D/g, ''));
 }
 
+export function formatCEP(value: string) {
+    return value
+        .replace(/\D/g, '')
+        .replace(/^([0-9]{2})([0-9]{1,})/, '$1.$2')
+        .replace(/^([0-9]{2}\.[0-9]{3})([0-9]{1,})/, '$1.$2');
+}
+
+export function desformatCEP(value: string) {
+    return value.replace(/\D/g, '');
+}
+
 export function translateBoolValue(value): string {
     return value? "Sim" : "Não";
 }

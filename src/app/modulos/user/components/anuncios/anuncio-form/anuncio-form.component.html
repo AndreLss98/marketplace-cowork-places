@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label style="font-size: 15px;"></mat-label>
+                        <mat-label style="font-size: .8rem;"></mat-label>
                         <textarea maxlength="500"
                             matInput cdkTextareaAutosize
                             #autosize="cdkTextareaAutosize"
@@ -72,6 +72,35 @@
         </div>
     </mat-step>
 
+    <mat-step [stepControl]="documentosForm">
+        <form [formGroup]="documentosForm">
+            <ng-template matStepLabel>Documentos</ng-template>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Você é o proprietário do espaço ?</mat-label>
+                        <mat-select formControlName="proprietario" matInput required>
+                            <mat-option [value]="true">Sim</mat-option>
+                            <mat-option [value]="false">Não</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="documentosForm.controls['proprietario'].value !== null">
+                <div class="col">
+                    <h4 class="text-center">Nós envie os documentos abaixo</h4>
+                </div>
+            </div>
+            <ng-container *ngFor="let documento of documentos">
+                <div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
+                    <div class="col">
+                        <dropzone [url]="sendDocsUrl" [label]="documento.nome"></dropzone>
+                    </div>
+                </div>
+            </ng-container>
+        </form>
+    </mat-step>
+
     <mat-step [stepControl]="enderecoForm">
         <form [formGroup]="enderecoForm">
             <ng-template matStepLabel>Endereço</ng-template>
@@ -79,7 +108,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>CEP</mat-label>
-                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" (blur)="validarCep()" />
+                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" (blur)="validarCep()" (input)="formatField('cep', enderecoForm, formatCEP)" />
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
@@ -130,28 +159,6 @@
             <div class="row" *ngIf="lngLatPlace">
                 <div class="col">
                     <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
-                </div>
-            </div>
-        </form>
-    </mat-step>
-
-    <mat-step [stepControl]="documentosForm">
-        <form [formGroup]="documentosForm">
-            <ng-template matStepLabel>Documentos</ng-template>
-            <div class="row justify-content-center">
-                <div class="col-10">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Você é o proprietário do espaço ?</mat-label>
-                        <mat-select formControlName="proprietario" matInput required>
-                            <mat-option value="true">Sim</mat-option>
-                            <mat-option value="false">Não</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <h2>Em construçao...</h2>
                 </div>
             </div>
         </form>
