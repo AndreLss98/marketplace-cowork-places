@@ -77,13 +77,13 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <!-- <button
+                    <form-create-field [(original-form)]="editForm" [(possibilidades)]="possibilidadadesSelecao" [editMode]="true"></form-create-field>
+                    <button
                         mat-flat-button
                         color="primary"
                         type="submit"
-                        [disabled]="editForm.invalid || editForm.pristine">Atualizar</button> -->
+                        [disabled]="editForm.invalid || editForm.pristine || (editForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Atualizar</button>
                 </form>
-                <form-create-field></form-create-field>
             </mat-card-content>
         </mat-card>
     </div>
