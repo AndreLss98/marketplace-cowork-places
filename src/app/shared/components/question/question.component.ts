@@ -14,8 +14,6 @@ export class QuestionComponent implements OnInit {
   @Input() form: FormGroup;
   public propriedades;
 
-  get isValid() { return this.form.controls[this.question.nome_campo].valid; }
-
   constructor() {
     
   }

@@ -36,9 +36,13 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <!-- <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid ||createForm.pristine">Criar</button> -->
+                    <form-create-field [(original-form)]="createForm" [(possibilidades)]="possibilidadadesSelecao"></form-create-field>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        type="submit"
+                        [disabled]="createForm.invalid ||createForm.pristine || (createForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Criar</button>
                 </form>
-                <form-create-field></form-create-field>
             </mat-card-content>
         </mat-card>
     </div>

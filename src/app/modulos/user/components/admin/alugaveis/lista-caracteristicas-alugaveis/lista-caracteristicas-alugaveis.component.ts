@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
+
 import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
+
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
@@ -11,9 +14,13 @@ import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic
 })
 export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent implements OnInit {
 
+  readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
+
   public caracteristica;
   public editForm: FormGroup;
   public createForm: FormGroup;
+
+  public possibilidadadesSelecao = [];
 
   public icones = [
     {
@@ -41,13 +48,15 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
 
     this.createForm = formBuilder.group({
       nome: ["", Validators.required],
-      icone: [""]
+      icone: [""],
+      tipo_campo: ['', [Validators.required]],
+      propriedades: ['']
     });
 
     this.editForm = formBuilder.group({
       id: [null, Validators.required],
       nome: ["", Validators.required],
-      icone: [""],
+      icone: [""]
     });
   }
 
@@ -70,13 +79,25 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       this.data = response;
     }, (error) => {
       //console.log("Fetch error: ", error);
-    });    
+    });
   }
 
   public create() {
-    this.caracteristicasService.save(this.createForm.value).subscribe((response) => {
-      this.resetCreateForm();
+    let caracteristica = this.createForm.value;
+    delete caracteristica.propriedades;
+    caracteristica.tipo_campo = {
+      tipo: this.createForm.controls['tipo_campo'].value.toLowerCase(),
+      propriedades: this.createForm.controls['propriedades'].value
+    }
+
+    if (caracteristica.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+      caracteristica.tipo_campo.propriedades.possibilidades = this.possibilidadadesSelecao;
+    }
+
+    this.caracteristicasService.save(caracteristica).subscribe((response) => {
       this.fetchAll();
+      this.resetCreateForm();
+      this.possibilidadadesSelecao = [];
     });
   }
 
@@ -96,12 +117,15 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       id: this.caracteristica.id,
       nome: this.caracteristica.nome,
       icone: this.caracteristica.icone? this.caracteristica.icone : ""
-    })
+    });
   }
 
   private resetCreateForm() {
     this.createForm.reset({
-      nome: ""
-    })
+      nome: "",
+      icone: "",
+      tipo_campo: "",
+      propriedades: ""
+    });
   }
 }

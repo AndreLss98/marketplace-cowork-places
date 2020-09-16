@@ -1,4 +1,4 @@
-<form [formGroup]="fieldForm">
+<form [formGroup]="original_form">
     <div class="row">
         <div class="col">
             <mat-form-field appearance="standard" class="w-100">
@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl" *ngFor="let field of propriedadeFields">
-            <ng-container [ngSwitch]="field.type" [formGroup]="fieldForm.controls['propriedades']">
+        <div class="col-xl" *ngFor="let field of propriedadesFields">
+            <ng-container [ngSwitch]="field.type" [formGroup]="propriedadesForm">
                 <mat-checkbox *ngSwitchCase="'boolean'" [formControlName]="field.name">{{ field.label }}</mat-checkbox>
                 
                 <mat-form-field *ngSwitchCase="'number'" appearance="standard" class="w-100">
