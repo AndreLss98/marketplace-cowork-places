@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
+import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 import { TiposService } from 'src/app/shared/service/tipos.service';
+import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.service';
+
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
-import { translateBoolValue } from 'src/app/shared/constants/functions';
+
 
 @Component({
   selector: 'lista-tipos-alugaveis',
@@ -17,6 +21,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
   public tipo;
   public editForm: FormGroup;
   public createForm: FormGroup;
+  public caracteristicas = [];
 
   public icones = [
     'mesas.jpg',
@@ -30,9 +35,14 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private tiposServive: TiposService
+    private tiposServive: TiposService,
+    private caracteristicasService: CaracteristicasService
   ) {
     super();
+
+    this.caracteristicasService.getAll().subscribe(response => {
+      this.caracteristicas = response;
+    });
 
     this.editForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
@@ -46,7 +56,8 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
       icone: ["", [Validators.required]],
-      descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]]
+      descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
+      caracteristicas: [null, [Validators.required]]
     });
   }
 
