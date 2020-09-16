@@ -43,8 +43,6 @@ export class FormCreateFieldComponent implements OnInit {
     });
     this.fieldForm.controls.propriedades = new FormGroup(group);
     this.propriedadeFields = fields;
-    console.log(this.fieldForm);
-    console.log(this.propriedadeFields)
   }
 
   public adicionarPossibilidade(valor) {
