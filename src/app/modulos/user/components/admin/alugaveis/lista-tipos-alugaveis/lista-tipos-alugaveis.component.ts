@@ -77,7 +77,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       }
     ];
     this.displayedColumns = ["nome", "disponibilidade", "actions"];
-    this.actions = { editar: true, excluir: true, visualizar: false };
+    this.actions = { editar: false, excluir: true, visualizar: false };
   }
 
   private fetchAll() {
