@@ -25,101 +25,99 @@
             *ngIf="alugavel.anunciante_avaliado !== USUARIO_STATUS.APPROVED.value">O anunciante não possui o cadastro
             validado! Visualizar anunciante.</h3>
         <h4>Descrição</h4>
-<!--        <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>-->
-        <table = class="table">
-            <div class="row">
-                <div class="col-sm">
+        <!--<span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>-->
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab [label]="'Valor'">
+                <table>
+                    <div class="row">
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Valor Diário</mat-card-title>
+                                <div>R$ {{alugavel.valor}}</div>
+                            </mat-card>
+                        </div>
 
-                    <mat-form-field appearance="legacy" class="100">
-                        <mat-label>Valor Diário</mat-label>
-                        <input matInput [value]="'R$ ' + alugavel.valor" readonly />
-                    </mat-form-field>
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Valor Mensal</mat-card-title>
+                                <div>R$ {{alugavel.valor_mes}}</div>
+                            </mat-card>
+                        </div>
+                    </div>
+                </table>
+            </mat-tab>
 
-                </div>
-                <div class="col-sm">
+            <mat-tab [label]="'Endereço'">
+                <table>
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Bairro</mat-card-title>
+                                <div>{{alugavel.local.bairro}}</div>
+                            </mat-card>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Rua</mat-card-title>
+                                <div>{{alugavel.local.rua}}</div>
+                            </mat-card>
+        
+                        </div>
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Número</mat-card-title>
+                                <div>{{alugavel.local.numero}}</div>
+                            </mat-card>
+        
+                        </div>
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>CEP</mat-card-title>
+                                <div>{{alugavel.local.cep}}</div>
+                            </mat-card>
+        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Complemento</mat-card-title>
+                                <div>{{alugavel.local.complemento}}</div>
+                            </mat-card>
+        
+                        </div>
+        
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>País</mat-card-title>
+                                <div>{{alugavel.local.pais}}</div>
+                            </mat-card>
+        
+                        </div>
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Cidade</mat-card-title>
+                                <div>{{alugavel.local.pais}}</div>
+                            </mat-card>
+        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                            <mat-card class="cardInfo">
+                                <mat-card-title>Estado</mat-card-title>
+                                <div>{{alugavel.local.estado}}</div>
+                            </mat-card>
+        
+                        </div>
+                    </div>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
 
-                    <mat-form-field appearance="legacy" class="100">
-                        <mat-label>Valor Mensal</mat-label>
-                        <input matInput [value]="'R$ ' + alugavel.valor_mes" readonly />
-                    </mat-form-field>
-
-                </div>
-                <div class="col-sm">
-
-                    <mat-form-field appearance="legacy" class="100">
-                        <mat-label>Bairro</mat-label>
-                        <input matInput [value]="alugavel.local.bairro" readonly />
-                    </mat-form-field>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <td>
-                        <mat-form-field appearance="legacy">
-                            <mat-label>Rua</mat-label>
-                            <input matInput [value]="alugavel.local.rua" readonly />
-                        </mat-form-field>
-                    </td>
-                </div>
-                <div class="col-sm">
-                    <td>
-                        <mat-form-field appearance="legacy">
-                            <mat-label>Número</mat-label>
-                            <input matInput [value]="alugavel.local.numero" readonly />
-                        </mat-form-field>
-                    </td>
-                </div>
 
 
-                <div class="col-sm">
-                    <td>
-                        <mat-form-field appearance="legacy">
-                            <mat-label>CEP</mat-label>
-                            <input matInput [value]="alugavel.local.cep" readonly />
-                        </mat-form-field>
-                    </td>
-                </div>
-            </div>
-            <div class="col-sm">
-                <td>
-                    <mat-form-field appearance="legacy">
-                        <mat-label>Complemento</mat-label>
-                        <input matInput [value]="alugavel.local.complemento" readonly />
-                    </mat-form-field>
-                </td>
-            </div>
-            <div class="col-sm">
-                <td>
-                    <mat-form-field appearance="legacy">
-                        <mat-label>País</mat-label>
-                        <input matInput [value]="alugavel.local.pais" readonly />
-                    </mat-form-field>
-                </td>
-            </div>
-            <div class="col-sm">
-                <td>
-                    <mat-form-field appearance="legacy">
-                        <mat-label>Cidade</mat-label>
-                        <input matInput [value]="alugavel.local.cidade" readonly />
-                    </mat-form-field>
-                </td>
-            </div>
-            <div class="col-sm">
-                <td>
-                    <mat-form-field appearance="legacy">
-                        <mat-label>Estado</mat-label>
-                        <input matInput [value]="alugavel.local.estado" readonly />
-                    </mat-form-field>
-                </td>
-            </div>
-        </table>
-        <table *ngIf="alugavel.local">
-
-        </table>
-        <table *ngIf="alugavel.local">
-
-        </table>
     </mat-card-content>
 </mat-card>
 
