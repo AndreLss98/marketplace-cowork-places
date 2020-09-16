@@ -27,150 +27,163 @@
         <h4>Descrição</h4>
         <!--<span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>-->
         <mat-tab-group mat-align-tabs="center">
-            <mat-tab [label]="'Valor'">
-                <table>
-                    <div class="row">
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Valor Diário</mat-card-title>
-                                <div>R$ {{alugavel.valor}}</div>
-                            </mat-card>
-                        </div>
+            <mat-tab [label]="'Valor'" >
+                <div class="container d-flex justify-content-around">
+                    <table>
+                        <div class="row">
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Valor Diário</mat-card-title>
+                                    <div class="content">R$ {{alugavel.valor}}</div>
+                                </mat-card>
+                            </div>
 
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Valor Mensal</mat-card-title>
-                                <div>R$ {{alugavel.valor_mes}}</div>
-                            </mat-card>
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Valor Mensal</mat-card-title>
+                                    <div class="content">R$ {{alugavel.valor_mes}}</div>
+                                </mat-card>
+                            </div>
                         </div>
-                    </div>
-                </table>
+                    </table>
+                </div>
             </mat-tab>
 
             <mat-tab [label]="'Endereço'">
-                <table>
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Bairro</mat-card-title>
-                                <div>{{alugavel.local.bairro}}</div>
-                            </mat-card>
+                <div class="container d-flex justify-content-around">
+                    <table>
+                        <div class="row">
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Rua</mat-card-title>
+                                    <div class="content">{{alugavel.local.rua}}</div>
+
+                                </mat-card>
+                            </div>
+
+
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Número</mat-card-title>
+                                    <div class="content">{{alugavel.local.numero}}</div>
+                                </mat-card>
+
+                            </div>
                         </div>
-                    
-                    <div class="row">
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Rua</mat-card-title>
-                                <div>{{alugavel.local.rua}}</div>
-                            </mat-card>
-        
+                        <div class="row">
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Complemento</mat-card-title>
+                                    <div class="content">{{alugavel.local.complemento}}</div>
+                                </mat-card>
+
+                            </div>
+
+
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Bairro</mat-card-title>
+                                    <div class="content">{{alugavel.local.bairro}}</div>
+                                </mat-card>
+
+                            </div>
                         </div>
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Número</mat-card-title>
-                                <div>{{alugavel.local.numero}}</div>
-                            </mat-card>
-        
+                        <div class="row">
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">CEP</mat-card-title>
+                                    <div class="content">{{alugavel.local.cep}}</div>
+                                </mat-card>
+
+                            </div>
+
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Cidade</mat-card-title>
+                                    <div class="content">{{alugavel.local.cidade}}</div>
+
+                                </mat-card>
+
+                            </div>
                         </div>
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>CEP</mat-card-title>
-                                <div>{{alugavel.local.cep}}</div>
-                            </mat-card>
-        
+                        <div class="row">
+
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">Estado</mat-card-title>
+                                    <div class="content">{{alugavel.local.estado}}</div>
+                                </mat-card>
+
+                            </div>
+
+
+                            <div class="col-lg d-flex justify-content-around">
+                                <mat-card class="cardInfo">
+                                    <mat-card-title class="title">País</mat-card-title>
+                                    <div class="content">{{alugavel.local.pais}}</div>
+                                </mat-card>
+
+                            </div>
                         </div>
+                    </table>
+                </div>
+            </mat-tab>
+
+            <mat-tab [label]="'Caracteristicas'"
+                *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
+                <mat-card-content>
+                    <mat-table [dataSource]="alugavel.caracteristicas">
+                        <ng-container matColumnDef="caracteristica">
+                            <mat-header-cell *matHeaderCellDef> Caracteristica </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="valor">
+                            <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.valor}}</mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                </mat-card-content>
+            </mat-tab>
+
+            <mat-tab [label]="'Imagens'" *ngIf="alugavel.imagens && alugavel.imagens.length">
+
+                <mat-card-title>Imagens</mat-card-title>
+                <mat-card-content>
+                    <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
+                        <mat-card class="imgCard" *ngFor="let foto of alugavel.imagens; index as i">
+                            <img class="w-100 h-100" [src]="backURL + 'imgs/' + foto.url">
+                        </mat-card>
                     </div>
-                    <div class="row">
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Complemento</mat-card-title>
-                                <div>{{alugavel.local.complemento}}</div>
-                            </mat-card>
-        
-                        </div>
-        
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>País</mat-card-title>
-                                <div>{{alugavel.local.pais}}</div>
-                            </mat-card>
-        
-                        </div>
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Cidade</mat-card-title>
-                                <div>{{alugavel.local.pais}}</div>
-                            </mat-card>
-        
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg">
-                            <mat-card class="cardInfo">
-                                <mat-card-title>Estado</mat-card-title>
-                                <div>{{alugavel.local.estado}}</div>
-                            </mat-card>
-        
-                        </div>
-                    </div>
-                </table>
+                </mat-card-content>
+
+            </mat-tab>
+            <mat-tab [label]="'Documentos'" *ngIf="alugavel.documentos && alugavel.documentos.length > 0">
+
+                <mat-card-content>
+                    <mat-table [dataSource]="alugavel.documentos" class="mat-elevation-z8">
+                        <ng-container matColumnDef="documento">
+                            <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <a mat-stroked-button color="primary" target="_blank"
+                                    [href]="backURL + 'docs/' + element.url">Visualizar</a>
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedDocumentsColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedDocumentsColumns;"></mat-row>
+                    </mat-table>
+                </mat-card-content>
+
             </mat-tab>
         </mat-tab-group>
-
-
-
-    </mat-card-content>
-</mat-card>
-
-<mat-card *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
-    <mat-card-title>Caracteristicas</mat-card-title>
-    <mat-card-content>
-        <mat-table [dataSource]="alugavel.caracteristicas">
-            <ng-container matColumnDef="caracteristica">
-                <mat-header-cell *matHeaderCellDef> Caracteristica </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="valor">
-                <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.valor}}</mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-    </mat-card-content>
-</mat-card>
-
-<mat-card *ngIf="alugavel.imagens && alugavel.imagens.length">
-    <mat-card-title>Imagens</mat-card-title>
-    <mat-card-content>
-        <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
-            <mat-card class="imgCard" *ngFor="let foto of alugavel.imagens; index as i">
-                <img class="w-100 h-100" [src]="backURL + 'imgs/' + foto.url">
-            </mat-card>
-        </div>
-    </mat-card-content>
-</mat-card>
-
-<mat-card *ngIf="alugavel.documentos && alugavel.documentos.length > 0">
-    <mat-card-title>Documentos</mat-card-title>
-    <mat-card-content>
-        <mat-table [dataSource]="alugavel.documentos" class="mat-elevation-z8">
-            <ng-container matColumnDef="documento">
-                <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <a mat-stroked-button color="primary" target="_blank"
-                        [href]="backURL + 'docs/' + element.url">Visualizar</a>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedDocumentsColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedDocumentsColumns;"></mat-row>
-        </mat-table>
     </mat-card-content>
 </mat-card>
