@@ -40,9 +40,9 @@ export class AnuncioFormComponent implements OnInit {
   public distritos;
   public documentosForm: FormGroup;
   public documentos = [
-    { proprietario: null, nome: "Escritura pública ou contrato de alienação", id: null },
-    { proprietario: false, nome: "Contrato de locação", id: null },
-    { proprietario: false, nome: "Documento com foto e CPF do proprietário", id: null },
+    { proprietario: null, nome: "Escritura pública ou contrato de alienação", nome_campo: 'escritura' },
+    { proprietario: false, nome: "Contrato de locação", nome_camp: 'contrato' },
+    { proprietario: false, nome: "Documento com foto e CPF do proprietário", nome_camp: 'cpf_selfie' }
   ];
   public valoresForm: FormGroup;
 
@@ -59,7 +59,8 @@ export class AnuncioFormComponent implements OnInit {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo: [null, [Validators.required]],
-      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]]
+      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]],
+      imgs: [null, [Validators.required]]
     });
 
     this.informacoesForm.controls['tipo'].valueChanges.subscribe(() => {
@@ -85,7 +86,10 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.documentosForm = formBuilder.group({
-      proprietario: [null, [Validators.required]]
+      proprietario: [null, [Validators.required]],
+      escritura: [null, []],
+      contrato: [null, []],
+      cpf_selfie: [null, []]
     });
 
     this.valoresForm = formBuilder.group({
@@ -112,6 +116,12 @@ export class AnuncioFormComponent implements OnInit {
     form.controls[field].setValue(formatFunction(form.controls[field].value));
   }
 
+  public bindingFormField(field: string, form: FormGroup, data: any) {
+    form.controls[field].setValue(data);
+    console.log(form);
+    return form.controls[field].value;
+  }
+
   private configCaracteristicasForm() {
     let group = {};
     this.caracteristicas.forEach(caracteristica => {
@@ -130,8 +140,9 @@ export class AnuncioFormComponent implements OnInit {
     this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value)).subscribe( response => {
       this.lngLatPlace = null;
       this.enderecoForm.controls['estado'].enable();
-        this.enderecoForm.controls['cidade'].enable();
-      if(response['erro'] == true){
+      this.enderecoForm.controls['cidade'].enable();
+
+      if(response['erro'] === true){
         this.enderecoForm.controls['cep'].setErrors({'notfound': true})
         return;
       }

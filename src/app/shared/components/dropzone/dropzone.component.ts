@@ -1,5 +1,5 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 
 export interface customFormField {
   fieldName: string;
@@ -40,18 +40,33 @@ export class DropzoneComponent implements OnInit {
 
   public files: displayFile[] = [];
 
+  private _data = [];
+  @Output('data')
+  public dataChange = new EventEmitter();
+
+  @Input('data')
+  get data() {
+    return this._data;
+  }
+
+  set data(data) {
+    this._data = data;
+    this.dataChange.emit(this._data);
+  }
+
   constructor(
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.label = this.singleFile && !this.label? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
+    if (!this.label) {
+      this.label = this.singleFile? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
+    }
   }
 
   ngAfterViewInit() {
     this.dropzone.nativeElement.addEventListener('drop', (event) => {
       event.preventDefault();
-      console.log(event.dataTransfer.files);
       this.handleFiles(event.dataTransfer.files);
     });
 
@@ -60,9 +75,13 @@ export class DropzoneComponent implements OnInit {
     });
   }
 
-  // index < this.singleFile? files.length : 1
-
   public handleFiles(files) {
+
+    if (this.singleFile && this.files.length) {
+      this.files = [];
+      this.data = [];
+    }
+
     for (let index = 0; this.singleFile? index < 1 : index < files.length ; index++) {
       let reader = new FileReader();
       reader.readAsDataURL(files[index]);
@@ -98,13 +117,23 @@ export class DropzoneComponent implements OnInit {
       } else if (event.type === HttpEventType.Response) {
         file.success = true;
         file.error = false;
+        this.data = [ ...this.data, event.body ];
+        console.log(this.data);
       }
     }, (error) => {
       file.error = true;
     });
   }
 
+  public resendFile(file: displayFile) {
+    file.error = null;
+    file.success = null;
+    this.sendFile(file);
+  }
+
   public removeFile(index: number) {
     this.files.splice(index, 1);
+    this.data.splice(index, 1);
+    this.dataChange.emit(this.data);
   }
 }

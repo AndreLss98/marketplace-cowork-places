@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="false" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="informacoesForm">
         <form [formGroup]="informacoesForm">
             <ng-template matStepLabel>Informações</ng-template>
@@ -36,7 +36,7 @@
             
             <div class="row">
                 <div class="col-sm">
-                    <dropzone [url]="sendImgsUrl"></dropzone>
+                    <dropzone [url]="sendImgsUrl" (data)="bindingFormField('imgs', informacoesForm, $event)"></dropzone>
                 </div>
             </div>
         </form>
@@ -94,7 +94,12 @@
             <ng-container *ngFor="let documento of documentos">
                 <div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
                     <div class="col">
-                        <dropzone [url]="sendDocsUrl" [label]="documento.nome" [single]="true" [customFields]="[{ fieldName: 'nome', value: documento.nome }]"></dropzone>
+                        <dropzone
+                            [url]="sendDocsUrl"
+                            [label]="documento.nome"
+                            [single]="true"
+                            [customFields]="[{ fieldName: 'nome', value: documento.nome }]"
+                            (data)="bindingFormField(documento.nome_campo, documentosForm, $event)"></dropzone>
                     </div>
                 </div>
             </ng-container>
