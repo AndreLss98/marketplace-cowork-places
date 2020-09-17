@@ -1,4 +1,4 @@
-<mat-card class="card" style="position: relative;" *ngIf="data">
+<mat-card class="card clickable-area" style="position: relative;" *ngIf="data" (click)="goToSpace()">
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner" role="listbox" style="border-radius: 25px
             25px 5px 5px;">
@@ -22,7 +22,7 @@
         </a>
     </div>
 
-    <div class="clickable-area" (click)="goToSpace()">
+    
         <mat-card-header>
             <mat-card-title style="max-width: 284px; margin-top: 5px;">
                 <div class="cardItem">
@@ -87,5 +87,4 @@
 
         </mat-card-header>
 
-    </div>
 </mat-card>

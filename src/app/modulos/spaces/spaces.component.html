@@ -158,7 +158,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: 15px;">
             <div class="col-lg-9">
 
                 <div class="d-flex flex-column">
@@ -193,13 +193,14 @@
                 </div>
             </div>
         </div>
+
         <div id='avaliacoes' class="w-100" style="margin-top: 20px;">
             <div *ngIf="espacos && espacos.length> 0" class="d-flex flex-column
                 back-verde-escuro more-announcement">
                 <span style="color: black; font-size: 20px; font-weight: bold;
                     margin: auto auto 20px 15px">Mais espaços desse anunciante</span>
                 <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap
-                    justify-content-start">
+                    justify-content-center">
                     <card-item-alugavel *ngFor="let item of espacos"
                         [data]="item" style="margin: 5px;"></card-item-alugavel>
                 </div>
