@@ -27,7 +27,7 @@ export function formatMoneyValue(value) {
 }
 
 export function desformatMoneyValue(value: string) {
-    return Number(value.replace(/\D/g, ''));
+    return Number(value.replace(/[R$\s]/g, '').replace(/[,]/g, '.'));
 }
 
 export function formatCEP(value: string) {

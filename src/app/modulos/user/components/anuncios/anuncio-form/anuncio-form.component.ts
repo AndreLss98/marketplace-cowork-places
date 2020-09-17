@@ -4,14 +4,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
-
-import { TiposService } from 'src/app/shared/service/tipos.service';
-import { AlugavelService } from 'src/app/shared/service/alugavel.service';
-
 import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP } from 'src/app/shared/constants/functions';
+
 import { IbgeService } from 'src/app/shared/service/ibge.service';
 import { MapsService } from 'src/app/shared/service/maps.service';
+import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from 'src/app/shared/service/viacep.service';
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -32,6 +32,7 @@ export class AnuncioFormComponent implements OnInit {
   public thumbsTaxs = [];
 
   public informacoesForm: FormGroup;
+  public imgsForm: FormGroup;
   public caracteristicasForm: FormGroup;
   public caracteristicas = [];
   public enderecoForm: FormGroup;
@@ -41,8 +42,8 @@ export class AnuncioFormComponent implements OnInit {
   public documentosForm: FormGroup;
   public documentos = [
     { proprietario: null, nome: "Escritura pública ou contrato de alienação", nome_campo: 'escritura' },
-    { proprietario: false, nome: "Contrato de locação", nome_camp: 'contrato' },
-    { proprietario: false, nome: "Documento com foto e CPF do proprietário", nome_camp: 'cpf_selfie' }
+    { proprietario: false, nome: "Contrato de locação", nome_campo: 'contrato' },
+    { proprietario: false, nome: "Documento com foto e CPF do proprietário", nome_campo: 'cpf_selfie' }
   ];
   public valoresForm: FormGroup;
 
@@ -58,13 +59,16 @@ export class AnuncioFormComponent implements OnInit {
   ) {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
-      tipo: [null, [Validators.required]],
-      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]],
+      tipo_id: [null, [Validators.required]],
+      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]]
+    });
+
+    this.imgsForm = formBuilder.group({
       imgs: [null, [Validators.required]]
     });
 
-    this.informacoesForm.controls['tipo'].valueChanges.subscribe(() => {
-      this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo'].value).subscribe(response => {
+    this.informacoesForm.controls['tipo_id'].valueChanges.subscribe(() => {
+      this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo_id'].value).subscribe(response => {
         this.caracteristicas = response;
         this.configCaracteristicasForm();
       });
@@ -94,7 +98,7 @@ export class AnuncioFormComponent implements OnInit {
     this.valoresForm = formBuilder.group({
       valor: ['', [Validators.required]],
       valor_mes: ['', []],
-      taxa: [null, [Validators.required]]
+      taxa: [null, []]
     });
   }
 
@@ -180,10 +184,30 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public save() {
-    console.log('Step 1: ', this.informacoesForm);
-    console.log('Step 2: ', this.caracteristicasForm);
-    console.log('Step 3: ', this.documentosForm);
-    console.log('Step 4: ', this.enderecoForm);
-    console.log('Step 5: ', this.valoresForm);
+    console.log(this.informacoesForm);
+    console.log(this.imgsForm);
+    console.log(this.caracteristicasForm);
+    console.log(this.documentosForm);
+    console.log(this.enderecoForm);
+    console.log(this.valoresForm);
+
+    let anuncio = {
+      ...this.informacoesForm.value,
+      proprietario: this.documentosForm.controls['proprietario'].value,
+      local: {
+        ...this.enderecoForm.value
+      },
+      ...this.valoresForm.value,
+      imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
+      documentos: Object.keys(this.documentosForm.value).filter(key => key !== 'proprietario' && this.documentosForm.value[key]).map(key => this.documentosForm.value[key][0].id),
+      caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
+        return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
+      })
+    };
+
+    anuncio.valor = desformatMoneyValue(anuncio.valor);
+    anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
+
+    console.log('Save object: ', anuncio);
   }
 }
