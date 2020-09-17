@@ -207,7 +207,5 @@ export class AnuncioFormComponent implements OnInit {
 
     anuncio.valor = desformatMoneyValue(anuncio.valor);
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
-
-    console.log('Save object: ', anuncio);
   }
 }
