@@ -1,5 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -11,7 +12,7 @@ import { MapsService } from 'src/app/shared/service/maps.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
-
+import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -31,7 +32,10 @@ export class AnuncioFormComponent implements OnInit {
   public maxTax: number;
   public thumbsTaxs = [];
 
+  public isSending: boolean = false;
+
   public informacoesForm: FormGroup;
+  public infoAdicionais = [];
   public imgsForm: FormGroup;
   public caracteristicasForm: FormGroup;
   public caracteristicas = [];
@@ -48,7 +52,9 @@ export class AnuncioFormComponent implements OnInit {
   public valoresForm: FormGroup;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
+    private matDialog: MatDialog,
     private snackBar: MatSnackBar,
     private mapService: MapsService,
     private ibgeService: IbgeService,
@@ -163,10 +169,8 @@ export class AnuncioFormComponent implements OnInit {
       });
 
       this.ibgeService.getMunicipioPorId(response['ibge']).subscribe( data => {
-        this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].id);
-        this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].id);
-        this.enderecoForm.controls['estado'].disable();
-        this.enderecoForm.controls['cidade'].disable();
+        this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].nome);
+        this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].nome);
         this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
       }, err => {
         this.snackBar.open("Ocorreu alguem problema, tente novamente mais tarde", 'OK', {duration: 5000, verticalPosition: 'top'});
@@ -176,7 +180,7 @@ export class AnuncioFormComponent implements OnInit {
     });
   }
 
-  public loadDistritoByEstado(){
+  public loadDistritoByEstado() {
     let uf_id = this.enderecoForm.controls['estado'].value;
     this.ibgeService.getCidadesPorEstado(uf_id).subscribe(response => {
       this.distritos = response;
@@ -184,28 +188,56 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public save() {
-    console.log(this.informacoesForm);
-    console.log(this.imgsForm);
-    console.log(this.caracteristicasForm);
-    console.log(this.documentosForm);
-    console.log(this.enderecoForm);
-    console.log(this.valoresForm);
 
     let anuncio = {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
       local: {
-        ...this.enderecoForm.value
+        ...this.enderecoForm.value,
+        pais: 'Brasil'
       },
       ...this.valoresForm.value,
       imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
       documentos: Object.keys(this.documentosForm.value).filter(key => key !== 'proprietario' && this.documentosForm.value[key]).map(key => this.documentosForm.value[key][0].id),
       caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
         return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
-      })
+      }),
+      infos: this.infoAdicionais
     };
 
     anuncio.valor = desformatMoneyValue(anuncio.valor);
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
+
+    this.isSending = true;
+    this.alugavelService.createAlugavel(anuncio).subscribe(response => {
+      this.isSending = false;
+      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Parabéns',
+        message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
+        nameCloseBtn: 'Ok'
+      }, hasBackdrop: false});
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
+      });
+    }, (error) => {
+      this.isSending = false;
+      this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Aviso',
+        message: 'Algo deu errado enquanto Tentávamos salvar o seu anúncio, Por favor tente novamente.',
+        nameCloseBtn: 'Ok'
+      }});
+      console.log(error);
+    }, () => {
+      this.isSending = false;
+    });
+  }
+
+  addInfo(descricao: string) {
+    this.infoAdicionais.unshift({ descricao });
+  }
+
+  removeInfo(index: number) {
+    this.infoAdicionais.splice(index, 1);
   }
 }
