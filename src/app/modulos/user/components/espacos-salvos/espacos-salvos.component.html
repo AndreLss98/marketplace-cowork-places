@@ -1,14 +1,20 @@
-<div class="d-flex flex-wrap flex-row justify-content-around">
-    <div style="margin: 5px; position: relative;"  *ngFor="let favorito of favoritos">
+<div class="d-flex flex-wrap flex-row justify-content-around"
+    *ngIf="favoritos && favoritos.length > 0; else emptyFavorito">
+    <div style="margin: 5px; position: relative;" *ngFor="let favorito of favoritos">
         <button type="button" mat-mini-fab color="warn" (click)="removerFavoritos(favorito.id)"
             style="position: absolute; top: 5px; right: 5px; z-index: 99;">
             <mat-icon>close</mat-icon>
         </button>
-        <card-item-alugavel [data]="favorito"></card-item-alugavel>
-    </div>
-    <div *ngIf="favoritos.length < 1" class="w-100 h-100 d-flex justify-content-center align-items-center">
-        <span style="font-size: 25px; font-weight: 500; color: #818181; text-align: center;"> 
-            Você ainda não possui espaços salvos
-        </span>
+        <card-item-alugavel [data]="favorito">
+        </card-item-alugavel>
     </div>
 </div>
+<ng-template #emptyFavorito>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-floppy-o fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há espaços salvo.
+        </h1>
+    </div>
+</ng-template>

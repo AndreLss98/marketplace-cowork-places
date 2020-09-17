@@ -15,7 +15,7 @@ export class MeusAnunciosComponent implements OnInit {
 
   public space: highlightItem;
   public espacos_aprovados = [];
-  public espacos_em_avaliaco = [];
+  public espacos_em_avaliacao = [];
   public espacos_reprovados = [];
   public espacos_desativados = [];
 
@@ -28,15 +28,15 @@ export class MeusAnunciosComponent implements OnInit {
     this.carregaAlugavel();
   }
 
-  editSpace(idSpace){
-    this.router.navigate(['/user/anuncios/editaranuncio'], {queryParams: {id: idSpace, edit: true} , skipLocationChange: true});
+  editSpace(idSpace) {
+    this.router.navigate(['/user/anuncios/editaranuncio'], { queryParams: { id: idSpace, edit: true }, skipLocationChange: true });
   }
 
-  alterarStatus(id, status){
+  alterarStatus(id, status) {
     let update;
-    if(status === 'approved') {
+    if (status === 'approved') {
       update = 'removed'
-    }else if(status === 'removed') {
+    } else if (status === 'removed') {
       update = 'waiting'
     }
 
@@ -45,12 +45,12 @@ export class MeusAnunciosComponent implements OnInit {
     });
   }
 
-  carregaAlugavel(){
+  carregaAlugavel() {
     this.alugavel.getAllByUser().subscribe(response => {
-      this.espacos_aprovados = response.filter(espaco =>  {return espaco.status === ALUGAVEL_STATUS.APPROVED.value});
-      this.espacos_em_avaliaco = response.filter(espaco => { return espaco.status ===  ALUGAVEL_STATUS.WAITING.value});
-      this.espacos_reprovados = response.filter(espaco => {return espaco.status ===  ALUGAVEL_STATUS.DISAPPROVED.value});
-      this.espacos_desativados = response.filter(espaco => {return espaco.status ===  ALUGAVEL_STATUS.REMOVED.value});
+      this.espacos_aprovados = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.APPROVED.value });
+      this.espacos_em_avaliacao = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.WAITING.value });
+      this.espacos_reprovados = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.DISAPPROVED.value });
+      this.espacos_desativados = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.REMOVED.value });
     });
   }
 }

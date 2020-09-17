@@ -1,6 +1,6 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Feedbacks">
-        <div class="mx-auto py-1 w-75">
+        <div class="mx-auto py-1 w-75" *ngIf="feedbacks && feedbacks.length > 0; else emptyFeedback">
             <mat-accordion>
                 <mat-expansion-panel class="mb-1" *ngFor="let feedback of feedbacks">
                     <mat-expansion-panel-header style="min-height: 52px;">
@@ -61,15 +61,15 @@
                                 (change)="onChangeFieldValue()">{{ campo.label}}</mat-checkbox>
 
 
-                            
-                                    <mat-form-field *ngSwitchCase="'number'" appearance="legacy" class="w-50">
 
-                                        <mat-label>{{ campo.label}}</mat-label>
-                                        <input matInput [formControlName]="campo.name" [type]="campo.type"
-                                            (change)="onChangeFieldValue()">
+                            <mat-form-field *ngSwitchCase="'number'" appearance="legacy" class="w-50">
 
-                                    </mat-form-field>
-                               
+                                <mat-label>{{ campo.label}}</mat-label>
+                                <input matInput [formControlName]="campo.name" [type]="campo.type"
+                                    (change)="onChangeFieldValue()">
+
+                            </mat-form-field>
+
 
 
                             <mat-form-field *ngSwitchCase="'text'" appearance="legacy" class="w-25">
@@ -120,3 +120,15 @@
         </div>
     </mat-tab>
 </mat-tab-group>
+
+
+<!-- <Templates caso algum dos demais esteja vazio -->
+<ng-template #emptyFeedback>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-comments-o fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há feedbacks.
+        </h1>
+    </div>
+</ng-template>

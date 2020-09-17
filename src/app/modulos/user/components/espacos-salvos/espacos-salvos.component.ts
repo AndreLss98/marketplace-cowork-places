@@ -9,7 +9,7 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
   styleUrls: ['./espacos-salvos.component.scss']
 })
 export class EspacosSalvosComponent implements OnInit {
-  
+
   public favoritos = [];
 
   constructor(
@@ -23,16 +23,16 @@ export class EspacosSalvosComponent implements OnInit {
     this.carregarFavoritos();
   }
 
-  public removerFavoritos(id){
+  public removerFavoritos(id) {
     this.favoritosService.desfavoritar(id).subscribe(res => {
-      this.snack.open("Removido", "Ok", {duration: 1000});
+      this.snack.open("Removido", "Ok", { duration: 1000 });
       this.carregarFavoritos();
     });
   }
 
-  public carregarFavoritos(){
+  public carregarFavoritos() {
     this.favoritosService.getAll().subscribe(response => {
-      //console.log('Favoritos: ', response);
+      console.log('Favoritos: ', response);
       this.favoritos = response;
     })
   }

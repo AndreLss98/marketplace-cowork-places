@@ -1,13 +1,15 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab [label]="'Ativos ('+ ativos.length +')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+            *ngIf="ativos && ativos.length > 0; else emptyAtivos">
             <div style="margin: 5px;" *ngFor="let aluguel of ativos">
                 <contrato [aluguel]="aluguel" (changeContracts)="onContractsChange()"></contrato>
             </div>
         </div>
     </mat-tab>
     <mat-tab [label]="'Para análise ('+ inativos.length +')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+            *ngIf="inativos && inativos.length > 0; else emptyInativos">
             <div style="margin: 5px;" *ngFor="let aluguel of inativos">
                 <contrato [aluguel]="aluguel" (changeContracts)="onContractsChange()"></contrato>
             </div>
@@ -15,15 +17,49 @@
     </mat-tab>
     <!-- <mat-tab label="Em processamento"></mat-tab> -->
     <mat-tab [label]="'Cancelados (' + cancelados.length + ')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start">
+        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+            *ngIf="cancelados && cancelados.length > 0; else emptyCancelados">
             <div style="margin: 5px;" *ngFor="let aluguel of cancelados">
                 <div>
                     <contrato [aluguel]="aluguel" (changeContracts)="onContractsChange()"></contrato>
                     <div class="comment-footer mat-elevation-z2">
-                        <span><b>{{ aluguel.canceled_by_locador? "Seu comentário:" : "Comentário:" }}</b> {{ aluguel.comentario }}</span>
+                        <span><b>{{ aluguel.canceled_by_locador? "Seu comentário:" : "Comentário:" }}</b>
+                            {{ aluguel.comentario }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </mat-tab>
 </mat-tab-group>
+
+
+<!-- <Templates caso algum dos demais esteja vazio -->
+<ng-template #emptyAtivos>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-map-marker fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há locações ativas.
+        </h1>
+    </div>
+</ng-template>
+
+<ng-template #emptyInativos>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-map-marker fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há locações para análise.
+        </h1>
+    </div>
+</ng-template>
+
+<ng-template #emptyCancelados>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-map-marker fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há locações canceladas.
+        </h1>
+    </div>
+</ng-template>

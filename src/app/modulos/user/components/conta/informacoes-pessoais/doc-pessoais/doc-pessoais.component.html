@@ -25,7 +25,8 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="documentosEnviados && documentosEnviados.length > 0" class="mat-elevation-z2 mb-3">
+<mat-card *ngIf="documentosEnviados && documentosEnviados.length > 0; else emptyDocuments"
+  class="mat-elevation-z2 mb-3">
   <mat-card-title>Documentos Pessoais</mat-card-title>
   <mat-card-subtitle>Documentos enviados</mat-card-subtitle>
   <mat-card-content>
@@ -49,3 +50,14 @@
     </table>
   </mat-card-content>
 </mat-card>
+
+<ng-template #emptyDocuments>
+  <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+    <a id="paper" class="icon fa fa-file-o fa-4x"></a>
+
+    <h1 style="opacity: 30%;">
+      Não há nenhum
+      documento pessoal.
+    </h1>
+  </div>
+</ng-template>

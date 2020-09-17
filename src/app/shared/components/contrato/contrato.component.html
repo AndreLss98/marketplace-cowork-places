@@ -1,4 +1,4 @@
-<mat-card *ngIf="aluguel">
+<mat-card *ngIf="aluguel ? aluguel : emptyContrato">
     <mat-card-title>
 
         <!--locador-->
@@ -47,7 +47,7 @@
     </mat-card-title>
     <hr>
     <mat-card-content>
-                
+
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-column flex-wrap data">
                 <span class="itemTitle">{{aluguel.alugavel.titulo+":"}}</span>
@@ -118,3 +118,15 @@
             (click)="acceptContract()">Aceitar</button>
     </mat-card-actions>
 </mat-card>
+
+
+<ng-template #emptyContrato>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
+        <a id="paper" class="icon fa fa-file-o fa-4x"></a>
+
+        <h1 style="opacity: 30%;">
+            Não há nenhum
+            documento pessoal.
+        </h1>
+    </div>
+</ng-template>
