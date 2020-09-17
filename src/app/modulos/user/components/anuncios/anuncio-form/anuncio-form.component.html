@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="false" #stepper>
     <mat-step [stepControl]="informacoesForm && imgsForm">
         <form [formGroup]="informacoesForm">
             <ng-template matStepLabel>Informações</ng-template>
@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label style="font-size: .8rem;"></mat-label>
+                        <mat-label>Descrição</mat-label>
                         <textarea maxlength="500"
                             matInput cdkTextareaAutosize
                             #autosize="cdkTextareaAutosize"
@@ -73,6 +73,27 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="standard" class="w-100">
+                    <mat-label>Informação adicional</mat-label>
+                    <input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
+                    <mat-icon class="cursor-pointer" [ngClass]="{ 'enabled':infoAdicional.value, 'disabled': !infoAdicional.value }" (click)="addInfo(infoAdicional.value); infoAdicional.value = ''" matSuffix>add</mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <ng-container *ngIf="infoAdicionais.length">
+            <div class="row" *ngFor="let info of infoAdicionais; let i = index">
+                <div class="col">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <input matInput [value]="info.descricao" type="text" readonly />
+                        <mat-icon class="cursor-pointer text-danger" (click)="removeInfo(i)" matSuffix>clear</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+
         <div class="d-flex justify-content-between mt-2">
             <button mat-raised-button matStepperPrevious>Voltar</button>
             <button mat-raised-button color="primary" matStepperNext [disabled]="caracteristicasForm.invalid">Próximo</button>
@@ -159,7 +180,7 @@
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Estado</mat-label>
                         <mat-select formControlName="estado" matInput (selectionChange)="loadDistritoByEstado()">
-                            <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.nome}}</mat-option>
+                            <mat-option *ngFor="let estado of estados" [value]="estado.nome">{{estado.nome}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -167,7 +188,7 @@
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label>Cidade</mat-label>
                         <mat-select formControlName="cidade" matInput>
-                            <mat-option *ngFor="let distrito of distritos" [value]="distrito.id">{{distrito.nome}}</mat-option>
+                            <mat-option *ngFor="let distrito of distritos" [value]="distrito.nome">{{distrito.nome}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -245,7 +266,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex mt-2 justify-content-between">
+            <div *ngIf="!isSending" class="d-flex mt-2 justify-content-between">
                 <button type="button" mat-raised-button matStepperPrevious>Voltar</button>
                 <button type="button" mat-raised-button color="primary" (click)="save()" 
                 [disabled]="
@@ -255,6 +276,10 @@
                     (documentosForm.invalid  || documentosForm.pristine) ||
                     (enderecoForm.invalid || enderecoForm.pristine) ||
                     (valoresForm.invalid || valoresForm.pristine)">Publicar</button>
+            </div>
+
+            <div *ngIf="isSending" class="d-flex justify-content-center">
+                <mat-spinner></mat-spinner>
             </div>
         </form>
     </mat-step>

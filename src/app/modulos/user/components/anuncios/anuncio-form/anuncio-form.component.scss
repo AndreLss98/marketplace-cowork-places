@@ -1,0 +1,9 @@
+@import '../../../../../../place-et-theme.scss';
+
+mat-icon.enabled {
+    color: $pl-verde-escuro;
+}
+
+mat-icon.disabled {
+    color: #ccc;
+}
