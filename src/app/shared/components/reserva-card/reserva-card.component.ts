@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
-
 import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
 
 @Component({
@@ -12,11 +11,16 @@ import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/f
 })
 export class ReservaCardComponent extends Financeiro implements OnInit {
 
+  private maxTax: number;
+
   readonly diffDates = diffDates;
   readonly formatMoneyValue = formatMoneyValue;
 
   @Input('taxa')
   public taxa: number;
+
+  @Input('taxaMaxima')
+  public taxaMaxima: number;
 
   @Input('valorDiaria')
   public valorDiaria: number;
@@ -27,7 +31,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   public intervalForm: FormGroup;
   public minDate = addDays(new Date(), 2);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
     super();
     this.intervalForm = formBuilder.group({
       entrada: ['', [Validators.required]],
@@ -35,9 +41,7 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
   public validateRange() {
 

@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="false" #stepper>
     <mat-step [stepControl]="informacoesForm">
         <form [formGroup]="informacoesForm">
             <ng-template matStepLabel>Informações</ng-template>
@@ -221,6 +221,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <reserva-card
+                                [taxaMaxima]="maxTax"
                                 [valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)"
                                 [valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"
                                 [taxa]="valoresForm.controls['taxa'].value">

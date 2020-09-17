@@ -2,19 +2,27 @@ export class Financeiro {
 
     constructor() { }
 
-    public totalDiaria(qtdDias, valorDiaria) {
+    public calcularDiaria(valor, taxaAtual, taxaMaxima) {
+        return valor - valor * ((taxaMaxima - taxaAtual)/100);
+    }
+
+    public totalNoValorDiaria(qtdDias, valorDiaria) {
         return valorDiaria * qtdDias;
     }
 
-    public totalMensal(qtdDias, valorMensal) {
+    public totalNoValorMensal(qtdDias, valorMensal) {
         return (valorMensal / 31) * qtdDias;
     }
 
-    public calcularTaxas(qtdDias, valor, taxa) {
-        return qtdDias * (valor * (taxa / 100));
+    public totalTaxas(qtdDias, taxaDiaria) {
+        return qtdDias * taxaDiaria;
     }
 
-    public totalPeriodo(qtdDias, valor, taxa, mensal: boolean) {
-        return mensal? this.totalMensal(qtdDias, valor) + this.calcularTaxas(qtdDias, valor / 31, taxa) : this.totalDiaria(qtdDias, valor) + this.calcularTaxas(qtdDias, valor, taxa);
+    public calcularTaxa(taxaMaxima, valorReferencia) {
+        return valorReferencia * (taxaMaxima/100);
+    }
+
+    public total(totalPeriodo, totalTaxas) {
+        return totalPeriodo + totalTaxas;
     }
 }
