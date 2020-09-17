@@ -16,17 +16,13 @@
           <mat-label>Nome</mat-label>
           <input formControlName="nome" matInput placeholder="Nome">
         </mat-form-field>
-    
+
         <mat-form-field appearance="standard">
-            <mat-label>Icone</mat-label>
-            <mat-select formControlName="icone">
-              <mat-option *ngFor="let icone of icones" [value]="icone">
-                <div class="d-flex flex-row">
-                  <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
-                  <span class="w-100 text-center">{{ icone }}</span>
-                </div>
-              </mat-option>
-            </mat-select>
+          <mat-label>Icone</mat-label>
+          <input matInput placeholder="color_lens" formControlName="icone">
+          <mat-hint>
+              <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
+          </mat-hint>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
@@ -36,7 +32,7 @@
         </mat-form-field>
     
         <div>
-            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+          <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
         </div>
 
         <mat-form-field appearance="standard">

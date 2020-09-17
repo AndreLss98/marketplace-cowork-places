@@ -1,70 +1,20 @@
 @import '../../../../place-et-theme.scss';
 
-.card-body{
-    padding-bottom: 5px;;
-    border-radius: 25px 25px 15px 15px;
-    background-color: inherit !important;
-    cursor: pointer;
-}
-
-.card{
-    border-radius: 25px 25px 15px 15px;
+mat-card {
+    padding: 0;
     width: 315px;
-    max-width: 350px;
     height: 500px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    // border: none;
+    max-width: 350px;
+    border-radius: 15px;
 }
 
-.card:hover{
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+mat-card:hover {
     box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(153,153,153,1);
 }
 
-.cardItem{
-    justify-content: start;
-    padding-top: 7px;
-}
-
-.carouselImage{
-    object-fit: contain;
+img {
     height: 250px;
-    position: inherit;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.bg-image {
-    overflow: hidden;
-    /* The image used */
-    /* Add the blur effect */
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-  
-    /* Full height */
-    height: 120%;
-    width: 100%;
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-}
-
-p.caracteristica {
-    color: gray;
-    font-size: 11px;
-    margin-bottom: 0;
-}
-
-img.caracteristica {
-    width: 24px;
-}
-
-div.clickable-area {
-    cursor: pointer;
+    object-fit: cover;
 }

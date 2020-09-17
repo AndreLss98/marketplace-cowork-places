@@ -19,26 +19,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   public caracteristica;
   public editForm: FormGroup;
   public createForm: FormGroup;
-
   public possibilidadadesSelecao = [];
-
-  public icones = [
-    {
-      nome: 'car.svg',
-      material: false
-    },
-    {
-      nome: 'desk.svg',
-      material: false
-    }, {
-      nome: 'wifi',
-      material: true
-    },
-    {
-      nome: 'aspect_ratio',
-      material: true
-    }
-  ];
 
   constructor(
     private formBuilder: FormBuilder,

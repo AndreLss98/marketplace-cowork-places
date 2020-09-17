@@ -23,15 +23,6 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
   public createForm: FormGroup;
   public caracteristicas = [];
 
-  public icones = [
-    'mesas.jpg',
-    'servicos.jpg', 
-    'palestras.jpg',
-    'auditorios.jpg',
-    'sala_reuniao.jpg',
-    'salas_privativas.jpg',
-  ];
-
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,

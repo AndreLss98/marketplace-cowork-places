@@ -24,14 +24,10 @@
                         <div class="col">
                             <mat-form-field appearance="standard" class="w-100">
                                 <mat-label>Icone</mat-label>
-                                <mat-select formControlName="icone">
-                                    <mat-option value="">Sem icone</mat-option>
-                                    <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
-                                        {{ icone.nome }}
-                                        <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
-                                        <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
-                                    </mat-option>
-                                </mat-select>
+                                <input matInput placeholder="color_lens" formControlName="icone">
+                                <mat-hint>
+                                    <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
+                                </mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -63,16 +59,10 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Icones</mat-label>
-                                <mat-select formControlName="icone">
-                                    <mat-option value="">Sem icone</mat-option>
-                                    <mat-option *ngFor="let icone of icones" value="{{ icone.nome }}">
-                                        {{ icone.nome }}
-                                        <img *ngIf="!icone.material" [src]="'assets/svg/' + icone.nome" width="35" height="35" />
-                                        <span *ngIf="icone.material" class="material-icons">{{ icone.nome }}</span>
-                                    </mat-option>
-                                </mat-select>
+                            <mat-form-field appearance="standard">
+                                <mat-label>Icone</mat-label>
+                                <input matInput placeholder="color_lens" formControlName="icone">
+                                <mat-hint href="https://material.io/resources/icons/?style=baseline">Lista de icones</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
