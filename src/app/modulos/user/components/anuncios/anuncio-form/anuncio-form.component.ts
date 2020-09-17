@@ -66,7 +66,6 @@ export class AnuncioFormComponent implements OnInit {
     this.informacoesForm.controls['tipo'].valueChanges.subscribe(() => {
       this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo'].value).subscribe(response => {
         this.caracteristicas = response;
-        console.log(response);
         this.configCaracteristicasForm();
       });
     });
@@ -118,14 +117,13 @@ export class AnuncioFormComponent implements OnInit {
 
   public bindingFormField(field: string, form: FormGroup, data: any) {
     form.controls[field].setValue(data);
-    console.log(form);
     return form.controls[field].value;
   }
 
   private configCaracteristicasForm() {
     let group = {};
     this.caracteristicas.forEach(caracteristica => {
-      group[caracteristica.nome] = new FormControl(caracteristica.tipo_campo.propriedades.standard || '', [Validators.required]);
+      group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard || '', [ Validators.required ]);
     });
 
     this.caracteristicasForm = new FormGroup(group);
@@ -179,5 +177,13 @@ export class AnuncioFormComponent implements OnInit {
     this.ibgeService.getCidadesPorEstado(uf_id).subscribe(response => {
       this.distritos = response;
     });
+  }
+
+  public save() {
+    console.log('Step 1: ', this.informacoesForm);
+    console.log('Step 2: ', this.caracteristicasForm);
+    console.log('Step 3: ', this.documentosForm);
+    console.log('Step 4: ', this.enderecoForm);
+    console.log('Step 5: ', this.valoresForm);
   }
 }

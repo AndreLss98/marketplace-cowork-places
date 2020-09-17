@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="false" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="informacoesForm">
         <form [formGroup]="informacoesForm">
             <ng-template matStepLabel>Informações</ng-template>
@@ -39,6 +39,9 @@
                     <dropzone [url]="sendImgsUrl" (data)="bindingFormField('imgs', informacoesForm, $event)"></dropzone>
                 </div>
             </div>
+            <div class="d-flex justify-content-end mt-2">
+                <button mat-raised-button color="primary" matStepperNext [disabled]="informacoesForm.invalid">Próximo</button>
+            </div>
         </form>
     </mat-step>
 
@@ -48,27 +51,31 @@
             <div class="col-sm">
                 <div class="col-xl" *ngFor="let caracteristica of caracteristicas">
                     <ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
-                        <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.nome">{{ caracteristica.nome }}</mat-checkbox>
+                        <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
                         
                         <mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
                             <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <input matInput [formControlName]="caracteristica.nome" autocomplete="off" type="number" />
+                            <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
                         </mat-form-field>
                     
                         <mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard" class="w-100">
                             <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <input matInput [formControlName]="caracteristica.nome" autocomplete="off" type="text" />
+                            <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
                         </mat-form-field>
 
                         <mat-form-field *ngSwitchCase="'selecao'" appearance="standard" class="w-100">
                             <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <mat-select [formControlName]="caracteristica.nome" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
+                            <mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
                                 <mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </ng-container>
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+            <button mat-raised-button matStepperPrevious>Voltar</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="caracteristicasForm.invalid">Próximo</button>
         </div>
     </mat-step>
 
@@ -103,6 +110,10 @@
                     </div>
                 </div>
             </ng-container>
+            <div class="d-flex justify-content-between mt-2">
+                <button mat-raised-button matStepperPrevious>Voltar</button>
+                <button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
+            </div>
         </form>
     </mat-step>
 
@@ -165,6 +176,10 @@
                 <div class="col">
                     <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
                 </div>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <button mat-raised-button matStepperPrevious>Voltar</button>
+                <button mat-raised-button color="primary" matStepperNext [disabled]="enderecoForm.invalid">Próximo</button>
             </div>
         </form>
     </mat-step>
@@ -229,6 +244,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="d-flex mt-2 justify-content-between">
+                <button type="button" mat-raised-button matStepperPrevious>Voltar</button>
+                <button type="button" mat-raised-button color="primary" (click)="save()" 
+                [disabled]="
+                    (informacoesForm.invalid || informacoesForm.pristine) ||
+                    (caracteristicasForm.invalid || caracteristicasForm.pristine) ||
+                    (documentosForm.invalid  || documentosForm.pristine) ||
+                    (enderecoForm.invalid || enderecoForm.pristine) ||
+                    (valoresForm.invalid || valoresForm.pristine)">Publicar</button>
             </div>
         </form>
     </mat-step>

@@ -118,7 +118,6 @@ export class DropzoneComponent implements OnInit {
         file.success = true;
         file.error = false;
         this.data = [ ...this.data, event.body ];
-        console.log(this.data);
       }
     }, (error) => {
       file.error = true;
