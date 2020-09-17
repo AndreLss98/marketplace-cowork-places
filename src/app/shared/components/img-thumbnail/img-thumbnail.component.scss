@@ -1,0 +1,9 @@
+@import '../../../../place-et-theme.scss';
+
+img {
+    border: 1px solid gray;
+}
+
+img:hover {
+    border: 1px solid $pl-verde-escuro;
+}

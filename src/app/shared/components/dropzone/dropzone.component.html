@@ -3,8 +3,8 @@
 <input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
 
 <div class="row my-2" *ngFor="let file of files; let i = index">
-    <div class="col-2">
-        <img [src]="file.src" class="rounded mh-100 mw-100" />
+    <div class="col-4 col-lg-2 d-block">
+        <img-thumbnail [src]="file.src"></img-thumbnail>
     </div>
     <div class="col align-self-center">
         <p class="font-weight-bold">{{file.object.name}}</p>

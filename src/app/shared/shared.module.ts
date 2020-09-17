@@ -13,6 +13,7 @@ import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from './components/basic-table/basic-table.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
+import { ImgThumbnailComponent } from './components/img-thumbnail/img-thumbnail.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { FormCreateFieldComponent } from './components/form-create-field/form-create-field.component';
@@ -74,6 +75,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
+    ImgThumbnailComponent,
   ],
   imports: [
     FormsModule,
@@ -130,6 +132,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ImgCircularComponent,
     ReservaCardComponent,
     CancelDialogComponent,
+    ImgThumbnailComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
     QuestionAnsweredComponent,
