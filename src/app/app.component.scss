@@ -18,31 +18,31 @@ a.nav-link img {
 
 @media (max-width: 1124px) {
     .social-menu ul {
-        margin-left: 41.5% !important;
+        margin-left: 39.5% !important;
     }
 }
 
 @media (max-width: 1054px) {
     .social-menu ul {
-        margin-left: 41% !important;
+        margin-left: 38% !important;
     }
 }
 
 @media (max-width: 1030px) {
     .social-menu ul {
-        margin-left: 40% !important;
+        margin-left: 37% !important;
     }
 }
 
 @media (max-width: 902px) {
     .social-menu ul {
-        margin-left: 39% !important;
+        margin-left: 36% !important;
     }
 }
 
 @media (max-width: 815px) {
     .social-menu ul {
-        margin-left: 38% !important;
+        margin-left: 35% !important;
     }
 }
 
@@ -50,7 +50,7 @@ a.nav-link img {
 .social-menu ul {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 49%;
     transform: translate(-50%, -50%);
     padding: 0;
     margin-left: 42%;
@@ -86,11 +86,14 @@ a.nav-link img {
     transform: rotate(0deg) skew(0deg) translate(0, -10px);
 }
 .social-menu ul li:nth-child(1) a:hover {
-    background-color: #3b5999;
+    background-color: #cd201f;
 }
 .social-menu ul li:nth-child(2) a:hover {
-    background-color: #e4405f;
+    background-color: #3b5999;
 }
 .social-menu ul li:nth-child(3) a:hover {
+    background-color: #e4405f;
+}
+.social-menu ul li:nth-child(4) a:hover {
     background-color: #0077B5;
 }
