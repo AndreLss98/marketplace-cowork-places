@@ -32,7 +32,7 @@ p.info {
 
 .carouselImage{
     object-fit: contain;
-    height: 572px;
+    
     position: inherit;
     margin-left: auto;
     margin-right: auto;
@@ -68,7 +68,7 @@ p.info {
 
     .btn-reservar{
         background: linear-gradient( to right, #00fd00, #00ffab);
-        width: 200px !important;
+        
         height: 50px;
         border-radius: 15px;
         font-weight: bold;
@@ -128,6 +128,15 @@ span.action-button-icon {
     border-radius: 25px;
     padding:10px;
     cursor: pointer;
+}
+
+.icon{
+    justify-content: space-around;
+}
+
+.infoIcon{
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 @media (max-width: 450px){
