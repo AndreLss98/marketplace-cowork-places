@@ -1,192 +1,209 @@
-<div id="content" class="container-fluid">
-    <div class="row">
-        <div class="col d-flex flex-row align-items-center justify-content-start">
-            <div class="d-flex justify-content-center flex-column">
-                <span style="font-size: 25px; font-weight: bold;">{{espaco.titulo}}</span>
-                <span style="font-weight: bold; font-size: 15px;">{{espaco.tipo.nome}}</span>
+<mat-card>
+    <mat-card-title>
+        <div class="row">
+            <div class="col d-flex flex-row align-items-center
+                justify-content-start">
+                <div class="d-flex justify-content-center flex-column">
+                    <span style="font-size: 25px; font-weight: bold;">{{espaco.titulo}}</span>
+                    <span style="font-weight: bold; font-size: 15px;">{{espaco.tipo.nome}}</span>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div style="height: 40px;"></div>
-
-    <div class="row">
-        <div class="col-lg-9" style="margin-bottom:5px">
-            <div *ngIf="view === 'photos'" id="spacesCarousel" class="carousel slide myCarousel" style="max-height: 572px;">
-                <ol class="carousel-indicators">
-                    <li *ngFor="let image of espaco.imagens; let i=index" 
-                        data-target="#spacesCarousel" attr.data-slide-to='{{i}}' [ngClass]="i == 0 ? 'active': ''"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div *ngFor="let image of espaco.imagens; let i=index" [ngClass]="i == 0 ? 'carousel-item active':'carousel-item'" >
-                        <div class="bg-image" [ngStyle]="{'background-image': 'url('+ backUrl + '/imgs/' + image.url +')'}"></div>
-                        <img class="d-block carouselImage" [src]="backUrl + '/imgs/' + image.url || 'assets/imgs/logo/logo_preta-min.png'" >
+    </mat-card-title>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-lg-9" style="margin-bottom:5px">
+                <div *ngIf="view === 'photos'" id="spacesCarousel"
+                    class="carousel slide myCarousel" style="max-height:
+                    572px;">
+                    <ol class="carousel-indicators">
+                        <li *ngFor="let image of espaco.imagens; let i=index"
+                            data-target="#spacesCarousel"
+                            attr.data-slide-to='{{i}}' [ngClass]="i == 0 ?
+                            'active': ''"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div *ngFor="let image of espaco.imagens; let i=index"
+                            [ngClass]="i == 0 ? 'carousel-item
+                            active':'carousel-item'">
+                            <div class="bg-image"
+                                [ngStyle]="{'background-image': 'url('+ backUrl
+                                + '/imgs/' + image.url +')'}"></div>
+                            <img class="d-block carouselImage" [src]="backUrl +
+                                '/imgs/' + image.url ||
+                                'assets/imgs/logo/logo_preta-min.png'">
+                        </div>
                     </div>
+                    <a class="carousel-control-prev" href="#spacesCarousel"
+                        role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon"
+                            aria-hidden="true"></span>
+                        <span class="sr-only">Proximo</span>
+                    </a>
+                    <a class="carousel-control-next" href="#spacesCarousel"
+                        role="button" data-slide="next">
+                        <span class="carousel-control-next-icon"
+                            aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
                 </div>
-                <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Proximo</span>
-                </a>
-                <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-            </div>
-            <maps *ngIf="view === 'maps'" [lngLatPlace]="{ latitude: espaco.local.latitude, longitude: espaco.local.longitude }" [static]="true"></maps>
-        </div>
-        <div class="col-lg-3">
-            <div class="myCard col">
+                <maps *ngIf="view === 'maps'" [lngLatPlace]="{ latitude:
+                    espaco.local.latitude, longitude: espaco.local.longitude }"
+                    [static]="true"></maps>
 
-                <mat-form-field appearance="fill" class="w-100">
-                    <mat-label>Selecione um intervalo</mat-label>
-                    <mat-date-range-input [formGroup]="reservaForm" [min]="minDate" [rangePicker]="picker" [dateFilter]="rangeFilter">
-                      <input #entrada
-                        matStartDate
-                        formControlName="entrada"
-                        placeholder="Entrada"
-                        disabled="true" />
-                      <input #saida
-                        matEndDate
-                        formControlName="saida"
-                        placeholder="Saída"
-                        (dateInput)="validateRange()" disabled="true" />
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
-                </mat-form-field>
-
-                  <div *ngIf="isDaily && espaco.valor_mes != 0 && calculaTotalPeriodo() > calculaCustoMes(espaco.taxa, espaco.valor_mes)">
-                    <p class="info">Recomendamos uma reserva de mais de 30 dias.</p>
-                  </div>
-
-                <div class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>Capacidade máxima de pessoas</span>
-                    <span style="text-align: right; padding-right: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_PESSOAS - 1].valor}}</span>
-                </div>
-                <div *ngIf="reservaForm.controls.saida.value" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>Quantidade de dias</span>
-                    <span style="text-align: right; padding-right: 6px;">{{totalDias()}}</span>
-                </div>
-                <div style="border-bottom: 1px solid black; height: 20px; margin-bottom: 10px;"></div>
-                <div *ngIf="isDaily || espaco.valor_mes == 0" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>CUSTO POR DIA</span>
-                    <span style="text-align: right; padding-right: 6px;">R$ {{calculaCustoDia(espaco.taxa, espaco.valor).toFixed(2)}}</span>
-                </div>
-                <div *ngIf="!isDaily && espaco.valor_mes != 0" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>CUSTO POR MÊS</span>
-                    <span style="text-align: right; padding-right: 6px;">R$ {{calculaCustoMes(espaco.taxa, espaco.valor_mes).toFixed(2)}}</span>
-                </div>
-                <div *ngIf="isDaily" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>TAXAS</span>
-                    <span style="text-align: right; padding-right: 6px;">R$ {{calculaTaxa(espaco.taxa, espaco.valor).toFixed(2)}}</span>
-                </div>
-                <div *ngIf="!isDaily" class="d-flex" style="color: black; justify-content: space-between; font-weight: 500;">
-                    <span>TAXAS</span>
-                    <span style="text-align: right; padding-right: 6px;">R$ {{calculaTaxa(espaco.taxa, espaco.valor_mes).toFixed(2)}}</span>
-                </div>
-
-                <div *ngIf="reservaForm.controls.saida.value" class="d-flex" style="color: black; justify-content: space-between; font-weight: bold;">
-                    <span>TOTAL</span>
-                    <span style="text-align: right; padding-right: 6px;">R$ {{calculaTotalPeriodo().toFixed(2)}}</span>
-                </div>
-        
-                <div class="d-flex align-items-center justify-content-center" style="padding: 20px;">
-                    <button
-                        class="btn btn-reservar"
-                        type="button"
-                        (click)="checkout()"
-                        [disabled]="userService?.user_data?.id && espaco.anunciante_id === userService.user_data.id ||
-                        reservaForm.invalid">RESERVAR</button>
-                </div>
-        
-                <div class="d-flex align-items-center justify-content-center"></div>
-        
-                <div class="d-flex align-items-center justify-content-around flex-wrap"
-                    style="padding-top: 20px; padding-right: auto; padding-left: auto;">
-                    <div class="d-flex flex-column align-items-center" (click)="favoritar()">
-                        <span class="material-icons action-button-icon">favorite</span>
-                        <span style="font-size: 12px; font-weight: bold;">Salvar</span>
+                <div class="row">
+                    <div class="col-sm d-flex align-items-start"
+                        style="margin-top: 10px;" *ngIf="espaco.nota">
+                        <span class="nota">{{espaco.nota.toFixed(1)}}</span>
+                        <span class="material-icons nota-star" *ngFor="let item
+                            of countStars(espaco.nota)">{{item}}</span>
                     </div>
-                    <div *ngIf="view === 'photos'" class="d-flex flex-column align-items-center" (click)="view = 'maps'">
-                        <span class="material-icons action-button-icon">location_on</span>
-                        <span style="font-size: 12px; font-weight: bold;">Localização</span>
-                    </div>
-                    <div *ngIf="view === 'maps'" class="d-flex flex-column align-items-center" (click)="view = 'photos'">
-                        <span class="material-icons action-button-icon">collections</span>
-                        <span style="font-size: 12px; font-weight: bold;">Fotos</span>
+                    <div class="col-sm d-flex align-items-start"
+                        style="margin-top: 14px;">
+                        <span class="endereco">{{espaco.local.rua}} -
+                            {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center justify-content-center" style="padding: 40px 20px 10px 20px">
-                    <a style="color: black; font-weight: 500;" href="">*POLÍTICA DE CANCELAMENTO.</a>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-lg d-flex justify-content-around
+                        align-items-center infoIcon">
+                        <div class="icon caracteristica">
+                            <span class="material-icons">aspect_ratio</span>
+                            <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.AREA
+                                - 1].valor}} m2</p>
+                        </div>
+                        <div class="icon caracteristica">
+                            <img class="caracteristica"
+                                src="assets/svg/desk.svg" alt="">
+                            <p class="caracteristica" style="margin-top: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS
+                                - 1].valor}} mesas</p>
+                        </div>
+                        <div class="icon caracteristica">
+                            <img class="caracteristica" src="assets/svg/car.svg"
+                                alt="">
+                            <p class="caracteristica" style="margin-top: 6px;">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS
+                                - 1].valor}} vagas</p>
+                        </div>
+                        <div class="icon caracteristica"
+                            *ngIf="espaco.caracteristicas[CARACTERISTICAS.INTERNET
+                            - 1].valor == 'true'">
+                            <span class="material-icons">wifi</span>
+                            <p class="caracteristica">Internet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <reserva-card
+                    [taxaMaxima]="13"
+                    [valorDiaria]="espaco.valor"
+                    [valorMensal]="espaco.valor_mes"
+                    [taxa]="espaco.taxa">
+                </reserva-card>
+
+                <div class="cardReserva">
+                    <div class="myCard">
+
+                        <div class="d-flex align-items-center
+                            justify-content-center" style="padding: 20px;">
+                            <button
+                                class="btn btn-reservar"
+                                type="button"
+                                (click)="checkout()"
+                                [disabled]="userService?.user_data?.id &&
+                                espaco.anunciante_id ===
+                                userService.user_data.id ||
+                                reservaForm.invalid">RESERVAR</button>
+                        </div>
+
+                        <div class="d-flex align-items-center
+                            justify-content-around
+                            flex-wrap"
+                            style="padding-top: 20px; padding-right: auto;
+                            padding-left: auto;">
+                            <div class="d-flex flex-column align-items-center"
+                                (click)="favoritar()">
+                                <span class="material-icons action-button-icon">favorite</span>
+                                <span style="font-size: 12px; font-weight:
+                                    bold;">Salvar</span>
+                            </div>
+                            <div *ngIf="view === 'photos'" class="d-flex
+                                flex-column
+                                align-items-center" (click)="view= 'maps'">
+                                <span class="material-icons action-button-icon">location_on</span>
+                                <span style="font-size: 12px; font-weight:
+                                    bold;">Localização</span>
+                            </div>
+                            <div *ngIf="view === 'maps'" class="d-flex
+                                flex-column
+                                align-items-center" (click)="view= 'photos'">
+                                <span class="material-icons action-button-icon">collections</span>
+                                <span style="font-size: 12px; font-weight:
+                                    bold;">Fotos</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center
+                            justify-content-center" style="padding: 40px 20px
+                            10px
+                            20px">
+                            <a style="color: black; font-weight: 500;" href="">*POLÍTICA
+                                DE CANCELAMENTO</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9">
+
+                <div class="d-flex flex-column">
+                    <span style="font-weight: 600; padding-bottom: 10px;">Descrição
+                        do proprietário</span>
+                    <span style="max-width: 75vw; word-wrap: break-word;">{{espaco.descricao}}</span>
+                </div>
+
+                <div class="d-flex flex-column">
+                    <span style="font-weight: 600; margin-top: 30px;
+                        padding-bottom: 10px;">Funcionamento</span>
+                    <span>.
+                        {{espaco.caracteristicas[CARACTERISTICAS.HORARIO_FUNCIONAMENTO
+                        - 1].valor}}</span>
+                    <span>. O prazo começa após a confirmação do pagamento</span>
+                </div>
+
+
+                <div class="d-flex flex-column">
+                    <span style="font-weight: 600; margin-top: 30px;
+                        padding-bottom: 10px;">Informações adicionais</span>
+                    <span *ngFor="let item of espaco.infos">. {{item.descricao}}</span>
+                </div>
+
+
+                <div class="d-flex flex-column">
+                    <a
+                        [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+espaco.id"
+                        target="_blank" style="font-weight: 500; margin-top:
+                        30px; padding-bottom: 10px; font-size: 20px;">Ainda tem
+                        alguma dúvida? Deixe sua pergunta ao locador</a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row endereco" style="margin-bottom: 15px;">
-        <div class="col-xl-3 d-flex align-items-center" *ngIf="espaco.nota">
-            <span class="nota">{{espaco.nota.toFixed(1)}}</span>
-            <span class="material-icons nota-star" *ngFor="let item of countStars(espaco.nota)">{{item}}</span>
-        </div>
-        <div class="col-xl-5 d-flex align-items-center">
-            <span class="endereco">{{espaco.local.rua}} - {{espaco.local.cidade}} - {{espaco.local.estado}}</span>
-        </div>
-        <div class="col-xl-4 d-flex flex-row align-items-center">
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
-                <span class="material-icons">aspect_ratio</span>
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.AREA - 1].valor}} m2</p>
-            </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
-                <img class="caracteristica" src="assets/svg/desk.svg" alt="">
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_MESAS - 1].valor}} mesas</p>
-            </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica">
-                <img class="caracteristica" src="assets/svg/car.svg" alt="">
-                <p class="caracteristica">{{espaco.caracteristicas[CARACTERISTICAS.QUANTIDADE_VAGAS - 1].valor}} vagas</p>
-            </div>
-            <div class="col-xl-3 d-flex flex-column align-items-center justify-content-center caracteristica" *ngIf="espaco.caracteristicas[CARACTERISTICAS.INTERNET - 1].valor == 'true'">
-                <span class="material-icons">wifi</span>
-                <p class="caracteristica">Internet</p>
+        <div id='avaliacoes' class="w-100" style="margin-top: 20px;">
+            <div *ngIf="espacos && espacos.length> 0" class="d-flex flex-column
+                back-verde-escuro more-announcement">
+                <span style="color: black; font-size: 20px; font-weight: bold;
+                    margin: auto auto 20px 15px">Mais espaços desse anunciante</span>
+                <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap
+                    justify-content-start">
+                    <card-item-alugavel *ngFor="let item of espacos"
+                        [data]="item" style="margin: 5px;"></card-item-alugavel>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="row" style="padding-right: 10%; margin-top: 40px;">
-        <div class="col">
-
-            <div class="d-flex flex-column">
-                <span style="font-weight: 600; padding-bottom: 10px;">Descrição do proprietário</span>
-                <span style="max-width: 75vw; word-wrap: break-word;">{{espaco.descricao}}</span>
-            </div>
-
-            <div class="d-flex flex-column">
-                <span style="font-weight: 600; margin-top: 30px; padding-bottom: 10px;">Funcionamento</span>
-                <span>. {{espaco.caracteristicas[CARACTERISTICAS.HORARIO_FUNCIONAMENTO - 1].valor}}</span>
-                <span>. O prazo começa após a confirmação do pagamento</span>
-            </div>
-
-            <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
-
-            <div class="d-flex flex-column">
-                <span style="font-weight: 600; margin-top: 30px; padding-bottom: 10px;">Informações adicionais</span>
-                <span *ngFor="let item of espaco.infos">. {{item.descricao}}</span>
-            </div>
-
-            <div style="border-bottom: 2px solid #b1b1b1; padding-top: 30px;"></div>
-
-            <div class="d-flex flex-column">
-                <a [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+espaco.id" 
-                    target="_blank" style="font-weight: 500; margin-top: 30px; padding-bottom: 10px; font-size: 20px;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id='avaliacoes' class="w-100">
-    <div *ngIf="espacos && espacos.length > 0" class="d-flex flex-column back-verde-escuro more-announcement">
-        <span style="color: black; font-size: 20px; font-weight: bold; margin: auto auto 20px 15px">Mais espaços desse anunciante</span>
-        <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-start">
-            <card-item-alugavel *ngFor="let item of espacos" [data]="item" style="margin: 5px;"></card-item-alugavel>
-        </div>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>
