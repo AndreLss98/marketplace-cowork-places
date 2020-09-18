@@ -32,11 +32,13 @@
                         </div>
                     </div>
                     <form-create-field [(original-form)]="createForm" [(possibilidades)]="possibilidadadesSelecao"></form-create-field>
-                    <button
+                    <div class="d-flex justify-content-center">
+                        <button
                         mat-flat-button
                         color="primary"
                         type="submit"
                         [disabled]="createForm.invalid ||createForm.pristine || (createForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Criar</button>
+                    </div>
                 </form>
             </mat-card-content>
         </mat-card>
