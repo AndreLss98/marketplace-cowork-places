@@ -138,11 +138,3 @@ span.action-button-icon {
     display: flex;
     flex-wrap: nowrap;
 }
-
-@media (max-width: 450px){
-    .more-announcement{
-        div{
-            justify-content: center !important;
-        }
-    }
-}
