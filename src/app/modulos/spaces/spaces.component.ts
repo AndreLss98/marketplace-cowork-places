@@ -39,7 +39,7 @@ export class SpacesComponent implements OnInit {
   public espaco;
   public espacos = [];
 
-  public view = 'maps';
+  public view = 'photos';
 
   // public rangeFilter = (date: Date | null): boolean => {
   //   const reservedRange = this.reservedDays.find(range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
