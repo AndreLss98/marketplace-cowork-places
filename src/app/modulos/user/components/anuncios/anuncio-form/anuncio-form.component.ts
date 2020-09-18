@@ -73,7 +73,7 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.imgsForm = formBuilder.group({
-      imgs: [null, [Validators.required]]
+      imgs: [[], [Validators.required]]
     });
 
     this.informacoesForm.controls['tipo_id'].valueChanges.subscribe(() => {
@@ -244,7 +244,6 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   configEditForm() {
-    console.log(this.route.snapshot.data);
     this.anuncio = this.route.snapshot.data['anuncio'];
     this.editMode = true;
 

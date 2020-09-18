@@ -52,6 +52,7 @@ export class DropzoneComponent implements OnInit {
   }
 
   set data(data) {
+    data = data.filter(el => el.src);
     this._data = data;
     this.files = this._data;
     this.dataChange.emit(this._data);
