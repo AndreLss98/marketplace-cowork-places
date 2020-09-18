@@ -19,7 +19,7 @@ export class SpacesGuard implements CanActivate {
     private snack: MatSnackBar,
     private userService: UserService,
     private AlugaveisService: AlugaveisService,
-  ){}
+  ){ }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -29,12 +29,11 @@ export class SpacesGuard implements CanActivate {
         map(res => {
           if(res.status === ALUGAVEL_STATUS.APPROVED.value || res.anunciante_id === this.userService?.user_data?.id) {
             return true
-          }else{
+          } else {
             this.snack.open("Esse espaço não pode ser exibido", "OK", {duration: 5000});
             this.router.navigate(['/home']);
             return false;
-          }; 
+          };
         }));
   }
-  
 }

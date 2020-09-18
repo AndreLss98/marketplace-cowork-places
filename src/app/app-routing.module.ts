@@ -1,9 +1,11 @@
-import { SpacesGuard } from './modulos/spaces/guard/spaces.guard';
-import { CheckoutGuardGuard } from './modulos/checkout/guard/checkout-guard.guard';
-import { UserGuard } from './modulos/user/guard/user.guard';
-import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
+
+import { UserGuard } from './modulos/user/guard/user.guard';
+import { SpacesGuard } from './modulos/spaces/guard/spaces.guard';
+import { CheckoutGuardGuard } from './modulos/checkout/guard/checkout-guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -11,11 +13,11 @@ const routes: Routes = [
   { path: 'about', loadChildren: () => import('./modulos/about/about.module').then(m => m.AboutModule) },
   { path: 'confirm-email', loadChildren: () => import('./modulos/confirm-email/confirm-email.module').then(m => m.ConfirmEmailModule) },
   { 
-    path: 'spaces/:id', 
+    path: 'spaces/:id',
     loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) ,
     canActivate: [SpacesGuard]
   },
-  { 
+  {
     path: 'user', 
     loadChildren: () => import('./modulos/user/user.module').then(m => m.UserModule),
     // canLoad: [UserGuard]
@@ -39,7 +41,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
   exports: [RouterModule],
   providers: [
-    SearchResolver,
     UserGuard,
     CheckoutGuardGuard
   ]
