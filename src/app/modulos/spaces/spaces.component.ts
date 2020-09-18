@@ -46,7 +46,7 @@ export class SpacesComponent implements OnInit {
   public espacos = [];
   public condicoes = [];
 
-  public view = 'photos';
+  public view = 'maps';
   public isDaily: boolean = true;
 
   public reservedDays: any = [];

@@ -6,7 +6,7 @@ p.info {
     font-weight: 500;
 }
 
-#content{
+#content {
     
     padding-bottom: 30px;
     padding-top: 30px;
@@ -61,17 +61,16 @@ p.info {
     position: absolute;
 }
 
-.myCard{
-    background-color: white;
-    border-radius: 15px;
+.myCard {
     padding-top: 15px;
+    border-radius: 15px;
+    background-color: white;
 
-    .btn-reservar{
+    .btn-reservar {
         background: linear-gradient( to right, #00fd00, #00ffab);
-        
         height: 50px;
-        border-radius: 15px;
         font-weight: bold;
+        border-radius: 15px;
     }
 }
 
@@ -137,4 +136,8 @@ span.action-button-icon {
 .infoIcon{
     display: flex;
     flex-wrap: nowrap;
+}
+
+button[mat-fab] {
+    box-shadow: none;
 }
