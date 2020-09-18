@@ -268,14 +268,11 @@
             </div>
             <div *ngIf="!isSending" class="d-flex mt-2 justify-content-between">
                 <button type="button" mat-raised-button matStepperPrevious>Voltar</button>
-                <button type="button" mat-raised-button color="primary" (click)="save()" 
+                <button type="button" mat-raised-button color="primary" (click)="editMode? update() : save()" 
                 [disabled]="
-                    (informacoesForm.invalid || informacoesForm.pristine) ||
-                    (imgsForm.invalid) ||
-                    (caracteristicasForm.invalid || caracteristicasForm.pristine) ||
-                    (documentosForm.invalid  || documentosForm.pristine) ||
-                    (enderecoForm.invalid || enderecoForm.pristine) ||
-                    (valoresForm.invalid || valoresForm.pristine)">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
+                    informacoesForm.invalid || imgsForm.invalid ||
+                    caracteristicasForm.invalid || documentosForm.invalid ||
+                    enderecoForm.invalid || valoresForm.invalid">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
             </div>
 
             <div *ngIf="isSending" class="d-flex justify-content-center">

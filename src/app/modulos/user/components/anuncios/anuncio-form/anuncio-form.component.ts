@@ -278,6 +278,10 @@ export class AnuncioFormComponent implements OnInit {
     });
   }
 
+  update() {
+    console.log('Vai atualizar');
+  }
+
   addInfo(descricao: string) {
     this.infoAdicionais.unshift({ descricao });
   }
