@@ -24,6 +24,8 @@ export class AnuncioFormComponent implements OnInit {
   readonly sendImgsUrl = `${environment.apiUrl}/alugaveis/imagem`;
   readonly sendDocsUrl = `${environment.apiUrl}/alugaveis/documentos`;
 
+  public editMode: boolean = false;
+
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;
   readonly formatCEP = formatCEP;
@@ -109,6 +111,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.router.url.includes('/edit')) this.configEditForm();
     this.tipos = this.route.snapshot.data['tipos'];
     this.configTax();
     this.ibgeService.getEstados().subscribe( response => {
@@ -231,6 +234,15 @@ export class AnuncioFormComponent implements OnInit {
     }, () => {
       this.isSending = false;
     });
+  }
+
+  configEditForm() {
+    console.log(this.route.snapshot.data);
+    const anuncio = this.route.snapshot.data['anuncio'];
+    this.editMode = true;
+    this.informacoesForm.controls['titulo'].setValue(anuncio.titulo);
+    this.informacoesForm.controls['tipo_id'].setValue(anuncio.tipo.id);
+    this.informacoesForm.controls['descricao'].setValue(anuncio.descricao);
   }
 
   addInfo(descricao: string) {

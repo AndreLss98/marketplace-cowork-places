@@ -6,6 +6,7 @@ import { SafetyComponent } from './components/conta/safety/safety.component';
 import { FeedbackComponent } from './components/admin/feedback/feedback.component';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salvos.component';
+import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
@@ -14,8 +15,11 @@ import { ListaContratosComponent } from './components/admin/contratos/lista-cont
 import { ListaAlugaveisComponent } from './components/admin/alugaveis/lista-alugaveis/lista-alugaveis.component';
 import { DetalhesUsuariosComponent } from './components/admin/usuarios/detalhes-usuarios/detalhes-usuarios.component';
 import { DetalhesContratoComponent } from './components/admin/contratos/detalhes-contrato/detalhes-contrato.component';
+import { DadosPessoaisComponent } from './components/conta/informacoes-pessoais/dados-pessoais/dados-pessoais.component';
 import { DetalhesAlugaveisComponent } from './components/admin/alugaveis/detalhes-alugaveis/detalhes-alugaveis.component';
 
+import { TaxaResolverService } from './resolvers/taxa-resolver.service';
+import { TiposResolverService } from './resolvers/tipos-resolver.service';
 import { FeedbacksResolverService } from './resolvers/feedbacks-resolver.service';
 import { ContratosListResolverService } from './resolvers/contratos-list-resolver.service';
 import { DetalhesUsuarioResolverService } from './resolvers/detalhes-usuario-resolver.service';
@@ -25,10 +29,6 @@ import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-r
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 
 import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
-import { TiposResolverService } from './resolvers/tipos-resolver.service';
-import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
-import { TaxaResolverService } from './resolvers/taxa-resolver.service';
-import { DadosPessoaisComponent } from './components/conta/informacoes-pessoais/dados-pessoais/dados-pessoais.component';
 
 const routes: Routes = [
   {
@@ -66,6 +66,7 @@ const routes: Routes = [
         path: 'anuncios/edit/:id',
         component: AnuncioFormComponent,
         resolve: {
+          anuncio: DetalhesAlugavelResolverService,
           tipos: TiposResolverService,
           taxa: TaxaResolverService
         }
