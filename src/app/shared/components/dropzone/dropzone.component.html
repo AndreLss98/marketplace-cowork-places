@@ -7,7 +7,7 @@
         <img-thumbnail [src]="file.src"></img-thumbnail>
     </div>
     <div class="col align-self-center">
-        <p class="font-weight-bold">{{file.object.name}}</p>
+        <!-- <p class="font-weight-bold">{{file.object.name}}</p> -->
         <p>
             <span *ngIf="file.success || file.error" class="text-danger mr-1 cursor-pointer" (click)="removeFile(i)">Excluir</span>
             <span *ngIf="file.error" class="text-primary cursor-pointer" (click)="resendFile(file)">Reenviar</span>

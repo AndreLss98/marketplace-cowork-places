@@ -8,9 +8,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 })
 export class DetalhesAlugavelResolverService implements Resolve<any> {
 
-  constructor(private alugaveisService: AlugaveisService) {
-
-  }
+  constructor(private alugaveisService: AlugaveisService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
     return this.alugaveisService.getById(route.paramMap.get('id'));

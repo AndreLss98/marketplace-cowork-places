@@ -25,6 +25,7 @@ export class AnuncioFormComponent implements OnInit {
   readonly sendDocsUrl = `${environment.apiUrl}/alugaveis/documentos`;
 
   public editMode: boolean = false;
+  private anuncio: any;
 
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;
@@ -140,6 +141,12 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.caracteristicasForm = new FormGroup(group);
+
+    if (this.editMode) {
+      Object.keys(this.caracteristicasForm.value).forEach(key => {
+        this.caracteristicasForm.controls[key].setValue(this.anuncio.caracteristicas.find(caracterictica => caracterictica.id === Number(key)).valor);
+      });
+    }
   }
 
   public onLocalChange(event) {
@@ -238,11 +245,37 @@ export class AnuncioFormComponent implements OnInit {
 
   configEditForm() {
     console.log(this.route.snapshot.data);
-    const anuncio = this.route.snapshot.data['anuncio'];
+    this.anuncio = this.route.snapshot.data['anuncio'];
     this.editMode = true;
-    this.informacoesForm.controls['titulo'].setValue(anuncio.titulo);
-    this.informacoesForm.controls['tipo_id'].setValue(anuncio.tipo.id);
-    this.informacoesForm.controls['descricao'].setValue(anuncio.descricao);
+
+    this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
+    this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
+    this.informacoesForm.controls['descricao'].setValue(this.anuncio.descricao);
+
+    this.imgsForm.controls['imgs'].setValue(this.anuncio.imagens.map(img => {
+      return { id: img.id, src: `${environment.apiUrl}/imgs/${img.url}`, success: true }
+    }));
+
+    this.infoAdicionais = this.anuncio.infos;
+
+    this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
+
+    Object.keys(this.enderecoForm.value).forEach(key => {
+      this.enderecoForm.controls[key].setValue(this.anuncio.local[key]);
+    });
+
+    this.lngLatPlace = {
+      latitude: this.enderecoForm.controls['latitude'].value,
+      longitude: this.enderecoForm.controls['longitude'].value
+    }
+
+    Object.keys(this.valoresForm.value).forEach(key => {
+      if (key === 'valor' || key === 'valor_mes') {
+        this.valoresForm.controls[key].setValue(formatMoneyValue(this.anuncio[key]));
+      } else {
+        this.valoresForm.controls[key].setValue(this.anuncio[key]);
+      }
+    });
   }
 
   addInfo(descricao: string) {

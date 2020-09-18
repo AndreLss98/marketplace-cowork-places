@@ -36,7 +36,7 @@
             
             <div class="row">
                 <div class="col-sm">
-                    <dropzone [url]="sendImgsUrl" (data)="bindingFormField('imgs', imgsForm, $event)"></dropzone>
+                    <dropzone [url]="sendImgsUrl" [data]="imgsForm.controls['imgs'].value" (data)="bindingFormField('imgs', imgsForm, $event)"></dropzone>
                 </div>
             </div>
             <div class="d-flex justify-content-end mt-2">
@@ -275,7 +275,7 @@
                     (caracteristicasForm.invalid || caracteristicasForm.pristine) ||
                     (documentosForm.invalid  || documentosForm.pristine) ||
                     (enderecoForm.invalid || enderecoForm.pristine) ||
-                    (valoresForm.invalid || valoresForm.pristine)">Publicar</button>
+                    (valoresForm.invalid || valoresForm.pristine)">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
             </div>
 
             <div *ngIf="isSending" class="d-flex justify-content-center">

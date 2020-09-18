@@ -8,7 +8,8 @@ export interface customFormField {
 
 export interface displayFile {
   src: any;
-  object: any;
+  object?: any;
+  id?: number;
   success?: boolean;
   error?: boolean;
 }
@@ -38,6 +39,7 @@ export class DropzoneComponent implements OnInit {
   @Input('customFields')
   public customFields: customFormField[] = [];
 
+  @Input()
   public files: displayFile[] = [];
 
   private _data = [];
@@ -51,6 +53,7 @@ export class DropzoneComponent implements OnInit {
 
   set data(data) {
     this._data = data;
+    this.files = this._data;
     this.dataChange.emit(this._data);
   }
 
@@ -59,9 +62,7 @@ export class DropzoneComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.label) {
-      this.label = this.singleFile? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
-    }
+    if (!this.label) this.label = this.singleFile? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
   }
 
   ngAfterViewInit() {
