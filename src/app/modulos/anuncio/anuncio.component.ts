@@ -36,8 +36,8 @@ export class SpacesComponent implements OnInit {
   
   public backUrl = environment.apiUrl;
 
-  public espaco;
-  public espacos = [];
+  public anuncio;
+  public maisEspacosDoLocador = [];
 
   public view = 'photos';
 
@@ -64,13 +64,13 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.espaco = this.route.snapshot.data['espaco'];
+    this.anuncio = this.route.snapshot.data['espaco'];
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
 
     console.log(this.route.snapshot.data);
 
-    this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
-      this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.name);
+    this.alugavelService.getAllByUser(this.anuncio.anunciante_id).subscribe(response => {
+      this.maisEspacosDoLocador = response.filter(anuncio => anuncio.id !== this.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.name);
     });
 
     // this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
@@ -104,14 +104,14 @@ export class SpacesComponent implements OnInit {
   // }
 
   public favoritar() {
-    if (this.espaco.anunciante_id === this.userService.user_data.id) {
+    if (this.anuncio.anunciante_id === this.userService.user_data.id) {
       this.snackBar.open('Você é o proprietário desse anúncio', 'OK', {duration: 1000});
       return;
     }
-    this.favoritoService.favoritar(this.espaco.id).subscribe(res => {
+    this.favoritoService.favoritar(this.anuncio.id).subscribe(res => {
       this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
     }, err => {
-      this.favoritoService.desfavoritar(this.espaco.id).subscribe( response => {
+      this.favoritoService.desfavoritar(this.anuncio.id).subscribe( response => {
         this.snackBar.open('Removido dos espaços salvos', 'OK', {duration: 1000});
       })
     });
@@ -129,7 +129,7 @@ export class SpacesComponent implements OnInit {
         data_saida: formatDate(this.reservaForm.controls['saida'].value)
       },
       valor: 100,
-      alugavel_id: this.espaco.id
+      alugavel_id: this.anuncio.id
     };
 
     // if (this.totalDias() <= 31 || Math.round(this.totalDias() / 31) === 1) {

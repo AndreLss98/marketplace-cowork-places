@@ -1,21 +1,21 @@
 <div class="ml-sm-2 mr-2 ml-lg-0 overflow-hidden min-vh-100" style="max-width: 100%;">
-    <h1 class="font-weight-bold">{{espaco.titulo}}</h1>
-    <h4>{{espaco.tipo.nome}}</h4>
+    <h1 class="font-weight-bold">{{anuncio.titulo}}</h1>
+    <h4>{{anuncio.tipo.nome}}</h4>
     
     <div class="row">
         <div class="col-md col-lg-8">
             <maps
                 *ngIf="view === 'maps'"
-                [lngLatPlace]="{ latitude: espaco.local.latitude, longitude: espaco.local.longitude }"
+                [lngLatPlace]="{ latitude: anuncio.local.latitude, longitude: anuncio.local.longitude }"
                 [static]="true"></maps>
     
             <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide mw-100" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#spacesCarousel" *ngFor="let image of espaco.imagens; let i = index" data-slide-to="index" [class.active]="i == 0"></li>
+                    <li data-target="#spacesCarousel" *ngFor="let image of anuncio.imagens; let i = index" data-slide-to="index" [class.active]="i === 0" ></li>
                 </ol>
     
                 <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let image of espaco.imagens; let i=index" [class.active]="i == 0">
+                    <div class="carousel-item" *ngFor="let image of anuncio.imagens; let i = index" [class.active]="i === 0">
                         <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" />
                     </div>
                 </div>
@@ -34,9 +34,9 @@
         <div class="col-md col-lg-4">
             <reserva-card
                 [taxaMaxima]="max_taxa"
-                [valorDiaria]="espaco.valor"
-                [valorMensal]="espaco.valor_mes"
-                [taxa]="espaco.taxa"></reserva-card>
+                [valorDiaria]="anuncio.valor"
+                [valorMensal]="anuncio.valor_mes"
+                [taxa]="anuncio.taxa"></reserva-card>
             <div class="mt-2">
                 <div class="row">
                     <div class="col d-flex justify-content-center">
@@ -70,24 +70,29 @@
         </div>
     </div>
     
-    <mat-card class="w-100 my-2 mw-100">
-        <h1>{{ espaco.local.rua }} {{ espaco.local.cidade }} - {{ espaco.local.estado }}</h1>
+    <mat-card class="row w-100 my-2 mw-100">
+        <div class="col">
+            <h1>{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
+        </div>
+        <!-- <div class="col">
+
+        </div> -->
     </mat-card>
     
     <div class="row mw-100">
         <div class="col">
             <div class="d-flex flex-column">
                 <h2 class="font-weight-bold">Descrição do proprietário</h2>
-                <h3 style="word-wrap: break-word;">{{espaco.descricao}}</h3>
+                <h3 style="word-wrap: break-word;">{{ anuncio.descricao }}</h3>
             </div>
         </div>
     </div>
     
-    <div *ngIf="espaco.infos.length" class="row mt-2">
+    <div *ngIf="anuncio.infos.length" class="row mt-2">
         <div class="col">
             <div class="d-flex flex-column">
                 <h2 class="font-weight-bold">Informações adicionais</h2>
-                <h3 *ngFor="let item of espaco.infos">{{item.descricao}}</h3>
+                <h3 *ngFor="let info of anuncio.infos">{{ info.descricao }}</h3>
             </div>
         </div>
     </div>
@@ -95,20 +100,19 @@
     <div class="row mt-2">
         <div class="col">
             <a
-                [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+espaco.id"
+                [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+anuncio.id"
                 target="_blank"
                 style="font-size: 1rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
         </div>
     </div>
     
-    <div id="avaliacoes" class="w-100 my-2">
-        <div *ngIf="espacos.length" class="d-flex flex-column back-verde-escuro more-announcement">
-            <span style="color: black; font-size: 20px; font-weight: bold; margin: auto auto 20px 15px">Mais espaços desse anunciante</span>
-            <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap
-                justify-content-center">
+    <div class="w-100 my-2">
+        <div *ngIf="maisEspacosDoLocador.length" class="d-flex flex-column">
+            <span>Mais espaços desse anunciante</span>
+            <div class="d-flex w-100 flex-row back-verde-escuro flex-wrap justify-content-center">
                 <card-item-alugavel
-                    *ngFor="let item of espacos"
-                    [data]="item"></card-item-alugavel>
+                    *ngFor="let espaco of maisEspacosDoLocador"
+                    [data]="espaco"></card-item-alugavel>
             </div>
         </div>
     </div>
