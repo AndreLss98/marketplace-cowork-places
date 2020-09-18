@@ -9,7 +9,7 @@ import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import { environment } from 'src/environments/environment';
 import { formatDate } from 'src/app/shared/constants/functions';
-import { ENUM_ALUGAVEL_CARACTERISTICAS } from 'src/app/shared/constants/constants';
+import { ENUM_ALUGAVEL_CARACTERISTICAS, ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
@@ -69,9 +69,9 @@ export class SpacesComponent implements OnInit {
 
     console.log(this.route.snapshot.data);
 
-    // this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
-    //   this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id);
-    // });
+    this.alugavelService.getAllByUser(this.espaco.anunciante_id).subscribe(response => {
+      this.espacos = response.filter(anuncio => anuncio.id !== this.espaco.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.name);
+    });
 
     // this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
     //   this.reservedDays = response;
