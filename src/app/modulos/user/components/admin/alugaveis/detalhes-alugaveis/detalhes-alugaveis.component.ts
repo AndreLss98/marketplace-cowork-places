@@ -1,12 +1,13 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
-import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS } from 'src/app/shared/constants/constants';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { formatMoneyValue, translateBoolValue } from 'src/app/shared/constants/functions';
+import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-detalhes-alugaveis',
@@ -14,6 +15,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./detalhes-alugaveis.component.scss']
 })
 export class DetalhesAlugaveisComponent implements OnInit {
+
+  readonly formatMoneyValue = formatMoneyValue;
 
   public alugavel: any;
   public backURL = `${environment.apiUrl}/`;
@@ -40,9 +43,12 @@ export class DetalhesAlugaveisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.alugavel = this.route.snapshot.data.alugavel;
-    this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor = this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor === 'true'? 'Sim' : 'Não';
-    this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA - 1].valor = `${this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.AREA - 1].valor} m2`;
+    this.alugavel = this.route.snapshot.data['alugavel'];
+    console.log(this.alugavel);
+    this.alugavel.caracteristicas.forEach(caracteristica => {
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = translateBoolValue(caracteristica.valor);
+    });
+    // this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor = this.alugavel.caracteristicas[ENUM_ALUGAVEL_CARACTERISTICAS.INTERNET - 1].valor === 'true'? 'Sim' : 'Não';
     this.resetStatusForm();
   }
 
@@ -51,7 +57,6 @@ export class DetalhesAlugaveisComponent implements OnInit {
     this.alugavel.status = this.statusForm.value.status;
     this.alugavel.observacao = this.statusForm.value.observacao;
     this.alugavelService.alterStatus(this.alugavel.id, this.statusForm.value).subscribe(response => {
-      //console.log('Alterado');
       this.resetStatusForm()
       this.snack.open("Salvo com sucesso!", 'OK', {verticalPosition: 'top', duration: 4000})
     }, (error) => {
@@ -64,7 +69,6 @@ export class DetalhesAlugaveisComponent implements OnInit {
     this.statusForm.reset({
       status: this.alugavel.status,
       observacao: this.alugavel.observacao
-    })
+    });
   }
-
 }

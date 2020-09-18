@@ -1,7 +1,6 @@
 <mat-card>
     <mat-card-title>{{ alugavel.titulo}}</mat-card-title>
     <mat-card-subtitle>{{ alugavel.tipo.nome }}</mat-card-subtitle>
-    <!-- <mat-checkbox [(ngModel)]="alugavel.disponivel" (change)="onStatusChange()">Disponível?</mat-checkbox> -->
     <form [formGroup]="statusForm" (ngSubmit)="statusChange()">
         <mat-form-field appearance="fill">
             <mat-label>Status Alugavel</mat-label>
@@ -24,8 +23,8 @@
         <h3 [routerLink]="'/user/usuarios/' + alugavel.anunciante_id" class="link"
             *ngIf="alugavel.anunciante_avaliado !== USUARIO_STATUS.APPROVED.value">O anunciante não possui o cadastro
             validado! Visualizar anunciante.</h3>
-        <h4>Descrição</h4>
-        <!--<span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>-->
+        <h4 class="font-weight-bold">Descrição:</h4>
+        <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>
         <div style="overflow: auto;">
             <mat-tab-group disablePagination mat-align-tabs="center">
                 <mat-tab [label]="'Valor'" >
@@ -35,14 +34,14 @@
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Valor Diário</mat-card-title>
-                                        <div class="content">R$ {{alugavel.valor}}</div>
+                                        <div class="content">{{ formatMoneyValue(alugavel.valor) }}</div>
                                     </mat-card>
                                 </div>
     
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Valor Mensal</mat-card-title>
-                                        <div class="content">R$ {{alugavel.valor_mes}}</div>
+                                        <div class="content">{{ formatMoneyValue(alugavel.valor_mes) }}</div>
                                     </mat-card>
                                 </div>
                             </div>
@@ -58,7 +57,6 @@
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Rua</mat-card-title>
                                         <div class="content">{{alugavel.local.rua}}</div>
-    
                                     </mat-card>
                                 </div>
     
@@ -68,7 +66,6 @@
                                         <mat-card-title class="title">Número</mat-card-title>
                                         <div class="content">{{alugavel.local.numero}}</div>
                                     </mat-card>
-    
                                 </div>
                             </div>
                             <div class="row">
@@ -77,7 +74,6 @@
                                         <mat-card-title class="title">Complemento</mat-card-title>
                                         <div class="content">{{alugavel.local.complemento}}</div>
                                     </mat-card>
-    
                                 </div>
     
     
@@ -86,7 +82,6 @@
                                         <mat-card-title class="title">Bairro</mat-card-title>
                                         <div class="content">{{alugavel.local.bairro}}</div>
                                     </mat-card>
-    
                                 </div>
                             </div>
                             <div class="row">
@@ -95,35 +90,28 @@
                                         <mat-card-title class="title">CEP</mat-card-title>
                                         <div class="content">{{alugavel.local.cep}}</div>
                                     </mat-card>
-    
                                 </div>
     
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Cidade</mat-card-title>
                                         <div class="content">{{alugavel.local.cidade}}</div>
-    
                                     </mat-card>
-    
                                 </div>
                             </div>
                             <div class="row">
-    
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Estado</mat-card-title>
                                         <div class="content">{{alugavel.local.estado}}</div>
                                     </mat-card>
-    
                                 </div>
-    
-    
+
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">País</mat-card-title>
                                         <div class="content">{{alugavel.local.pais}}</div>
                                     </mat-card>
-    
                                 </div>
                             </div>
                         </table>
@@ -162,8 +150,7 @@
                     </mat-card-content>
     
                 </mat-tab>
-                <mat-tab [label]="'Documentos'" *ngIf="alugavel.documentos && alugavel.documentos.length > 0">
-    
+                <mat-tab [label]="'Documentos'" *ngIf="alugavel.documentos.length">
                     <mat-card-content>
                         <mat-table [dataSource]="alugavel.documentos" class="mat-elevation-z8">
                             <ng-container matColumnDef="documento">
@@ -183,7 +170,6 @@
                             <mat-row *matRowDef="let row; columns: displayedDocumentsColumns;"></mat-row>
                         </mat-table>
                     </mat-card-content>
-    
                 </mat-tab>
             </mat-tab-group>
         </div>

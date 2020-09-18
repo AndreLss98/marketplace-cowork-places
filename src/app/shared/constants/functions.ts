@@ -42,5 +42,6 @@ export function desformatCEP(value: string) {
 }
 
 export function translateBoolValue(value): string {
+    if (typeof value === "string") value = value === "false"? false : true;
     return value? "Sim" : "Não";
 }
