@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 import { formatMoneyValue } from '../../constants/functions';
 import { Financeiro } from 'src/app/shared/classes/financeiro';
-import { ENUM_ALUGAVEL_CARACTERISTICAS } from '../../constants/constants';
+import { ENUM_ALUGAVEL_CARACTERISTICAS, TIPOS_CAMPOS } from '../../constants/constants';
 
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
@@ -18,6 +18,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 export class CardItemAlugavelComponent extends Financeiro implements OnInit {
 
   readonly formatMoneyValue = formatMoneyValue;
+  readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
 
   @Input('data')
   public data;
@@ -44,12 +45,13 @@ export class CardItemAlugavelComponent extends Financeiro implements OnInit {
     this.alugavel.getTaxa().subscribe(response => {
       this.taxaTotal = response.taxa;
     });
-    
-    if(this.alugavel_id){
-      this.alugaveis.getById(this.alugavel_id).subscribe( res => {
-        this.data = res;
-      });
-    }
+  }
+
+  ngAfterViewInit() {
+    if(this.alugavel_id) this.alugaveis.getById(this.alugavel_id).subscribe(response => {
+      this.data = response;
+      this.data.caracteristicas = this.data.caracteristicas.filter(el => el.icone).slice(0, 4);
+    });
   }
 
   goToSpace() {
