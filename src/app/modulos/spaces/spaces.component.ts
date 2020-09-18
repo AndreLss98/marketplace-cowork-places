@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
@@ -64,9 +64,6 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const topo = document.getElementById("topo");
-    // topo.scrollIntoView({ behavior: 'auto' });
-
     this.espaco = this.route.snapshot.data['espaco'];
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
 
@@ -88,6 +85,11 @@ export class SpacesComponent implements OnInit {
     //     reserved.data_saida.setHours(0, 0, 0);
     //   }
     // });
+  }
+
+  ngAfterViewInit() {
+    const topo = document.getElementById("sidebar");
+    topo.scrollIntoView({ behavior: 'auto' });
   }
 
   // public validateRange() {

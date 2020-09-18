@@ -1,5 +1,5 @@
 <ng-sidebar-container class="min-vh-100">
-    <ng-sidebar #sidebar [opened]="sidenavOpened">
+    <ng-sidebar #sidebar id="sidebar" [opened]="sidenavOpened">
         <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute"
             (click)="sidenavOpened = false">close</mat-icon>
         <img routerLink="/home" class="cursor-pointer my-4 d-block" style="outline: none;"
