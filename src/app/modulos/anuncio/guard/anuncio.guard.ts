@@ -12,7 +12,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SpacesGuard implements CanActivate {
+export class AnuncioGuard implements CanActivate {
 
   constructor(
     private router: Router,

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
 
 import { UserGuard } from './modulos/user/guard/user.guard';
-import { SpacesGuard } from './modulos/spaces/guard/spaces.guard';
+import { AnuncioGuard } from './modulos/anuncio/guard/anuncio.guard';
 import { CheckoutGuardGuard } from './modulos/checkout/guard/checkout-guard.guard';
 
 const routes: Routes = [
@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'confirm-email', loadChildren: () => import('./modulos/confirm-email/confirm-email.module').then(m => m.ConfirmEmailModule) },
   { 
     path: 'spaces/:id',
-    loadChildren: () => import('./modulos/spaces/spaces.module').then(m => m.SpacesModule) ,
-    canActivate: [SpacesGuard]
+    loadChildren: () => import('./modulos/anuncio/anuncio.module').then(m => m.AnuncioModule),
+    canActivate: [AnuncioGuard]
   },
   {
     path: 'user', 

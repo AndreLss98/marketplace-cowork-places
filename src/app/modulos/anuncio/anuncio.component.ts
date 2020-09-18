@@ -19,8 +19,8 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 
 @Component({
   selector: 'app-spaces',
-  templateUrl: './spaces.component.html',
-  styleUrls: ['./spaces.component.scss'],
+  templateUrl: './anuncio.component.html',
+  styleUrls: ['./anuncio.component.scss'],
   providers: [
     {
       provide: MAT_DATE_LOCALE,
