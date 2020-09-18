@@ -21,8 +21,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route);
-    this.route.queryParams.subscribe((data) => {
+    this.route.queryParams.subscribe(data => {
       this.filters = data;
       if (this.filters) {
         this.highlightService.fetch(this.filters);
@@ -30,9 +29,5 @@ export class SearchComponent implements OnInit {
         this.highlightService.fetch();
       }
     })
-  }
-
-  onScrollContent() {
-    
   }
 }

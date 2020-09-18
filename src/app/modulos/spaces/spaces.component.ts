@@ -80,6 +80,8 @@ export class SpacesComponent implements OnInit {
   ngOnInit(): void {
     this.alugavelService.getTaxa().subscribe(response => {
       this.max_taxa = Number(response.taxa);
+      const topo = document.getElementById("topo");
+      topo.scrollIntoView({ behavior: 'auto' });
     });
 
     this.espaco = this.route.snapshot.data['data'];
