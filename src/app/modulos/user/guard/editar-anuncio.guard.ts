@@ -22,11 +22,10 @@ export class EditarAnuncioGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     return this.alugaveis.getById(next.queryParams.id).pipe(
-        map(res => {
-          return res.anunciante_id == this.user.user_data.id;
-        }));
-
-    // return true;
+    map(res => {
+      console.log(this.user.user_data)
+      return res.anunciante_id == this.user.user_data.id;
+    }));
   }
   
 }

@@ -28,8 +28,9 @@ export class MeusAnunciosComponent implements OnInit {
     this.carregaAlugavel();
   }
 
-  editSpace(idSpace) {
-    this.router.navigate(['/user/anuncios/editaranuncio'], { queryParams: { id: idSpace, edit: true }, skipLocationChange: true });
+  editSpace(id) {
+    console.log(id);
+    this.router.navigate([`/user/anuncios/edit/${id}`]);
   }
 
   alterarStatus(id, status) {

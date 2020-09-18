@@ -65,7 +65,11 @@ const routes: Routes = [
       {
         path: 'anuncios/edit/:id',
         component: AnuncioFormComponent,
-        canActivate: [EditarAnuncioGuard]
+        resolve: {
+          tipos: TiposResolverService,
+          taxa: TaxaResolverService
+        }
+        // canActivate: [EditarAnuncioGuard]
       },
       {
         path: 'anuncios/new',
