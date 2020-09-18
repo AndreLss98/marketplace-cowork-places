@@ -24,7 +24,7 @@
                     <input #fileInput style="display: none;" type="file" autocomplete="off" (change)="changeFileSelected($event)" />
                     <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required autocomplete="off"/>
                 </mat-form-field>
-                    <table>
+                    <table class="d-flex justify-content-center">
                         <td>
                             <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
                         </td>
@@ -59,7 +59,10 @@
                     <mat-checkbox formControlName="aprovado">Aprovado</mat-checkbox>
                 </div>
 
-                <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+                <div class="d-flex justify-content-center" >
+                    <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+                </div>
+                
             </form>
         </mat-card-content>
     </mat-card>
