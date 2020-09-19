@@ -3,7 +3,7 @@
     <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()">
       <div class="row">
         <div class="col-sm">
-          <mat-form-field appearance="legacy" class="w-100 example-full-width">
+          <mat-form-field appearance="standard" class="w-100 example-full-width">
             <mat-label>Banco</mat-label>
             <input type="text" matInput formControlName="banco" [matAutocomplete]="auto" placeholder="Banco">
             <mat-autocomplete #auto="matAutocomplete">
@@ -13,7 +13,7 @@
           </mat-form-field>
         </div>
         <div class="col-sm">
-          <mat-form-field appearance="legacy" class="w-100">
+          <mat-form-field appearance="standard" class="w-100">
             <mat-label>Tipo</mat-label>
             <mat-select formControlName="tipo" required>
               <mat-option *ngFor="let type of bankAccountTypes" [value]="type">
@@ -25,13 +25,13 @@
       </div>
       <div class="row">
         <div class="col-sm">
-          <mat-form-field appearance="legacy" class="w-100">
+          <mat-form-field appearance="standard" class="w-100">
             <mat-label>Agência</mat-label>
             <input matInput formControlName="agencia" placeholder="Agência sem dígito" required />
           </mat-form-field>
         </div>
         <div class="col-sm">
-          <mat-form-field appearance="legacy" class="w-100">
+          <mat-form-field appearance="standard" class="w-100">
             <mat-label>Número da conta</mat-label>
             <input matInput formControlName="numero" placeholder="Conta com o dígito" required />
           </mat-form-field>
