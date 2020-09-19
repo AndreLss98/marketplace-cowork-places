@@ -10,7 +10,7 @@ export class CheckoutGuardGuard implements CanLoad {
 
   constructor(
     private checkoutService: CheckoutService
-  ){}
+  ){ }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 

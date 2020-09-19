@@ -12,14 +12,14 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SpacesGuard implements CanActivate {
+export class AnuncioGuard implements CanActivate {
 
   constructor(
     private router: Router,
     private snack: MatSnackBar,
     private userService: UserService,
     private AlugaveisService: AlugaveisService,
-  ){}
+  ){ }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -29,12 +29,11 @@ export class SpacesGuard implements CanActivate {
         map(res => {
           if(res.status === ALUGAVEL_STATUS.APPROVED.value || res.anunciante_id === this.userService?.user_data?.id) {
             return true
-          }else{
+          } else {
             this.snack.open("Esse espaço não pode ser exibido", "OK", {duration: 5000});
             this.router.navigate(['/home']);
             return false;
-          }; 
+          };
         }));
   }
-  
 }
