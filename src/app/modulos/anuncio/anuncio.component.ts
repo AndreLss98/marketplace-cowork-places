@@ -89,9 +89,7 @@ export class SpacesComponent implements OnInit {
     this.favoritoService.favoritar(this.anuncio.id).subscribe(res => {
       this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
     }, err => {
-      this.favoritoService.desfavoritar(this.anuncio.id).subscribe( response => {
-        this.snackBar.open('Removido dos espaços salvos', 'OK', {duration: 1000});
-      })
+      this.snackBar.open('Espaço já está salvo', 'OK', {duration: 1000});
     });
   }
 
