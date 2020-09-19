@@ -1,21 +1,20 @@
-<form *ngIf="documentos.length; else emptyDocuments" [formGroup]="documentsForm">
-  <div class="row my-2 mr-1" *ngFor="let documento of documentos">
-    <div class="col-xl">
-      <dropzone class="w-100"
-        [url]="sendDocsUrl"
-        [label]="documento.nome"
-        [single]="true"
-        [customFields]="[{ fieldName: 'documento_id', value: documento.id }]"
-        [files]="documento.files"></dropzone>
-    </div>
+<ng-container *ngIf="documentos.length; else emptyDocuments">
+
+</ng-container>
+<div class="row my-2 mr-1" *ngFor="let documento of documentos">
+  <div class="col-xl">
+    <dropzone class="w-100"
+      [url]="sendDocsUrl"
+      [label]="documento.nome"
+      [single]="true"
+      [customFields]="[{ fieldName: 'documento_id', value: documento.id }]"
+      [files]="documento.files"></dropzone>
   </div>
-</form>
+</div>
 
 <ng-template #emptyDocuments>
   <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
     <a class="icon fa fa-file-o fa-4x"></a>
-
-    <h1 style="opacity: 30%;">
-      Não há documentos pessoais.</h1>
+    <h1 style="opacity: 30%;">Não há documentos pessoais.</h1>
   </div>
 </ng-template>
