@@ -13,13 +13,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ReservaCardComponent extends Financeiro implements OnInit {
 
-  private maxTax: number;
-
   readonly diffDates = diffDates;
   readonly formatMoneyValue = formatMoneyValue;
 
+  @Input()
+  public readOnly: boolean = false;
+
+  @Input()
+  public readInterval;
+
   @Input('taxa')
-  public taxa: number;
+  public taxa: number = 0;
 
   @Input('taxaMaxima')
   public taxaMaxima: number;
@@ -64,6 +68,11 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.readInterval) {
+      console.log(this.readInterval)
+      this.intervalForm.reset(this.readInterval);
+    }
+
     if (this.anuncio_id) this.alugavelService.getDiasReservados(this.anuncio_id).subscribe(response => {
       this.diasReservados = response;
       for (let reserved of this.diasReservados) {
@@ -75,8 +84,6 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
         reserved.data_saida.setDate(reserved.data_saida.getDate() + 1);
         reserved.data_saida.setHours(0, 0, 0);
       }
-
-      console.log(this.diasReservados);
     });
   }
 

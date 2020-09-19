@@ -19,19 +19,7 @@ declare var paypal;
 })
 export class CheckoutComponent implements OnInit {
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
-  @ViewChild('stepper') stepper: MatStepper;
   public backUrl = environment.apiUrl;
-  public alugavel;
-  public entrada;
-  public saida;
-  private taxa;
-  private max_taxa;
-
-  public mensal = false;
-
-  public termos: FormGroup;
-  termo1 = new FormControl('', [Validators.required]);
-  termo2 = new FormControl('', [Validators.required]);
 
   public politica_uso = environment.apiUrl + '/md/politica_uso.md';
   public politica_pagamento = environment.apiUrl + '/md/politica_pagamento.md';
@@ -40,42 +28,22 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     public checkoutService: CheckoutService,
     private alugaveis: AlugaveisService,
-    private alugavelService: AlugavelService,
-    private form: FormBuilder,
-    private snackBar: MatSnackBar
+    private alugavelService: AlugavelService
   ) {
-    this.termos = this.form.group({
-      termo1: this.termo1,
-      termo2: this.termo2
-    })
   }
 
   ngOnInit(): void {
-    moment.locale('pt-BR');
-    this.entrada = moment(this.checkoutService.reserva.dias_reservados.data_entrada);
-    this.saida = moment(this.checkoutService.reserva.dias_reservados.data_saida);
+    this.checkoutService.reserva.anuncio.valor = Number(this.checkoutService.reserva.anuncio.valor);
+    this.checkoutService.reserva.anuncio.valor_mes = Number(this.checkoutService.reserva.anuncio.valor_mes);
+    this.checkoutService.reserva.anuncio.taxa = Number(this.checkoutService.reserva.anuncio.taxa);
 
-    this.alugavelService.getTaxa().subscribe(response => {
-      this.max_taxa = Number(response.taxa);
-    });
+    console.log('Reserva: ', this.checkoutService.reserva);
 
-    this.alugaveis.getById(this.checkoutService.reserva.alugavel_id).subscribe(response => {
-      this.alugavel = response;
-      console.log('Alugavel: ', this.alugavel)
-    });
-
-    if( (this.saida.diff(this.entrada, 'days') + 1) >= 31){
-      this.mensal = true;
-      console.log("Mensal");
-    }
-
-    console.log('REserva: ', this.checkoutService.reserva);
-
-    if (this.checkoutService.reserva.paypal_plan_id) {
-      this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
-    } else {
-      this.generatePayPalOrderButtons();
-    }
+    // if (this.checkoutService.reserva.paypal_plan_id) {
+    //   this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
+    // } else {
+    //   this.generatePayPalOrderButtons();
+    // }
   }
 
   private generatePayPalOrderButtons() {
@@ -128,78 +96,5 @@ export class CheckoutComponent implements OnInit {
         this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`]);
       }
     }).render(this.paypalElement.nativeElement);
-  }
-
-  public concordar(step: MatStepper){
-    if(!this.termos.valid){
-      this.snackBar.open("Para prosseguir aceite os termos", "Ok", {duration: 5000})
-    }else{
-      setTimeout(() => {
-        step.next();
-      }, 1);
-    }
-  }
-
-  public totalDias(entrada, saida) {
-    return Number(saida.diff(entrada, 'days') + 1);
-  }
-
-  public calculaTaxa(taxa, custo_dia): number {
-    return Number(custo_dia * (taxa / 100))
-  }
-
-  public calculaTotal(taxa, custo_dia): number {
-    return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
-  }
-
-  public calculaTotalMes(taxa, custo_dia, custo_mes): number {
-    if (!custo_mes) return Number(this.calculaCustoDia(taxa, custo_dia) + this.calculaTaxa(taxa, custo_dia));
-    return Number(this.calculaCustoMes(taxa, custo_mes, custo_dia) + this.calculaTaxaMes(taxa, custo_mes));
-  }
-
-  public calculaTotalPeriodo(taxa, custo_dia): number {
-    let b = this.entrada;
-    let a = this.saida;
-    if (a == undefined || b == undefined) {
-      return Number(this.calculaTotal(taxa, custo_dia));
-    } else {
-      return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
-    }
-  }
-
-  public calculaTotalPeriodoMes(taxa, custo_mes, custo_dia):number {
-    let b = this.entrada;
-    let a = this.saida;
-    if ((a.diff(b, 'days') + 1) > 30 && custo_mes) {
-      return ((a.diff(b, 'days') + 1) * this.calculaTotalMes(taxa, custo_dia, custo_mes)) / 31;
-    } else {
-      return Number((a.diff(b, 'days') + 1) * this.calculaTotal(taxa, custo_dia));
-    }
-  }
-
-  public calculaCustoDia(taxa, custo_dia): number {
-    if (taxa == this.max_taxa) {
-      return Number(custo_dia);
-    } else if (taxa == this.max_taxa / 2) {
-      return Number(custo_dia * (taxa / 100 + 1))
-    } else {
-      return Number(custo_dia * (this.max_taxa / 100 + 1))
-    }
-  }
-
-  public calculaCustoMes(taxa, valor_mes, valor): number {
-    if (!valor_mes) {
-      return this.calculaCustoDia(taxa, valor);
-    } else if(taxa == this.max_taxa) {
-      return Number(valor_mes);
-    } else if(taxa == (this.max_taxa / 2)) {
-      return Number(valor_mes * (taxa/100 + 1))
-    } else {
-      return Number(valor_mes * (this.max_taxa/ 100 + 1))
-    }
-  }
-
-  public calculaTaxaMes(taxa, custo_mes): number {
-    return Number(custo_mes * (taxa/100))
   }
 }

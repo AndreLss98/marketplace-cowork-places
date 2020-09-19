@@ -97,31 +97,30 @@ export class SpacesComponent implements OnInit {
     if(!this.login.checkLogedIn()) return this.matDialog.open(LoginComponent);
 
     this.checkoutService.reserva = {
-      dias_reservados: {
-        data_entrada: formatServerDate(this.intervalData.interval.entrada),
-        data_saida: formatServerDate(this.intervalData.interval.saida)
-      },
-      valor: this.intervalData.total,
-      alugavel_id: this.anuncio.id
+      max_taxa: this.max_taxa,
+      anuncio: this.anuncio,
+      ...this.intervalData,
     }
 
-    if (diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) {
-      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-        this.checkoutService.reserva.titulo = this.anuncio.titulo;
-        this.checkoutService.reserva.id = response.id;
-        this.router.navigate(['/checkout']);
-      }, (error) => {
-        console.log("Aluguel error: ", error);
-      });
-    } else {
-      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-        this.checkoutService.reserva.paypal_plan_id = response.paypal_plan_id;
-        this.checkoutService.reserva.id = response.id;
-        this.router.navigate(['/checkout']);
-      }, (error) => {
-        console.log("Aluguel error: ", error);
-      });
-    }
+    this.router.navigate(['/checkout']);
+
+    // if (diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) {
+    //   this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+    //     this.checkoutService.reserva.titulo = this.anuncio.titulo;
+    //     this.checkoutService.reserva.id = response.id;
+    //     this.router.navigate(['/checkout']);
+    //   }, (error) => {
+    //     console.log("Aluguel error: ", error);
+    //   });
+    // } else {
+    //   this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+    //     this.checkoutService.reserva.paypal_plan_id = response.paypal_plan_id;
+    //     this.checkoutService.reserva.id = response.id;
+    //     this.router.navigate(['/checkout']);
+    //   }, (error) => {
+    //     console.log("Aluguel error: ", error);
+    //   });
+    // }
   }
 
 
