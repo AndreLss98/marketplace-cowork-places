@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
 
-import { formatMoneyValue } from '../../constants/functions';
+import { formatMoneyValue, stringValueToBoolean } from '../../constants/functions';
 import { Financeiro } from 'src/app/shared/classes/financeiro';
 import { ENUM_ALUGAVEL_CARACTERISTICAS, TIPOS_CAMPOS } from '../../constants/constants';
 
@@ -35,22 +35,20 @@ export class CardItemAlugavelComponent extends Financeiro implements OnInit {
 
   constructor(
     private router: Router,
-    private alugavel: AlugavelService,
+    private alugavelService: AlugavelService,
     private alugaveis: AlugaveisService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.alugavel.getTaxa().subscribe(response => {
+    this.alugavelService.getTaxa().subscribe(response => {
       this.taxaTotal = response.taxa;
     });
-  }
-
-  ngAfterViewInit() {
-    if(this.alugavel_id) this.alugaveis.getById(this.alugavel_id).subscribe(response => {
-      this.data = response;
-      this.data.caracteristicas = this.data.caracteristicas.filter(el => el.icone).slice(0, 4);
+    
+    this.data.caracteristicas = this.data.caracteristicas.filter(caracteristica => caracteristica.icone).slice(0, 4);
+    this.data.caracteristicas.forEach(caracteristica => {
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
     });
   }
 
