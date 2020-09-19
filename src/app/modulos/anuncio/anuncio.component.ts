@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import { environment } from 'src/environments/environment';
-import { formatDate } from 'src/app/shared/constants/functions';
-import { ENUM_ALUGAVEL_CARACTERISTICAS, ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
+import { formatDate, stringValueToBoolean } from 'src/app/shared/constants/functions';
+import { ENUM_ALUGAVEL_CARACTERISTICAS, ALUGAVEL_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
@@ -30,6 +30,8 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 })
 export class SpacesComponent implements OnInit {
 
+  readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
+
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   public max_taxa;
@@ -40,6 +42,9 @@ export class SpacesComponent implements OnInit {
   public maisEspacosDoLocador = [];
 
   public view = 'photos';
+
+  public caracteristicasComIcone = [];
+  public caracteristicasSemIcone = [];
 
   // public rangeFilter = (date: Date | null): boolean => {
   //   const reservedRange = this.reservedDays.find(range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
@@ -64,10 +69,12 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.data);
     this.anuncio = this.route.snapshot.data['espaco'];
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
 
-    console.log(this.route.snapshot.data);
+    this.configCaracteristicas();
+
 
     this.alugavelService.getAllByUser(this.anuncio.anunciante_id).subscribe(response => {
       this.maisEspacosDoLocador = response.filter(anuncio => anuncio.id !== this.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.name);
@@ -173,5 +180,13 @@ export class SpacesComponent implements OnInit {
     }
 
     return array;
+  }
+
+  public configCaracteristicas() {
+    this.anuncio.caracteristicas.forEach(caracteristica => {
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
+    });
+    this.caracteristicasComIcone = this.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
+    this.caracteristicasSemIcone = this.anuncio.caracteristicas.filter(caracteristica => !caracteristica.icone);
   }
 }

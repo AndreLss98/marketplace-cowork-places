@@ -45,3 +45,7 @@ export function translateBoolValue(value): string {
     if (typeof value === "string") value = value === "false"? false : true;
     return value? "Sim" : "Não";
 }
+
+export function stringValueToBoolean(value): boolean {
+    return value === 'false'? false : true;
+}

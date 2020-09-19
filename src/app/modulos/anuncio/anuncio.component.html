@@ -69,14 +69,33 @@
             </div>
         </div>
     </div>
-    
-    <mat-card class="row w-100 my-2 mw-100">
-        <div class="col">
-            <h1>{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
-        </div>
-        <!-- <div class="col">
 
-        </div> -->
+    <mat-card class="my-2">
+        <div class="row">
+            <div class="col-md d-flex align-items-center">
+                <h1 class="m-0">{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
+            </div>
+            <div class="col-md d-flex justify-content-end">
+                <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
+                    <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome">
+                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                        </div>
+        
+                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome">
+                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                        </div>
+
+                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome">
+                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>    
     </mat-card>
     
     <div class="row mw-100">
@@ -87,12 +106,42 @@
             </div>
         </div>
     </div>
+
+    <div class="row mw-100" *ngIf="caracteristicasSemIcone.length">
+        <div class="row">
+            <div class="col">
+                <h2 class="font-weight-bold">Mais caracteristicas</h2>
+            </div>
+        </div>
+
+        <div class="row" *ngFor="let caracteristica of caracteristicasComIcone">
+            <div class="col">
+                <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
+                    <p *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="p-0 m-0">{{ caracteristica.nome }}</p>
+    
+                    <p *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="p-0 m-0">
+                        {{ caracteristica.nome }}:
+                         {{ caracteristica.valor }}
+                    </p>
+
+                    <p *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="p-0 m-0">
+                        {{ caracteristica.nome }}:
+                         {{ caracteristica.valor }}
+                    </p>
+                </ng-container>
+            </div>
+        </div>
+    </div>
     
     <div *ngIf="anuncio.infos.length" class="row mt-2">
         <div class="col">
             <div class="d-flex flex-column">
                 <h2 class="font-weight-bold">Informações adicionais</h2>
-                <h3 *ngFor="let info of anuncio.infos">{{ info.descricao }}</h3>
+                <ul>
+                    <li *ngFor="let info of anuncio.infos">
+                        <h3>{{ info.descricao }}</h3>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
