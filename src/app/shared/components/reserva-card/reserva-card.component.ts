@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Financeiro } from 'src/app/shared/classes/financeiro';
 import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
 import { AlugavelService } from '../../service/alugavel.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'reserva-card',
@@ -41,8 +42,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   private diasReservados = [];
 
   constructor(
+    private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private alugavelService: AlugavelService
+    private alugavelService: AlugavelService,
   ) {
     super();
     this.intervalForm = formBuilder.group({
@@ -79,7 +81,14 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   }
 
   public validateRange() {
-
+    if (this.intervalForm.controls['saida'].value) {
+      const conflictRange = this.diasReservados.find(range => range.data_entrada.getTime() > this.intervalForm.controls['entrada'].value.getTime() && range.data_entrada.getTime() < this.intervalForm.controls['saida'].value.getTime());
+      if (conflictRange) {
+        this.intervalForm.controls['entrada'].setValue(null);
+        this.intervalForm.controls['saida'].setValue(null);
+        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 4000, verticalPosition: "top" });
+      }
+    }
   }
 
   public qtdDias() {
