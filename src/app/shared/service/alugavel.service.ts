@@ -99,6 +99,6 @@ export class AlugavelService {
   }
 
   public getDiasReservados(id) {
-    return this.http.get(`${environment.apiUrl}/alugaveis/${id}/dias-reservados`);
+    return this.http.get<any>(`${environment.apiUrl}/alugaveis/${id}/dias-reservados`);
   }
 }

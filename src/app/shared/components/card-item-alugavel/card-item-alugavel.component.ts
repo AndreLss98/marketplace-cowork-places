@@ -54,7 +54,7 @@ export class CardItemAlugavelComponent extends Financeiro implements OnInit {
 
   goToSpace() {
     if (this.custom_redirect) return this.router.navigateByUrl(this.custom_redirect + this.data.id);
-    this.router.navigateByUrl("/spaces/" + this.data.id)
+    this.router.navigateByUrl('/').then(() => { this.router.navigate([`/spaces/${this.data.id}`]) })
   }
 
   countStars(n): string[] {

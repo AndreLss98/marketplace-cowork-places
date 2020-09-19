@@ -66,7 +66,6 @@ export class SpacesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data);
     this.anuncio = this.route.snapshot.data['espaco'];
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
 

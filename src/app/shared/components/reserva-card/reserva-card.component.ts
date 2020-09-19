@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
 import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
+import { AlugavelService } from '../../service/alugavel.service';
 
 @Component({
   selector: 'reserva-card',
@@ -28,14 +29,20 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   @Input('valorMensal')
   public valorMensal: number;
 
+  @Input('anuncio_id')
+  public anuncio_id: number;
+
   @Output('formValue')
   public formChangeEvent = new EventEmitter();
 
   public intervalForm: FormGroup;
   public minDate = addDays(new Date(), 2);
 
+  private diasReservados = [];
+
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alugavelService: AlugavelService
   ) {
     super();
     this.intervalForm = formBuilder.group({
@@ -54,7 +61,22 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.anuncio_id) this.alugavelService.getDiasReservados(this.anuncio_id).subscribe(response => {
+      this.diasReservados = response;
+      for (let reserved of this.diasReservados) {
+        reserved.data_entrada = new Date(reserved.data_entrada);
+        reserved.data_entrada.setDate(reserved.data_entrada.getDate() + 1);
+        reserved.data_entrada.setHours(0, 0, 0);
+
+        reserved.data_saida = new Date(reserved.data_saida);
+        reserved.data_saida.setDate(reserved.data_saida.getDate() + 1);
+        reserved.data_saida.setHours(0, 0, 0);
+      }
+
+      console.log(this.diasReservados);
+    });
+  }
 
   public validateRange() {
 
@@ -68,4 +90,10 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     return Math.floor(this.qtdDias() / 31);
   }
 
+  public rangeFilter = (date: Date | null): boolean => {
+    const intervalorReservado = this.diasReservados.find(
+      range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
+    
+      return intervalorReservado? false : true;
+  }
 }
