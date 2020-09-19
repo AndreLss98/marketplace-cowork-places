@@ -72,7 +72,7 @@
                     <div class="col-sm">
                         <mat-form-field appearance="legacy" class="w-100">
                             <mat-label>Telefone 2</mat-label>
-                            <input matInput value="{{ user.numero_2 ? user.numero_2 : 'Não registrado'}}" readonly />
+                            <input matInput value="{{ user.numero_2 !=='null' ? user.numero_2 : 'Não registrado'}}" readonly />
                         </mat-form-field>
                     </div>
                 </div>
