@@ -78,19 +78,19 @@
             <div class="col-md d-flex justify-content-end">
                 <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
                     <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="mx-2">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
                             <p class="p-0 m-0">{{ caracteristica.nome }}</p>
                         </div>
         
-                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="mx-2">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
 
-                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="mx-2">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
                     </ng-container>
                 </ng-container>
