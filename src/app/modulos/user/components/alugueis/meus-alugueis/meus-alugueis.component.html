@@ -1,26 +1,26 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab [label]="'Ativos ('+ ativos.length +')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+        <div class="mt-2 d-flex flex-wrap flex-row flex-wrap justify-content-around"
             *ngIf="ativos && ativos.length > 0; else emptyAtivos">
-            <div style="margin: 5px;" *ngFor="let aluguel of ativos">
+            <div class="m-2" *ngFor="let aluguel of ativos">
                 <contrato [aluguel]="aluguel" (changeContracts)="onContractChanges()"></contrato>
             </div>
         </div>
-
     </mat-tab>
+    
     <mat-tab [label]="'Em análise ('+ inativos.length +')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+        <div class="mt-2 d-flex flex-wrap flex-row flex-wrap justify-content-around"
             *ngIf="inativos && inativos.length > 0; else emptyAnalises">
-            <div style=" margin: 5px;" *ngFor="let aluguel of inativos">
+            <div class="m-2" *ngFor="let aluguel of inativos">
                 <contrato [aluguel]="aluguel" (changeContracts)="onContractChanges()"></contrato>
             </div>
         </div>
     </mat-tab>
-    <!-- <mat-tab label="Em processamento"></mat-tab> -->
+
     <mat-tab [label]="'Cancelados ('+ cancelados.length +')'">
-        <div style="margin: 10px" class="d-flex flex-row flex-wrap justify-content-start"
+        <div class="mt-2 d-flex flex-wrap flex-row flex-wrap justify-content-around"
             *ngIf="cancelados && cancelados.length > 0; else emptyCancelados">
-            <div style=" margin: 5px;" *ngFor="let aluguel of cancelados">
+            <div class="m-2" *ngFor="let aluguel of cancelados">
                 <div>
                     <contrato [aluguel]="aluguel" (changeContracts)="onContractChanges()"></contrato>
                     <div class="comment-footer mat-elevation-z2">

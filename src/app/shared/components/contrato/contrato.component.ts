@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { formatMoneyValue } from 'src/app/shared/constants/functions';
 
 import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
@@ -17,6 +18,8 @@ import { BasicModalComponent } from '../../modal/basic-modal/basic-modal.compone
 })
 export class ContratoComponent implements OnInit {
   
+  readonly formatMoneyValue = formatMoneyValue;
+
   @Input('aluguel') aluguel: any;
   @Output('changeContracts') changeContracts = new EventEmitter();
   readonly ALUGUEL_STATUS = ALUGUEL_STATUS;
