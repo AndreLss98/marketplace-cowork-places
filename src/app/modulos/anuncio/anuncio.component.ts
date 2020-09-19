@@ -101,23 +101,22 @@ export class SpacesComponent implements OnInit {
       ...this.intervalData,
     }
 
-    // if (diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) {
-    //   this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-    //     this.checkoutService.reserva.titulo = this.anuncio.titulo;
-    //     this.checkoutService.reserva.id = response.id;
-    //     this.router.navigate(['/checkout']);
-    //   }, (error) => {
-    //     console.log("Aluguel error: ", error);
-    //   });
-    // } else {
-    //   this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-    //     this.checkoutService.reserva.paypal_plan_id = response.paypal_plan_id;
-    //     this.checkoutService.reserva.id = response.id;
-    //     this.router.navigate(['/checkout']);
-    //   }, (error) => {
-    //     console.log("Aluguel error: ", error);
-    //   });
-    // }
+    if ((diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) <= 31) {
+      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+        this.checkoutService.reserva.id = response.id;
+        this.router.navigate(['/checkout']);
+      }, (error) => {
+        console.log("Aluguel error: ", error);
+      });
+    } else {
+      this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
+        this.checkoutService.reserva.paypal_plan_id = response.paypal_plan_id;
+        this.checkoutService.reserva.id = response.id;
+        this.router.navigate(['/checkout']);
+      }, (error) => {
+        console.log("Aluguel error: ", error);
+      });
+    }
   }
 
 

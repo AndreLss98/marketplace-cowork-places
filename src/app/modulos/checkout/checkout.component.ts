@@ -26,8 +26,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public checkoutService: CheckoutService,
     private alugaveis: AlugaveisService,
+    public checkoutService: CheckoutService,
     private alugavelService: AlugavelService
   ) {
   }
@@ -39,11 +39,11 @@ export class CheckoutComponent implements OnInit {
 
     console.log('Reserva: ', this.checkoutService.reserva);
 
-    // if (this.checkoutService.reserva.paypal_plan_id) {
-    //   this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
-    // } else {
-    //   this.generatePayPalOrderButtons();
-    // }
+    if (this.checkoutService.reserva.paypal_plan_id) {
+      this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
+    } else {
+      this.generatePayPalOrderButtons();
+    }
   }
 
   private generatePayPalOrderButtons() {
@@ -51,10 +51,10 @@ export class CheckoutComponent implements OnInit {
       createOrder: (data, actions) => {
         return actions.order.create({
           purchase_units: [{
-            description: this.checkoutService.reserva.titulo,
+            description: this.checkoutService.reserva.anuncio.titulo,
             amount: {
               currency_code: 'BRL',
-              value: this.checkoutService.reserva.valor
+              value: this.checkoutService.reserva.total
             }
           }],
           application_context: {
@@ -66,12 +66,12 @@ export class CheckoutComponent implements OnInit {
         const order = await actions.order.capture();
         // console.log('You have successfully created order: ', order);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { paypal_order_id: order.id }).subscribe(response => {
-          this.router.navigate(['/user/alugueis']);
+          this.router.navigate(['/user/alugueis'], { replaceUrl: true });
         });
       },
       onError: error => {
         // console.log('Erro na reserva: ', error);
-        this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`]);
+        this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`], { replaceUrl: true });
       }
     }).render(this.paypalElement.nativeElement);
   }
@@ -88,12 +88,12 @@ export class CheckoutComponent implements OnInit {
       onApprove: (data, actions) => {
         // console.log('You have successfully created subscription: ', data);
         this.checkoutService.updateReserva(this.checkoutService.reserva.id, { subscription_id: data.subscriptionID }).subscribe(response => {
-          this.router.navigate(['/user/alugueis']);
+          this.router.navigate(['/user/alugueis'], { replaceUrl: true });
         });
       },
       onError: error => {
         // console.log('Erro na reserva: ', error);
-        this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`]);
+        this.router.navigate([`/spaces/${this.checkoutService.reserva.alugavel_id}`], { replaceUrl: true });
       }
     }).render(this.paypalElement.nativeElement);
   }
