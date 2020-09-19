@@ -124,6 +124,7 @@ export class DadosPessoaisComponent implements OnInit {
     info.data_nascimento = formatServerDate(info.data_nascimento.subtract(1, 'day').format());
     
     this.userService.atualizarDadosPessoais(info).subscribe(response => {
+      info.data_nascimento = new Date(info.data_nascimento);
       this.userService.user_data = {
         ...this.userService.user_data,
         ...info
