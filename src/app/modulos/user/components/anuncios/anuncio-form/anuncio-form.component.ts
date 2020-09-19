@@ -40,6 +40,7 @@ export class AnuncioFormComponent implements OnInit {
   public informacoesForm: FormGroup;
   public infoAdicionais = [];
   public imgsForm: FormGroup;
+  public imgs = [];
   public caracteristicasForm: FormGroup;
   public caracteristicas = [];
   public enderecoForm: FormGroup;
@@ -130,8 +131,8 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public bindingFormField(field: string, form: FormGroup, data: any) {
+    console.log('Data binding: ', data);
     form.controls[field].setValue(data);
-    return form.controls[field].value;
   }
 
   private configCaracteristicasForm() {
@@ -254,6 +255,8 @@ export class AnuncioFormComponent implements OnInit {
     this.imgsForm.controls['imgs'].setValue(this.anuncio.imagens.map(img => {
       return { id: img.id, src: `${environment.apiUrl}/imgs/${img.url}`, success: true }
     }));
+
+    this.imgs = this.imgsForm.controls['imgs'].value;
 
     this.infoAdicionais = this.anuncio.infos;
 

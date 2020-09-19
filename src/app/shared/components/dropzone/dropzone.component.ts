@@ -12,6 +12,7 @@ export interface displayFile {
   id?: number;
   success?: boolean;
   error?: boolean;
+  img?: any;
 }
 
 @Component({
@@ -43,18 +44,17 @@ export class DropzoneComponent implements OnInit {
   public files: displayFile[] = [];
 
   private _data = [];
+
   @Output('data')
   public dataChange = new EventEmitter();
 
-  @Input('data')
   get data() {
     return this._data;
   }
 
   set data(data) {
-    data = data.filter(el => el.src);
+    console.log('Entrada: ', data)
     this._data = data;
-    this.files = this._data;
     this.dataChange.emit(this._data);
   }
 
