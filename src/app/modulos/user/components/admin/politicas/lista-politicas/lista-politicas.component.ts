@@ -143,4 +143,8 @@ export class ListaPoliticasComponent extends BasicTableComponent {
     const { sluq } = this.data.find(element => element.id === event.id);
     this.router.navigateByUrl(`/about/${sluq}`) ;
   }
+
+  public cancelar(){
+    this.politica=null;
+  }
 }

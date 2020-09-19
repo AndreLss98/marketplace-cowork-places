@@ -7,9 +7,9 @@
   (editar)="selectDocument($event)"></basic-table>
 
 <div id="cards-container">
-    <mat-card class="card">
-        <mat-card-header>
-            <mat-card-title>Adicionar Documento</mat-card-title>
+    <mat-card *ngIf="!documento" class="card">
+        <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title style="font-size: 18px;">Adicionar Documento</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="createForm" (ngSubmit)="saveDocument()">
@@ -42,8 +42,8 @@
     </mat-card>
 
     <mat-card *ngIf="documento" class="card">
-        <mat-card-header>
-            <mat-card-title>Alterar Documento</mat-card-title>
+        <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title style="font-size: 18px;">Alterar Documento</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="editForm" (ngSubmit)="updateDocument()">
@@ -67,7 +67,8 @@
                 <div>
                     <mat-checkbox formControlName="avancado">Cadastro Avançado?</mat-checkbox>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-around">
+                    <button mat-flat-button (click)="cancelar()">Cancelar</button>
                     <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
                 </div>
             </form>

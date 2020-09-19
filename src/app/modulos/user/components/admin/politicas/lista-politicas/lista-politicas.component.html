@@ -8,9 +8,9 @@
   (editar)="edit($event)"></basic-table>
 
 <div id="cards-container">
-    <mat-card class="card">
-        <mat-card-header>
-            <mat-card-title>Nova Politica</mat-card-title>
+    <mat-card *ngIf="!politica;" class="card">
+        <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title style="font-size: 18px;">Nova Politica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="saveForm" (ngSubmit)="create()">
@@ -33,9 +33,9 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card *ngIf="politica" class="card">
-        <mat-card-header>
-            <mat-card-title>Atualizar Politica</mat-card-title>
+    <mat-card *ngIf="politica;" class="card">
+        <mat-card-header class="d-flex justify-content-center">
+            <mat-card-title style="font-size: 18px;">Atualizar Politica</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="editForm" (ngSubmit)="update()">
@@ -59,9 +59,11 @@
                     <mat-checkbox formControlName="aprovado">Aprovado</mat-checkbox>
                 </div>
 
-                <div class="d-flex justify-content-center" >
-                    <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+                <div class="d-flex justify-content-around">
+                    <button  mat-flat-button (click)="cancelar()" >Cancelar</button>
+                    <button  mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
                 </div>
+
                 
             </form>
         </mat-card-content>
