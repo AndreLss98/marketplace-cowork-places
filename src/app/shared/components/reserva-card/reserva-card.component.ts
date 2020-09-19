@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
@@ -28,6 +28,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   @Input('valorMensal')
   public valorMensal: number;
 
+  @Output('formValue')
+  public formChangeEvent = new EventEmitter();
+
   public intervalForm: FormGroup;
   public minDate = addDays(new Date(), 2);
 
@@ -38,6 +41,16 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     this.intervalForm = formBuilder.group({
       entrada: ['', [Validators.required]],
       saida: ['', [Validators.required]],
+    });
+
+    this.intervalForm.valueChanges.subscribe(() => {
+      this.formChangeEvent.emit({
+        formValid: this.intervalForm.valid,
+        interval: this.intervalForm.value,
+        total: this.qtdDias() >= 31 && this.valorMensal?
+        this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))):
+        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria)))
+      });
     });
   }
 

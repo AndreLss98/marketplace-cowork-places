@@ -7,6 +7,13 @@ export function formatDate(date: any) {
     return `${day}/${month}/${date.getFullYear()}`;
 }
 
+export function formatServerDate(date: any) {
+    if (typeof date === "string") date = new Date(date);
+    const day = date.getDate() + 1 < 10? `0${date.getDate() + 1}`: date.getDate() + 1;
+    const month = date.getMonth() + 1 < 10? `0${date.getMonth() + 1}`: date.getMonth() + 1;
+    return `${date.getFullYear()}-${month}-${day}`;
+}
+
 export function addDays(date: Date, days) {
     date.setDate(date.getDate() + days);
     return date;

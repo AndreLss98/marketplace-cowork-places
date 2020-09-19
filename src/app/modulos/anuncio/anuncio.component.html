@@ -33,6 +33,7 @@
     
         <div class="col-lg col-xl-4">
             <reserva-card
+                (formValue)="intervalData = $event"
                 [taxaMaxima]="max_taxa"
                 [valorDiaria]="anuncio.valor"
                 [valorMensal]="anuncio.valor_mes"
@@ -45,14 +46,15 @@
                             mat-raised-button
                             type="button"
                             color="primary"
-                            (click)="checkout()">RESERVAR</button>
+                            (click)="checkout()"
+                            [disabled]="!intervalData?.formValid || anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
                     </div>
                 </div>
     
                 <div class="row mt-2">
                     <div class="col d-flex justify-content-around">
                         <div class="d-flex flex-column align-items-center">
-                            <button mat-fab color="primary" class="mb-1">
+                            <button mat-fab color="primary" class="mb-1" (click)="favoritar()">
                                 <mat-icon>favorite</mat-icon>
                             </button>
                             Salvar
