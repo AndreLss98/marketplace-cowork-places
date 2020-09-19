@@ -2,7 +2,7 @@
     <mat-step style="padding: 10px;">
         <ng-template matStepLabel>Confirmar dados</ng-template>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-lg">
                 <div class="cardContent">
                     <div class="d-flex flex-row flex-wrap header">
                         <div class="d-flex flex-column">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm">
+            <div class="col-lg">
                 <div class="mat-elevation-z4 mapa">
                     <maps class="h-100"
                         [lngLatPlace]="{ latitude: checkoutService.reserva.anuncio.local.latitude, longitude: checkoutService.reserva.anuncio.local.longitude }"
@@ -51,7 +51,7 @@
 
     <mat-step>
         <ng-template matStepLabel>Pagar e Finalizar!</ng-template>
-        <!-- <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
             <mat-card class="mat-elevation-z4 card-table" class="w-50">
                 <mat-card-title>
                     <div class="d-flex justify-content-center w-100">
@@ -81,6 +81,6 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-        </div> -->
+        </div>
     </mat-step>
 </mat-horizontal-stepper>

@@ -57,7 +57,6 @@ export class SpacesComponent implements OnInit {
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     public userService: UserService,
-    private formBuilder: FormBuilder,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
     private favoritoService: FavoritosService,
@@ -101,8 +100,6 @@ export class SpacesComponent implements OnInit {
       anuncio: this.anuncio,
       ...this.intervalData,
     }
-
-    this.router.navigate(['/checkout']);
 
     // if (diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) {
     //   this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
