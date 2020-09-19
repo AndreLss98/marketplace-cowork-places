@@ -149,11 +149,13 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   private resetInfoForm() {
+    console.log(this.userService.user_data.numero_2);
+
     this.editInfoForm.reset({
       id: this.userService.user_data.id,
       cpf: this.userService.user_data.cpf,
       numero_1: this.userService.user_data.numero_1,
-      numero_2: this.userService.user_data.numero_2
+      numero_2: this.userService.user_data.numero_2 === 'null' || this.userService.user_data.numero_2 === '' ? 'Não registrado' : this.userService.user_data.numero_2
     });
   }
 
