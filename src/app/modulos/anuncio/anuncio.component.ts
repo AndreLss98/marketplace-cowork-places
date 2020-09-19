@@ -79,8 +79,7 @@ export class SpacesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    const topo = document.getElementById("sidebar");
-    topo.scrollIntoView({ behavior: 'auto' });
+    
   }
 
   public favoritar() {
