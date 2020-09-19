@@ -3,20 +3,24 @@
         <mat-card-title>Email</mat-card-title>
         <mat-card-content>
             <div class="row">
-            <mat-form-field appearance="legacy" class="col-sm-7">
-                <mat-label>Email</mat-label>
-                <input matInput value="{{ userService.user_data.email }}" readonly />
-                <mat-hint *ngIf="!userService.user_data.email_validado" style="color: red;">E-mail ainda não verificiado!</mat-hint>
-            </mat-form-field>
-            <div *ngIf="!userService.user_data.email_validado" class="w-100 d-flex justify-content-end">
-                <button
-                mat-button
-                mat-raised-button
-                [disabled]="!canSendEmail"
-                (click)="resendEmail()"
-                color="primary">Enviar email de verificação novamente</button>
+                <div class="col">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput value="{{ userService.user_data.email }}" readonly />
+                        <mat-hint *ngIf="!userService.user_data.email_validado" style="color: red;">E-mail ainda não verificiado!</mat-hint>
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <button
+                        type="submit"
+                        mat-raised-button
+                        [disabled]="!canSendEmail"
+                        (click)="resendEmail()"
+                        color="primary">Enviar email de verificação novamente</button>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
     
@@ -25,34 +29,33 @@
         <mat-card-content>
             <form class="d-flex flex-column" [formGroup]="alterarSenha" (ngSubmit)="alterPassword()">
                 <div class="row">
-                <mat-form-field appearance="legacy" class="col-sm">
-                    <mat-label>Senha antiga</mat-label>
-                    <input matInput type="password" formControlName="senha_antiga"/>
-                </mat-form-field>
-    
-                <mat-form-field appearance="legacy" class="col-sm">
-                    <mat-label>Nova senha</mat-label>
-                    <input matInput type="password" formControlName="senha_nova"/>
-                    <mat-error *ngIf="alterarSenha.controls.senha_nova.hasError('maxlength')">
-                        Senha muito grande!
-                    </mat-error>
-                    <mat-error *ngIf="alterarSenha.controls.senha_nova.hasError('minlength')">
-                        Senha muito curta!
-                    </mat-error>
-                </mat-form-field>
-    
-                <mat-form-field appearance="legacy" class="col-sm">
-                    <mat-label>Confirmar nova senha</mat-label>
-                    <input matInput type="password" formControlName="confirmar_senha"/>
-                    <mat-error *ngIf="alterarSenha.controls.confirmar_senha.hasError('notsame')">
-                        Senhas não conferem!
-                    </mat-error>
-                </mat-form-field >
-            </div>
+                    <mat-form-field appearance="standard" class="col-sm">
+                        <mat-label>Senha antiga</mat-label>
+                        <input matInput type="password" formControlName="senha_antiga"/>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="standard" class="col-sm">
+                        <mat-label>Nova senha</mat-label>
+                        <input matInput type="password" formControlName="senha_nova"/>
+                        <mat-error *ngIf="alterarSenha.controls.senha_nova.hasError('maxlength')">
+                            Senha muito grande!
+                        </mat-error>
+                        <mat-error *ngIf="alterarSenha.controls.senha_nova.hasError('minlength')">
+                            Senha muito curta!
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="standard" class="col-sm">
+                        <mat-label>Confirmar nova senha</mat-label>
+                        <input matInput type="password" formControlName="confirmar_senha"/>
+                        <mat-error *ngIf="alterarSenha.controls.confirmar_senha.hasError('notsame')">
+                            Senhas não conferem!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
     
                 <div class="w-100 d-flex justify-content-center">
                     <button
-                        *ngIf="userService.user_data.email_validado"
                         mat-button mat-raised-button
                         type="submit" color="primary"
                         [disabled]="alterarSenha.invalid || alterarSenha.pristine">Salvar</button>
@@ -60,23 +63,4 @@
             </form>
         </mat-card-content>
     </mat-card>
-    
-    <!-- <mat-card class="mat-elevation-z2">
-        <mat-card-title>Telefone</mat-card-title>
-        <mat-card-content>
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Telefone 1</mat-label>
-                <input matInput value="{{ userService.user_data.numero_1 }}" readonly />
-                <mat-hint *ngIf="!userService.user_data.numero_validado" style="color: red;">Telefone não verificado!</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Telefone 2</mat-label>
-                <input matInput value="{{ userService.user_data.numero_2 }}" readonly />
-                <mat-hint style="color: gray;">Não é preciso ser verificado.</mat-hint>
-            </mat-form-field>
-            <div class="w-100 d-flex justify-content-end">
-                <button mat-button *ngIf="!userService.user_data.numero_validado" mat-raised-button color="primary">Enviar SMS de verificação novamente</button>
-            </div>
-        </mat-card-content>
-    </mat-card> -->
 </ng-container>

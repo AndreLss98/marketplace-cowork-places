@@ -12,7 +12,7 @@ export class SafetyComponent implements OnInit {
 
   public alterarSenha: FormGroup;
 
-  public canSendEmail: boolean = true;
+  public canSendEmail: boolean = false;
 
   constructor(
     protected form: FormBuilder,
@@ -27,7 +27,7 @@ export class SafetyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.canSendEmail = !this.userService.user_data.email_validado;
   }
 
   public validateConfirmPassword(group: FormGroup) {
