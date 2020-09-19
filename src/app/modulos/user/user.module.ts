@@ -12,7 +12,6 @@ import { EspacosSalvosComponent } from './components/espacos-salvos/espacos-salv
 import { AnuncioFormComponent } from './components/anuncios/anuncio-form/anuncio-form.component';
 import { MeusAlugueisComponent } from './components/alugueis/meus-alugueis/meus-alugueis.component';
 import { MeusAnunciosComponent } from './components/anuncios/meus-anuncios/meus-anuncios.component';
-import { SafetyModalComponent } from './components/conta/safety/safety-modal/safety-modal.component';
 import { ListaUsuariosComponent } from './components/admin/usuarios/lista-usuarios/lista-usuarios.component';
 import { ListaContratosComponent } from './components/admin/contratos/lista-contratos/lista-contratos.component';
 import { ListaPoliticasComponent } from './components/admin/politicas/lista-politicas/lista-politicas.component';
@@ -34,24 +33,23 @@ import { DadosBancariosComponent } from './components/conta/informacoes-pessoais
     SafetyComponent,
     FeedbackComponent,
     LocacoesComponent,
-    SafetyModalComponent,
     AnuncioFormComponent,
     MeusAnunciosComponent,
+    DocPessoaisComponent,
     MeusAlugueisComponent,
     ListaUsuariosComponent,
     ListaContratosComponent,
     EspacosSalvosComponent,
     ListaPoliticasComponent,
+    DadosPessoaisComponent,
     ListaAlugaveisComponent,
+    DadosBancariosComponent,
     DetalhesContratoComponent,
     DetalhesUsuariosComponent,
     DetalhesAlugaveisComponent,
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
-    DadosPessoaisComponent,
-    DocPessoaisComponent,
-    DadosBancariosComponent
   ],
   imports: [
     CommonModule,
