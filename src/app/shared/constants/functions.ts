@@ -14,6 +14,10 @@ export function formatServerDate(date: any) {
     return `${date.getFullYear()}-${month}-${day}`;
 }
 
+export function dateToMomentObject(date) {
+    return moment(date).add(1, 'day');
+}
+
 export function addDays(date: Date, days) {
     date.setDate(date.getDate() + days);
     return date;
@@ -55,4 +59,19 @@ export function translateBoolValue(value): string {
 
 export function stringValueToBoolean(value): boolean {
     return value === 'false'? false : true;
+}
+
+export function formatCPF(cpf: string) {
+    return cpf.replace(/\D/g, "")
+      .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
+}
+
+export function formatTelefone(telefone: string) {
+    return telefone.replace(/\D/g, '')
+      .replace(/^(\d{2})(\d)/, "($1) $2")
+      .replace(/^(\(\d{2}\) \d{5})(\d)/, "$1-$2")
+      .replace(/^(\(\d{2}\) \d{5}-\d{4})(.)/, "$1");
 }
