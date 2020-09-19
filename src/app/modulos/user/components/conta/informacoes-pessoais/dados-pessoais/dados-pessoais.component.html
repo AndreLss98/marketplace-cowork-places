@@ -5,7 +5,7 @@
                 matBadge="!"
                 matBadgeColor="warn"
                 matBadgeOverlap="false"
-                [matBadgeHidden]="this.dadosPessoaisValido">Dados Pessoais</span>
+                [matBadgeHidden]="editInfoForm.valid">Dados Pessoais</span>
         </ng-template>
         <mat-card class="mat-elevation-z2 mb-3">
             <div class="d-flex flex-column border border-danger rounded p-2 mb-3 mat-elevation-z2"
@@ -59,8 +59,7 @@
                     <div class="col-sm">
                         <mat-form-field appearance="standard" class="w-100">
                             <mat-label>CPF</mat-label>
-                            <input #cpf formControlName="cpf" maxlength="14" matInput (input)="formatField('cpf', editInfoForm, formatTelefone)"
-                                [readonly]="!canEditCPF" [required]="canEditCPF" />
+                            <input #cpf formControlName="cpf" maxlength="14" matInput (input)="formatField('cpf', editInfoForm, formatCPF)" />
                             <mat-hint *ngIf="!userService.user_data.cpf" class="text-danger">Informe o CPF.</mat-hint>
                         </mat-form-field>
                     </div>

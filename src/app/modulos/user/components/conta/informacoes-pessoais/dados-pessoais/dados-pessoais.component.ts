@@ -8,7 +8,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { environment } from 'src/environments/environment';
 
 import { UserService } from 'src/app/shared/service/user.service';
-import { formatDate, formatServerDate, formatTelefone, dateToMomentObject } from 'src/app/shared/constants/functions';
+import { formatCPF, formatServerDate, formatTelefone, dateToMomentObject } from 'src/app/shared/constants/functions';
 
 const CUSTOM_DATE_FORMAT = {
   parse: {
@@ -44,6 +44,7 @@ const CUSTOM_DATE_FORMAT = {
 export class DadosPessoaisComponent implements OnInit {
 
   readonly formatTelefone = formatTelefone;
+  readonly formatCPF = formatCPF;
 
   public dadosPessoaisValido = true;
   public editDadosPessoais = false;
@@ -77,13 +78,6 @@ export class DadosPessoaisComponent implements OnInit {
 
   private validateUserDatas() {
     this.imgUrl = this.userService.user_data.img_perfil;
-
-    if (
-      !this.userService.user_data.cpf ||
-      !this.userService.user_data.email_validado ||
-      !this.userService.user_data.data_nascimento ||
-      !this.userService.user_data.numero_1) this.dadosPessoaisValido = false;
-
     this.resetInfoForm();
   }
 
