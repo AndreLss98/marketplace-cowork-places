@@ -77,9 +77,7 @@ export class SpacesComponent implements OnInit {
 
 
     this.alugavelService.getAllByUser(this.anuncio.anunciante_id).subscribe(response => {
-      console.log(response);
       this.maisEspacosDoLocador = response.filter(anuncio => anuncio.id !== this.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.value);
-      console.log(this.maisEspacosDoLocador);
     });
 
     // this.alugavelService.getDiasReservados(this.espaco.id).subscribe(response => {
