@@ -100,4 +100,8 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
       this.fetchAll();
     });
   }
+
+  public cancelar(){
+    this.documento = null;
+  }
 }
