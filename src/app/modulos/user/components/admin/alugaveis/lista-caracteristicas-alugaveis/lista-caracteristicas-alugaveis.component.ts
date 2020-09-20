@@ -85,7 +85,30 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public update() {
+    console.log(this.caracteristica)
     console.log(this.editForm)
+    const { id, nome, icone, propriedades } = this.editForm.value;
+    let update: any = { id, nome, icone };
+
+    update.tipo_campo = {
+      id: this.caracteristica.tipo_campo.id,
+      tipo: this.caracteristica.tipo_campo.tipo,
+      propriedades
+    }
+
+    update.tipo_campo.propriedades.id = this.caracteristica.tipo_campo.propriedades.id;
+
+    if (update.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+      update.tipo_campo.propriedades.possibilidades = this.possibilidadadesSelecao.map(element => element);
+    }
+
+    this.caracteristicasService.update(update).subscribe(() => {
+      this.fetchAll();
+      this.caracteristica = null;
+      this.possibilidadadesSelecao = [];
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   public select(event) {
@@ -94,6 +117,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     this.possibilidadadesSelecao = [];
     setTimeout(() => {
       this.caracteristica = this.data.find(element => element.id === event.id);
+      console.log(this.caracteristica)
   
       if (this.caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
         this.possibilidadadesSelecao = this.caracteristica.tipo_campo.propriedades.possibilidades.map(element => element);

@@ -45,7 +45,7 @@ export class FormCreateFieldComponent implements OnInit {
       if (this.fieldForm.controls['tipo_campo'].value) this.configForm();
     });
     setTimeout(() => {
-      // if (this.editMode) this.fieldForm.controls['tipo_campo'].disable();
+      if (this.editMode) this.fieldForm.controls['tipo_campo'].disable();
       if (this.fieldForm.controls['tipo_campo'].value) this.configForm();
     }, 100);
   }
