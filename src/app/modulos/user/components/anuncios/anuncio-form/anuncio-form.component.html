@@ -48,37 +48,43 @@
     <mat-step [stepControl]="caracteristicasForm">
         <ng-template matStepLabel>Características</ng-template>
         <div class="row">
-            <div class="col-sm">
-                <div class="col-xl" *ngFor="let caracteristica of caracteristicas">
-                    <ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
-                        <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
-                        
-                        <mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
-                            <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
-                        </mat-form-field>
+            <div class="col-sm" *ngFor="let caracteristica of caracteristicas">
+                <ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
+                    <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
                     
-                        <mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard" class="w-100">
-                            <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
-                        </mat-form-field>
+                    <mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
+                        <mat-label>{{ caracteristica.nome }}</mat-label>
+                        <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
+                    </mat-form-field>
+                
+                    <mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard" class="w-100">
+                        <mat-label>{{ caracteristica.nome }}</mat-label>
+                        <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
+                    </mat-form-field>
 
-                        <mat-form-field *ngSwitchCase="'selecao'" appearance="standard" class="w-100">
-                            <mat-label>{{ caracteristica.nome }}</mat-label>
-                            <mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
-                                <mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
-                </div>
+                    <mat-form-field *ngSwitchCase="'selecao'" appearance="standard" class="w-100">
+                        <mat-label>{{ caracteristica.nome }}</mat-label>
+                        <mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
+                            <mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <mat-form-field appearance="standard" class="w-100">
                     <mat-label>Informação adicional</mat-label>
-                    <input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
-                    <mat-icon class="cursor-pointer" [ngClass]="{ 'enabled':infoAdicional.value, 'disabled': !infoAdicional.value }" (click)="addInfo(infoAdicional.value); infoAdicional.value = ''" matSuffix>add</mat-icon>
+                    <div class="d-flex">
+                        <input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
+                        <button
+                            mat-icon-button
+                            color="primary"
+                            [disabled]="!infoAdicional.value"
+                            (click)="addInfo(infoAdicional.value); infoAdicional.value = ''">
+                            <mat-icon matSuffix>add</mat-icon>
+                        </button>
+                    </div>
                 </mat-form-field>
             </div>
         </div>
@@ -87,8 +93,15 @@
             <div class="row" *ngFor="let info of infoAdicionais; let i = index">
                 <div class="col">
                     <mat-form-field appearance="standard" class="w-100">
-                        <input matInput [value]="info.descricao" type="text" readonly />
-                        <mat-icon class="cursor-pointer text-danger" (click)="removeInfo(i)" matSuffix>clear</mat-icon>
+                        <div class="d-flex">
+                            <input matInput [value]="info.descricao" type="text" readonly />
+                            <button
+                                mat-icon-button
+                                color="warn"
+                                (click)="removeInfo(i)">
+                                <mat-icon matSuffix>clear</mat-icon>
+                            </button>
+                        </div>
                     </mat-form-field>
                 </div>
             </div>
@@ -106,7 +119,7 @@
             <div class="row justify-content-center">
                 <div class="col-10">
                     <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Você é o proprietário do espaço ?</mat-label>
+                        <mat-label>Você é o proprietário do objeto de anúncio ?</mat-label>
                         <mat-select formControlName="proprietario" matInput required>
                             <mat-option [value]="true">Sim</mat-option>
                             <mat-option [value]="false">Não</mat-option>
