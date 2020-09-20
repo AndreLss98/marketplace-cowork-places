@@ -31,8 +31,16 @@
             <div class="col">
                 <mat-form-field appearance="standard" class="w-100">
                     <mat-label>Valor possível para seleção</mat-label>
-                    <input #possibilidade matInput autocomplete="off" type="text" required />
-                    <mat-icon class="cursor-pointer" [ngClass]="{ 'enabled':possibilidade.value, 'disabled': !possibilidade.value }" matSuffix (click)="adicionarPossibilidade(possibilidade.value); possibilidade.value = ''">add</mat-icon>
+                    <div class="d-flex">
+                        <input #possibilidade matInput autocomplete="off" type="text" required />
+                        <button
+                            mat-icon-button
+                            color="primary"
+                            (click)="adicionarPossibilidade(possibilidade.value); possibilidade.value = ''"
+                            [disabled]="!possibilidade.value">
+                            <mat-icon matSuffix>add</mat-icon>
+                        </button>
+                    </div>
                 </mat-form-field>
             </div>
         </div>
