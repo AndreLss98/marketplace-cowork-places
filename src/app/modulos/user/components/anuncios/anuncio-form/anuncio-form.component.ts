@@ -329,6 +329,14 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public removeInfo(index: number) {
-    this.infoAdicionais.splice(index, 1);
+    if (this.infoAdicionais[index].id) {
+      this.alugavelService.removeInfo(this.anuncio.id, this.infoAdicionais[index].id).subscribe(() => {
+        this.infoAdicionais.splice(index, 1);
+      }, (error) => {
+        console.log(error)
+      });
+    } else {
+      this.infoAdicionais.splice(index, 1);
+    }
   }
 }

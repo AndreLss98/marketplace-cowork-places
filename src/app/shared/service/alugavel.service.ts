@@ -42,7 +42,7 @@ export class AlugavelService {
   }
 
   public removeInfo(idAlugavel, idInfo): Observable<any>{
-    return this.http.delete<any>(environment.apiUrl + '/alugaveis/' + idAlugavel + '/infos/' + idInfo);
+    return this.http.delete<any>(`${environment.apiUrl}/alugaveis/${idAlugavel}/infos/${idInfo}`);
   }
   
   public removeImage(idAlugavel, idImagem): Observable<any>{
