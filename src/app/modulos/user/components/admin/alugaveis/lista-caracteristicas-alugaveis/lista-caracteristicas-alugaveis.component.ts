@@ -54,7 +54,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
     ];
     this.displayedColumns = ["id", "nome", "actions"];
-    this.actions = { editar: false, excluir: false, visualizar: false };
+    this.actions = { editar: true, excluir: true, visualizar: false };
   }
 
   private fetchAll() {
