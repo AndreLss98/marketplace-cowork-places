@@ -139,6 +139,8 @@
                             [url]="sendDocsUrl"
                             [label]="documento.nome"
                             [single]="true"
+                            [files]="documento.files"
+                            [canDelete]="false"
                             [customFields]="[{ fieldName: 'nome', value: documento.nome_campo }]"
                             (data)="bindingFormField(documento.nome_campo, documentosForm, $event)"></dropzone>
                     </div>

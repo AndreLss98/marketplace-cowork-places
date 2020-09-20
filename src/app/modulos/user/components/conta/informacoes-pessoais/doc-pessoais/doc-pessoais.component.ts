@@ -1,10 +1,7 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 
-import { UserService } from 'src/app/shared/service/user.service';
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
 
 @Component({
@@ -19,7 +16,6 @@ export class DocPessoaisComponent implements OnInit {
   public documentos = [];
 
   constructor(
-    private formBuilder: FormBuilder,
     public documentosService: DocumentosService,
   ) {
     

@@ -56,7 +56,6 @@ export class DropzoneComponent implements OnInit {
   }
 
   set data(data) {
-    console.log('Entrada: ', data)
     this._data = data;
     this.dataChange.emit(this._data);
   }

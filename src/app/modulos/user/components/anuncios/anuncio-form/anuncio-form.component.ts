@@ -49,7 +49,7 @@ export class AnuncioFormComponent implements OnInit {
   public distritos;
   public documentosForm: FormGroup;
   public documentos = [
-    { proprietario: null, nome: "Escritura pública ou contrato de alienação", nome_campo: 'escritura' },
+    { proprietario: null, nome: "Escritura pública ou contrato de alienação", nome_campo: 'escritura', files: [] },
     { proprietario: false, nome: "Contrato de locação", nome_campo: 'contrato' },
     { proprietario: false, nome: "Documento com foto e CPF do proprietário", nome_campo: 'cpf_selfie' }
   ];
@@ -202,27 +202,9 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public save() {
-
-    let anuncio = {
-      ...this.informacoesForm.value,
-      proprietario: this.documentosForm.controls['proprietario'].value,
-      local: {
-        ...this.enderecoForm.value,
-        pais: 'Brasil'
-      },
-      ...this.valoresForm.value,
-      imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
-      documentos: Object.keys(this.documentosForm.value).filter(key => key !== 'proprietario' && this.documentosForm.value[key]).map(key => this.documentosForm.value[key][0].id),
-      caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
-        return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
-      }),
-      infos: this.infoAdicionais
-    };
-
-    anuncio.valor = desformatMoneyValue(anuncio.valor);
-    anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
-
+    let anuncio = this.buildAnuncioObject();
     this.isSending = true;
+
     this.alugavelService.createAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
       const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
@@ -247,25 +229,30 @@ export class AnuncioFormComponent implements OnInit {
     });
   }
 
-  configEditForm() {
+  public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-
-    console.log('Anuncio: ', this.anuncio);
 
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
     this.informacoesForm.controls['descricao'].setValue(this.anuncio.descricao);
 
     this.imgsForm.controls['imgs'].setValue(this.anuncio.imagens.map(img => {
-      return { id: img.id, src: `${environment.apiUrl}/imgs/${img.url}`, success: true }
+      return { img: { id: img.id, url: img.url } }
     }));
 
-    this.imgs = this.imgsForm.controls['imgs'].value;
+    this.imgs = this.anuncio.imagens.map(img => {
+      return { id: img.id, src: `${environment.apiUrl}/imgs/${img.url}`, success: true }
+    });
 
     this.infoAdicionais = this.anuncio.infos;
 
     this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
+
+    this.anuncio.documentos.forEach(documento => {
+      const doc = this.documentos.find(doc => doc.nome_campo === documento.nome);
+      doc.files = [{ src: `${environment.apiUrl}/docs/${documento.url}`, success: true }];
+    });
 
     Object.keys(this.enderecoForm.value).forEach(key => {
       this.enderecoForm.controls[key].setValue(this.anuncio.local[key]);
@@ -285,15 +272,63 @@ export class AnuncioFormComponent implements OnInit {
     });
   }
 
-  update() {
-    console.log('Vai atualizar');
+  public update() {
+    let anuncio = this.buildAnuncioObject(this.anuncio.id);
+    this.isSending = true;
+    
+    this.alugavelService.updateAlugavel(anuncio).subscribe(response => {
+      this.isSending = false;
+      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Parabéns',
+        message: 'O cadastro foi atualizado com sucesso, aguarde a aprovação do seu anúncio',
+        nameCloseBtn: 'Ok'
+      }, hasBackdrop: false});
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
+      });
+    }, (error) => {
+      this.isSending = false;
+      this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Aviso',
+        message: 'Algo deu errado enquanto Tentávamos atualizar o seu anúncio, Por favor tente novamente.',
+        nameCloseBtn: 'Ok'
+      }});
+      console.log(error);
+    }, () => {
+      this.isSending = false;
+    });
   }
 
-  addInfo(descricao: string) {
+  private buildAnuncioObject(id?: number) {
+    let anuncio = {
+      ...this.informacoesForm.value,
+      proprietario: this.documentosForm.controls['proprietario'].value,
+      local: {
+        ...this.enderecoForm.value,
+        pais: 'Brasil'
+      },
+      ...this.valoresForm.value,
+      imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
+      documentos: Object.keys(this.documentosForm.value).filter(key => key !== 'proprietario' && this.documentosForm.value[key]).map(key => this.documentosForm.value[key][0].id),
+      caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
+        return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
+      }),
+      infos: this.infoAdicionais
+    };
+
+    anuncio.valor = desformatMoneyValue(anuncio.valor);
+    anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
+
+    if (id) anuncio.id = id;
+    return anuncio;
+  }
+
+  public addInfo(descricao: string) {
     this.infoAdicionais.unshift({ descricao });
   }
 
-  removeInfo(index: number) {
+  public removeInfo(index: number) {
     this.infoAdicionais.splice(index, 1);
   }
 }

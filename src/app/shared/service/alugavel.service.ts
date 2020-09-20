@@ -29,8 +29,8 @@ export class AlugavelService {
     return this.http.post<any>(environment.apiUrl + '/alugaveis', alugavel);
   }
 
-  public saveAlugavel(alugavel: Alugavel, id): Observable<any> {
-    return this.http.put<any>(environment.apiUrl + '/alugaveis/' + id, alugavel);
+  public updateAlugavel(alugavel): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/alugaveis/${alugavel.id}`, alugavel);
   }
 
   public alterStatus(id, update) {
