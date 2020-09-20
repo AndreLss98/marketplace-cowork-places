@@ -3,7 +3,8 @@
     [tableColumns]="tableColumns"
     [displayedColumns]="displayedColumns"
     [actions]="actions"
-    (editar)="select($event)"></basic-table>
+    (editar)="select($event)"
+    (deletar)="deletar($event)"></basic-table>
 
 <div class="row mx-3">
     <div class="col-xl" *ngIf="!caracteristica">

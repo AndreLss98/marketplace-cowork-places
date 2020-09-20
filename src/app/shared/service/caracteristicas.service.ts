@@ -37,4 +37,8 @@ export class CaracteristicasService {
     delete caracteristica.id;
     return this.http.put(`${environment.apiUrl}/caracteristicas/${id}`, caracteristica);
   }
+
+  public delete(id) {
+    return this.http.delete(`${environment.apiUrl}/caracteristicas/${id}`);
+  }
 }

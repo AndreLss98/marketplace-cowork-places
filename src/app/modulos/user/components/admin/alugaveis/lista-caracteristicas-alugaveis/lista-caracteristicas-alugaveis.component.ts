@@ -111,6 +111,17 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     });
   }
 
+  public deletar(event) {
+    console.log(event)
+    this.caracteristicasService.delete(event.id).subscribe(() => {
+      this.fetchAll();
+      this.caracteristica = null;
+      this.possibilidadadesSelecao = [];
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
   public select(event) {
     let propriedadesGroup = {};
     this.caracteristica = null;
