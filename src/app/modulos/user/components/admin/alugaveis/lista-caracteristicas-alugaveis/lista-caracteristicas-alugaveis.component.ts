@@ -50,7 +50,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
 
   private configTable() {
     this.tableColumns = [
-      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" }        ,
+      { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" },
       { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
     ];
     this.displayedColumns = ["id", "nome", "actions"];
@@ -84,29 +84,41 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     });
   }
 
+  public update() {
+    console.log(this.editForm)
+  }
+
   public select(event) {
     let propriedadesGroup = {};
-    this.caracteristica = this.data.find(element => element.id === event.id);
+    this.caracteristica = null;
+    this.possibilidadadesSelecao = [];
+    setTimeout(() => {
+      this.caracteristica = this.data.find(element => element.id === event.id);
+  
+      if (this.caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+        this.possibilidadadesSelecao = this.caracteristica.tipo_campo.propriedades.possibilidades.map(element => element);
+      }
+  
+      this.editForm.reset({
+        id: this.caracteristica.id,
+        nome: this.caracteristica.nome,
+        icone: this.caracteristica.icone? this.caracteristica.icone : "",
+        tipo_campo: this.caracteristica.tipo_campo.tipo.toUpperCase()
+      });
+  
+      Object.keys(TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos).forEach(campo => {
+        let field = TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos[campo];
+        field.name = campo;
+        propriedadesGroup[campo] = field.required ? new FormControl(this.caracteristica.tipo_campo.propriedades[campo], [Validators.required]) : new FormControl(this.caracteristica.tipo_campo.propriedades[campo]);
+      });
+  
+      this.editForm.controls['propriedades'] = new FormGroup(propriedadesGroup);
+    }, 200);
+  }
 
-    if (this.caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
-      this.possibilidadadesSelecao = this.caracteristica.tipo_campo.propriedades.possibilidades;
-      delete this.caracteristica.tipo_campo.propriedades.possibilidades;
-    }
-
-    this.editForm.reset({
-      id: this.caracteristica.id,
-      nome: this.caracteristica.nome,
-      icone: this.caracteristica.icone? this.caracteristica.icone : "",
-      tipo_campo: this.caracteristica.tipo_campo.tipo.toUpperCase()
-    });
-
-    Object.keys(TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos).forEach(campo => {
-      let field = TIPOS_CAMPOS[this.caracteristica.tipo_campo.tipo.toUpperCase()].campos[campo];
-      field.name = campo;
-      propriedadesGroup[campo] = field.required ? new FormControl(this.caracteristica.tipo_campo.propriedades[campo], [Validators.required]) : new FormControl(this.caracteristica.tipo_campo.propriedades[campo]);
-    });
-
-    this.editForm.controls['propriedades'] = new FormGroup(propriedadesGroup);
+  public cancelEdit() {
+    this.possibilidadadesSelecao = [];
+    this.caracteristica = null;
   }
 
   private resetCreateForm() {

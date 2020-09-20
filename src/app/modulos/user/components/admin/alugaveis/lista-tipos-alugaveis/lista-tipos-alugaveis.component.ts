@@ -32,8 +32,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     super();
 
     this.caracteristicasService.getAll().subscribe(response => {
-      this.caracteristicas = response;
-      this.caracteristicasService.caracteristicas = response;
+      this.caracteristicas = this.caracteristicasService.caracteristicas = response;
     });
 
     this.editForm = formBuilder.group({
