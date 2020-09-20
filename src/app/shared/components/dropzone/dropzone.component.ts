@@ -43,6 +43,9 @@ export class DropzoneComponent implements OnInit {
   @Input()
   public files: displayFile[] = [];
 
+  @Input()
+  public canDelete: boolean = true;
+
   private _data = [];
 
   @Output('data')
