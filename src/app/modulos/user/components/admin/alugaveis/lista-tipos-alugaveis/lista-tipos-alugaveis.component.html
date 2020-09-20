@@ -6,84 +6,128 @@
   (deletar)="deletar($event)"
   (editar)="select($event)"></basic-table>
 
-  <mat-card class="mx-4">
-    <mat-card-header>
-      <mat-card-title>Novo Tipo</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="createForm" (ngSubmit)="create()">
-        <mat-form-field appearance="standard">
-          <mat-label>Nome</mat-label>
-          <input formControlName="nome" matInput placeholder="Nome">
-        </mat-form-field>
+<mat-card *ngIf="!tipo" class="mx-4 mb-1">
+  <mat-card-header>
+    <mat-card-title>Novo Tipo</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="createForm" (ngSubmit)="create()">
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="standard">
+            <mat-label>Nome</mat-label>
+            <input formControlName="nome" matInput placeholder="Nome">
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="standard">
+            <mat-label>Icone</mat-label>
+            <input matInput placeholder="color_lens" formControlName="icone">
+            <mat-hint>
+                <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
 
-        <mat-form-field appearance="standard">
-          <mat-label>Icone</mat-label>
-          <input matInput placeholder="color_lens" formControlName="icone">
-          <mat-hint>
-              <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
-          </mat-hint>
-        </mat-form-field>
-
-        <mat-form-field appearance="standard">
-          <mat-label>Descrição</mat-label>
-          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
-          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
-        </mat-form-field>
-    
-        <div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Descrição</mat-label>
+            <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+            <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col">
           <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
         </div>
+      </div>
 
-        <mat-form-field appearance="standard">
-          <mat-label>Caracteristicas</mat-label>
-          <mat-select formControlName="caracteristicas" multiple>
-            <mat-option *ngFor="let caracteristica of caracteristicasService.caracteristicas" [value]="caracteristica.id">{{caracteristica.nome}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        
-        <div class="d-flex justify-content-center">
-          <button mat-flat-button color="primary" type="submit" [disabled]="createForm.invalid || createForm.pristine">Criar</button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-
-<!-- <div id="cards-container">
-  <mat-card *ngIf="tipo" class="example-card">
-    <mat-card-header>
-      <mat-card-title>Editar Tipo</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="editForm" (ngSubmit)="update()">
-        <mat-form-field appearance="legacy">
-          <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" placeholder="Nome" required>
-        </mat-form-field>
-    
-        <mat-form-field appearance="legacy">
-            <mat-label>Icone</mat-label>
-            <mat-select formControlName="icone" required>
-              <mat-option *ngFor="let icone of icones" [value]="icone">
-                <div class="d-flex flex-row">
-                  <img [src]="'assets/imgs/header/' + icone" width="35" height="35">
-                  <span style="width: 100%; text-align: center;">{{ icone }}</span>
-                </div>
-              </mat-option>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Caracteristicas</mat-label>
+            <mat-select formControlName="caracteristicas" multiple>
+              <mat-option *ngFor="let caracteristica of caracteristicasService.caracteristicas" [value]="caracteristica.id">{{caracteristica.nome}}</mat-option>
             </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="legacy">
-          <mat-label>Descrição</mat-label>
-          <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
-          <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
-        </mat-form-field>
-    
-        <div>
-            <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+          </mat-form-field>
         </div>
-        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div> -->
+      </div>
+      
+      <div class="d-flex justify-content-end">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="createForm.invalid || createForm.pristine">Criar</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="tipo" class="mx-4 mb-1">
+  <mat-card-header>
+    <mat-card-title>Editar Tipo</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="editForm" (ngSubmit)="update()">
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="standard">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" placeholder="Nome" required>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="standard">
+            <mat-label>Icone</mat-label>
+            <input matInput placeholder="color_lens" formControlName="icone">
+            <mat-hint>
+                <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Descrição</mat-label>
+            <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
+            <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col">
+          <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Caracteristicas</mat-label>
+            <mat-select formControlName="caracteristicas" multiple>
+              <mat-option *ngFor="let caracteristica of caracteristicasService.caracteristicas" [value]="caracteristica.id">{{caracteristica.nome}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button
+          mat-flat-button (click)="tipo = null">
+          Cancelar</button>
+        <button
+          mat-flat-button color="primary"
+          type="submit"
+          [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -5,92 +5,86 @@
     [actions]="actions"
     (editar)="select($event)"
     (deletar)="deletar($event)"></basic-table>
+    
+<mat-card *ngIf="!caracteristica" class="mx-4 mb-1">
+    <mat-card-header>
+        <mat-card-title>Nova Caracteristica</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="createForm" (ngSubmit)="create()">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Nome</mat-label>
+                        <input formControlName="nome" matInput autocomplete="off" placeholder="Nome" required />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Icone</mat-label>
+                        <input matInput placeholder="color_lens" formControlName="icone">
+                        <mat-hint>
+                            <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            <form-create-field
+                [(original-form)]="createForm"
+                [(possibilidades)]="possibilidadadesSelecao"></form-create-field>
 
-<div class="row mx-3">
-    <div class="col-xl" *ngIf="!caracteristica">
-        <mat-card class="w-100 mb-1">
-            <mat-card-header>
-                <mat-card-title>Nova Caracteristica</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form [formGroup]="createForm" (ngSubmit)="create()">
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Nome</mat-label>
-                                <input formControlName="nome" matInput autocomplete="off" placeholder="Nome" required />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Icone</mat-label>
-                                <input matInput placeholder="color_lens" formControlName="icone">
-                                <mat-hint>
-                                    <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
-                                </mat-hint>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    
-                    <form-create-field
-                        [(original-form)]="createForm"
-                        [(possibilidades)]="possibilidadadesSelecao"></form-create-field>
+            <div class="d-flex justify-content-end">
+                <button
+                    mat-flat-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="createForm.invalid ||createForm.pristine || (createForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Criar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
 
-                    <div class="d-flex justify-content-end">
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            type="submit"
-                            [disabled]="createForm.invalid ||createForm.pristine || (createForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Criar</button>
-                    </div>
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>
+<mat-card *ngIf="caracteristica" class="mx-4 mb-1">
+    <mat-card-header>
+        <mat-card-title>Editar Caracteristica</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="editForm" (ngSubmit)="update()">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Nome</mat-label>
+                        <input matInput formControlName="nome" autocomplete="off" placeholder="Nome" required />
+                    </mat-form-field>
+                </div>
 
-    <div *ngIf="caracteristica" class="col-xl">
-        <mat-card class="w-100 mb-1">
-            <mat-card-header>
-                <mat-card-title>Editar Caracteristica</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form [formGroup]="editForm" (ngSubmit)="update()">
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Nome</mat-label>
-                                <input matInput formControlName="nome" autocomplete="off" placeholder="Nome" required />
-                            </mat-form-field>
-                        </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Icone</mat-label>
+                        <input matInput placeholder="color_lens" formControlName="icone">
+                        <mat-hint href="https://material.io/resources/icons/?style=baseline">Lista de icones</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
 
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Icone</mat-label>
-                                <input matInput placeholder="color_lens" formControlName="icone">
-                                <mat-hint href="https://material.io/resources/icons/?style=baseline">Lista de icones</mat-hint>
-                            </mat-form-field>
-                        </div>
-                    </div>
+            <form-create-field
+                [(original-form)]="editForm"
+                [(possibilidades)]="possibilidadadesSelecao"
+                [editMode]="true"></form-create-field>
 
-                    <form-create-field
-                        [(original-form)]="editForm"
-                        [(possibilidades)]="possibilidadadesSelecao"
-                        [editMode]="true"></form-create-field>
-
-                    
-                    <div class="d-flex justify-content-between">
-                        <button
-                            mat-flat-button
-                            type="button"
-                            (click)="cancelEdit()">Cancelar</button>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            type="submit"
-                            [disabled]="editForm.invalid || editForm.pristine || (editForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Atualizar</button>
-                    </div>
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div>
+            
+            <div class="d-flex justify-content-between">
+                <button
+                    mat-flat-button
+                    type="button"
+                    (click)="cancelEdit()">Cancelar</button>
+                <button
+                    mat-flat-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="editForm.invalid || editForm.pristine || (editForm.controls['tipo_campo'].value.toLowerCase() === TIPOS_CAMPOS.SELECAO.nome && possibilidadadesSelecao.length < 2)">Atualizar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

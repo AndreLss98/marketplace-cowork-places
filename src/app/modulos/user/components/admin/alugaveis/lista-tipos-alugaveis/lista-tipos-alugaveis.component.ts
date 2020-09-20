@@ -40,6 +40,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       nome: ["", [Validators.required]],
       icone: ["", [Validators.required]],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
+      caracteristicas: [null, [Validators.required]],
       id: [null]
     });
 
@@ -84,20 +85,19 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       nome: this.tipo.nome,
       icone: this.tipo.icone,
       descricao: this.tipo.descricao,
+      caracteristicas: this.tipo.caracteristicas,
       id: this.tipo.id
     });
   }
 
   public update() {
-    if (this.editForm.status === "VALID") {
-      let updateType = this.editForm.value;
-      const id = updateType.id;
-      delete updateType.id;
-      this.tiposServive.update(id, updateType).subscribe((response) => {
-        this.fetchAll();
-        this.tipo = null;
-      });
-    }
+    let update = this.editForm.value;
+    const id = update.id;
+    delete update.id;
+    this.tiposServive.update(id, update).subscribe((response) => {
+      this.fetchAll();
+      this.tipo = null;
+    });
   }
 
   public create() {
