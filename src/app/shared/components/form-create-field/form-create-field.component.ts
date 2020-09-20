@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
+import { TipoCamposService } from 'src/app/shared/service/tipo-campos.service';
 
 @Component({
   selector: 'form-create-field',
@@ -36,7 +37,9 @@ export class FormCreateFieldComponent implements OnInit {
     this.possibilidadesChange.emit(this._possibilidades);
   }
 
-  constructor() { }
+  constructor(
+    private tipoCampoService: TipoCamposService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -104,7 +107,17 @@ export class FormCreateFieldComponent implements OnInit {
   }
 
   public removePossibilidade(index) {
-    this.possibilidades.splice(index, 1);
-    this.original_form.markAsDirty();
+    const possibilidade = this.possibilidades[index];
+    if (possibilidade.id) {
+      this.tipoCampoService.deletePossibilidadeDeSelecao(possibilidade.id).subscribe(() => {
+        this.possibilidades.splice(index, 1);
+        this.original_form.markAsDirty();
+      }, (error) => [
+          console.log(error)
+      ]);
+    } else {
+      this.possibilidades.splice(index, 1);
+      this.original_form.markAsDirty();
+    }
   }
 }
