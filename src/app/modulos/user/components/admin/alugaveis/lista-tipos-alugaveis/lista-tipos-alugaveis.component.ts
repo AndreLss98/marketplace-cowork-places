@@ -27,12 +27,13 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private tiposServive: TiposService,
-    private caracteristicasService: CaracteristicasService
+    public caracteristicasService: CaracteristicasService
   ) {
     super();
 
     this.caracteristicasService.getAll().subscribe(response => {
       this.caracteristicas = response;
+      this.caracteristicasService.caracteristicas = response;
     });
 
     this.editForm = formBuilder.group({

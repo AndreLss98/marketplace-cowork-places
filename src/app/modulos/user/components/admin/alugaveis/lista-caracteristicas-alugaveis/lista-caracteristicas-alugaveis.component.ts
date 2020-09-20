@@ -59,7 +59,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
 
   private fetchAll() {
     this.caracteristicasService.getAll().subscribe((response: any) => {
-      this.data = response;
+      this.data = this.caracteristicasService.caracteristicas = response;
     }, (error) => {
       console.log("Fetch error: ", error);
     });

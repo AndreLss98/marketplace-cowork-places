@@ -8,6 +8,16 @@ import { environment } from 'src/environments/environment';
 })
 export class CaracteristicasService {
 
+  private _caracteristicas = [];
+
+  get caracteristicas() {
+    return this._caracteristicas;
+  }
+
+  set caracteristicas(caracteristicas) {
+    this._caracteristicas = caracteristicas;
+  }
+
   constructor(
     private http: HttpClient
   ) {
