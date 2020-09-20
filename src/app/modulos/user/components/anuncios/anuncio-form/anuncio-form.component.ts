@@ -113,9 +113,11 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.router.url.includes('/edit')) this.configEditForm();
     this.tipos = this.route.snapshot.data['tipos'];
+
+    if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();
+
     this.ibgeService.getEstados().subscribe( response => {
       this.estados = response;
     });
@@ -145,7 +147,8 @@ export class AnuncioFormComponent implements OnInit {
 
     if (this.editMode) {
       Object.keys(this.caracteristicasForm.value).forEach(key => {
-        this.caracteristicasForm.controls[key].setValue(this.anuncio.caracteristicas.find(caracterictica => caracterictica.id === Number(key)).valor);
+        const valor = this.anuncio.caracteristicas.find(caracterictica => caracterictica.id === Number(key)).valor
+        this.caracteristicasForm.controls[key].setValue(Number(valor) || valor);
       });
     }
   }
@@ -245,8 +248,10 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   configEditForm() {
-    this.anuncio = this.route.snapshot.data['anuncio'];
     this.editMode = true;
+    this.anuncio = this.route.snapshot.data['anuncio'];
+
+    console.log('Anuncio: ', this.anuncio);
 
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
