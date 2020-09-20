@@ -56,7 +56,8 @@ export class FeedbackComponent extends BasicTableComponent implements OnInit {
     this.tableColumns = [
       { columnDef: "pergunta", columnHeaderName: "Pergunta", objectProperty: "pergunta" }
     ];
-    this.displayedColumns = ["pergunta"];
+    this.displayedColumns = ["pergunta", "actions"];
+    this.actions = { editar: false, excluir: true, visualizar: false };
   }
 
   onSubmit() {
@@ -126,9 +127,9 @@ export class FeedbackComponent extends BasicTableComponent implements OnInit {
   }
 
   public deletar(event) {
-    console.log(event)
     this.feedbackService.delete(event.id).subscribe(response => {
       this.fetchAll();
+      this.resetForm();
     }, (error) => {
       console.log(error);
     });
