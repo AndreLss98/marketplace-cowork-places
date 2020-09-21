@@ -1,13 +1,15 @@
-<ng-container *ngIf="rooms && rooms.length > 0">
-  <div class="row mr-1 d-flex flex-column-reverse align-items-center align-items-xl-start flex-xl-row">
-    <div class="col-sm" style="max-width: 300px">
-        <h4 class="my-1 font-weight-bold" style="font-size: 1.6em;">Escolha onde trabalhar!</h4>
-        <p class="my-1">Mesas compartilhadas com serviços que facilitam sua vida.</p>
-        <button class="my-1 btn btn-dark btn-lg" routerLink="/search">Ver mais ofertas</button>
-    </div>
-    <div class="col-xl">
-      <div class="d-flex justify-content-around flex-wrap">
-        <card-item-alugavel class="mx-1" *ngFor="let room of rooms" [data]="room"></card-item-alugavel>
+<ng-container *ngIf="rooms.length">
+  <div id="highlights" class="mb-5 pb-5">
+    <div class="row mr-1 d-flex flex-column-reverse align-items-center align-items-xl-start flex-xl-row">
+      <div class="col-sm" style="max-width: 300px">
+          <h4 class="my-1 font-weight-bold" style="font-size: 1.6em;">Escolha onde trabalhar!</h4>
+          <p class="my-1">Mesas compartilhadas com serviços que facilitam sua vida.</p>
+          <button class="my-1 btn btn-dark btn-lg" routerLink="/search">Ver mais ofertas</button>
+      </div>
+      <div class="col-xl">
+        <div class="d-flex justify-content-around flex-wrap">
+          <card-item-alugavel class="mx-1" *ngFor="let room of rooms" [data]="room"></card-item-alugavel>
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
-import { HighlightService } from '../../../../shared/service/highlight.service';
-import { Component, OnInit, HostListener } from '@angular/core';
-import { TIPOS_ALUGAVEIS } from 'src/app/shared/constants/constants';
+import { Component, OnInit } from '@angular/core';
+
+import { HighlightService } from 'src/app/shared/service/highlight.service';
 
 @Component({
   selector: 'highlights',
@@ -24,7 +24,7 @@ export class HighlightComponent implements OnInit {
   }
 
   private fetchAlugaveis(quantity: number) {
-    this.highlights.getSome(quantity, TIPOS_ALUGAVEIS.sala_reuniao).subscribe(response => {
+    this.highlights.getSome(quantity, 1).subscribe(response => {
       this.rooms = response.results;
     });
   }

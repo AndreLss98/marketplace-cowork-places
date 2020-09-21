@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
 
   myControl = new FormControl();
   options: any = [];
-  
 
   constructor(
     private router: Router,

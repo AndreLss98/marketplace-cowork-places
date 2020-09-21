@@ -121,10 +121,6 @@ export const ALUGAVEL_STATUS = {
     }
 };
 
-export const TIPOS_ALUGAVEIS = {
-    sala_reuniao: 1
-}
-
 export const USUARIO_STATUS = {
     WAITING: {
         value: 'waiting',
