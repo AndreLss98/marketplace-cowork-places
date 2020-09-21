@@ -28,6 +28,9 @@ export class DropzoneComponent implements OnInit {
   @Input('url')
   public url: string;
 
+  @Input('deleteUrl')
+  public deleteUrl: string;
+
   @Input('label')
   public label: string;
 
@@ -135,8 +138,18 @@ export class DropzoneComponent implements OnInit {
   }
 
   public removeFile(index: number) {
-    this.files.splice(index, 1);
-    this.data.splice(index, 1);
-    this.dataChange.emit(this.data);
+    if (this.files[index].id && this.deleteUrl) {
+      this.http.delete(`${this.deleteUrl}/${this.files[index].id}`).subscribe(() => {
+        this.files.splice(index, 1);
+        this.data.splice(index, 1);
+        this.dataChange.emit(this.data);  
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      this.files.splice(index, 1);
+      this.data.splice(index, 1);
+      this.dataChange.emit(this.data);
+    }
   }
 }

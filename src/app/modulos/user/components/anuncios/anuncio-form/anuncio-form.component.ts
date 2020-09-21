@@ -22,6 +22,7 @@ import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-moda
 export class AnuncioFormComponent implements OnInit {
 
   readonly sendImgsUrl = `${environment.apiUrl}/alugaveis/imagem`;
+  public deleteImgUrl;
   readonly sendDocsUrl = `${environment.apiUrl}/alugaveis/documentos`;
 
   public editMode: boolean = false;
@@ -232,6 +233,7 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
+    this.deleteImgUrl = `${environment.apiUrl}/alugaveis/${this.anuncio.id}/imagem`;
 
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
