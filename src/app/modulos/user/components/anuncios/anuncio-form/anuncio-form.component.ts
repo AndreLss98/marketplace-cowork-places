@@ -12,6 +12,7 @@ import { MapsService } from 'src/app/shared/service/maps.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 
 @Component({
@@ -24,6 +25,12 @@ export class AnuncioFormComponent implements OnInit {
   readonly sendImgsUrl = `${environment.apiUrl}/alugaveis/imagem`;
   public deleteImgUrl;
   readonly sendDocsUrl = `${environment.apiUrl}/alugaveis/documentos`;
+
+  readonly imgsTypes: acceptableFileType[] = [
+    { mime_type: 'image/jpg', nome: '.jpg' },
+    { mime_type: 'image/jpeg', nome: '.jpeg' },
+    { mime_type: 'image/png', nome: '.png' }
+  ];
 
   public editMode: boolean = false;
   private anuncio: any;

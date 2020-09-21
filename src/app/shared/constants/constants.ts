@@ -4,6 +4,11 @@ export const USER_TOKEN = 'user_token';
 export const USER_SESSION = 'user_data';
 export const INFORMACOES_ADICIONAIS_LIMITE = 16;
 
+export const docFilesType = [
+    { mime_type: "text/markdown"},
+    { mime_type: "application/pdf"}
+];
+
 export const HOME_TEXT = {
     infoTopTitle: 'Facilitamos a conexão entre espaços e pessoas.',
     searchTitle: 'Seu negócio livre para evoluir.',

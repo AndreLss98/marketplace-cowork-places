@@ -1,5 +1,6 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { docFilesType } from '../../constants/constants';
 
 export interface customFormField {
   fieldName: string;
@@ -15,12 +16,19 @@ export interface displayFile {
   img?: any;
 }
 
+export interface acceptableFileType {
+  mime_type: string;
+  nome: string;
+}
+
 @Component({
   selector: 'dropzone',
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.scss']
 })
 export class DropzoneComponent implements OnInit {
+
+  readonly docFilesType = docFilesType;
 
   @ViewChild('dropzone', { static: true })
   public dropzone: ElementRef;
@@ -45,6 +53,9 @@ export class DropzoneComponent implements OnInit {
 
   @Input()
   public files: displayFile[] = [];
+
+  @Input()
+  public listFileTypes: acceptableFileType[] = [];
 
   @Input()
   public canDelete: boolean = true;
@@ -90,15 +101,17 @@ export class DropzoneComponent implements OnInit {
     }
 
     for (let index = 0; this.singleFile? index < 1 : index < files.length ; index++) {
-      let reader = new FileReader();
-      reader.readAsDataURL(files[index]);
-      reader.onload = (read) => {
-        let file = {
-          src: read.target.result,
-          object: files[index]
-        };
-        this.files.push(file);
-        this.sendFile(file);
+      if ( this.listFileTypes.map(type => type.mime_type).includes(files[index].type)) {
+        let reader = new FileReader();
+        reader.readAsDataURL(files[index]);
+        reader.onload = (read) => {
+          let file = {
+            src: read.target.result,
+            object: files[index]
+          };
+          this.files.push(file);
+          this.sendFile(file);
+        }
       }
     }
   }

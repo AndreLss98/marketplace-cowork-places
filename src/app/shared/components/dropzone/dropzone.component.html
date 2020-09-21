@@ -1,4 +1,7 @@
-<div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">{{label}}</div>
+<div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">
+    {{label}}<br>
+    <small *ngFor="let type of listFileTypes">{{ type.nome }} </small>
+</div>
 
 <input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
 
