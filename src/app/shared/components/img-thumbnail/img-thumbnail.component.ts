@@ -10,8 +10,18 @@ export class ImgThumbnailComponent implements OnInit {
   @Input()
   public src: any;
 
+  public isDoc: boolean = false;
+
   constructor() { }
   
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.src.endsWith('.pdf') || this.src.endsWith('.md')) {
+      this.isDoc = true;
+    }
+  }
+
+  onImageError() {
+    console.log('Image error, is a doc?');
+  }
 
 }

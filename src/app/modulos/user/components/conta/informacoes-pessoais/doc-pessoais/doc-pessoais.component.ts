@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 import { DocumentosService } from 'src/app/shared/service/documentos.service';
+import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 
 @Component({
   selector: 'app-doc-pessoais',
@@ -10,6 +11,13 @@ import { DocumentosService } from 'src/app/shared/service/documentos.service';
   styleUrls: ['./doc-pessoais.component.scss']
 })
 export class DocPessoaisComponent implements OnInit {
+
+  readonly docsTypes: acceptableFileType[] = [
+    { mime_type: 'image/jpg', nome: '.jpg' },
+    { mime_type: 'image/png', nome: '.png' },
+    { mime_type: 'image/jpeg', nome: '.jpeg' },
+    { mime_type: "application/pdf", nome: '.pdf'}
+  ];
 
   readonly backEndUrl = environment.apiUrl;
   readonly sendDocsUrl = `${this.backEndUrl}/usuarios/doc`;

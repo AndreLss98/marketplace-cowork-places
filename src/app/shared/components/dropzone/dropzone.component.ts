@@ -1,6 +1,5 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { docFilesType } from '../../constants/constants';
 
 export interface customFormField {
   fieldName: string;
@@ -27,8 +26,6 @@ export interface acceptableFileType {
   styleUrls: ['./dropzone.component.scss']
 })
 export class DropzoneComponent implements OnInit {
-
-  readonly docFilesType = docFilesType;
 
   @ViewChild('dropzone', { static: true })
   public dropzone: ElementRef;
