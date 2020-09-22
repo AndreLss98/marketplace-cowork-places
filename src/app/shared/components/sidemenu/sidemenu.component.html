@@ -10,7 +10,7 @@
     {{ login.logged_status ? "Minha conta" : "Entrar" }}
   </button>
 
-  <app-user-menu *ngIf="router.url.includes('/user')"></app-user-menu>
+  <app-user-menu (action)="resendAction()" *ngIf="router.url.includes('/user')"></app-user-menu>
   <app-searchbox class="d-sm-none d-md-block" *ngIf="router.url.includes('/search')"></app-searchbox>
 </div>
 

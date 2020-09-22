@@ -65,5 +65,9 @@ export class SidemenuComponent implements OnInit {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  resendAction() {
+    this.action.emit();
+  }
 }
 
