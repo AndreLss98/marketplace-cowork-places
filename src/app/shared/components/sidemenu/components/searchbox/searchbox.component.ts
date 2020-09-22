@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 import { MenuService } from 'src/app/shared/service/menu.service';
@@ -14,6 +14,9 @@ import { HighlightService } from 'src/app/shared/service/highlight.service';
   styleUrls: ['./searchbox.component.scss'],
 })
 export class SearchboxComponent implements OnInit {
+
+  @Output()
+  public action = new EventEmitter();
 
   public tiposServico = [];
 
@@ -108,6 +111,6 @@ export class SearchboxComponent implements OnInit {
       bairro: location, tipo_id: tipo, minValue: Number(minValue), maxValue: Number(maxValue), minArea: Number(minArea), maxArea: Number(maxArea)
     };
     this.highlightService.fetch(filters);
+    this.action.emit();
   }
-
 }
