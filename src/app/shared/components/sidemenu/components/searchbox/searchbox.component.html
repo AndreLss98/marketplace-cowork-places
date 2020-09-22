@@ -1,67 +1,110 @@
-<div id="searchBox" class="d-flex flex-column">
-    <span class="mb-3 " style="font-size: 1.1em;">Filtros: </span>
-
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-        <span class="font-weight-bold">LOCALIZAÇÃO</span>
-        <mat-form-field appearance="legacy" class="w-100">
-            <input type="text" matInput formControlName="location" [matAutocomplete]="auto"
-                placeholder="Busque por bairro Ex: Marista" maxlength="40">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option }}</mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-
-        <div style="padding-bottom: 0; padding-top: 0; margin-bottom: 10px;">
-            <div>
-                <span class="font-weight-bold">TIPO DE SERVIÇO</span>
-            </div>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col">
+            <span class="font-weight-bold">LOCALIZAÇÃO</span>
         </div>
-        <div style=" margin-bottom: 10px;">
-            <div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
+                <input type="text" matInput formControlName="location" [matAutocomplete]="auto"
+                    placeholder="Busque por bairro Ex: Marista" maxlength="40">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <span class="font-weight-bold">TIPO DE SERVIÇO</span>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <mat-form-field appearance="standard" class="w-100">
                 <mat-select formControlName="tipo" placeholder="Busque por tipo de anúncio">
                     <mat-option>Todos</mat-option>
                     <mat-option *ngFor="let tipo of tiposServico" [value]="tipo.id">{{ tipo.nome }}</mat-option>
                 </mat-select>
-            </div>
+            </mat-form-field>
         </div>
-        <div style="padding-bottom: 0; padding-top: 10px;  margin-bottom: 10px;">
-            <div>
-                <span style="font-weight: 500;">VALOR</span>
-            </div>
+    </div>
+
+    <div class="row pl-1 mb-1">
+        <div class="col">
+            <span class="font-weight-bold">VALOR</span>
         </div>
-        <div id="searchBoxValue" class="d-flex flex-row justify-content-around">
-            <div style="margin: auto 5px auto auto;">
-                <input formControlName="minValue" style="width: 100%;" type="text" placeholder="mín" class="btn"
-                    maxlength="10" (keyup)="checkText('minValue')">
-            </div>
-            <div style="margin: auto 5px auto auto;">
-                <input formControlName="maxValue" style="width: 100%;" type="text" placeholder="máx" class="btn"
-                    maxlength="10" (keyup)="checkText('maxValue')">
-            </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col pr-0">
+            <input
+                formControlName="minValue"
+                type="text"
+                placeholder="mín"
+                class="custom-input w-100"
+                maxlength="10" (keyup)="checkText('minValue')" />
         </div>
-        <div style="padding-bottom: 0; padding-top: 10px;  margin-bottom: 10px;">
-            <div>
-                <span style="font-weight: 500;">ÁREA</span>
-            </div>
+        <div class="col">
+            <input
+                formControlName="maxValue"
+                type="text"
+                placeholder="máx" 
+                class="custom-input w-100"
+                maxlength="10" (keyup)="checkText('maxValue')" />
         </div>
-        <div id="searchBoxArea" class="d-flex flex-row justify-content-around">
-            <div style="margin: auto 5px auto auto;">
-                <input formControlName="minArea" style="width: 100%;" type="text" placeholder="mín" class="btn"
-                    maxlength="4" (keyup)="checkText('minArea')">
-            </div>
-            <div style="margin: auto 5px auto auto;">
-                <input formControlName="maxArea" style="width: 100%;" type="text" placeholder="máx" class="btn"
-                    maxlength="4" (keyup)="checkText('maxArea')">
-            </div>
+    </div>
+
+    <div class="row pl-1 mb-1">
+        <div class="col">
+            <span class="font-weight-bold">ÁREA</span>
         </div>
-        <div style="padding-top: 15px; padding-bottom: 20px;" class="d-flex flex-row justify-content-between">
-            <div class="d-flex justify-content-start align-items-center">
-                <button mat-button mat-raised-button color="primary" class="limpar" type="button"
-                    (click)="clearFilters()">Limpar</button>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button mat-button mat-raised-button color="primary" class="submit" type="submit">Aplicar</button>
-            </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col pr-0">
+            <input
+                formControlName="minArea"
+                type="text"
+                placeholder="mín"
+                class="custom-input w-100"
+                maxlength="4" (keyup)="checkText('minArea')" />
         </div>
-    </form>
-</div>
+        <div class="col">
+            <input
+                formControlName="maxArea"
+                type="text"
+                placeholder="máx"
+                class="custom-input w-100"
+                maxlength="4" (keyup)="checkText('maxArea')" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button
+                mat-raised-button
+                type="button"
+                class="w-100"
+                (click)="clearFilters()">Limpar</button>
+        </div>
+        <div class="col">
+            <button
+                mat-raised-button
+                color="primary"
+                class="w-100"
+                type="submit">Aplicar</button>
+        </div>
+    </div>
+
+    <div style="padding-top: 15px; padding-bottom: 20px;" class="d-flex flex-row justify-content-between">
+        <div class="d-flex justify-content-start align-items-center">
+            
+        </div>
+        <div class="d-flex justify-content-end">
+            
+        </div>
+    </div>
+</form>

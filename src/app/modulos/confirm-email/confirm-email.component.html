@@ -1,5 +1,5 @@
-<div class="w-100 h-50 d-flex justify-content-center align-items-center flex-column">
-    <img *ngIf="validate" src="assets/svg/checkmark.svg" class="checkmark">
+<div class="w-100 min-vh-100 d-flex justify-content-center align-items-center flex-column">
+    <img *ngIf="validate" src="assets/svg/checkmark.svg">
     <span class="message">{{ message }}</span>
     <ng-container *ngIf="loading">
         <mat-progress-bar mode="indeterminate" class="w-50"></mat-progress-bar>

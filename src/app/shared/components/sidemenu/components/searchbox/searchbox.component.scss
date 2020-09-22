@@ -1,73 +1,24 @@
 @import '../../../../../../place-et-theme.scss';
 
-#searchBox {
+.custom-input {
+    height: 50px;
+    color: $pl-amarelo;
+    background-color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 7px;
+    border: 1px solid $pl-gray;
+    outline: none;
+    text-align: center;
+    font-size: .7rem;
+}
 
-    // Tipo de serviço
-    mat-select {
-        border-bottom: 2px solid $pl-gray;   
-    }
+.custom-input:focus {
+    border-color: $pl-verde-escuro;
+}
 
-    // Valor
-    #searchBoxValue {
-
-        .btn {
-            height: 45px;
-            color: $pl-amarelo;
-            background-color: white;
-            padding-right: 5px;
-            padding-left: 5px;
-            border-radius: 7px;
-            border: 1px solid $pl-gray;
-        }
-
-        input::placeholder {
-            color: black;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        .btn:focus {
-            outline: 0;
-            box-shadow: none;
-        }
-    }
-
-    // Área
-    #searchBoxArea {
-
-        .btn {
-            height: 45px;
-            color: $pl-amarelo;
-            background-color: white;
-            padding-right: 5px;
-            padding-left: 5px;
-            border-radius: 7px;
-            border: 1px solid $pl-gray;
-        }
-
-        input::placeholder {
-            color: black;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        .btn:focus {
-            outline: 0;
-            box-shadow: none;
-        }
-    }
-
-    // Limpar e aplicar filtro.
-    .limpar {
-        width: 100%;
-        // background-color: $pl-amarelo;
-    }
-
-
-    .submit {
-        width: 100%;
-        // background-color: $pl-amarelo;
-    }
-
+.custom-input::placeholder {
+    color: black;
+    text-transform: uppercase;
 }
 
