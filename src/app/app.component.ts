@@ -26,7 +26,6 @@ export class AppComponent {
   toggleSideMenu() {
     this.sidenavOpened = !this.sidenavOpened;
     !this.sidenavOpened? this.nav.nativeElement.classList.add('sticky-top') : this.nav.nativeElement.classList.remove('sticky-top');
-    console.log(this.nav)
   }
 }
 

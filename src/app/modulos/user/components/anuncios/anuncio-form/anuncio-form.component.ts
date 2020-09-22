@@ -141,7 +141,6 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public bindingFormField(field: string, form: FormGroup, data: any) {
-    console.log('Data binding: ', data);
     form.controls[field].setValue(data);
   }
 

@@ -29,7 +29,6 @@ export class MeusAnunciosComponent implements OnInit {
   }
 
   editSpace(id) {
-    console.log(id);
     this.router.navigate([`/user/anuncios/edit/${id}`]);
   }
 
@@ -52,7 +51,6 @@ export class MeusAnunciosComponent implements OnInit {
       this.espacos_em_avaliacao = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.WAITING.value });
       this.espacos_reprovados = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.DISAPPROVED.value });
       this.espacos_desativados = response.filter(espaco => { return espaco.status === ALUGAVEL_STATUS.REMOVED.value });
-      console.log(response);
     });
   }
 }

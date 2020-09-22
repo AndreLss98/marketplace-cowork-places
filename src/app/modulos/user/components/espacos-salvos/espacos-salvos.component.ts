@@ -32,7 +32,6 @@ export class EspacosSalvosComponent implements OnInit {
 
   public carregarFavoritos() {
     this.favoritosService.getAll().subscribe(response => {
-      console.log('Favoritos: ', response);
       this.favoritos = response;
     })
   }

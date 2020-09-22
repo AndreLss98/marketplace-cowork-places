@@ -85,8 +85,6 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public update() {
-    console.log(this.caracteristica)
-    console.log(this.editForm)
     const { id, nome, icone, propriedades } = this.editForm.value;
     let update: any = { id, nome, icone };
 
@@ -112,7 +110,6 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public deletar(event) {
-    console.log(event)
     this.caracteristicasService.delete(event.id).subscribe(() => {
       this.fetchAll();
       this.caracteristica = null;
@@ -128,7 +125,6 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     this.possibilidadadesSelecao = [];
     setTimeout(() => {
       this.caracteristica = this.data.find(element => element.id === event.id);
-      console.log(this.caracteristica)
   
       if (this.caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
         this.possibilidadadesSelecao = this.caracteristica.tipo_campo.propriedades.possibilidades.map(element => element);

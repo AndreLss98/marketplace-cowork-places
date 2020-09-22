@@ -69,7 +69,6 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   ngOnInit(): void {
     if (this.readInterval) {
-      console.log(this.readInterval)
       this.intervalForm.reset(this.readInterval);
     }
 

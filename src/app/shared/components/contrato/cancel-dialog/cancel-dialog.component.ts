@@ -35,7 +35,6 @@ export class CancelDialogComponent implements OnInit {
 
   cancelContract() {
     this.isLoading = true;
-    console.log(this.cancelForm.value)
     this.aluguelService.cancelContract(this.data.id, this.cancelForm.value).subscribe(response => {
       this.dialogRef.close();
     }, (error) => {

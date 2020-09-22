@@ -53,10 +53,6 @@ export class FormCreateFieldComponent implements OnInit {
     }, 100);
   }
 
-  ngOnDestroy() {
-    console.log('Destruiu o component')
-  }
-
   @Input('original-form')
   get original_form() {
     return this.fieldForm;

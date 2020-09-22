@@ -37,7 +37,6 @@ export class CheckoutService {
       alugavel_id: reserva.anuncio.id
     };
 
-    console.log(object)
     return this.http.post<any>(`${environment.apiUrl}/alugueis/checkout`, object);
   }
 

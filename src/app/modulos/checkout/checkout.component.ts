@@ -37,8 +37,6 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.reserva.anuncio.valor_mes = Number(this.checkoutService.reserva.anuncio.valor_mes);
     this.checkoutService.reserva.anuncio.taxa = Number(this.checkoutService.reserva.anuncio.taxa);
 
-    console.log('Reserva: ', this.checkoutService.reserva);
-
     if (this.checkoutService.reserva.paypal_plan_id) {
       this.generatePayPalSubscriptionButtons(this.checkoutService.reserva.paypal_plan_id);
     } else {

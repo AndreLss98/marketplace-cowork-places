@@ -53,9 +53,7 @@ export class LoginService {
   }
 
   public logoutLocal(event?) {
-    if (event && event.key === 'logout') {
-      console.log(location.pathname = "/home");
-    }
+    if (event && event.key === 'logout') { }
   }
 
   public logoutServer() {

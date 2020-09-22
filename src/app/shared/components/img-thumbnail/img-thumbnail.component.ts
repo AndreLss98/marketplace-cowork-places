@@ -19,9 +19,4 @@ export class ImgThumbnailComponent implements OnInit {
       this.isDoc = true;
     }
   }
-
-  onImageError() {
-    console.log('Image error, is a doc?');
-  }
-
 }
