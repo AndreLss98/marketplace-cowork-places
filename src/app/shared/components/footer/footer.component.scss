@@ -8,29 +8,12 @@ a:hover {
     text-decoration: underline;
 }
 
-.social {
-    text-align: center;   
-}
 
-.social .span{
-    padding: 0 4px;
-}
-
-.social .span .a {
-    width: 80px;
-    height: 80px;
-    line-height: 30px;
-}
-
-.social .span .a .img {
+.img-footer {
     width: 20px;
     height: 20px;
-}   
-
-.hr{
-    border-top: 1px solid rgb(92, 92, 92);
 }
 
-.iconHeart{
+.iconHeart {
     color: $pl-verde-escuro;
 }
