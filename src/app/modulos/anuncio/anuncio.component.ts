@@ -150,5 +150,10 @@ export class SpacesComponent implements OnInit {
     });
     this.caracteristicasComIcone = this.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
     this.caracteristicasSemIcone = this.anuncio.caracteristicas.filter(caracteristica => !caracteristica.icone);
+    this.caracteristicasComIcone.forEach(caracteristica => {
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+        caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
+      }
+    })
   }
 }

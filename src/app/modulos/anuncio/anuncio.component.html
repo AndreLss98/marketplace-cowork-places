@@ -95,6 +95,11 @@
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
                             <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
+
+                        <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome" class="mx-2">
+                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
+                        </div>
                     </ng-container>
                 </ng-container>
             </div>
