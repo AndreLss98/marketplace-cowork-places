@@ -39,8 +39,8 @@ export class SidemenuComponent implements OnInit {
   }
 
   openModalOrOpenPopover(popover?) {
-    this.action.emit();
     if (!this.login.logged_status) {
+      this.action.emit();
       this.dialog.open(LoginComponent);
     } else {
       popover.isOpen() ? popover.close() : popover.open();
