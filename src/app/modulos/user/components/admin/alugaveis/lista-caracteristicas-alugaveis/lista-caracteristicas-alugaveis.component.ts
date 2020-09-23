@@ -31,6 +31,8 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       nome: ["", Validators.required],
       icone: [""],
       tipo_campo: ['', [Validators.required]],
+      unidade_medida: ['', []],
+      descricao: ['', []],
       propriedades: ['']
     });
 
@@ -68,6 +70,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   public create() {
     let caracteristica = this.createForm.value;
     delete caracteristica.propriedades;
+
     caracteristica.tipo_campo = {
       tipo: this.createForm.controls['tipo_campo'].value.toLowerCase(),
       propriedades: this.createForm.controls['propriedades'].value

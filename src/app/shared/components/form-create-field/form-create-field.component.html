@@ -1,11 +1,17 @@
 <form [formGroup]="original_form">
     <div class="row">
-        <div class="col">
+        <div class="col-sm">
             <mat-form-field appearance="standard" class="w-100">
                 <mat-label>Tipo de Pergunta</mat-label>
                 <mat-select formControlName="tipo_campo" matNativeControl>
                     <mat-option *ngFor="let tipo of tipos_campo" [value]="tipo">{{tipo | uppercase}}</mat-option>
                 </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Unidade de medida</mat-label>
+                <input formControlName="unidade_medida" matInput autocomplete="off" type="text" />
             </mat-form-field>
         </div>
     </div>

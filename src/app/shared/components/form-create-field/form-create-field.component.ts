@@ -27,19 +27,11 @@ export class FormCreateFieldComponent implements OnInit {
 
   private _possibilidades = [];
 
-  @Input('possibilidades')
-  get possibilidades() {
-    return this._possibilidades;
-  }
-
-  set possibilidades(possibilidade) {
-    this._possibilidades = possibilidade;
-    this.possibilidadesChange.emit(this._possibilidades);
-  }
-
   constructor(
     private tipoCampoService: TipoCamposService
-  ) { }
+  ) {
+    
+  }
 
   ngOnInit(): void { }
 
@@ -47,6 +39,7 @@ export class FormCreateFieldComponent implements OnInit {
     this.fieldForm.controls['tipo_campo'].valueChanges.subscribe(() => {
       if (this.fieldForm.controls['tipo_campo'].value) this.configForm();
     });
+    
     setTimeout(() => {
       if (this.editMode) this.fieldForm.controls['tipo_campo'].disable();
       if (this.fieldForm.controls['tipo_campo'].value) this.configForm();
@@ -61,6 +54,16 @@ export class FormCreateFieldComponent implements OnInit {
   set original_form(form) {
     this.fieldForm = form;
     this.formChange.emit(this.original_form);
+  }
+
+  @Input('possibilidades')
+  get possibilidades() {
+    return this._possibilidades;
+  }
+
+  set possibilidades(possibilidade) {
+    this._possibilidades = possibilidade;
+    this.possibilidadesChange.emit(this._possibilidades);
   }
 
   get propriedadesForm() {
@@ -108,9 +111,9 @@ export class FormCreateFieldComponent implements OnInit {
       this.tipoCampoService.deletePossibilidadeDeSelecao(possibilidade.id).subscribe(() => {
         this.possibilidades.splice(index, 1);
         this.original_form.markAsDirty();
-      }, (error) => [
-          console.log(error)
-      ]);
+      }, (error) => {
+        console.log(error);
+      });
     } else {
       this.possibilidades.splice(index, 1);
       this.original_form.markAsDirty();
