@@ -48,8 +48,10 @@ export class CardItemAlugavelComponent extends Financeiro implements OnInit {
     
     this.data.caracteristicas = this.data.caracteristicas.filter(caracteristica => caracteristica.icone).slice(0, 4);
     this.data.caracteristicas.forEach(caracteristica => {
-      console.log(caracteristica)
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+        caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
+      }
     });
   }
 

@@ -44,8 +44,16 @@
                         class="d-flex flex-column align-items-center justify-content-center">
                         <mat-icon >{{caracteristica.icone}}</mat-icon>
                         <p class="p-0 m-0">
-                            <span>{{ caracteristica.valor }}</span>
+                            <span>{{ caracteristica.valor }} </span>
                             <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
+                        </p>
+                    </div>
+
+                    <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
+                        class="d-flex flex-column align-items-center justify-content-center">
+                        <mat-icon >{{caracteristica.icone}}</mat-icon>
+                        <p class="p-0 m-0">
+                            <span>{{ caracteristica.valor }} </span>
                         </p>
                     </div>
                 </ng-container>

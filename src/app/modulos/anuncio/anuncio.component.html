@@ -1,7 +1,6 @@
 <div class="ml-sm-2 mr-2 ml-lg-0 overflow-hidden min-vh-100" style="max-width: 100%;">
-    <h1 class="font-weight-bold">{{anuncio.titulo}}</h1>
     <h4>{{anuncio.tipo.nome}}</h4>
-    
+    <h1 class="font-weight-bold">{{anuncio.titulo}}</h1>
     <div class="row">
         <div class="col-lg col-xl-8">
             <maps
@@ -81,22 +80,29 @@
             <div class="col-md d-flex justify-content-end">
                 <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
                     <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="mx-2">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
+                            class="mx-2 d-flex flex-column align-items-center justify-content-center">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
                             <p class="p-0 m-0">{{ caracteristica.nome }}</p>
                         </div>
         
-                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="mx-2">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
+                            class="mx-2 d-flex flex-column align-items-center justify-content-center">
+                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <p class="p-0 m-0">
+                                <span>{{ caracteristica.valor }} </span>
+                                <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
+                            </p>
+                        </div>
+
+                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome"
+                            class="mx-2 d-flex flex-column align-items-center justify-content-center">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
                             <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
 
-                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="mx-2">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
-                        </div>
-
-                        <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome" class="mx-2">
+                        <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
+                            class="mx-2 d-flex flex-column align-items-center justify-content-center">
                             <mat-icon >{{caracteristica.icone}}</mat-icon>
                             <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
