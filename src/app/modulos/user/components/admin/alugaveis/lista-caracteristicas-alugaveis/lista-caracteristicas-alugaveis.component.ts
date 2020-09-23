@@ -39,6 +39,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
     this.editForm = formBuilder.group({
       id: [null, Validators.required],
       nome: ["", Validators.required],
+      unidade_medida: ['', []],
       icone: [""],
       tipo_campo: ['', [Validators.required]],
       propriedades: ['']
@@ -88,8 +89,8 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
   }
 
   public update() {
-    const { id, nome, icone, propriedades } = this.editForm.value;
-    let update: any = { id, nome, icone };
+    const { id, nome, icone, propriedades, unidade_medida } = this.editForm.value;
+    let update: any = { id, nome, icone, unidade_medida };
 
     update.tipo_campo = {
       id: this.caracteristica.tipo_campo.id,
@@ -136,6 +137,7 @@ export class ListaCaracteristicasAlugaveisComponent extends BasicTableComponent 
       this.editForm.reset({
         id: this.caracteristica.id,
         nome: this.caracteristica.nome,
+        unidade_medida: this.caracteristica.unidade_medida,
         icone: this.caracteristica.icone? this.caracteristica.icone : "",
         tipo_campo: this.caracteristica.tipo_campo.tipo.toUpperCase()
       });
