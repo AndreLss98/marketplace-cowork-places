@@ -22,7 +22,8 @@
         <div class="col-sm">
           <mat-form-field appearance="standard">
             <mat-label>Icone</mat-label>
-            <input matInput placeholder="color_lens" formControlName="icone">
+            <input matInput placeholder="color_lens" formControlName="icone" />
+            <mat-icon *ngIf="createForm.get('icone').value" matSuffix>{{ createForm.get('icone').value }}</mat-icon>
             <mat-hint>
                 <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
             </mat-hint>
@@ -85,6 +86,7 @@
           <mat-form-field appearance="standard">
             <mat-label>Icone</mat-label>
             <input matInput placeholder="color_lens" formControlName="icone">
+            <mat-icon *ngIf="editForm.get('icone').value" matSuffix>{{ editForm.get('icone').value }}</mat-icon>
             <mat-hint>
                 <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de icones</a>
             </mat-hint>
