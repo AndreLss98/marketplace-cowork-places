@@ -121,7 +121,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tipos = this.route.snapshot.data['tipos'];
+    this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
 
     if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();

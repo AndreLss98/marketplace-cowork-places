@@ -38,7 +38,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     this.editForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
-      icone: ["", [Validators.required]],
+      icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       caracteristicas: [null, [Validators.required]],
       id: [null]
@@ -47,7 +47,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     this.createForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
-      icone: ["", [Validators.required]],
+      icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       caracteristicas: [null, [Validators.required]]
     });
