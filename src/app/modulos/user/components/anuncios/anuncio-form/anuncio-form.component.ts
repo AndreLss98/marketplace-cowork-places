@@ -14,6 +14,7 @@ import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
+import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -147,7 +148,11 @@ export class AnuncioFormComponent implements OnInit {
   private configCaracteristicasForm() {
     let group = {};
     this.caracteristicas.forEach(caracteristica => {
-      group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard || '', [ Validators.required ]);
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) {
+        group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, [ Validators.required ]);
+      } else {
+        group[caracteristica.id] = new FormControl('', [ Validators.required ]);
+      }
     });
 
     this.caracteristicasForm = new FormGroup(group);
