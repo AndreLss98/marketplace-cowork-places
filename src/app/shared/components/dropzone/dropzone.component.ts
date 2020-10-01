@@ -1,5 +1,6 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export interface customFormField {
   fieldName: string;
@@ -72,7 +73,8 @@ export class DropzoneComponent implements OnInit {
   }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -99,16 +101,19 @@ export class DropzoneComponent implements OnInit {
 
     for (let index = 0; this.singleFile? index < 1 : index < files.length ; index++) {
       if ( this.listFileTypes.map(type => type.mime_type).includes(files[index].type)) {
+        
         let reader = new FileReader();
         reader.readAsDataURL(files[index]);
         reader.onload = (read) => {
           let file = {
-            src: read.target.result,
+            src: this.sanitizer.bypassSecurityTrustUrl(read.target.result as any),
             object: files[index]
           };
           this.files.push(file);
           this.sendFile(file);
         }
+      } else {
+        console.log("arquivo invalido")
       }
     }
   }

@@ -33,6 +33,13 @@ export class AnuncioFormComponent implements OnInit {
     { mime_type: 'image/png', nome: '.png' }
   ];
 
+  readonly docsTypes: acceptableFileType[] = [
+    { mime_type: 'image/jpg', nome: '.jpg' },
+    { mime_type: 'image/png', nome: '.png' },
+    { mime_type: 'image/jpeg', nome: '.jpeg' },
+    { mime_type: "application/pdf", nome: '.pdf'}
+  ];
+
   public editMode: boolean = false;
   private anuncio: any;
 
