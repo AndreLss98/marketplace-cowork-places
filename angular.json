@@ -26,7 +26,17 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ionicons/dist/ionicons",
+                "output": "./ionicons"
+              },
+              {
+                "glob": "**/*.js",
+                "input": "node_modules/ionicons/dist/",
+                "output": "./"
+              }
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

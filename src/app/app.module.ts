@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { SidebarModule } from 'ng-sidebar';
 import { FormsModule } from '@angular/forms';
@@ -55,7 +55,7 @@ registerLocaleData(localePt);
     FeedbackModalComponent,
     RecuperarSenhaComponent,
     FeedbackButtonComponent,
-    SidemenuComponent
+    SidemenuComponent,
   ],
   imports: [
     NgbModule,
@@ -91,6 +91,7 @@ registerLocaleData(localePt);
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent],
-  exports: []
+  exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

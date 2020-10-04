@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MapsComponent } from './components/maps/maps.component';
@@ -175,6 +175,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class SharedModule { }

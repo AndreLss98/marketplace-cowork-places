@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LocacoesComponent } from './components/anuncios/locacoes/locacoes.component';
 
@@ -55,6 +55,7 @@ import { DadosBancariosComponent } from './components/conta/informacoes-pessoais
     CommonModule,
     UserRoutingModule,
     SharedModule
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class UserModule { }
