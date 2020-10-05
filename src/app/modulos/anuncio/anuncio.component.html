@@ -13,9 +13,9 @@
                     <li data-target="#spacesCarousel" *ngFor="let image of anuncio.imagens; let i = index" data-slide-to="index" [class.active]="i === 0" ></li>
                 </ol>
     
-                <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let image of anuncio.imagens; let i = index" [class.active]="i === 0">
-                        <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" />
+                <div class="carousel-inner" style="max-height: 600px;">
+                    <div class="carousel-item" style="max-height: 600px;" *ngFor="let image of anuncio.imagens; let i = index" [class.active]="i === 0">
+                        <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" style="max-height: 600px; object-fit: cover" />
                     </div>
                 </div>
     
@@ -77,18 +77,19 @@
             <div class="col-md d-flex align-items-center">
                 <h1 class="m-0">{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
             </div>
+
             <div class="col-md d-flex justify-content-end">
                 <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
                     <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
                         <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
                             class="mx-2 d-flex flex-column align-items-center justify-content-center">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <ion-icon [name]="caracteristica.icone"></ion-icon>
                             <p class="p-0 m-0">{{ caracteristica.nome }}</p>
                         </div>
         
                         <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
                             class="mx-2 d-flex flex-column align-items-center justify-content-center">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <ion-icon [name]="caracteristica.icone"></ion-icon>
                             <p class="p-0 m-0">
                                 <span>{{ caracteristica.valor }} </span>
                                 <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
@@ -97,18 +98,19 @@
 
                         <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome"
                             class="mx-2 d-flex flex-column align-items-center justify-content-center">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <ion-icon [name]="caracteristica.icone"></ion-icon>
                             <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
 
                         <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
                             class="mx-2 d-flex flex-column align-items-center justify-content-center">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
+                            <ion-icon [name]="caracteristica.icone"></ion-icon>
                             <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                         </div>
                     </ng-container>
                 </ng-container>
             </div>
+
         </div>    
     </mat-card>
     
@@ -158,7 +160,7 @@
     </div>
     
 </div>
-<div>
+<div class="mb-2">
     <a
         [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+anuncio.id"
         target="_blank"

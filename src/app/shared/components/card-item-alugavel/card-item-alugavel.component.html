@@ -36,22 +36,22 @@
                     <div
                         *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
-                        <mat-icon >{{caracteristica.icone}}</mat-icon>
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
                         <p class="p-0 m-0">{{ caracteristica.nome }}</p>
                     </div>
                     
                     <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
-                        <mat-icon >{{caracteristica.icone}}</mat-icon>
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
                         <p class="p-0 m-0">
-                            <span>{{ caracteristica.valor }} </span>
+                            <span>{{ caracteristica.valor }}</span>
                             <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
                         </p>
                     </div>
 
                     <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
-                        <mat-icon >{{caracteristica.icone}}</mat-icon>
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
                         <p class="p-0 m-0">
                             <span>{{ caracteristica.valor }} </span>
                         </p>
