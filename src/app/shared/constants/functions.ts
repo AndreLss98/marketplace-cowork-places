@@ -37,7 +37,8 @@ export function formatMoneyValue(value) {
         .replace(/(R\$ [0-9]+,[0-9]{2})./, '$1');
 }
 
-export function desformatMoneyValue(value: string) {
+export function desformatMoneyValue(value) {
+    if (typeof(value) === "number") return value;
     return Number(value.replace(/[R$\s]/g, '').replace(/[,]/g, '.'));
 }
 

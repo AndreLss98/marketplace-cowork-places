@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="intervalForm.valid && (valorDiaria && valorMensal) && valorMensal < totalNoValorDiaria(qtdDias(), valorDiaria) && qtdDias() < 31">
+            <ng-container *ngIf="intervalForm.valid && (valorDiaria && desformatMoneyValue(valorMensal) !== 0) && desformatMoneyValue(valorMensal) < totalNoValorDiaria(qtdDias(), valorDiaria) && qtdDias() < 31">
                 <div class="row">
                     <div class="col">
                         <p class="text-muted">Recomendamos uma reserva de mais de 30 dias</p>
@@ -34,6 +34,13 @@
             </ng-container>
 
             <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal)">
+
+                <div *ngIf="simulateMode" class="row">
+                    <div class="col">
+                        <p class="text-danger">Valor final da diária: {{ formatMoneyValue(qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria) }} - {{ formatMoneyValue(100 * ((taxaMaxima - taxa) / 100 )) }} </p>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col">
                         <h4 class="font-weight-bold">Diárias</h4>
@@ -42,12 +49,12 @@
                 <div class="row">
                     <div class="col">
                         <p>
-                            {{ formatMoneyValue(qtdDias() >= 31 && valorMensal? calcularDiaria(valorMensal / 31, taxa, taxaMaxima) : calcularDiaria(valorDiaria, taxa, taxaMaxima)) }} x
+                            {{ formatMoneyValue(qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0? calcularDiaria(valorMensal / 31, taxa, taxaMaxima) : calcularDiaria(valorDiaria, taxa, taxaMaxima)) }} x
                             {{ qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : '' }} {{qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''}}
                             {{ qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1? qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : '' }}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right">{{ formatMoneyValue(qtdDias() >= 31 && valorMensal? totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)) : totalNoValorDiaria(qtdDias(),  calcularDiaria(valorDiaria, taxa, taxaMaxima))) }}</p>
+                        <p class="text-right">{{ formatMoneyValue(qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0? totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)) : totalNoValorDiaria(qtdDias(),  calcularDiaria(valorDiaria, taxa, taxaMaxima))) }}</p>
                     </div>
                 </div>
             </ng-container>

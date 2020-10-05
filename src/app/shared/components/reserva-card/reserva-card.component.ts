@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
-import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
+import { addDays, diffDates, formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
 import { AlugavelService } from '../../service/alugavel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -15,6 +15,7 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   readonly diffDates = diffDates;
   readonly formatMoneyValue = formatMoneyValue;
+  readonly desformatMoneyValue = desformatMoneyValue;
 
   @Input()
   public readOnly: boolean = false;
@@ -36,6 +37,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   @Input('anuncio_id')
   public anuncio_id: number;
+
+  @Input()
+  public simulateMode: boolean = false;
 
   @Output('formValue')
   public formChangeEvent = new EventEmitter();
