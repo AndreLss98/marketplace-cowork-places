@@ -8,7 +8,7 @@
     </ng-sidebar>
 
     <div ng-sidebar-content>
-        <nav #nav class="navbar sticky-top navbar-expand-md navbar-light bg-white">
+        <nav #nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
             <a class="navbar-brand" routerLink="/home">
                 <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
             </a>
@@ -44,13 +44,13 @@
                 </ul>
             </div>
         </nav>
-        <div class="d-block d-md-flex mt-5">
-            <sidemenu class="ml-3 d-none d-md-block"></sidemenu>
+        <div class="d-block d-lg-flex mt-5">
+            <sidemenu class="ml-3 d-none d-lg-block"></sidemenu>
             <div class="flex-fill">
                 <router-outlet></router-outlet>
+                <app-footer></app-footer>
             </div>
         </div>
-        <app-footer></app-footer>
         <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
     </div>
 </ng-sidebar-container>

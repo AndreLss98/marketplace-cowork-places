@@ -1,54 +1,56 @@
-<div class="sair">
-    <span (click)="loginService.logoutServer()" >Sair</span>
-</div>
-<div class="menu">
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Conta</span>
-        </div>
-        <div class="menuItemContent">
-            <span
-                matBadge="!"
-                matBadgeColor="warn"
-                [matBadgeHidden]="userService.cadastroValidado()"
-                (click)="onAction()"
-                matBadgeOverlap="false" routerLink="/user/conta/info">Informações Pessoais</span>
-            <span
-                (click)="onAction()"
-                routerLink="/user/conta/safety">Login e Segurança</span>
-        </div>
+<div id="content">
+    <div class="sair">
+        <span (click)="loginService.logoutServer()" >Sair</span>
     </div>
-
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Aluguéis</span>
+    <div class="menu">
+        <div class="menuItem">
+            <div class="menuItemTitle">
+                <span>Conta</span>
+            </div>
+            <div class="menuItemContent">
+                <span
+                    matBadge="!"
+                    matBadgeColor="warn"
+                    [matBadgeHidden]="userService.cadastroValidado()"
+                    (click)="onAction()"
+                    matBadgeOverlap="false" routerLink="/user/conta/info">Informações Pessoais</span>
+                <span
+                    (click)="onAction()"
+                    routerLink="/user/conta/safety">Login e Segurança</span>
+            </div>
         </div>
-        <div class="menuItemContent">
-            <span (click)="onAction()" routerLink="/user/alugueis"> Meus aluguéis</span>
-            <span (click)="onAction()" routerLink="/user/espacossalvos">Espaços salvos</span>
+    
+        <div class="menuItem">
+            <div class="menuItemTitle">
+                <span>Aluguéis</span>
+            </div>
+            <div class="menuItemContent">
+                <span (click)="onAction()" routerLink="/user/alugueis"> Meus aluguéis</span>
+                <span (click)="onAction()" routerLink="/user/espacossalvos">Espaços salvos</span>
+            </div>
         </div>
-    </div>
-
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Anúncios</span>
+    
+        <div class="menuItem">
+            <div class="menuItemTitle">
+                <span>Anúncios</span>
+            </div>
+            <div class="menuItemContent">
+                <span (click)="onAction()" routerLink="/user/anuncios/meusanuncios"> Meus anúncios </span>
+                <span (click)="onAction()" routerLink="/user/anuncios/locacoes"> Locações </span>
+            </div>
         </div>
-        <div class="menuItemContent">
-            <span (click)="onAction()" routerLink="/user/anuncios/meusanuncios"> Meus anúncios </span>
-            <span (click)="onAction()" routerLink="/user/anuncios/locacoes"> Locações </span>
-        </div>
-    </div>
-
-    <div class="menuItem" *ngIf="userService.isAdmin">
-        <div class="menuItemTitle">
-            <span>Administrador</span>
-        </div>
-        <div class="menuItemContent">
-            <span (click)="onAction()" routerLink="/user/usuarios"> Usuários </span>
-            <span (click)="onAction()" routerLink="/user/anuncios"> Anúncios </span>
-            <span (click)="onAction()" routerLink="/user/contratos"> Contratos </span>
-            <span (click)="onAction()" routerLink="/user/feedbacks"> Feedback </span>
-            <span (click)="onAction()" routerLink="/user/politicas"> Politicas </span>
+    
+        <div class="menuItem" *ngIf="userService.isAdmin">
+            <div class="menuItemTitle">
+                <span>Administrador</span>
+            </div>
+            <div class="menuItemContent">
+                <span (click)="onAction()" routerLink="/user/usuarios"> Usuários </span>
+                <span (click)="onAction()" routerLink="/user/anuncios"> Anúncios </span>
+                <span (click)="onAction()" routerLink="/user/contratos"> Contratos </span>
+                <span (click)="onAction()" routerLink="/user/feedbacks"> Feedback </span>
+                <span (click)="onAction()" routerLink="/user/politicas"> Politicas </span>
+            </div>
         </div>
     </div>
 </div>

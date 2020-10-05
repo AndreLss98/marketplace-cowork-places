@@ -1,5 +1,9 @@
 @import '../../../../../../place-et-theme.scss';
 
+form {
+    max-width: 300px;
+}
+
 .custom-input {
     height: 50px;
     color: $pl-amarelo;
