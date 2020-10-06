@@ -1,8 +1,9 @@
 <mat-card>
     <mat-card-title>{{ alugavel.titulo}}</mat-card-title>
     <mat-card-subtitle>{{ alugavel.tipo.nome }}</mat-card-subtitle>
+
     <form [formGroup]="statusForm" (ngSubmit)="statusChange()">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Status Alugavel</mat-label>
             <mat-select formControlName="status" (change)="statusChange()">
                 <mat-option *ngFor="let stat of status" [value]="stat.value">
@@ -19,6 +20,7 @@
             </textarea>
         </mat-form-field>
     </form>
+
     <mat-card-content>
         <h3 [routerLink]="'/user/usuarios/' + alugavel.anunciante_id" class="link"
             *ngIf="alugavel.anunciante_avaliado !== USUARIO_STATUS.APPROVED.value">O anunciante não possui o cadastro
@@ -42,6 +44,13 @@
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Valor Mensal</mat-card-title>
                                         <div class="content">{{ formatMoneyValue(alugavel.valor_mes) }}</div>
+                                    </mat-card>
+                                </div>
+
+                                <div class="col-lg d-flex justify-content-around">
+                                    <mat-card class="cardInfo">
+                                        <mat-card-title class="title">Taxa</mat-card-title>
+                                        <div class="content">{{ alugavel.taxa }}%</div>
                                     </mat-card>
                                 </div>
                             </div>
@@ -118,8 +127,7 @@
                     </div>
                 </mat-tab>
     
-                <mat-tab [label]="'Caracteristicas'"
-                    *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
+                <mat-tab [label]="'Caracteristicas'" *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
                     <mat-card-content>
                         <mat-table [dataSource]="alugavel.caracteristicas">
                             <ng-container matColumnDef="caracteristica">
@@ -139,20 +147,20 @@
                 </mat-tab>
     
                 <mat-tab [label]="'Imagens'" *ngIf="alugavel.imagens && alugavel.imagens.length">
-    
-                    <mat-card-title>Imagens</mat-card-title>
                     <mat-card-content>
-                        <div class="w-100 d-flex flex-row flex-wrap justify-content-around">
-                            <mat-card class="imgCard" *ngFor="let foto of alugavel.imagens; index as i">
-                                <img class="w-100 h-100" [src]="backURL + 'imgs/' + foto.url">
-                            </mat-card>
+                        <div id="imgContent" class="w-100 mt-2 d-flex flex-row flex-wrap justify-content-around">
+                            <a *ngFor="let foto of alugavel.imagens;" [href]="backURL + 'imgs/' + foto.url" target="_blank">
+                                <img
+                                    class="w-100 h-100 img-thumbnail"
+                                    [src]="backURL + 'imgs/' + foto.url" />
+                            </a>
                         </div>
                     </mat-card-content>
-    
                 </mat-tab>
+
                 <mat-tab [label]="'Documentos'" *ngIf="alugavel.documentos.length">
                     <mat-card-content>
-                        <mat-table [dataSource]="alugavel.documentos" class="mat-elevation-z8">
+                        <mat-table [dataSource]="alugavel.documentos">
                             <ng-container matColumnDef="documento">
                                 <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
@@ -161,8 +169,13 @@
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                    <a mat-stroked-button color="primary" target="_blank"
-                                        [href]="backURL + 'docs/' + element.url">Visualizar</a>
+                                        <a
+                                            target="_blank"
+                                            [href]="backURL + 'docs/' + element.url">
+                                            <button mat-icon-button>
+                                                <mat-icon>visibility</mat-icon>
+                                            </button>
+                                        </a>
                                 </mat-cell>
                             </ng-container>
     
