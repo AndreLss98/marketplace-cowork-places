@@ -8,7 +8,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 
 @NgModule({
-  declarations: [SearchComponent ],
+  declarations: [ SearchComponent ],
   imports: [
     SharedModule,
     CommonModule,

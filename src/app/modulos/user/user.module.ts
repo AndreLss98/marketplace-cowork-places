@@ -25,6 +25,9 @@ import { ListaCaracteristicasAlugaveisComponent } from './components/admin/aluga
 import { DadosPessoaisComponent } from './components/conta/informacoes-pessoais/dados-pessoais/dados-pessoais.component';
 import { DocPessoaisComponent } from './components/conta/informacoes-pessoais/doc-pessoais/doc-pessoais.component';
 import { DadosBancariosComponent } from './components/conta/informacoes-pessoais/dados-bancarios/dados-bancarios.component';
+import { UserMenuComponent } from 'src/app/shared/components/sidemenu/components/user-menu/user-menu.component';
+import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.component';
+import { SearchboxComponent } from 'src/app/shared/components/sidemenu/components/searchbox/searchbox.component';
 
 
 @NgModule({
@@ -55,6 +58,11 @@ import { DadosBancariosComponent } from './components/conta/informacoes-pessoais
     CommonModule,
     UserRoutingModule,
     SharedModule
+  ],
+  entryComponents: [
+    UserMenuComponent,
+    SidemenuComponent,
+    SearchboxComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

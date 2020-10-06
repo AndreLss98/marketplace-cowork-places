@@ -39,6 +39,7 @@ import { UserMenuComponent } from './shared/components/sidemenu/components/user-
 import { SearchboxComponent } from './shared/components/sidemenu/components/searchbox/searchbox.component';
 
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
+import { UserModule } from './modulos/user/user.module';
 
 registerLocaleData(localePt);
 
@@ -49,15 +50,14 @@ registerLocaleData(localePt);
     FooterComponent,
     SignupComponent,
     QuestionComponent,
-    UserMenuComponent,
-    SearchboxComponent,
+
     FeedbackModalComponent,
     RecuperarSenhaComponent,
     FeedbackButtonComponent,
-    SidemenuComponent,
   ],
   imports: [
     NgbModule,
+    UserModule,
     FormsModule,
     SharedModule,
     BrowserModule,

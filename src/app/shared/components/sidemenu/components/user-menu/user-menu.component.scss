@@ -1,6 +1,4 @@
 #content {
-    width: 300px;
-    max-height: 60vh;
     overflow-y: auto;
 }
 
@@ -11,30 +9,4 @@ h4 {
 
 ion-icon {
     font-size: 1rem;
-}
-
-.menu {
-    .menuItem {
-        .menuItemContent {
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-           
-            cursor: pointer;
-
-            span {
-                font-size: 17px;
-                color: gray;
-                padding: 15px 0 15px 15px ;
-            }
-            
-            span:hover {
-                background-color: #f3f3f3;
-            }
-            
-        }
-
-
-    }
-
 }

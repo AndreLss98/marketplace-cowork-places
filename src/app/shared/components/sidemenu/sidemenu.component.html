@@ -1,39 +1,8 @@
 <div id="content">
-  <div class="position-fixed mw-100">
-    <ng-container *ngIf="checkHome()">
-      <a class="itemMenu d-block text-left mb-2 mx-0" (click)="comoFunciona()">Como Funciona</a>
-      <a class="itemMenu d-block text-left mb-2 mx-0" target="_blank"
-        href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
-    </ng-container>
-  
-    <button mat-raised-button class="mb-5 outline-primary rounded-pill" [ngbPopover]="popContent" container="body"
-      triggers="manual" placement="bottom-left" #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
-      {{ login.logged_status ? "Minha conta" : "Entrar" }}
-    </button>
-  
-    <app-user-menu (action)="resendAction()" *ngIf="router.url.includes('/user')"></app-user-menu>
-    <app-searchbox (action)="resendAction()" *ngIf="router.url.includes('/search')"></app-searchbox>
+  <div class="mb-4">
+    <redes-sociais [columnMode]="redesSociaisColumnMode"></redes-sociais>
   </div>
-</div>
 
-<ng-template #popContent>
-  <div id="popover">
-    <mat-list>
-      <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
-        <span class="font-weight-bold">Minha Conta</span>
-      </mat-list-item>
-      <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
-        <span class="font-weight-bold">Salvos</span>
-      </mat-list-item>
-      <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
-        <span class="font-weight-bold">Aluguéis</span>
-      </mat-list-item>
-      <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
-        <span class="font-weight-bold">Anúncios</span>
-      </mat-list-item>
-      <mat-list-item (click)="this.login.logoutServer()">
-        <span class="text-danger">Sair</span>
-      </mat-list-item>
-    </mat-list>
-  </div>
-</ng-template>
+  <app-user-menu (action)="resendAction()" *ngIf="router.url.includes('/user')"></app-user-menu>
+  <app-searchbox (action)="resendAction()" *ngIf="router.url.includes('/search')"></app-searchbox>
+</div>

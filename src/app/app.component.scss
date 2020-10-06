@@ -15,43 +15,6 @@ nav img.logo {
     box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
 }
 
-.social-menu {
-    padding: 0;
-    display: flex;
-}
-.social-menu li {
-    list-style: none;
-}
-.social-menu li .fa {
-    color: #000000;
-    font-size: 25px;
-    transition: .5s;
-}
-.social-menu li:hover {
-    a i {
-        color: #ffffff;
-    }
-}
-
-.social-menu li {
-    border-radius: 50px;
-    min-height: 50px;
-    min-width: 50px;
-}
-
-.social-menu li:nth-child(1):hover {
-    background-color: #cd201f;
-}
-.social-menu li:nth-child(2):hover {
-    background-color: #3b5999;
-}
-.social-menu li:nth-child(3):hover {
-    background-color: #e4405f;
-}
-.social-menu li:nth-child(4):hover {
-    background-color: #0077B5;
-}
-
 #popover {
     mat-list-item {
         cursor: pointer;

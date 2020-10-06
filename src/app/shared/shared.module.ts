@@ -27,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRadioModule } from '@angular/material/radio';
@@ -57,6 +58,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UserMenuComponent } from './components/sidemenu/components/user-menu/user-menu.component';
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
+import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
+import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
 
 @NgModule({
   declarations: [
@@ -70,14 +75,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ImgCircularComponent,
     ReservaCardComponent,
     CancelDialogComponent,
+    ImgThumbnailComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
     FilterPageableTableComponent,
-    ImgThumbnailComponent,
+
+    UserMenuComponent,
+    SidemenuComponent,
+    SearchboxComponent,
+    RedesSociaisComponent,
   ],
   imports: [
+    NgbModule,
     FormsModule,
     CommonModule,
     RouterModule,
@@ -126,12 +137,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MdViewerComponent,
     ContratoComponent,
     DropzoneComponent,
+    UserMenuComponent,
+    SidemenuComponent,
+    SearchboxComponent,
     BasicModalComponent,
     BasicTableComponent,
     ReactiveFormsModule,
     ImgCircularComponent,
     ReservaCardComponent,
     CancelDialogComponent,
+    RedesSociaisComponent,
     ImgThumbnailComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
