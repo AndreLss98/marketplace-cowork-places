@@ -19,33 +19,61 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-end social-menu">
-                <ul>
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCeseYreNBZEnCSeGCxwSr3g" target="_blank">
-                            <i class="fa fa-youtube-play"></i>
-                        </a>
+            <div class="collapse navbar-collapse">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" (click)="comoFunciona()">Como Funciona</a>
                     </li>
-                    <li>
-                        <a href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/placeet_" target="_blank">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                        target="_blank"
+                        href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
                     </li>
                 </ul>
+
+                <div class="d-flex align-items-center mr-2">
+                    <ul class="social-menu m-0">
+                        <li class="mx-1 p-2 d-flex justify-content-center">
+                            <div>
+                                <a href="https://www.youtube.com/channel/UCeseYreNBZEnCSeGCxwSr3g" target="_blank">
+                                    <i class="fa fa-youtube-play"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="mx-1 p-2 d-flex justify-content-center">
+                            <a href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="mx-1 p-2 d-flex justify-content-center">
+                            <a href="https://www.instagram.com/placeet_" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="mx-1 p-2 d-flex justify-content-center">
+                            <a href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais" target="_blank">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button
+                        class="btn btn-outline-success my-2 my-sm-0"
+                        type="button" [ngbPopover]="popContent"
+                        container="body"
+                        triggers="manual" placement="bottom-left"
+                        #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
+                        {{ login.logged_status ? "Minha conta" : "Entrar" }}
+                    </button>
+                </div>
             </div>
         </nav>
         <div class="d-block d-lg-flex mt-5">
-            <sidemenu class="pl-3 pt-5 mr-2 mt-n5 d-none d-lg-block shadow"></sidemenu>
+            <!-- <sidemenu class="pl-3 pt-5 mr-2 mt-n5 d-none d-lg-block shadow"></sidemenu> -->
             <div class="flex-fill">
                 <router-outlet></router-outlet>
                 <app-footer></app-footer>
@@ -54,3 +82,25 @@
         <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
     </div>
 </ng-sidebar-container>
+
+<ng-template #popContent>
+    <div id="popover">
+      <mat-list>
+        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
+          <span class="font-weight-bold">Minha Conta</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
+          <span class="font-weight-bold">Salvos</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
+          <span class="font-weight-bold">Aluguéis</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
+          <span class="font-weight-bold">Anúncios</span>
+        </mat-list-item>
+        <mat-list-item (click)="this.login.logoutServer()">
+          <span class="text-danger">Sair</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </ng-template>
