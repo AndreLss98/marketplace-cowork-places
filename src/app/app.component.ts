@@ -20,8 +20,7 @@ export class AppComponent {
   public sidenavOpened = false;
 
   constructor(
-    private router: Router,
-    private dialog: MatDialog,
+    public router: Router,
     public login: LoginService,
     public userService: UserService,
   ) {
@@ -31,20 +30,6 @@ export class AppComponent {
   toggleSideMenu() {
     this.sidenavOpened = !this.sidenavOpened;
     !this.sidenavOpened? this.nav.nativeElement.classList.add('sticky-top') : this.nav.nativeElement.classList.remove('sticky-top');
-  }
-
-  goTo(path: string, id?: number) {
-    let queryParams: any = {};
-    if (id) queryParams.tipo_id = id;
-    this.router.navigate([path], { queryParams });
-  }
-
-  openModalOrOpenPopover(popover?) {
-    if (!this.login.logged_status) {
-      this.dialog.open(LoginComponent);
-    } else {
-      popover.isOpen() ? popover.close() : popover.open();
-    }
   }
 
   comoFunciona() {

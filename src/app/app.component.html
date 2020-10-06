@@ -2,9 +2,22 @@
     <ng-sidebar #sidebar id="sidebar" [opened]="sidenavOpened">
         <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute"
             (click)="toggleSideMenu()">close</mat-icon>
-        <img routerLink="/home" class="cursor-pointer my-4 d-block" style="outline: none;"
-            src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu()">
-        <sidemenu (action)="toggleSideMenu()" [redesSociaisColumnMode]="false"></sidemenu>
+        <img
+          routerLink="/home"
+          class="cursor-pointer my-2 d-block"
+          style="outline: none;"
+          src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu()" />
+
+        <div class="mb-2">
+          <redes-sociais [columnMode]="false"></redes-sociais>
+        </div>
+        
+        <div class="d-flex justify-content-center mb-4">
+          <account-btn></account-btn>
+        </div>
+
+        <app-user-menu (action)="toggleSideMenu()" *ngIf="router.url.includes('/user')"></app-user-menu>
+        <app-searchbox (action)="toggleSideMenu()" *ngIf="router.url.includes('/search')"></app-searchbox>
     </ng-sidebar>
 
     <div ng-sidebar-content>
@@ -32,17 +45,7 @@
                         href="https://api.whatsapp.com/send?phone=556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida!'">Ajuda</a>
                     </li>
                 </ul>
-
-                <div>
-                    <button
-                        class="btn btn-outline-success my-2 my-sm-0"
-                        type="button" [ngbPopover]="popContent"
-                        container="body"
-                        triggers="manual" placement="bottom-left"
-                        #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
-                        {{ login.logged_status ? "Minha conta" : "Entrar" }}
-                    </button>
-                </div>
+                <account-btn></account-btn>
             </div>
         </nav>
         <router-outlet></router-outlet>
@@ -50,25 +53,3 @@
         <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
     </div>
 </ng-sidebar-container>
-
-<ng-template #popContent>
-    <div id="popover">
-      <mat-list>
-        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
-          <span class="font-weight-bold">Minha Conta</span>
-        </mat-list-item>
-        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
-          <span class="font-weight-bold">Salvos</span>
-        </mat-list-item>
-        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
-          <span class="font-weight-bold">Aluguéis</span>
-        </mat-list-item>
-        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
-          <span class="font-weight-bold">Anúncios</span>
-        </mat-list-item>
-        <mat-list-item (click)="this.login.logoutServer()">
-          <span class="text-danger">Sair</span>
-        </mat-list-item>
-      </mat-list>
-    </div>
-  </ng-template>

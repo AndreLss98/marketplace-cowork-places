@@ -1,0 +1,30 @@
+<button
+    class="btn btn-outline-success my-2 my-sm-0"
+    type="button" [ngbPopover]="popContent"
+    container="body"
+    triggers="manual" placement="bottom-left"
+    #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
+    {{ login.logged_status ? "Minha conta" : "Entrar" }}
+</button>
+
+<ng-template #popContent>
+    <div id="popover">
+      <mat-list>
+        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
+          <span class="font-weight-bold">Minha Conta</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
+          <span class="font-weight-bold">Salvos</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
+          <span class="font-weight-bold">Aluguéis</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
+          <span class="font-weight-bold">Anúncios</span>
+        </mat-list-item>
+        <mat-list-item (click)="this.login.logoutServer()">
+          <span class="text-danger">Sair</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+</ng-template>

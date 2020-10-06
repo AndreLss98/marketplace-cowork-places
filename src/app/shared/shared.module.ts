@@ -62,6 +62,7 @@ import { UserMenuComponent } from './components/sidemenu/components/user-menu/us
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
 import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
+import { AccountBtnComponent } from './components/account-btn/account-btn.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.
     UserMenuComponent,
     SidemenuComponent,
     SearchboxComponent,
+    AccountBtnComponent,
     RedesSociaisComponent,
   ],
   imports: [
@@ -143,6 +145,7 @@ import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.
     BasicModalComponent,
     BasicTableComponent,
     ReactiveFormsModule,
+    AccountBtnComponent,
     ImgCircularComponent,
     ReservaCardComponent,
     CancelDialogComponent,
