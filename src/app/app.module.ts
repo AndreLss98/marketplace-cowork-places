@@ -34,12 +34,7 @@ import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-m
 import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recuperar-senha.component';
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
 
-import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
-import { UserMenuComponent } from './shared/components/sidemenu/components/user-menu/user-menu.component';
-import { SearchboxComponent } from './shared/components/sidemenu/components/searchbox/searchbox.component';
-
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
-import { UserModule } from './modulos/user/user.module';
 
 registerLocaleData(localePt);
 
@@ -57,7 +52,6 @@ registerLocaleData(localePt);
   ],
   imports: [
     NgbModule,
-    UserModule,
     FormsModule,
     SharedModule,
     BrowserModule,
