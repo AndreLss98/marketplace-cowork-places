@@ -51,16 +51,19 @@ export class DetalhesAlugaveisComponent implements OnInit {
   }
 
   statusChange() {
-    this.snack.open("Salvando ...", '', {verticalPosition: 'top'})
+    this.snack.open("Salvando ...", '');
+
     this.alugavel.status = this.statusForm.value.status;
     this.alugavel.observacao = this.statusForm.value.observacao;
+
     this.alugavelService.alterStatus(this.alugavel.id, this.statusForm.value).subscribe(response => {
       this.resetStatusForm()
-      this.snack.open("Salvo com sucesso!", 'OK', {verticalPosition: 'top', duration: 4000})
+      this.snack.open("Salvo com sucesso!", 'OK', {duration: 4000})
     }, (error) => {
-      this.snack.open("Ocorreu um erro!", 'OK', {verticalPosition: 'top', duration: 2000})
+      console.log(error);
+      this.snack.open("Ocorreu um erro!", 'OK', {duration: 2000})
       this.alugavel.disponivel = !this.alugavel.disponivel;
-    })
+    });
   }
 
   private resetStatusForm() {
