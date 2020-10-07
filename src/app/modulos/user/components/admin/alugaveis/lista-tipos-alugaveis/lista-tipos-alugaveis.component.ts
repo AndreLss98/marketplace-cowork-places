@@ -108,6 +108,10 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
         nome: "",
         icone: ""
       });
+    }, (error) => {
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "Ocorreu um erro ao criar o tipo de anúncio." }
+      });
     });
   }
 
