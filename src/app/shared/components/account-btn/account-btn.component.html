@@ -1,8 +1,9 @@
 <button
-    class="btn btn-outline-success my-2 my-sm-0"
+    mat-raised-button
+    class="my-2 my-sm-0 outline-primary rounded-pill"
     type="button" [ngbPopover]="popContent"
     container="body"
-    triggers="manual" placement="bottom-left"
+    triggers="manual" placement="bottom-right"
     #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
     {{ login.logged_status ? "Minha conta" : "Entrar" }}
 </button>
