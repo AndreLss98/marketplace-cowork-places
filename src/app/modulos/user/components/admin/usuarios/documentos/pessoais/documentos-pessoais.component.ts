@@ -95,13 +95,6 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
     });
   }
 
-  private resetEditForm() {
-    this.editForm.reset({
-      nome: "",
-      avancado: false
-    });
-  }
-
   public deletar(event) {
     this.documentosService.deletar(event.id).subscribe(response => {
       this.fetchAll();
