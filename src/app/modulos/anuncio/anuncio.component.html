@@ -127,7 +127,7 @@
     
         <div class="row" *ngIf="caracteristicasSemIcone.length">
             <div class="col">
-                <h2 class="font-weight-bold">Mais caracteristicas</h2>
+                <h2 class="font-weight-bold">Mais características</h2>
                 <ul>
                     <li *ngFor="let caracteristica of caracteristicasSemIcone">
                         <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
