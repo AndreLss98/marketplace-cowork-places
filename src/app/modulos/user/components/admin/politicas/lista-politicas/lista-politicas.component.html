@@ -10,7 +10,7 @@
 <div id="cards-container">
     <mat-card *ngIf="!politica;" class="card">
         <mat-card-header class="d-flex justify-content-center">
-            <mat-card-title style="font-size: 18px;">Nova Politica</mat-card-title>
+            <mat-card-title style="font-size: 18px;">Nova Política</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="saveForm" (ngSubmit)="create()">
@@ -35,7 +35,7 @@
 
     <mat-card *ngIf="politica;" class="card">
         <mat-card-header class="d-flex justify-content-center">
-            <mat-card-title style="font-size: 18px;">Atualizar Politica</mat-card-title>
+            <mat-card-title style="font-size: 18px;">Atualizar Política</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="editForm" (ngSubmit)="update()">
