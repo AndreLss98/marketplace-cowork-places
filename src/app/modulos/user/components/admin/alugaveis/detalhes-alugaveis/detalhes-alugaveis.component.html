@@ -4,7 +4,7 @@
 
     <form [formGroup]="statusForm" (ngSubmit)="statusChange()">
         <mat-form-field appearance="standard">
-            <mat-label>Status Alugavel</mat-label>
+            <mat-label>Status Alugável</mat-label>
             <mat-select formControlName="status" (change)="statusChange()">
                 <mat-option *ngFor="let stat of status" [value]="stat.value">
                     {{ stat.name | uppercase }}
@@ -131,7 +131,7 @@
                     <mat-card-content>
                         <mat-table [dataSource]="alugavel.caracteristicas">
                             <ng-container matColumnDef="caracteristica">
-                                <mat-header-cell *matHeaderCellDef style="font-weight: 900;"> <b>Caracteristica</b> </mat-header-cell>
+                                <mat-header-cell *matHeaderCellDef style="font-weight: 900;"> <b>Característica</b> </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
                             </ng-container>
     
