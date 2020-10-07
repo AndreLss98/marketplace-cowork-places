@@ -73,7 +73,7 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
 
   public updateDocument() {
     this.documentosService.update(this.editForm.value.id, this.editForm.value).subscribe(response => {
-      this.documento;
+      this.documento = null;
       this.fetchAll();
     });
   }
@@ -90,6 +90,13 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
 
   private resetCreateForm() {
     this.createForm.reset({
+      nome: "",
+      avancado: false
+    });
+  }
+
+  private resetEditForm() {
+    this.editForm.reset({
       nome: "",
       avancado: false
     });
