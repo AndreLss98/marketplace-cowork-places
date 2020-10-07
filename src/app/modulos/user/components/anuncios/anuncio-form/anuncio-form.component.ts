@@ -295,7 +295,6 @@ export class AnuncioFormComponent implements OnInit {
   public update() {
     let anuncio = this.buildAnuncioObject(this.anuncio.id);
     this.isSending = true;
-    
     this.alugavelService.updateAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
       const dialogRef = this.matDialog.open(BasicModalComponent, { data: {

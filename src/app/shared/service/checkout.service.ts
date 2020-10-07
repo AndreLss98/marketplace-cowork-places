@@ -27,7 +27,6 @@ export class CheckoutService {
   }
 
   public checkout(reserva) {
-    
     let object = {
       dias_reservados: {
         data_entrada: formatServerDate(reserva.interval.entrada),
@@ -36,7 +35,6 @@ export class CheckoutService {
       valor: reserva.total,
       alugavel_id: reserva.anuncio.id
     };
-
     return this.http.post<any>(`${environment.apiUrl}/alugueis/checkout`, object);
   }
 

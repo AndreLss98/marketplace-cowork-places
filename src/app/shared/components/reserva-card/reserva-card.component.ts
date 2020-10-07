@@ -61,13 +61,15 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     });
 
     this.intervalForm.valueChanges.subscribe(() => {
-      this.formChangeEvent.emit({
+      this.valorMensal = desformatMoneyValue(this.valorMensal)
+      const emitObject = {
         formValid: this.intervalForm.valid,
         interval: this.intervalForm.value,
         total: this.qtdDias() >= 31 && this.valorMensal?
         this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))):
         this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria)))
-      });
+      };
+      this.formChangeEvent.emit(emitObject);
     });
   }
 
@@ -96,7 +98,7 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
       if (conflictRange) {
         this.intervalForm.controls['entrada'].setValue(null);
         this.intervalForm.controls['saida'].setValue(null);
-        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 4000, verticalPosition: "top" });
+        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 4000 });
       }
     }
   }

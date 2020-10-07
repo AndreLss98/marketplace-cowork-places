@@ -98,10 +98,10 @@ export class SpacesComponent implements OnInit {
     this.checkoutService.reserva = {
       max_taxa: this.max_taxa,
       anuncio: this.anuncio,
-      ...this.intervalData,
+      ...this.intervalData
     }
 
-    if ((diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) <= 31) {
+    if ((diffDates(this.intervalData.interval.entrada, this.intervalData.interval.saida) + 1) <= 31) {
       this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
         this.checkoutService.reserva.id = response.id;
         this.router.navigate(['/checkout']);
@@ -114,7 +114,7 @@ export class SpacesComponent implements OnInit {
         this.checkoutService.reserva.id = response.id;
         this.router.navigate(['/checkout']);
       }, (error) => {
-        console.log("Aluguel error: ", error);
+        console.log("Aluguel recorrente error: ", error);
       });
     }
   }
