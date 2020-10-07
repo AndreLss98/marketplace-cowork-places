@@ -56,8 +56,8 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   ) {
     super();
     this.intervalForm = formBuilder.group({
-      entrada: ['', [Validators.required]],
-      saida: ['', [Validators.required]],
+      entrada: [addDays(new Date(), 2), [Validators.required]],
+      saida: [addDays(new Date(), 2), [Validators.required]],
     });
 
     this.intervalForm.valueChanges.subscribe(() => {
