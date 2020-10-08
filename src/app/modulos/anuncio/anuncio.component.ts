@@ -152,6 +152,9 @@ export class SpacesComponent implements OnInit {
       }
     });
     this.caracteristicasComIcone = this.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
-    this.caracteristicasSemIcone = this.anuncio.caracteristicas.filter(caracteristica => !caracteristica.icone);
+
+    this.caracteristicasSemIcone = this.anuncio.caracteristicas
+      .filter(caracteristica => !caracteristica.icone)
+      .filter(caracteristica => caracteristica.valor);
   }
 }
