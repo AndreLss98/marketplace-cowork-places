@@ -5,6 +5,7 @@ import { UserService } from 'src/app/shared/service/user.service';
 import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
 import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feedback-modal.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -12,6 +13,8 @@ import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feed
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+
+  readonly SUPPORT_PHONE = environment.supportPhone;
 
   public politicas = [];
 

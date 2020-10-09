@@ -1,6 +1,6 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import { environment } from 'src/environments/environment';
-import { formatDate, stringValueToBoolean, diffDates, formatServerDate } from 'src/app/shared/constants/functions';
+import { stringValueToBoolean, diffDates } from 'src/app/shared/constants/functions';
 import { ENUM_ALUGAVEL_CARACTERISTICAS, ALUGAVEL_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
@@ -31,7 +31,7 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 export class SpacesComponent implements OnInit {
 
   readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
-
+  readonly SUPPORT_PHONE = environment.supportPhone;
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   public max_taxa;

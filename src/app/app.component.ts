@@ -3,8 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { UserService } from './shared/service/user.service';
 import { LoginService } from './shared/service/login.service';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './shared/modal/login/login.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +11,8 @@ import { LoginComponent } from './shared/modal/login/login.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  readonly SUPPORT_PHONE = environment.supportPhone;
   title = 'placeet';
 
   @ViewChild('nav', { static: false })
