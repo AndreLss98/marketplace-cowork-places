@@ -1,5 +1,12 @@
 @import '../../../place-et-theme.scss';
 
+#imgContainer {
+    img {
+        max-height: 600px;
+        object-fit: cover;
+    }
+}
+
 button[mat-fab] {
     box-shadow: none;
 }

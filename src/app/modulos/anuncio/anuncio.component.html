@@ -9,18 +9,12 @@
                     [lngLatPlace]="{ latitude: anuncio.local.latitude, longitude: anuncio.local.longitude }"
                     [static]="true"></maps>
         
-                <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide mw-100" data-ride="carousel">
-                    
-                    <ol class="carousel-indicators">
-                        <li data-target="#spacesCarousel" *ngFor="let image of anuncio.imagens; let i = index" data-slide-to="index" [class.active]="i === 0" ></li>
-                    </ol>
-        
-                    <div class="carousel-inner" style="max-height: 600px; background-color: #cccccc82;">
-                        <div class="carousel-item d-flex justify-content-center" style="max-height: 600px;" *ngFor="let image of anuncio.imagens; let i = index" [class.active]="i === 0">
-                            <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" style="max-height: 600px; max-width: 1000px; object-fit: cover" />
+                <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="imgContainer">
+                        <div class="carousel-item" [class.active]="i == 0" *ngFor="let image of anuncio.imagens; let i = index">
+                            <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" alt="...">
                         </div>
                     </div>
-        
                     <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
