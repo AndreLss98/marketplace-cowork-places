@@ -77,7 +77,7 @@
         <mat-card class="my-2">
             <div class="row">
                 <div class="col-md d-flex align-items-center">
-                    <h1 class="m-0">{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
+                    <h1 class="m-0">{{ anuncio.local.rua }}, {{ anuncio.local.bairro }}, {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
                 </div>
     
                 <div class="col-md d-flex justify-content-end">
@@ -116,12 +116,10 @@
             </div>    
         </mat-card>
         
-        <div class="row mw-100">
+        <h2 class="font-weight-bold">Descrição do proprietário</h2>
+        <div class="row">
             <div class="col">
-                <div class="d-flex flex-column">
-                    <h2 class="font-weight-bold">Descrição do proprietário</h2>
-                    <h3 style="word-wrap: break-word;">{{ anuncio.descricao }}</h3>
-                </div>
+                <h3 style="word-wrap: break-word;">{{ anuncio.descricao }}</h3>
             </div>
         </div>
     
@@ -134,13 +132,11 @@
                             <p *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="p-0 m-0">{{ caracteristica.nome }}</p>
             
                             <p *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="p-0 m-0">
-                                {{ caracteristica.nome }}:
-                                 {{ caracteristica.valor }}
+                                {{ caracteristica.nome }}: {{ caracteristica.valor }}
                             </p>
             
                             <p *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="p-0 m-0">
-                                {{ caracteristica.nome }}:
-                                 {{ caracteristica.valor }}
+                                {{ caracteristica.nome }}: {{ caracteristica.valor }}
                             </p>
                         </ng-container>
                     </li>
@@ -148,16 +144,14 @@
             </div>
         </div>
         
-        <div *ngIf="anuncio.infos.length" class="row mt-2">
+        <div *ngIf="anuncio.infos.length" class="row">
             <div class="col">
-                <div class="d-flex flex-column">
-                    <h2 class="font-weight-bold">Informações adicionais</h2>
-                    <ul>
-                        <li *ngFor="let info of anuncio.infos">
-                            <h3>{{ info.descricao }}</h3>
-                        </li>
-                    </ul>
-                </div>
+                <h2 class="font-weight-bold">Informações adicionais</h2>
+                <ul>
+                    <li *ngFor="let info of anuncio.infos">
+                        <p class="m-0 p-0">{{ info.descricao }}</p>
+                    </li>
+                </ul>
             </div>
         </div>
         
@@ -168,8 +162,8 @@
             target="_blank"
             style="font-size: .7rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
     </div>
-    <div *ngIf="maisEspacosDoLocador.length" class="d-flex flex-column border-top">
-        <h2>Mais espaços desse anunciante</h2>
+    <div *ngIf="maisEspacosDoLocador.length" class="d-flex flex-column pt-3 border-top">
+        <h2>Mais anúncios desse locador</h2>
         <div class="d-flex py-2 pl-2 flex-row back-verde-escuro flex-wrap justify-content-start">
             <card-item-alugavel
                 *ngFor="let espaco of maisEspacosDoLocador"
