@@ -77,7 +77,7 @@ export class SpacesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   public favoritar() {
@@ -119,11 +119,6 @@ export class SpacesComponent implements OnInit {
     }
   }
 
-
-  /**
- * Retorna um array com os nomes dos icones, para as estrelas da avalição
- * pode ser star, star_half, star_outline
- */
   public countStars(n: number): string[] {
     let array = [];
     let j = 0;
@@ -147,6 +142,7 @@ export class SpacesComponent implements OnInit {
   public configCaracteristicas() {
     this.anuncio.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
+      
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
         caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
       }
