@@ -24,11 +24,9 @@
                     <input #fileInput style="display: none;" type="file" autocomplete="off" (change)="changeFileSelected($event)" />
                     <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required autocomplete="off"/>
                 </mat-form-field>
-                    <table class="d-flex justify-content-center">
-                        <td>
-                            <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
-                        </td>
-                    </table>
+                <div class="d-flex justify-content-center">
+                    <button *ngIf="!isLoading; else loading" mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>
@@ -69,3 +67,7 @@
         </mat-card-content>
     </mat-card>
 </div>
+
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>

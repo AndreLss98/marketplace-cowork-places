@@ -8,6 +8,8 @@ import { translateBoolValue } from 'src/app/shared/constants/functions';
 import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lista-politicas',
@@ -21,9 +23,11 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   public politica;
   public saveForm: FormGroup;
   public editForm: FormGroup;
+  public isLoading: boolean = false;
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private politicasService: PoliticasService,
   ) {
@@ -85,6 +89,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   }
 
   public create() {
+    this.isLoading = true;
     this.politicasService.save(this.saveForm.value, this.selectedFile).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress) {
         //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
@@ -93,7 +98,12 @@ export class ListaPoliticasComponent extends BasicTableComponent {
         this.resetSaveForm();
       }
     }, (error) => {
-      //console.log('Save error: ', error);
+      console.log('Save error: ', error);
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "Ocorreu um erro ao criar nova política." }
+      });
+    }, () => {
+      this.isLoading = false;
     });
   }
 
@@ -145,6 +155,6 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   }
 
   public cancelar(){
-    this.politica=null;
+    this.politica = null;
   }
 }
