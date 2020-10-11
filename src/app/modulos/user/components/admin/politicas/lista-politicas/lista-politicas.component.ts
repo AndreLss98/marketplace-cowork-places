@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { translateBoolValue } from 'src/app/shared/constants/functions';
@@ -9,7 +10,6 @@ import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lista-politicas',
@@ -137,7 +137,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
     this.editForm.reset({
       id: this.politica.id,
       nome: this.politica.nome,
-      arquivo: this.politica.sluq,
+      arquivo: this.politica.url.substr(this.politica.url.lastIndexOf('/') + 1),
       versao: this.politica.versao,
       aprovado: this.politica.aprovado
     });
