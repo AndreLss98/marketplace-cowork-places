@@ -71,6 +71,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   private fetchAll() {
     this.politicasService.getAll().subscribe((response: any) => {
       this.data = response;
+      this.politicasService.politicas = response;
     });
   }
 
@@ -108,6 +109,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   }
 
   public update() {
+    this.isLoading = true;
     this.politicasService.update(this.editForm.value, this.updateFile).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress) {
         //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
@@ -118,6 +120,8 @@ export class ListaPoliticasComponent extends BasicTableComponent {
       }
     }, (error) => {
       //console.log('Update error: ', error);
+    }, () => {
+      this.isLoading = false;
     });
   }
 
@@ -125,7 +129,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
     this.saveForm.reset({
       nome: "",
       arquivo: ""
-    })
+    });
   }
 
   public edit(event) {

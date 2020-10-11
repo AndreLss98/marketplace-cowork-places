@@ -11,9 +11,11 @@
             <div class="col-md-4">
                 <h5 class="text-uppercase font-weight-bold">Sobre</h5>
                 <ul class="list-unstyled">
-                    <li *ngFor="let politica of politicas">
-                        <a [href]="'/about/' + politica.sluq">{{ politica.nome }}</a>
-                    </li>
+                    <ng-container *ngFor="let politica of politicasService.politicas">
+                        <li *ngIf="politica.aprovado">
+                            <a [href]="'/about/' + politica.sluq">{{ politica.nome }}</a>
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
 

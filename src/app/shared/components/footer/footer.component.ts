@@ -21,17 +21,16 @@ export class FooterComponent implements OnInit {
   constructor(
     private matDialog: MatDialog,
     public userService: UserService,
-    private politicasService: PoliticasService,
+    public politicasService: PoliticasService,
   ) { }
 
   ngOnInit(): void {
     this.politicasService.getAll().subscribe((response: any) => {
-      this.politicas = response.filter(politica => politica.aprovado);
+      this.politicasService.politicas = response;
     });
   }
 
   openFeedback(){
     this.matDialog.open(FeedbackModalComponent);
   }
-
 }

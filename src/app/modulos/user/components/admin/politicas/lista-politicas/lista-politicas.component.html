@@ -57,7 +57,7 @@
                     <mat-checkbox formControlName="aprovado">Aprovado</mat-checkbox>
                 </div>
 
-                <div class="d-flex justify-content-around">
+                <div *ngIf="!isLoading; else loading" class="d-flex justify-content-around">
                     <button  mat-flat-button (click)="cancelar()" >Cancelar</button>
                     <button  mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
                 </div>

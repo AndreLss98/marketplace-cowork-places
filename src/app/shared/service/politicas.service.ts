@@ -7,6 +7,16 @@ import { environment } from 'src/environments/environment';
 })
 export class PoliticasService {
 
+  private _politicas: [] = [];
+
+  get politicas() {
+    return this._politicas;
+  }
+
+  set politicas(politicas) {
+    this._politicas = politicas;
+  }
+
   constructor(private http: HttpClient) {
 
   }
