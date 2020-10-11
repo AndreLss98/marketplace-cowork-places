@@ -1,6 +1,8 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ConfirmModalComponent } from '../../modal/confirm-modal/confirm-modal.component';
 
 export interface customFormField {
   fieldName: string;
@@ -74,7 +76,8 @@ export class DropzoneComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -153,18 +156,28 @@ export class DropzoneComponent implements OnInit {
   }
 
   public removeFile(index: number) {
-    if (this.files[index].id && this.deleteUrl) {
-      this.http.delete(`${this.deleteUrl}/${this.files[index].id}`).subscribe(() => {
-        this.files.splice(index, 1);
-        this.data.splice(index, 1);
-        this.dataChange.emit(this.data);  
-      }, (error) => {
-        console.log(error);
-      });
-    } else {
-      this.files.splice(index, 1);
-      this.data.splice(index, 1);
-      this.dataChange.emit(this.data);
-    }
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      data: { title: "Aviso!", message: "A imagem será excluída permanentemente. Tem certeza que deseja excluir ?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      switch (result) {
+        case true:
+          if (this.files[index].id && this.deleteUrl) {
+            this.http.delete(`${this.deleteUrl}/${this.files[index].id}`).subscribe(() => {
+              this.files.splice(index, 1);
+              this.data.splice(index, 1);
+              this.dataChange.emit(this.data);  
+            }, (error) => {
+              console.log(error);
+            });
+          } else {
+            this.files.splice(index, 1);
+            this.data.splice(index, 1);
+            this.dataChange.emit(this.data);
+          }
+        break;
+      }
+    });
   }
 }

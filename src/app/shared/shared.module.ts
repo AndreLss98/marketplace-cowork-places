@@ -63,6 +63,7 @@ import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
 import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
 import { AccountBtnComponent } from './components/account-btn/account-btn.component';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { AccountBtnComponent } from './components/account-btn/account-btn.compon
     SearchboxComponent,
     AccountBtnComponent,
     RedesSociaisComponent,
+    ConfirmModalComponent,
   ],
   imports: [
     NgbModule,
@@ -150,6 +152,7 @@ import { AccountBtnComponent } from './components/account-btn/account-btn.compon
     ReservaCardComponent,
     CancelDialogComponent,
     RedesSociaisComponent,
+    ConfirmModalComponent,
     ImgThumbnailComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
