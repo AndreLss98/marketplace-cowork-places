@@ -6,6 +6,7 @@ import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
 import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feedback-modal.component';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -19,6 +20,7 @@ export class FooterComponent implements OnInit {
   public politicas = [];
 
   constructor(
+    private router: Router,
     private matDialog: MatDialog,
     public userService: UserService,
     public politicasService: PoliticasService,
@@ -28,6 +30,11 @@ export class FooterComponent implements OnInit {
     this.politicasService.getAll().subscribe((response: any) => {
       this.politicasService.politicas = response;
     });
+  }
+
+  viewPolitica(url) {
+    console.log('Essa é a url do arquivo: ', url);
+    this.router.navigateByUrl(`about?url=${url}`);
   }
 
   openFeedback(){

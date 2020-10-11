@@ -1,13 +1,12 @@
 @import '../../../../place-et-theme.scss';
 
-a, a:hover {
+a, span.link, a:hover, span.link:hover {
     color: $pl-verde-escuro;
 }
 
-a:hover {
+a:hover, span.link:hover {
     text-decoration: underline;
 }
-
 
 .img-footer {
     width: 20px;

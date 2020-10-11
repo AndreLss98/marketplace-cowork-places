@@ -1,6 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-about',
@@ -9,23 +8,15 @@ import { environment } from 'src/environments/environment';
 })
 export class AboutComponent implements OnInit {
 
-  private sub;
-  public post = "";
+  public url = "";
 
   constructor(
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.post = `${environment.apiUrl}/md/${params['nome']}`;
+    this.route.queryParams.subscribe(queryParams => {
+      this.url = queryParams.url;
     });
   }
-
-  ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-  }
-
 }

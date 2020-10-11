@@ -28,7 +28,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     if(req.url.includes('/auth') || req.url.includes('/usuarios/create')) {
       return req.clone({ withCredentials: true });
-    }else if(req.url.includes('viacep') || req.url.includes('maps.googleapis.com')) {
+    }else if(req.url.includes('viacep') || req.url.includes('maps.googleapis.com') || req.url.includes('s3.amazonaws.com')) {
       return req;
     }else {
       return req.clone({ setHeaders: { Authorization: 'Bearer ' + token }});
