@@ -1,18 +1,21 @@
-<div class="mx-2 mt-2 ">
+<div class="mx-2 mt-2" *ngIf="alugaveisService.anuncio">
     <div class="overflow-hidden min-vh-100" style="max-width: 100%;">
-        <h4>{{anuncio.tipo.nome}}</h4>
-        <h1 class="font-weight-bold">{{anuncio.titulo}}</h1>
+        <h4>{{alugaveisService.anuncio.tipo.nome}}</h4>
+        <h1 class="font-weight-bold">{{alugaveisService.anuncio.titulo}}</h1>
         <div class="row">
             <div class="col-lg col-xl-8">
                 <maps
                     *ngIf="view === 'maps'"
-                    [lngLatPlace]="{ latitude: anuncio.local.latitude, longitude: anuncio.local.longitude }"
+                    [lngLatPlace]="{
+                        latitude: alugaveisService.anuncio.local.latitude,
+                        longitude: alugaveisService.anuncio.local.longitude
+                    }"
                     [static]="true"></maps>
         
                 <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="imgContainer">
-                        <div class="carousel-item" [class.active]="i == 0" *ngFor="let image of anuncio.imagens; let i = index">
-                            <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" alt="...">
+                        <div class="carousel-item" [class.active]="i == 0" *ngFor="let image of alugaveisService.anuncio.imagens; let i = index">
+                            <img [src]="image.url" class="d-block w-100" alt="imagem do anúncio">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
@@ -30,10 +33,10 @@
                 <reserva-card
                     (formValue)="intervalData = $event"
                     [taxaMaxima]="max_taxa"
-                    [valorDiaria]="anuncio.valor"
-                    [valorMensal]="anuncio.valor_mes"
-                    [taxa]="anuncio.taxa"
-                    [anuncio_id]="anuncio.id"></reserva-card>
+                    [valorDiaria]="alugaveisService.anuncio.valor"
+                    [valorMensal]="alugaveisService.anuncio.valor_mes"
+                    [taxa]="alugaveisService.anuncio.taxa"
+                    [anuncio_id]="alugaveisService.anuncio.id"></reserva-card>
                 <div class="mt-2">
                     <div class="row">
                         <div class="col d-flex justify-content-center">
@@ -43,7 +46,7 @@
                                 type="button"
                                 color="primary"
                                 (click)="checkout()"
-                                [disabled]="!intervalData?.formValid || anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
+                                [disabled]="!intervalData?.formValid || alugaveisService.anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
                         </div>
                     </div>
         
@@ -71,7 +74,7 @@
         <mat-card class="my-2">
             <div class="row">
                 <div class="col-md d-flex align-items-center">
-                    <h1 class="m-0">{{ anuncio.local.rua }}, {{ anuncio.local.bairro }}, {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
+                    <h1 class="m-0">{{ alugaveisService.anuncio.local.rua }}, {{ alugaveisService.anuncio.local.bairro }}, {{ alugaveisService.anuncio.local.cidade }} - {{ alugaveisService.anuncio.local.estado }}</h1>
                 </div>
     
                 <div class="col-md d-flex justify-content-end">
@@ -113,7 +116,7 @@
         <h2 class="font-weight-bold">Descrição do proprietário</h2>
         <div class="row">
             <div class="col">
-                <h3 style="word-wrap: break-word;">{{ anuncio.descricao }}</h3>
+                <h3 style="word-wrap: break-word;">{{ alugaveisService.anuncio.descricao }}</h3>
             </div>
         </div>
     
@@ -138,11 +141,11 @@
             </div>
         </div>
         
-        <div *ngIf="anuncio.infos.length" class="row">
+        <div *ngIf="alugaveisService.anuncio.infos.length" class="row">
             <div class="col">
                 <h2 class="font-weight-bold">Informações adicionais</h2>
                 <ul>
-                    <li *ngFor="let info of anuncio.infos">
+                    <li *ngFor="let info of alugaveisService.anuncio.infos">
                         <p class="m-0 p-0">{{ info.descricao }}</p>
                     </li>
                 </ul>
@@ -152,15 +155,15 @@
     </div>
     <div class="mb-2">
         <a
-            [href]="'https://api.whatsapp.com/send?phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F' + anuncio.id"
+            [href]="'https://api.whatsapp.com/send?phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F' + alugaveisService.anuncio.id"
             target="_blank"
             style="font-size: .7rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
     </div>
-    <div *ngIf="maisEspacosDoLocador.length" class="d-flex flex-column pt-3 border-top">
+    <div *ngIf="alugaveisService.maisAnunciosDoAnunciante.length" class="d-flex flex-column pt-3 border-top">
         <h2>Mais anúncios desse locador</h2>
-        <div class="d-flex py-2 pl-2 flex-row back-verde-escuro flex-wrap justify-content-start">
-            <card-item-alugavel
-                *ngFor="let espaco of maisEspacosDoLocador"
+        <div class="d-flex py-2 pl-2 mr-n2 flex-row back-verde-escuro flex-wrap justify-content-start">
+            <card-item-alugavel class="ml-2"
+                *ngFor="let espaco of alugaveisService.maisAnunciosDoAnunciante"
                 [data]="espaco"></card-item-alugavel>
         </div>
     </div>

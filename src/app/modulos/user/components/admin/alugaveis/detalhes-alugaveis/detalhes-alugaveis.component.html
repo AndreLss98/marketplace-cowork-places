@@ -149,10 +149,8 @@
                 <mat-tab [label]="'Imagens'" *ngIf="alugavel.imagens && alugavel.imagens.length">
                     <mat-card-content>
                         <div id="imgContent" class="w-100 mt-2 d-flex flex-row flex-wrap justify-content-around">
-                            <a *ngFor="let foto of alugavel.imagens;" [href]="backURL + 'imgs/' + foto.url" target="_blank">
-                                <img
-                                    class="w-100 h-100 img-thumbnail"
-                                    [src]="backURL + 'imgs/' + foto.url" />
+                            <a *ngFor="let foto of alugavel.imagens;" [href]="foto.url" target="_blank">
+                                <img class="w-100 h-100 img-thumbnail" [src]="foto.url" />
                             </a>
                         </div>
                     </mat-card-content>

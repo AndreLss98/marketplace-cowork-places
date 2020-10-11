@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/shared/service/login.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { CheckoutService } from 'src/app/shared/service/checkout.service';
 import { FavoritosService } from 'src/app/shared/service/favoritos.service';
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 
 @Component({
   selector: 'app-spaces',
@@ -39,7 +40,6 @@ export class SpacesComponent implements OnInit {
   public backUrl = environment.apiUrl;
 
   public anuncio;
-  public maisEspacosDoLocador = [];
 
   public view = 'photos';
 
@@ -59,25 +59,39 @@ export class SpacesComponent implements OnInit {
     public userService: UserService,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
+    public alugaveisService: AlugaveisService,
     private favoritoService: FavoritosService,
   ) {
     
   }
 
   ngOnInit(): void {
-    this.anuncio = this.route.snapshot.data['espaco'];
+    this.alugaveisService.anuncio = this.route.snapshot.data['espaco'];
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
-
-    this.configCaracteristicas();
-
-
-    this.alugavelService.getAllByUser(this.anuncio.anunciante_id).subscribe(response => {
-      this.maisEspacosDoLocador = response.filter(anuncio => anuncio.id !== this.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.value);
+    
+    this.route.params.subscribe(routeParams => {
+      this.alugaveisService.getById(Number(routeParams.id)).subscribe(response => {
+        this.alugaveisService.anuncio = response;
+      }, (error) => {
+        console.log(error);
+      }, () => {
+        this.configComponent();
+      });
     });
   }
 
   ngAfterViewInit() {
+  
+  }
 
+  private configComponent() {
+
+    this.configCaracteristicas();
+
+    this.alugavelService.getAllByUser(this.alugaveisService.anuncio.anunciante_id).subscribe(response => {
+      this.alugaveisService.maisAnunciosDoAnunciante = response
+        .filter(anuncio => anuncio.id !== this.alugaveisService.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.value);
+    });
   }
 
   public favoritar() {
@@ -97,7 +111,7 @@ export class SpacesComponent implements OnInit {
 
     this.checkoutService.reserva = {
       max_taxa: this.max_taxa,
-      anuncio: this.anuncio,
+      anuncio: this.alugaveisService.anuncio,
       ...this.intervalData
     }
 
@@ -140,16 +154,16 @@ export class SpacesComponent implements OnInit {
   }
 
   public configCaracteristicas() {
-    this.anuncio.caracteristicas.forEach(caracteristica => {
+    this.alugaveisService.anuncio.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
       
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
         caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
       }
     });
-    this.caracteristicasComIcone = this.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
+    this.caracteristicasComIcone = this.alugaveisService.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
 
-    this.caracteristicasSemIcone = this.anuncio.caracteristicas
+    this.caracteristicasSemIcone = this.alugaveisService.anuncio.caracteristicas
       .filter(caracteristica => !caracteristica.icone)
       .filter(caracteristica => caracteristica.valor);
   }

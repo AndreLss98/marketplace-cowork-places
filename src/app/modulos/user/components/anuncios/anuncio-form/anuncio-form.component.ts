@@ -262,7 +262,7 @@ export class AnuncioFormComponent implements OnInit {
     }));
 
     this.imgs = this.anuncio.imagens.map(img => {
-      return { id: img.id, src: `${environment.apiUrl}/imgs/${img.url}`, success: true }
+      return { id: img.id, src: img.url, success: true }
     });
 
     this.infoAdicionais = this.anuncio.infos;

@@ -2,7 +2,7 @@
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner">
             <div class="carousel-item" [class.active]="i === 0" *ngFor="let image of data.imagens; let i= index">
-                <img mat-card-image [src]="backUrl + '/imgs/' + image.url" class="carouselImage">
+                <img mat-card-image [src]="image.url" class="carouselImage">
             </div>
         </div>
         <a class="carousel-control-prev" href="#Carousel{{data.id}}"
