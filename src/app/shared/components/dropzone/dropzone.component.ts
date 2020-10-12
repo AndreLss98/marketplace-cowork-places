@@ -1,8 +1,11 @@
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ConfirmModalComponent } from '../../modal/confirm-modal/confirm-modal.component';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+
+import { t as Typy } from 'typy';
+
+import { ConfirmModalComponent } from 'src/app/shared/modal/confirm-modal/confirm-modal.component';
 
 export interface customFormField {
   fieldName: string;
@@ -47,6 +50,9 @@ export class DropzoneComponent implements OnInit {
 
   @Input('fileField')
   public fileField: string = 'file';
+
+  @Input('idObjectPath')
+  public idObjectPath: string;
 
   @Input('customFields')
   public customFields: customFormField[] = [];
@@ -142,6 +148,7 @@ export class DropzoneComponent implements OnInit {
       } else if (event.type === HttpEventType.Response) {
         file.success = true;
         file.error = false;
+        if (this.idObjectPath) file.id = Typy(event.body, this.idObjectPath).safeObject;
         this.data = [ ...this.data, event.body ];
       }
     }, (error) => {
