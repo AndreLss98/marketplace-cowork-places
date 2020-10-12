@@ -71,6 +71,7 @@ export class DropzoneComponent implements OnInit {
   @Output('data')
   public dataChange = new EventEmitter();
 
+  @Input('data')
   get data() {
     return this._data;
   }

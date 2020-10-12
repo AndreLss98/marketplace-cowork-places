@@ -42,7 +42,8 @@
 						[files]="imgs"
 						[idObjectPath]="'img.id'"
 						[listFileTypes]="imgsTypes"
-						(data)="bindingFormField('imgs', imgsForm, $event)"></dropzone>
+						(data)="bindingFormField('imgs', imgsForm, $event)"
+						[data]="imgsForm.controls['imgs'].value"></dropzone>
 				</div>
 			</div>
 			<div class="d-flex justify-content-end mt-2">
