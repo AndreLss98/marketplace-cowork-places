@@ -28,6 +28,7 @@ import { DadosBancariosComponent } from './components/conta/informacoes-pessoais
 import { UserMenuComponent } from 'src/app/shared/components/sidemenu/components/user-menu/user-menu.component';
 import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.component';
 import { SearchboxComponent } from 'src/app/shared/components/sidemenu/components/searchbox/searchbox.component';
+import { ListaTiposDocumentosComponent } from './components/admin/alugaveis/lista-tipos-documentos/lista-tipos-documentos.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { SearchboxComponent } from 'src/app/shared/components/sidemenu/component
     DocumentosPessoaisComponent,
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
+    ListaTiposDocumentosComponent,
   ],
   imports: [
     CommonModule,
