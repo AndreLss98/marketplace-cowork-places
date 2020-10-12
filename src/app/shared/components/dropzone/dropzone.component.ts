@@ -154,6 +154,7 @@ export class DropzoneComponent implements OnInit {
       }
     }, (error) => {
       file.error = true;
+      console.log('Error sending file: ', error);
     });
   }
 

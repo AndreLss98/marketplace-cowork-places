@@ -1,25 +1,25 @@
 <div (click)="fileInput.click()" #dropzone class="text-center p-4 cursor-pointer" id="dropzone">
-    {{label}}<br>
-    <small *ngFor="let type of listFileTypes">{{ type.nome }} </small>
+	{{label}}<br>
+	<small *ngFor="let type of listFileTypes">{{ type.nome }} </small>
 </div>
 
 <input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
 
 <div class="row my-2" *ngFor="let file of files; let i = index">
-    <div class="col-4 col-lg-2 d-block">
-        <img-thumbnail [src]="file.src"></img-thumbnail>
-    </div>
-    <div class="col align-self-center">
-        <p>
-            <span
-                *ngIf="(file.success && canDelete) || file.error"
-                class="text-danger mr-1 cursor-pointer"
-                (click)="removeFile(i)">Excluir</span>
+	<div class="col-4 col-lg-2 d-block">
+		<img-thumbnail [src]="file.src"></img-thumbnail>
+	</div>
+	<div class="col align-self-center">
+		<p>
+			<span
+				*ngIf="(file.success && canDelete) || file.error"
+				class="text-danger mr-1 cursor-pointer"
+				(click)="removeFile(i)">Excluir</span>
 
-            <span *ngIf="file.error" class="text-primary cursor-pointer" (click)="resendFile(file)">Reenviar</span>
-        </p>
-    </div>
-    <div *ngIf="!file.success && !file.error" class="col-2 align-self-center">
-        <mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
-    </div>
+			<span *ngIf="file.error" class="text-primary cursor-pointer" (click)="resendFile(file)">Reenviar</span>
+		</p>
+	</div>
+	<div *ngIf="!file.success && !file.error" class="col-2 align-self-center">
+		<mat-progress-spinner mode="indeterminate" diameter="30"></mat-progress-spinner>
+	</div>
 </div>
