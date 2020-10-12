@@ -1,305 +1,304 @@
 <mat-vertical-stepper [linear]="true" #stepper>
-    <mat-step [stepControl]="informacoesForm && imgsForm">
-        <form [formGroup]="informacoesForm">
-            <ng-template matStepLabel>Informações</ng-template>
-            <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Título</mat-label>
-                        <input formControlName="titulo" autocomplete="off" matInput placeholder="Ex: Escritório Urbano" minlength="1" maxlength="40" />
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Categoria</mat-label>
-                        <mat-select formControlName="tipo_id" [disabled]="editMode">
-                            <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.nome}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
+	<mat-step [stepControl]="informacoesForm && imgsForm">
+		<form [formGroup]="informacoesForm">
+			<ng-template matStepLabel>Informações</ng-template>
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Título</mat-label>
+						<input formControlName="titulo" autocomplete="off" matInput placeholder="Ex: Escritório Urbano" minlength="1" maxlength="40" />
+					</mat-form-field>
+				</div>
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Categoria</mat-label>
+						<mat-select formControlName="tipo_id" [disabled]="editMode">
+							<mat-option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.nome}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
 
-            <div class="row">
-                <div class="col">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Descrição</mat-label>
-                        <textarea maxlength="500"
-                            matInput cdkTextareaAutosize
-                            #autosize="cdkTextareaAutosize"
-                            formControlName="descricao"
-                            [cdkAutosizeMinRows]="3"
-                            [cdkAutosizeMaxRows]="8">
-                        </textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm">
-                    <dropzone
-                        [url]="sendImgsUrl"
-                        [deleteUrl]="deleteImgUrl"
-                        [files]="imgs"
-                        [listFileTypes]="imgsTypes"
-                        (data)="bindingFormField('imgs', imgsForm, $event)"></dropzone>
-                </div>
-            </div>
-            <div class="d-flex justify-content-end mt-2">
-                <button mat-raised-button color="primary" matStepperNext [disabled]="informacoesForm.invalid || imgsForm.invalid">Próximo</button>
-            </div>
-        </form>
-    </mat-step>
+			<div class="row">
+				<div class="col">
+					<mat-form-field appearance="outline" class="w-100">
+						<mat-label>Descrição</mat-label>
+							<textarea maxlength="500"
+								matInput cdkTextareaAutosize
+								#autosize="cdkTextareaAutosize"
+								formControlName="descricao"
+								[cdkAutosizeMinRows]="3"
+								[cdkAutosizeMaxRows]="8">
+							</textarea>
+					</mat-form-field> 
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm">
+					<dropzone
+						[url]="sendImgsUrl"
+						[deleteUrl]="deleteImgUrl"
+						[files]="imgs"
+						[listFileTypes]="imgsTypes"
+						(data)="bindingFormField('imgs', imgsForm, $event)"></dropzone>
+				</div>
+			</div>
+			<div class="d-flex justify-content-end mt-2">
+				<button mat-raised-button color="primary" matStepperNext [disabled]="informacoesForm.invalid || imgsForm.invalid">Próximo</button>
+			</div>
+		</form>
+	</mat-step>
 
-    <mat-step [stepControl]="caracteristicasForm">
-        <ng-template matStepLabel>Características</ng-template>
-        <div class="row" *ngFor="let caracteristica of caracteristicas">
-            <div class="col-sm">
-                <ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
-                    <mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
-                    
-                    <mat-form-field *ngSwitchCase="'numerico'" appearance="standard">
-                        <mat-label>{{ caracteristica.nome }}</mat-label>
-                        <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
-                    </mat-form-field>
-                
-                    <mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard">
-                        <mat-label>{{ caracteristica.nome }}</mat-label>
-                        <input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
-                    </mat-form-field>
+	<mat-step [stepControl]="caracteristicasForm">
+		<ng-template matStepLabel>Características</ng-template>
+		<div class="row" *ngFor="let caracteristica of caracteristicas">
+			<div class="col-sm">
+				<ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
+					<mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
+						<mat-form-field *ngSwitchCase="'numerico'" appearance="standard">
+							<mat-label>{{ caracteristica.nome }}</mat-label>
+							<input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
+						</mat-form-field>
+					
+						<mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard">
+							<mat-label>{{ caracteristica.nome }}</mat-label>
+							<input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
+						</mat-form-field>
 
-                    <mat-form-field *ngSwitchCase="'selecao'" appearance="standard">
-                        <mat-label>{{ caracteristica.nome }}</mat-label>
-                        <mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
-                            <mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </ng-container>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <mat-form-field appearance="standard" class="w-100">
-                    <mat-label>Informação adicional</mat-label>
-                    <div class="d-flex">
-                        <input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
-                        <button
-                            mat-icon-button
-                            color="primary"
-                            [disabled]="!infoAdicional.value"
-                            (click)="addInfo(infoAdicional.value); infoAdicional.value = ''">
-                            <mat-icon matSuffix>add</mat-icon>
-                        </button>
-                    </div>
-                </mat-form-field>
-            </div>
-        </div>
+						<mat-form-field *ngSwitchCase="'selecao'" appearance="standard">
+							<mat-label>{{ caracteristica.nome }}</mat-label>
+							<mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
+								<mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</ng-container>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<mat-form-field appearance="standard" class="w-100">
+					<mat-label>Informação adicional</mat-label>
+					<div class="d-flex">
+						<input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
+						<button
+							mat-icon-button
+							color="primary"
+							[disabled]="!infoAdicional.value"
+							(click)="addInfo(infoAdicional.value); infoAdicional.value = ''">
+							<mat-icon matSuffix>add</mat-icon>
+						</button>
+					</div>
+				</mat-form-field>
+			</div>
+		</div>
 
-        <ng-container *ngIf="infoAdicionais.length">
-            <div class="row" *ngFor="let info of infoAdicionais; let i = index">
-                <div class="col">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <div class="d-flex">
-                            <input matInput [value]="info.descricao" type="text" readonly />
-                            <button
-                                mat-icon-button
-                                color="warn"
-                                (click)="removeInfo(i)">
-                                <mat-icon matSuffix>clear</mat-icon>
-                            </button>
-                        </div>
-                    </mat-form-field>
-                </div>
-            </div>
-        </ng-container>
+		<ng-container *ngIf="infoAdicionais.length">
+			<div class="row" *ngFor="let info of infoAdicionais; let i = index">
+				<div class="col">
+					<mat-form-field appearance="standard" class="w-100">
+						<div class="d-flex">
+							<input matInput [value]="info.descricao" type="text" readonly />
+							<button
+								mat-icon-button
+								color="warn"
+								(click)="removeInfo(i)">
+								<mat-icon matSuffix>clear</mat-icon>
+							</button>
+						</div>
+					</mat-form-field>
+				</div>
+			</div>
+		</ng-container>
 
-        <div class="d-flex justify-content-between mt-2">
-            <button mat-raised-button matStepperPrevious>Voltar</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="caracteristicasForm.invalid">Próximo</button>
-        </div>
-    </mat-step>
+		<div class="d-flex justify-content-between mt-2">
+			<button mat-raised-button matStepperPrevious>Voltar</button>
+			<button mat-raised-button color="primary" matStepperNext [disabled]="caracteristicasForm.invalid">Próximo</button>
+		</div>
+	</mat-step>
 
-    <mat-step [stepControl]="documentosForm">
-        <form [formGroup]="documentosForm">
-            <ng-template matStepLabel>Documentos</ng-template>
-            <div class="row justify-content-center">
-                <div class="col-10">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Você é o proprietário do objeto de anúncio ?</mat-label>
-                        <mat-select formControlName="proprietario" matInput required>
-                            <mat-option [value]="true">Sim</mat-option>
-                            <mat-option [value]="false">Não</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row" *ngIf="documentosForm.controls['proprietario'].value !== null">
-                <div class="col">
-                    <h4 class="text-center">Nós envie os documentos abaixo</h4>
-                </div>
-            </div>
-            <ng-container *ngFor="let documento of documentos">
-                <div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
-                    <div class="col">
-                        <dropzone
-                            [url]="sendDocsUrl"
-                            [label]="documento.nome"
-                            [single]="true"
-                            [files]="documento.files"
-                            [canDelete]="false"
-                            [listFileTypes]="docsTypes"
-                            [customFields]="[{ fieldName: 'nome', value: documento.nome_campo }]"
-                            (data)="bindingFormField(documento.nome_campo, documentosForm, $event)"></dropzone>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="d-flex justify-content-between mt-2">
-                <button mat-raised-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
-            </div>
-        </form>
-    </mat-step>
+	<mat-step [stepControl]="documentosForm">
+		<form [formGroup]="documentosForm">
+			<ng-template matStepLabel>Documentos</ng-template>
+			<div class="row justify-content-center">
+				<div class="col-10">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Você é o proprietário do objeto de anúncio ?</mat-label>
+						<mat-select formControlName="proprietario" matInput required>
+							<mat-option [value]="true">Sim</mat-option>
+							<mat-option [value]="false">Não</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row" *ngIf="documentosForm.controls['proprietario'].value !== null">
+				<div class="col">
+					<h4 class="text-center">Nós envie os documentos abaixo</h4>
+				</div>
+			</div>
+			<ng-container *ngFor="let documento of documentos">
+				<div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
+					<div class="col">
+						<dropzone
+							[url]="sendDocsUrl"
+							[label]="documento.nome"
+							[single]="true"
+							[files]="documento.files"
+							[canDelete]="false"
+							[listFileTypes]="docsTypes"
+							[customFields]="[{ fieldName: 'nome', value: documento.nome_campo }]"
+							(data)="bindingFormField(documento.nome_campo, documentosForm, $event)"></dropzone>
+					</div>
+				</div>
+			</ng-container>
+			<div class="d-flex justify-content-between mt-2">
+				<button mat-raised-button matStepperPrevious>Voltar</button>
+				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
+			</div>
+		</form>
+	</mat-step>
 
-    <mat-step [stepControl]="enderecoForm">
-        <form [formGroup]="enderecoForm">
-            <ng-template matStepLabel>Endereço</ng-template>
-            <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>CEP</mat-label>
-                        <input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" (blur)="validarCep()" (input)="formatField('cep', enderecoForm, formatCEP)" />
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Rua</mat-label>
-                        <input formControlName="rua" matInput autocomplete="off" placeholder="Avenida Paulista" minlength="1" maxlength="200" />
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Número</mat-label>
-                        <input formControlName="numero" autocomplete="off" matInput type="number" min="0" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Bairro</mat-label>
-                        <input formControlName="bairro" autocomplete="off" matInput placeholder="Setor Bueno" minlength="1" maxlength="200" />
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Complemento</mat-label>
-                        <input formControlName="complemento" autocomplete="off" matInput placeholder="Bloco, apartamento..." minlength="1" maxlength="250" />
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Estado</mat-label>
-                        <mat-select formControlName="estado" matInput (selectionChange)="loadDistritoByEstado()">
-                            <mat-option *ngFor="let estado of estados" [value]="estado.nome">{{estado.nome}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="standard" class="w-100">
-                        <mat-label>Cidade</mat-label>
-                        <mat-select formControlName="cidade" matInput>
-                            <mat-option *ngFor="let distrito of distritos" [value]="distrito.nome">{{distrito.nome}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row" *ngIf="lngLatPlace">
-                <div class="col">
-                    <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between mt-2">
-                <button mat-raised-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" matStepperNext [disabled]="enderecoForm.invalid">Próximo</button>
-            </div>
-        </form>
-    </mat-step>
+	<mat-step [stepControl]="enderecoForm">
+		<form [formGroup]="enderecoForm">
+			<ng-template matStepLabel>Endereço</ng-template>
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>CEP</mat-label>
+						<input formControlName="cep" autocomplete="off" matInput placeholder="xx.xxx.xxx" maxlength="10" (blur)="validarCep()" (input)="formatField('cep', enderecoForm, formatCEP)" />
+					</mat-form-field>
+				</div>
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Rua</mat-label>
+						<input formControlName="rua" matInput autocomplete="off" placeholder="Avenida Paulista" minlength="1" maxlength="200" />
+					</mat-form-field>
+				</div>
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Número</mat-label>
+						<input formControlName="numero" autocomplete="off" matInput type="number" min="0" />
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Bairro</mat-label>
+						<input formControlName="bairro" autocomplete="off" matInput placeholder="Setor Bueno" minlength="1" maxlength="200" />
+					</mat-form-field>
+				</div>
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Complemento</mat-label>
+						<input formControlName="complemento" autocomplete="off" matInput placeholder="Bloco, apartamento..." minlength="1" maxlength="250" />
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Estado</mat-label>
+						<mat-select formControlName="estado" matInput (selectionChange)="loadDistritoByEstado()">
+							<mat-option *ngFor="let estado of estados" [value]="estado.nome">{{estado.nome}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Cidade</mat-label>
+						<mat-select formControlName="cidade" matInput>
+							<mat-option *ngFor="let distrito of distritos" [value]="distrito.nome">{{distrito.nome}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row" *ngIf="lngLatPlace">
+				<div class="col">
+					<maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between mt-2">
+				<button mat-raised-button matStepperPrevious>Voltar</button>
+				<button mat-raised-button color="primary" matStepperNext [disabled]="enderecoForm.invalid">Próximo</button>
+			</div>
+		</form>
+	</mat-step>
 
-    <mat-step [stepControl]="valoresForm">
-        <form [formGroup]="valoresForm">
-            <ng-template matStepLabel>Preços e Taxas</ng-template>
-            <div class="row">
-                <div class="col-lg">
-                    <div class="row">
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Custo por dia</mat-label>
-                                <input formControlName="valor" matInput placeholder="R$ 100" autocomplete="off" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm">
-                            <mat-form-field appearance="standard" class="w-100">
-                                <mat-label>Custo por mês</mat-label>
-                                <input formControlName="valor_mes" matInput placeholder="R$ 1000" autocomplete="off" [readonly]="!valoresForm.controls['valor'].value" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <h4 class="font-weight-bold">Sobre a taxa</h4>
-                            <p>Uma taxa de {{maxTax}}% sempre será cobrada, selecione a porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente embutida no valor da diária ou do mensal.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div *ngFor="let tax of thumbsTaxs; last as isLast" class="d-flex flex-row">
-                                    <span>{{tax}}%</span>
-                                </div>
-                            </div>
-                            <mat-slider
-                                min="0"
-                                [max]="maxTax"
-                                [step]="maxTax/2"
-                                tickInterval="1"
-                                class="w-100"
-                                formControlName="taxa">
-                            </mat-slider>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg">
-                    <div class="row">
-                        <div class="col-sm">
-                            <h2 class="text-center">Simulação de valores</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <reserva-card
-                                [taxaMaxima]="maxTax"
-                                [simulateMode]="true"
-                                [valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)"
-                                [valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"
-                                [taxa]="valoresForm.controls['taxa'].value">
-                            </reserva-card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="!isSending" class="d-flex mt-2 justify-content-between">
-                <button type="button" mat-raised-button matStepperPrevious>Voltar</button>
-                <button type="button" mat-raised-button color="primary" (click)="editMode? update() : save()" 
-                [disabled]="
-                    informacoesForm.invalid || imgsForm.invalid ||
-                    caracteristicasForm.invalid || documentosForm.invalid ||
-                    enderecoForm.invalid || valoresForm.invalid">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
-            </div>
+	<mat-step [stepControl]="valoresForm">
+		<form [formGroup]="valoresForm">
+			<ng-template matStepLabel>Preços e Taxas</ng-template>
+				<div class="row">
+					<div class="col-lg">
+						<div class="row">
+							<div class="col-sm">
+								<mat-form-field appearance="standard" class="w-100">
+									<mat-label>Custo por dia</mat-label>
+									<input formControlName="valor" matInput placeholder="R$ 100" autocomplete="off" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
+								</mat-form-field>
+							</div>
+							<div class="col-sm">
+								<mat-form-field appearance="standard" class="w-100">
+									<mat-label>Custo por mês</mat-label>
+									<input formControlName="valor_mes" matInput placeholder="R$ 1000" autocomplete="off" [readonly]="!valoresForm.controls['valor'].value" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
+								</mat-form-field>
+							</div>
+						</div>
+							<div class="row">
+								<div class="col-sm">
+									<h4 class="font-weight-bold">Sobre a taxa</h4>
+									<p>Uma taxa de {{maxTax}}% sempre será cobrada, selecione a porcentagem que será visualizada pelo locatário. Caso opte por 0%, ela estará totalmente embutida no valor da diária ou do mensal.</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<div class="d-flex flex-row justify-content-between">
+										<div *ngFor="let tax of thumbsTaxs; last as isLast" class="d-flex flex-row">
+											<span>{{tax}}%</span>
+										</div>
+									</div>
+									<mat-slider
+										min="0"
+										[max]="maxTax"
+										[step]="maxTax/2"
+										tickInterval="1"
+										class="w-100"
+										formControlName="taxa">
+									</mat-slider>
+								</div>
+							</div>
+					</div>
+					<div class="col-lg">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="text-center">Simulação de valores</h2>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm">
+								<reserva-card
+									[taxaMaxima]="maxTax"
+									[simulateMode]="true"
+									[valorDiaria]="desformatMoneyValue(valoresForm.controls['valor'].value)"
+									[valorMensal]="desformatMoneyValue(valoresForm.controls['valor_mes'].value)"
+									[taxa]="valoresForm.controls['taxa'].value">
+								</reserva-card>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div *ngIf="!isSending" class="d-flex mt-2 justify-content-between">
+				<button type="button" mat-raised-button matStepperPrevious>Voltar</button>
+				<button type="button" mat-raised-button color="primary" (click)="editMode? update() : save()" 
+					[disabled]="
+						informacoesForm.invalid || imgsForm.invalid ||
+						caracteristicasForm.invalid || documentosForm.invalid ||
+						enderecoForm.invalid || valoresForm.invalid">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
+			</div>
 
-            <div *ngIf="isSending" class="d-flex justify-content-center">
-                <mat-spinner></mat-spinner>
-            </div>
-        </form>
-    </mat-step>
-  </mat-vertical-stepper>
+			<div *ngIf="isSending" class="d-flex justify-content-center">
+				<mat-spinner></mat-spinner>
+			</div>
+		</form>
+	</mat-step>
+</mat-vertical-stepper>
