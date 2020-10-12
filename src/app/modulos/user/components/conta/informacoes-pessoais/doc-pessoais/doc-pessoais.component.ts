@@ -38,8 +38,9 @@ export class DocPessoaisComponent implements OnInit {
       this.documentosService.getAllSended().subscribe((response: any) => {
         response.forEach(element => {
           const temp = this.documentos.find(documento => documento.id === element.documento_id);
-          if (temp) temp.files = [{src: `${this.backEndUrl}/docs/${element.url}`, success: true}]
+          if (temp) temp.files = [{src: element.url, success: true}]
         });
+        console.log(this.documentos);
       });
     });
   }
