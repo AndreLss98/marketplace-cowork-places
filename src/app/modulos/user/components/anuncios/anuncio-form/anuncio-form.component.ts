@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 import { environment } from 'src/environments/environment';
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
-import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP } from 'src/app/shared/constants/functions';
+import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP, stringValueToBoolean } from 'src/app/shared/constants/functions';
 
 import { IbgeService } from 'src/app/shared/service/ibge.service';
 import { MapsService } from 'src/app/shared/service/maps.service';
@@ -261,6 +261,11 @@ export class AnuncioFormComponent implements OnInit {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
     console.log(this.anuncio);
+
+    this.anuncio.caracteristicas.forEach(carac => {
+      if (carac.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) carac.valor = stringValueToBoolean(carac.valor);
+    });
+
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
     this.informacoesForm.controls['descricao'].setValue(this.anuncio.descricao);
