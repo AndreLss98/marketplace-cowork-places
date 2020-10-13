@@ -1,3 +1,4 @@
+import { translateBoolValue } from 'src/app/shared/constants/functions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -26,13 +27,13 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
 
     this.createForm = formBuilder.group({
       nome: ['', [Validators.maxLength(200), Validators.required]],
-      dono: [false, [Validators.required]]
+      exclusivo_locatario: [false, [Validators.required]]
     });
 
     this.updateForm = formBuilder.group({
       id: [null, [Validators.required]],
       nome: ['', [Validators.maxLength(200), Validators.required]],
-      dono: [false, [Validators.required]]
+      exclusivo_locatario: [false, [Validators.required]]
     });
   }
 
@@ -44,10 +45,16 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   private configTable() {
     this.tableColumns = [
       { columnDef: "id", columnHeaderName: "Id", objectProperty: "id" },
-      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" }
+      { columnDef: "nome", columnHeaderName: "Nome", objectProperty: "nome" },
+      {
+        columnDef: "exclusivo",
+        columnHeaderName: "Exclusivo Locatário",
+        objectProperty: "exclusivo_locatario",
+        formatFunction: translateBoolValue
+      },
     ];
 
-    this.displayedColumns = ["id", "nome", "actions"];
+    this.displayedColumns = ["id", "nome", "exclusivo", "actions"];
     this.actions = { editar: true, excluir: true, visualizar: false };
   }
 

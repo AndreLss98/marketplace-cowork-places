@@ -139,7 +139,7 @@
 				</div>
 			</div>
 			<ng-container *ngFor="let documento of documentos">
-				<div class="row mb-2" *ngIf="!documento.dono || (documentosForm.controls['proprietario'].value && documento.dono)">
+				<div class="row mb-2" *ngIf="!documento.exclusivo_locatario || !(documentosForm.controls['proprietario'].value && documento.exclusivo_locatario)">
 					<div class="col">
 						<dropzone
 							[url]="sendDocsUrl"

@@ -260,7 +260,6 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-    console.log(this.anuncio);
 
     this.anuncio.caracteristicas.forEach(carac => {
       if (carac.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) carac.valor = stringValueToBoolean(carac.valor);
@@ -282,11 +281,12 @@ export class AnuncioFormComponent implements OnInit {
 
     this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
     
-    console.log('Documentos do tipo do anuncio: ', this.documentos)
     this.anuncio.documentos.forEach(documento => {
-      const doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
-      doc.files = [{ src: documento.url, success: true }];
-      this.documentosForm.controls[`${doc.id}`].setValue([documento.id]);
+      let doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
+      if (doc) {
+        doc.files = [{ src: documento.url, success: true }];
+        this.documentosForm.controls[`${doc.id}`].setValue([documento.id]);
+      }
     });
 
     Object.keys(this.enderecoForm.value).forEach(key => {
