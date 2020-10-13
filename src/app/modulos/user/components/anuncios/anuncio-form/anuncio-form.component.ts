@@ -131,7 +131,7 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.valoresForm = formBuilder.group({
-      valor: ['', [Validators.required]],
+      valor: ['', []],
       valor_mes: ['', []],
       taxa: [null, []]
     });
@@ -285,7 +285,7 @@ export class AnuncioFormComponent implements OnInit {
       let doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
       if (doc) {
         doc.files = [{ src: documento.url, success: true }];
-        this.documentosForm.controls[`${doc.id}`].setValue([documento.id]);
+        this.documentosForm.controls[`${doc.id}`].setValue([{ id: documento.id }]);
       }
     });
 
@@ -335,7 +335,6 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   private buildAnuncioObject(id?: number) {
-    console.log(this.documentosForm.value);
     let anuncio = {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
@@ -346,7 +345,7 @@ export class AnuncioFormComponent implements OnInit {
       ...this.valoresForm.value,
       imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
       documentos: Object.keys(this.documentosForm.value)
-        .filter(key => key !== 'proprietario' && this.documentosForm.value[key])
+        .filter(key => key !== 'proprietario' && this.documentosForm.value[key][0])
         .map(key => this.documentosForm.value[key][0].id),
       caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
         return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
@@ -358,6 +357,7 @@ export class AnuncioFormComponent implements OnInit {
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
 
     if (id) anuncio.id = id;
+    console.log('Temp aluguel: ', anuncio);
     return anuncio;
   }
 

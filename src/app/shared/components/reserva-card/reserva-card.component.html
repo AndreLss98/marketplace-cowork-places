@@ -25,7 +25,8 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="intervalForm.valid && (valorDiaria && desformatMoneyValue(valorMensal) !== 0) && desformatMoneyValue(valorMensal) < totalNoValorDiaria(qtdDias(), valorDiaria) && qtdDias() < 31">
+            <ng-container *ngIf="intervalForm.valid && (desformatMoneyValue(valorDiaria) !== 0 && desformatMoneyValue(valorMensal) !== 0)
+                && desformatMoneyValue(valorMensal) < totalNoValorDiaria(qtdDias(), valorDiaria) && qtdDias() < 31">
                 <div class="row">
                     <div class="col">
                         <p class="text-muted">Recomendamos uma reserva de mais de 30 dias</p>
@@ -37,11 +38,21 @@
 
                 <div *ngIf="simulateMode" class="row">
                     <div class="col">
-                        <p class="text-danger">Valor final a ser repassado para o locador: {{
-                            formatMoneyValue(qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria) }}
+                        <p class="text-danger">
+                            Valor final a ser repassado para o locador:
+                            {{
+                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria)
+                            }}
                             -
-                            {{ formatMoneyValue(qtdDias() >= 31 && valorMensal? (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100 )) }} =
-                            {{ formatMoneyValue(qtdDias() >= 31 && valorMensal? valorMensal - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 )) : valorDiaria - (valorDiaria * ((taxaMaxima - taxa) / 100 ))) }}
+                            {{
+                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                                (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100 ))
+                            }}
+                            =
+                            {{
+                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                                ((valorMensal / 31) - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 ))) : valorDiaria - (valorDiaria * ((taxaMaxima - taxa) / 100 )))
+                            }}
                         </p>
                     </div>
                 </div>
@@ -54,12 +65,27 @@
                 <div class="row">
                     <div class="col">
                         <p>
-                            {{ formatMoneyValue(qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0? valorMensal / 31 : valorDiaria) }} x
-                            {{ qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : '' }} {{qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''}}
-                            {{ qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1? qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : '' }}</p>
+                            {{
+                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
+                                valorMensal / 31 : valorDiaria)
+                            }} x
+                            {{
+                                qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : ''
+                            }}
+                            {{
+                                qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''
+                            }}
+                            {{
+                                qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1?
+                                qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : ''
+                            }}</p>
                     </div>
                     <div class="col">
-                        <p class="text-right">{{ formatMoneyValue(qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0? totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)) : totalNoValorDiaria(qtdDias(), valorDiaria)) }}</p>
+                        <p class="text-right">{{
+                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
+                            totalNoValorMensal(qtdDias(), valorMensal) :
+                            totalNoValorDiaria(qtdDias(), valorDiaria))
+                        }}</p>
                     </div>
                 </div>
             </ng-container>
@@ -70,7 +96,10 @@
                         <h4 class="font-weight-bold">Taxas</h4>
                     </div>
                     <div class="col">
-                        <p class="text-right">{{ formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria))) }}</p>
+                        <p class="text-right">{{
+                            formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                            valorMensal / 31 : valorDiaria)))
+                        }}</p>
                     </div>
                 </div>
             </ng-container>
@@ -87,7 +116,7 @@
                     <div class="col">
                         <p class="text-right">{{ 
                             formatMoneyValue(
-                                qtdDias() >= 31 && valorMensal?
+                                valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
                                 total(totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorMensal / 31))):
                                 total(totalNoValorDiaria(qtdDias(), calcularDiaria(valorDiaria, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorDiaria))))
                         }}</p>

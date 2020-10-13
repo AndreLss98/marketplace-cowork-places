@@ -236,13 +236,23 @@
 							<div class="col-sm">
 								<mat-form-field appearance="standard" class="w-100">
 									<mat-label>Custo por dia</mat-label>
-									<input formControlName="valor" matInput placeholder="R$ 100" autocomplete="off" (input)="formatField('valor', valoresForm, formatMoneyValue)" />
+									<input
+										formControlName="valor"
+										matInput placeholder="R$ 100"
+										autocomplete="off"
+										(input)="formatField('valor', valoresForm, formatMoneyValue)"
+										[required]="!valoresForm.controls['valor_mes'].value" />
 								</mat-form-field>
 							</div>
 							<div class="col-sm">
 								<mat-form-field appearance="standard" class="w-100">
 									<mat-label>Custo por mês</mat-label>
-									<input formControlName="valor_mes" matInput placeholder="R$ 1000" autocomplete="off" [readonly]="!valoresForm.controls['valor'].value" (input)="formatField('valor_mes', valoresForm, formatMoneyValue)" />
+									<input
+										formControlName="valor_mes"
+										matInput placeholder="R$ 1000"
+										autocomplete="off"
+										(input)="formatField('valor_mes', valoresForm, formatMoneyValue)"
+										[required]="!valoresForm.controls['valor'].value" />
 								</mat-form-field>
 							</div>
 						</div>
