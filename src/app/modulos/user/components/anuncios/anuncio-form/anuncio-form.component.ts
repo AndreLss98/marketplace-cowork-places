@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
+import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP } from 'src/app/shared/constants/functions';
 
 import { IbgeService } from 'src/app/shared/service/ibge.service';
@@ -12,9 +13,9 @@ import { MapsService } from 'src/app/shared/service/maps.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+
 import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
-import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-criar-anuncio',
@@ -48,6 +49,7 @@ export class AnuncioFormComponent implements OnInit {
   readonly formatCEP = formatCEP;
 
   public tipos = [];
+  public tipos_documentos = [];
   public maxTax: number;
   public thumbsTaxs = [];
 
@@ -81,7 +83,7 @@ export class AnuncioFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cepService: ViacepService,
     private tiposService: TiposService,
-    private alugavelService: AlugavelService,
+    private alugavelService: AlugavelService
   ) {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
@@ -130,10 +132,12 @@ export class AnuncioFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
-
+    console.log(this.tipos);
+    this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
+    console.log(this.tipos_documentos);
+    
     if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();
-
     this.ibgeService.getEstados().subscribe( response => {
       this.estados = response;
     });
