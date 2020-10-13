@@ -86,8 +86,7 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   }
 
   select({ id }) {
-    const temp = this.data.find(tipoDoc => tipoDoc.id === id);
-    this.tipoDocumento = temp;
+    this.tipoDocumento = this.data.find(tipoDoc => tipoDoc.id === id);
     this.updateForm.reset({
       id: this.tipoDocumento.id,
       nome: this.tipoDocumento.nome,

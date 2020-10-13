@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { translateBoolValue } from 'src/app/shared/constants/functions';
 
@@ -9,6 +9,7 @@ import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.s
 
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { TiposAlugaveisDocumentosService } from 'src/app/shared/service/tipos-alugaveis-documentos.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private tiposServive: TiposService,
-    public caracteristicasService: CaracteristicasService
+    public caracteristicasService: CaracteristicasService,
+    public tipoAlugavelDocumento: TiposAlugaveisDocumentosService
   ) {
     super();
 
@@ -41,6 +43,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       caracteristicas: [null, [Validators.required]],
+      documentos: [null, [Validators.required]],
       id: [null]
     });
 
@@ -49,7 +52,8 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       nome: ["", [Validators.required]],
       icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
-      caracteristicas: [null, [Validators.required]]
+      caracteristicas: [null, [Validators.required]],
+      documentos: [null, [Validators.required]],
     });
   }
 
@@ -86,6 +90,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       icone: this.tipo.icone,
       descricao: this.tipo.descricao,
       caracteristicas: this.tipo.caracteristicas,
+      documentos: this.tipo.documentos,
       id: this.tipo.id
     });
   }
@@ -97,6 +102,8 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     this.tiposServive.update(id, update).subscribe((response) => {
       this.fetchAll();
       this.tipo = null;
+    }, (error) => {
+      console.log(error);
     });
   }
 

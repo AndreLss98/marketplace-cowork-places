@@ -61,6 +61,17 @@
           </mat-form-field>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Documentos</mat-label>
+            <mat-select formControlName="documentos" multiple>
+              <mat-option *ngFor="let tipoDocumento of tipoAlugavelDocumento.tiposDocumentos" [value]="tipoDocumento.id">{{tipoDocumento.nome}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
       
       <div class="d-flex justify-content-end">
         <button
@@ -112,9 +123,9 @@
         </div>
       </div>
   
-      <div class="row">
+      <div class="row mt-2">
         <div class="col">
-          <mat-checkbox formControlName="disponivel">Disponível</mat-checkbox>
+          <mat-slide-toggle formControlName="disponivel">Disponível</mat-slide-toggle>
         </div>
       </div>
 
@@ -124,6 +135,17 @@
             <mat-label>Características</mat-label>
             <mat-select formControlName="caracteristicas" multiple>
               <mat-option *ngFor="let caracteristica of caracteristicasService.caracteristicas" [value]="caracteristica.id">{{caracteristica.nome}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Documentos</mat-label>
+            <mat-select formControlName="documentos" multiple>
+              <mat-option *ngFor="let tipoDocumento of tipoAlugavelDocumento.tiposDocumentos" [value]="tipoDocumento.id">{{tipoDocumento.nome}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
