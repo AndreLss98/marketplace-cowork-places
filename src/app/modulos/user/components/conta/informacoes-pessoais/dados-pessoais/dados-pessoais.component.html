@@ -41,7 +41,7 @@
                         <mat-form-field appearance="standard" class="w-100">
                             <mat-label>Data de nascimento</mat-label>
                             <input matInput formControlName="data_nascimento"
-                                [matDatepicker]="picker" placeholder="dd/mm/yyyy" />
+                                [matDatepicker]="picker" placeholder="dd/mm/yyyy" required/>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker startView="multi-year" #picker disabled="false"></mat-datepicker>
                         </mat-form-field>

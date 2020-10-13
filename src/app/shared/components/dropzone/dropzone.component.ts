@@ -89,6 +89,7 @@ export class DropzoneComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.label) this.label = this.singleFile? 'Clique ou arraste uma imagem' : 'Clique ou arraste uma ou mais imagens';
+    if(!this.files) this.files = [];
   }
 
   ngAfterViewInit() {

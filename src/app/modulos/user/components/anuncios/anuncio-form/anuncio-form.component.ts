@@ -66,11 +66,7 @@ export class AnuncioFormComponent implements OnInit {
   public estados;
   public distritos;
   public documentosForm: FormGroup;
-  public documentos = [
-    { proprietario: null, nome: "Escritura pública ou contrato de alienação", nome_campo: 'escritura', files: [] },
-    { proprietario: false, nome: "Contrato de locação", nome_campo: 'contrato' },
-    { proprietario: false, nome: "Documento com foto e CPF do proprietário", nome_campo: 'cpf_selfie' }
-  ];
+  public documentos = [];
   public valoresForm: FormGroup;
 
   constructor(
@@ -100,6 +96,20 @@ export class AnuncioFormComponent implements OnInit {
         this.caracteristicas = response;
         this.configCaracteristicasForm();
       });
+
+      this.documentos = this.tipos_documentos
+      .filter(tipo_doc => this.tipos
+        .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
+      
+      let tempDocFormGroup = {
+        proprietario: new FormControl([null, [Validators.required]])
+      };
+
+      this.documentos.map(doc => doc.id).forEach(id => {
+        tempDocFormGroup[`${id}`] = new FormControl([null, []]);
+      });
+
+      this.documentosForm  = new FormGroup(tempDocFormGroup);
     });
 
     this.caracteristicasForm = formBuilder.group({});
@@ -117,10 +127,7 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.documentosForm = formBuilder.group({
-      proprietario: [null, [Validators.required]],
-      escritura: [null, []],
-      contrato: [null, []],
-      cpf_selfie: [null, []]
+      proprietario: [null, [Validators.required]]
     });
 
     this.valoresForm = formBuilder.group({
@@ -132,9 +139,7 @@ export class AnuncioFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
-    console.log(this.tipos);
     this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
-    console.log(this.tipos_documentos);
     
     if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();
@@ -152,7 +157,7 @@ export class AnuncioFormComponent implements OnInit {
     form.controls[field].setValue(formatFunction(form.controls[field].value));
   }
 
-  public bindingFormField(field: string, form: FormGroup, data: any) {
+  public bindingFormField(field, form: FormGroup, data: any) {
     form.controls[field].setValue(data);
   }
 
@@ -255,7 +260,7 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-
+    console.log(this.anuncio);
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
     this.informacoesForm.controls['descricao'].setValue(this.anuncio.descricao);
@@ -271,10 +276,12 @@ export class AnuncioFormComponent implements OnInit {
     this.infoAdicionais = this.anuncio.infos;
 
     this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
-
+    
+    console.log('Documentos do tipo do anuncio: ', this.documentos)
     this.anuncio.documentos.forEach(documento => {
-      const doc = this.documentos.find(doc => doc.nome_campo === documento.nome);
-      doc.files = [{ src: `${environment.apiUrl}/docs/${documento.url}`, success: true }];
+      const doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
+      doc.files = [{ src: documento.url, success: true }];
+      this.documentosForm.controls[`${doc.id}`].setValue([documento.id]);
     });
 
     Object.keys(this.enderecoForm.value).forEach(key => {
@@ -323,6 +330,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   private buildAnuncioObject(id?: number) {
+    console.log(this.documentosForm.value);
     let anuncio = {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
@@ -332,7 +340,9 @@ export class AnuncioFormComponent implements OnInit {
       },
       ...this.valoresForm.value,
       imagens: this.imgsForm.controls['imgs'].value.map(element => element.img.id),
-      documentos: Object.keys(this.documentosForm.value).filter(key => key !== 'proprietario' && this.documentosForm.value[key]).map(key => this.documentosForm.value[key][0].id),
+      documentos: Object.keys(this.documentosForm.value)
+        .filter(key => key !== 'proprietario' && this.documentosForm.value[key])
+        .map(key => this.documentosForm.value[key][0].id),
       caracteristicas: Object.keys(this.caracteristicasForm.value).map(caracteristica => {
         return { caracteristica_id: Number(caracteristica), valor: this.caracteristicasForm.value[caracteristica] }
       }),

@@ -139,7 +139,7 @@
 				</div>
 			</div>
 			<ng-container *ngFor="let documento of documentos">
-				<div class="row mb-2" *ngIf="documentosForm.controls['proprietario'].value !== null && documento.proprietario === null || (documentosForm.controls['proprietario'].value === false && documento.proprietario === false)">
+				<div class="row mb-2" *ngIf="!documento.dono || (documentosForm.controls['proprietario'].value && documento.dono)">
 					<div class="col">
 						<dropzone
 							[url]="sendDocsUrl"
@@ -148,8 +148,8 @@
 							[files]="documento.files"
 							[canDelete]="false"
 							[listFileTypes]="docsTypes"
-							[customFields]="[{ fieldName: 'nome', value: documento.nome_campo }]"
-							(data)="bindingFormField(documento.nome_campo, documentosForm, $event)"></dropzone>
+							[customFields]="[{ fieldName: 'tipo_alugavel_documento_id', value: documento.id }]"
+							(data)="bindingFormField(documento.id, documentosForm, $event)"></dropzone>
 					</div>
 				</div>
 			</ng-container>
