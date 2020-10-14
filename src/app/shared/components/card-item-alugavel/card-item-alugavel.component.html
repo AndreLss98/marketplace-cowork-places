@@ -63,6 +63,13 @@
 
     <div class="d-flex justify-content-between py-1 px-2 cursor-pointer" (click)="goToSpace()">
         <span class="font-weight-bold">INVESTIMENTO/DIA</span>
-        <span>{{ formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor)) }}</span>
+        <ng-container [ngSwitch]="desformatMoneyValue(data.valor)">
+            <span *ngSwitchCase="false">
+                {{formatMoneyValue(calcularDiaria(data.valor_mes / 31, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor_mes / 31))}}
+            </span>
+            <span *ngSwitchDefault>
+                {{formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor))}}
+            </span>
+        </ng-container>
     </div>
 </mat-card>

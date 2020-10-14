@@ -1,8 +1,11 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { LoginComponent } from '../../modal/login/login.component';
-import { LoginService } from '../../service/login.service';
+
+import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
+
+import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 @Component({
   selector: 'account-btn',
@@ -15,6 +18,7 @@ export class AccountBtnComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     public login: LoginService,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {

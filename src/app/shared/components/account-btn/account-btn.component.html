@@ -5,7 +5,7 @@
     container="body"
     triggers="manual" placement="bottom-right"
     #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
-    {{ login.logged_status ? "Minha conta" : "Entrar" }}
+    {{ login.logged_status ? "Olá, " + userService.user_data.nome : "Entrar" }}
 </button>
 
 <ng-template #popContent>

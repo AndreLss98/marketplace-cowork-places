@@ -3,9 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
 
-import { formatMoneyValue, stringValueToBoolean } from '../../constants/functions';
 import { Financeiro } from 'src/app/shared/classes/financeiro';
-import { ENUM_ALUGAVEL_CARACTERISTICAS, TIPOS_CAMPOS } from '../../constants/constants';
+import { ENUM_ALUGAVEL_CARACTERISTICAS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
+import { desformatMoneyValue, formatMoneyValue, stringValueToBoolean } from 'src/app/shared/constants/functions';
 
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
@@ -18,6 +18,7 @@ import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 export class CardItemAlugavelComponent extends Financeiro implements OnInit {
 
   readonly formatMoneyValue = formatMoneyValue;
+  readonly desformatMoneyValue = desformatMoneyValue;
   readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
 
   @Input('data')
