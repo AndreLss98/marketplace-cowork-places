@@ -21,35 +21,36 @@
     </ng-sidebar>
 
     <div ng-sidebar-content>
-        <nav #nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white">
-            <a class="navbar-brand" routerLink="/home">
-                <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button" data-toggle="collapse" aria-expanded="false"
-                aria-label="Toggle navigation" (click)="toggleSideMenu()">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse">
-
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" (click)="comoFunciona()">Como Funciona</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                        target="_blank"
-                        [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'">Ajuda</a>
-                    </li>
-                </ul>
-                <account-btn></account-btn>
-            </div>
-        </nav>
+        <div class="sticky-top shadow-sm bg-white">
+            <nav #nav class="navbar navbar-expand-lg navbar-light bg-white container-sm">
+                <a class="navbar-brand" routerLink="/home">
+                    <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button" data-toggle="collapse" aria-expanded="false"
+                    aria-label="Toggle navigation" (click)="toggleSideMenu()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link cursor-pointer" (click)="comoFunciona()">Como Funciona</a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            target="_blank"
+                            [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'">Ajuda</a>
+                        </li>
+                    </ul>
+                    <account-btn></account-btn>
+                </div>
+            </nav>
+        </div>
         <router-outlet></router-outlet>
         <app-footer></app-footer>
-        <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
+        <app-feedback-button *ngIf="userService.user_data"></app-feedback-button>
     </div>
 </ng-sidebar-container>
