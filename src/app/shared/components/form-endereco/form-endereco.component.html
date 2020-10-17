@@ -1,0 +1,66 @@
+<form [formGroup]="enderecoForm">
+    <div class="row">
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>CEP</mat-label>
+                <input
+                    matInput
+                    formControlName="cep"
+                    autocomplete="off"
+                    placeholder="xx.xxx.xxx"
+                    maxlength="10"
+                    (blur)="validarCep()"
+                    (input)="formatField('cep', enderecoForm, formatCEP)" />
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Rua</mat-label>
+                <input formControlName="rua" matInput autocomplete="off" placeholder="Avenida Paulista" minlength="1" maxlength="200" />
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Número</mat-label>
+                <input formControlName="numero" autocomplete="off" matInput type="number" min="0" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Bairro</mat-label>
+                <input formControlName="bairro" autocomplete="off" matInput placeholder="Setor Bueno" minlength="1" maxlength="200" />
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Complemento</mat-label>
+                <input formControlName="complemento" autocomplete="off" matInput placeholder="Bloco, apartamento..." minlength="1" maxlength="250" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado" matInput (selectionChange)="loadDistritoByEstado()">
+                    <mat-option *ngFor="let estado of estados" [value]="estado.nome">{{estado.nome}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm">
+            <mat-form-field appearance="standard" class="w-100">
+                <mat-label>Cidade</mat-label>
+                <mat-select formControlName="cidade" matInput>
+                    <mat-option *ngFor="let distrito of distritos" [value]="distrito.nome">{{distrito.nome}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="lngLatPlace && showMap">
+        <div class="col">
+            <maps (localChange)="onLocalChange($event)" [lngLatPlace]="lngLatPlace"></maps>
+        </div>
+    </div>
+</form>

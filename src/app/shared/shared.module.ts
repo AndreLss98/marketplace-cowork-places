@@ -6,15 +6,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MapsComponent } from './components/maps/maps.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { DropzoneComponent } from './components/dropzone/dropzone.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
+import { AccountBtnComponent } from './components/account-btn/account-btn.component';
 import { BasicTableComponent } from './components/basic-table/basic-table.component';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
+import { FormEnderecoComponent } from './components/form-endereco/form-endereco.component';
+import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
 import { ImgThumbnailComponent } from './components/img-thumbnail/img-thumbnail.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
+import { UserMenuComponent } from './components/sidemenu/components/user-menu/user-menu.component';
+import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { FormCreateFieldComponent } from './components/form-create-field/form-create-field.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
@@ -58,12 +65,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { UserMenuComponent } from './components/sidemenu/components/user-menu/user-menu.component';
-import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
-import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
-import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
-import { AccountBtnComponent } from './components/account-btn/account-btn.component';
-import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.compo
     AccountBtnComponent,
     RedesSociaisComponent,
     ConfirmModalComponent,
+    FormEnderecoComponent,
   ],
   imports: [
     NgbModule,
@@ -154,6 +156,7 @@ import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.compo
     RedesSociaisComponent,
     ConfirmModalComponent,
     ImgThumbnailComponent,
+    FormEnderecoComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
     QuestionAnsweredComponent,
