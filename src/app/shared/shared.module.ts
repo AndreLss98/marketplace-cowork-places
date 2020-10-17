@@ -26,6 +26,7 @@ import { CancelDialogComponent } from './components/contrato/cancel-dialog/cance
 import { FormCreateFieldComponent } from './components/form-create-field/form-create-field.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
 import { CardItemAlugavelComponent } from './components/card-item-alugavel/card-item-alugavel.component';
+import { EmptyPageMessageComponent } from './components/empty-page-message/empty-page-message.component';
 import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -73,25 +74,25 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DropzoneComponent,
     MdViewerComponent,
     ContratoComponent,
-    BasicModalComponent,
-    BasicTableComponent,
-    ImgCircularComponent,
-    ReservaCardComponent,
-    CancelDialogComponent,
-    ImgThumbnailComponent,
-    PageableTableComponent,
-    FormCreateFieldComponent,
-    QuestionAnsweredComponent,
-    CardItemAlugavelComponent,
-    FilterPageableTableComponent,
-
     UserMenuComponent,
     SidemenuComponent,
     SearchboxComponent,
     AccountBtnComponent,
+    BasicModalComponent,
+    BasicTableComponent,
+    ImgCircularComponent,
+    ReservaCardComponent,
     RedesSociaisComponent,
     ConfirmModalComponent,
     FormEnderecoComponent,
+    CancelDialogComponent,
+    ImgThumbnailComponent,
+    PageableTableComponent,
+    FormCreateFieldComponent,
+    EmptyPageMessageComponent,
+    QuestionAnsweredComponent,
+    CardItemAlugavelComponent,
+    FilterPageableTableComponent
   ],
   imports: [
     NgbModule,
@@ -161,6 +162,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormCreateFieldComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
+    EmptyPageMessageComponent,
     FilterPageableTableComponent,
 
     MatBadgeModule,
