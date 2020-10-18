@@ -6,12 +6,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 import { environment } from 'src/environments/environment';
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
-import { formatMoneyValue, desformatMoneyValue, formatCEP, desformatCEP, stringValueToBoolean } from 'src/app/shared/constants/functions';
+import { formatMoneyValue, desformatMoneyValue, formatCEP, stringValueToBoolean } from 'src/app/shared/constants/functions';
 
-import { IbgeService } from 'src/app/shared/service/ibge.service';
-import { MapsService } from 'src/app/shared/service/maps.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
-import { ViacepService } from 'src/app/shared/service/viacep.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
@@ -62,9 +59,6 @@ export class AnuncioFormComponent implements OnInit {
   public caracteristicasForm: FormGroup;
   public caracteristicas = [];
   public enderecoForm: FormGroup;
-  public lngLatPlace;
-  public estados;
-  public distritos;
   public documentosForm: FormGroup;
   public documentos = [];
   public valoresForm: FormGroup;
@@ -74,10 +68,7 @@ export class AnuncioFormComponent implements OnInit {
     private route: ActivatedRoute,
     private matDialog: MatDialog,
     private snackBar: MatSnackBar,
-    private mapService: MapsService,
-    private ibgeService: IbgeService,
     private formBuilder: FormBuilder,
-    private cepService: ViacepService,
     private tiposService: TiposService,
     private alugavelService: AlugavelService
   ) {
@@ -102,7 +93,8 @@ export class AnuncioFormComponent implements OnInit {
         .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
       
       let tempDocFormGroup = {
-        proprietario: new FormControl([null, [Validators.required]])
+        proprietario: new FormControl([null, [Validators.required]]),
+        pessoaJuridica: new FormControl([false, []])
       };
 
       this.documentos.map(doc => doc.id).forEach(id => {
@@ -127,7 +119,8 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.documentosForm = formBuilder.group({
-      proprietario: [null, [Validators.required]]
+      proprietario: [null, [Validators.required]],
+      pessoaJuridica: [false, []]
     });
 
     this.valoresForm = formBuilder.group({
@@ -143,9 +136,6 @@ export class AnuncioFormComponent implements OnInit {
     
     if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();
-    this.ibgeService.getEstados().subscribe( response => {
-      this.estados = response;
-    });
   }
 
   private configTax() {
@@ -184,49 +174,6 @@ export class AnuncioFormComponent implements OnInit {
   public onLocalChange(event) {
     this.enderecoForm.controls['latitude'].setValue(event.lat);
     this.enderecoForm.controls['longitude'].setValue(event.lng);
-  }
-
-  public validarCep() {
-    this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value)).subscribe( response => {
-      this.lngLatPlace = null;
-      this.enderecoForm.controls['estado'].enable();
-      this.enderecoForm.controls['cidade'].enable();
-
-      if(response['erro'] === true){
-        this.enderecoForm.controls['cep'].setErrors({'notfound': true})
-        return;
-      }
-
-      this.enderecoForm.controls['rua'].setValue(response['logradouro']);
-      this.enderecoForm.controls['bairro'].setValue(response['bairro']);
-      this.enderecoForm.controls['complemento'].enable();
-
-      this.mapService.getLatitudeLongitude(this.enderecoForm.controls['cep'].value).subscribe(response => {
-        this.lngLatPlace = {
-          latitude: response.results[0].geometry.location.lat,
-          longitude: response.results[0].geometry.location.lng
-        }
-      }, (error) => {
-        console.log(error);
-      });
-
-      this.ibgeService.getMunicipioPorId(response['ibge']).subscribe( data => {
-        this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].nome);
-        this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].nome);
-        this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
-      }, err => {
-        this.snackBar.open("Ocorreu alguem problema, tente novamente mais tarde", 'OK', {duration: 5000, verticalPosition: 'top'});
-      })
-    }, err => {
-      // console.log(err);
-    });
-  }
-
-  public loadDistritoByEstado() {
-    let uf_id = this.enderecoForm.controls['estado'].value;
-    this.ibgeService.getCidadesPorEstado(uf_id).subscribe(response => {
-      this.distritos = response;
-    });
   }
 
   public save() {
@@ -292,11 +239,6 @@ export class AnuncioFormComponent implements OnInit {
     Object.keys(this.enderecoForm.value).forEach(key => {
       this.enderecoForm.controls[key].setValue(this.anuncio.local[key]);
     });
-
-    this.lngLatPlace = {
-      latitude: this.enderecoForm.controls['latitude'].value,
-      longitude: this.enderecoForm.controls['longitude'].value
-    }
 
     Object.keys(this.valoresForm.value).forEach(key => {
       if (key === 'valor' || key === 'valor_mes') {
