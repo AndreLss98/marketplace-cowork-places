@@ -10,11 +10,5 @@
     </div>
 </div>
 <ng-template #emptyFavorito>
-    <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 150px;">
-        <a class="icon fa fa-floppy-o fa-4x"></a>
-
-        <h1 style="opacity: 30%;">
-            Não há espaços salvo.
-        </h1>
-    </div>
+    <empty-page-message [message]="'Não há espaços salvo.'" [classIcone]="'fa-floppy-o'"></empty-page-message>
 </ng-template>
