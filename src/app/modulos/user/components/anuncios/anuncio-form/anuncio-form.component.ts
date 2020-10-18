@@ -75,7 +75,8 @@ export class AnuncioFormComponent implements OnInit {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo_id: [null, [Validators.required]],
-      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]]
+      descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]],
+      qtd_maxima_reservas: [1, [Validators.min(1), Validators.required]]
     });
 
     this.imgsForm = formBuilder.group({
@@ -83,7 +84,8 @@ export class AnuncioFormComponent implements OnInit {
     });
 
     this.informacoesForm.controls['tipo_id'].valueChanges.subscribe(() => {
-      this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo_id'].value).subscribe(response => {
+      this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo_id'].value)
+      .subscribe(response => {
         this.caracteristicas = response;
         this.configCaracteristicasForm();
       });
@@ -153,6 +155,7 @@ export class AnuncioFormComponent implements OnInit {
 
   private configCaracteristicasForm() {
     let group = {};
+
     this.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) {
         group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, [ Validators.required ]);

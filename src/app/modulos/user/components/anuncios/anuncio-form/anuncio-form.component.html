@@ -21,6 +21,15 @@
 
 			<div class="row">
 				<div class="col">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Quantidade máxima de reservas simultâneas</mat-label>
+						<input matInput formControlName="qtd_maxima_reservas" min="1" type="number" step="1"/>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
 					<mat-form-field appearance="outline" class="w-100">
 						<mat-label>Descrição</mat-label>
 							<textarea maxlength="500"
@@ -54,29 +63,39 @@
 
 	<mat-step [stepControl]="caracteristicasForm">
 		<ng-template matStepLabel>Características</ng-template>
-		<div class="row" *ngFor="let caracteristica of caracteristicas">
-			<div class="col-sm">
-				<ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
-					<mat-checkbox *ngSwitchCase="'binario'" [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
-						<mat-form-field *ngSwitchCase="'numerico'" appearance="standard">
+		<div class="row">
+			<ng-container *ngFor="let caracteristica of caracteristicas">
+				<div *ngIf="caracteristica.tipo_campo.tipo !== 'binario'" class="col-sm">
+					<ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
+						<mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
 							<mat-label>{{ caracteristica.nome }}</mat-label>
 							<input matInput [formControlName]="caracteristica.id" autocomplete="off" type="number" />
 						</mat-form-field>
-					
-						<mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard">
+						
+						<mat-form-field *ngSwitchCase="'texto_simples'" appearance="standard" class="w-100">
 							<mat-label>{{ caracteristica.nome }}</mat-label>
 							<input matInput [formControlName]="caracteristica.id" autocomplete="off" type="text" />
 						</mat-form-field>
-
-						<mat-form-field *ngSwitchCase="'selecao'" appearance="standard">
+	
+						<mat-form-field *ngSwitchCase="'selecao'" appearance="standard" class="w-100">
 							<mat-label>{{ caracteristica.nome }}</mat-label>
 							<mat-select [formControlName]="caracteristica.id" [multiple]="caracteristica.tipo_campo.propriedades.multiple">
 								<mat-option *ngFor="let possibilidade of caracteristica.tipo_campo.propriedades.possibilidades" [value]="possibilidade.id">{{possibilidade.valor}}</mat-option>
 							</mat-select>
 						</mat-form-field>
 					</ng-container>
-			</div>
+				</div>
+			</ng-container>
 		</div>
+
+		<div class="row">
+			<ng-container *ngFor="let caracteristica of caracteristicas" [formGroup]="caracteristicasForm">
+				<div *ngIf="caracteristica.tipo_campo.tipo === 'binario'" class="col-sm">
+					<mat-checkbox [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
+				</div>
+			</ng-container>
+		</div>
+
 		<div class="row">
 			<div class="col">
 				<mat-form-field appearance="standard" class="w-100">
@@ -139,20 +158,24 @@
 				</div>
 			</div>
 
-			<div class="row" *ngIf="documentosForm.controls['pessoaJuridica'].value; else PessoaFisica">
-				<div class="col-sm">
-					<mat-form-field appearance="standard" class="w-100">
-						<mat-label>CNPJ</mat-label>
-						<input matInput autocomplete="off" required />
-					</mat-form-field>
+			<ng-container *ngIf="!documentosForm.controls['proprietario'].value">
+				<div class="row" *ngIf="documentosForm.controls['pessoaJuridica'].value; else PessoaFisica">
+					<div class="col-sm">
+						<mat-form-field appearance="standard" class="w-100">
+							<mat-label>CNPJ</mat-label>
+							<input matInput autocomplete="off" required />
+						</mat-form-field>
+					</div>
+					<div class="col-sm">
+						<mat-form-field appearance="standard" class="w-100">
+							<mat-label>Razão Social</mat-label>
+							<input matInput autocomplete="off" required />
+						</mat-form-field>
+					</div>
 				</div>
-				<div class="col-sm">
-					<mat-form-field appearance="standard" class="w-100">
-						<mat-label>Razão Social</mat-label>
-						<input matInput autocomplete="off" required />
-					</mat-form-field>
-				</div>
-			</div>
+	
+				<form-endereco [showMap]="false"></form-endereco>
+			</ng-container>
 
 			<ng-template #PessoaFisica>
 				<div class="row">
@@ -171,9 +194,7 @@
 				</div>
 			</ng-template>
 
-			<form-endereco [showMap]="false"></form-endereco>
-
-			<div class="row" *ngIf="documentosForm.controls['proprietario'].value !== null">
+			<div class="row">
 				<div class="col">
 					<h4 class="text-center">Nós envie os documentos abaixo</h4>
 				</div>
