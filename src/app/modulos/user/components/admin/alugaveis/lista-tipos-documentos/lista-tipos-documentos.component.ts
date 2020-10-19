@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 import { TiposAlugaveisDocumentosService } from 'src/app/shared/service/tipos-alugaveis-documentos.service';
+import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 
 @Component({
   selector: 'lista-tipos-documentos',
@@ -11,6 +12,10 @@ import { TiposAlugaveisDocumentosService } from 'src/app/shared/service/tipos-al
   styleUrls: ['./lista-tipos-documentos.component.scss']
 })
 export class ListaTiposDocumentosComponent extends BasicTableComponent implements OnInit {
+
+  readonly docsTypes: acceptableFileType[] = [
+    { mime_type: "application/pdf", nome: ".pdf"}
+  ];
 
   public isLoading: boolean = false;
 
