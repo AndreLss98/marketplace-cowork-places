@@ -49,9 +49,7 @@ export class AnuncioFormComponent implements OnInit {
   public tipos_documentos = [];
   public maxTax: number;
   public thumbsTaxs = [];
-
   public isSending: boolean = false;
-
   public informacoesForm: FormGroup;
   public infoAdicionais = [];
   public imgsForm: FormGroup;

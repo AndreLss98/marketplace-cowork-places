@@ -29,6 +29,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   @Input('taxaMaxima')
   public taxaMaxima: number;
 
+  @Input('reservasMaxima')
+  public reservasMaxima: number;
+
   @Input('valorDiaria')
   public valorDiaria: number;
 
@@ -58,6 +61,7 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     this.intervalForm = formBuilder.group({
       entrada: [addDays(new Date(), 2), [Validators.required]],
       saida: [addDays(new Date(), 2), [Validators.required]],
+      qtd_reservas: [1, [Validators.min(1), Validators.max(this.reservasMaxima)]]
     });
 
     this.intervalForm.valueChanges.subscribe(() => {
@@ -116,5 +120,15 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
       range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
     
       return intervalorReservado? false : true;
+  }
+
+  addQtdReservas() {
+    this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value + 1);
+  }
+
+  removeQtdReservas() {
+    if (this.intervalForm.controls['qtd_reservas'].value > 1) {
+      this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value - 1);
+    }
   }
 }
