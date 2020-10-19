@@ -8,7 +8,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { environment } from 'src/environments/environment';
 
 import { UserService } from 'src/app/shared/service/user.service';
-import { formatCPF, formatServerDate, formatTelefone, dateToMomentObject } from 'src/app/shared/constants/functions';
+import { formatCPF, formatServerDate, formatTelefone, dateToMomentObject, formatCNPJ } from 'src/app/shared/constants/functions';
 
 const CUSTOM_DATE_FORMAT = {
   parse: {
@@ -45,6 +45,7 @@ export class DadosPessoaisComponent implements OnInit {
 
   readonly formatTelefone = formatTelefone;
   readonly formatCPF = formatCPF;
+  readonly formatCNPJ = formatCNPJ;
 
   public dadosPessoaisValido = true;
   public editDadosPessoais = false;
@@ -52,6 +53,7 @@ export class DadosPessoaisComponent implements OnInit {
   public selectedFile: File = null;
   public imgUrl;
   public editInfoForm: FormGroup;
+  public juridicForm: FormGroup;
   public canEditCPF = false;
 
   constructor(
@@ -69,6 +71,11 @@ export class DadosPessoaisComponent implements OnInit {
       nome: ['', [Validators.required]],
       sobrenome: ['', [Validators.required]],
       email: [{value: '', disabled: true}, [Validators.required]]
+    });
+
+    this.juridicForm = formBuilder.group({
+      cnpj: [null, [Validators.maxLength(18), Validators.required]],
+      razao_social: [null, [Validators.required]]
     });
   }
 

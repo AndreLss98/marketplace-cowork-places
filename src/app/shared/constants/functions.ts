@@ -76,3 +76,12 @@ export function formatTelefone(telefone: string) {
       .replace(/^(\(\d{2}\) \d{5})(\d)/, "$1-$2")
       .replace(/^(\(\d{2}\) \d{5}-\d{4})(.)/, "$1");
 }
+
+export function formatCNPJ(value: string) {
+    return value
+        .replace(/\D/g, '')
+        .replace(/^([0-9]{2})([0-9]{1,})/, '$1.$2')
+        .replace(/^([0-9]{2}\.[0-9]{3})([0-9]{1,})/, '$1.$2')
+        .replace(/^([0-9]{2}\.[0-9]{3}\.[0-9]{3})([0-9]{1,})/, '$1/$2')
+        .replace(/^([0-9]{2}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4})([0-9]{1,})/, '$1-$2');
+}

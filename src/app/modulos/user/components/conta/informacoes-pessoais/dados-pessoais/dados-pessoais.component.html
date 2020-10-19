@@ -26,19 +26,19 @@
 				<input hidden #imgInput type="file" (change)="onFileSelected($event)">
 			</div>
 
-			<form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
-				<div class="row my-2">
-					<div class="col d-flex align-items-center">
-						<mat-divider></mat-divider>
-					</div>
-					<div class="col">
-						<h2 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">Pessoa Física</h2>
-					</div>
-					<div class="col d-flex align-items-center">
-						<mat-divider></mat-divider>
-					</div>
+			<div class="row m-2">
+				<div class="col d-flex align-items-center">
+					<mat-divider></mat-divider>
 				</div>
+				<div class="col">
+					<h2 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">Pessoa Física</h2>
+				</div>
+				<div class="col d-flex align-items-center">
+					<mat-divider></mat-divider>
+				</div>
+			</div>
 
+			<form [formGroup]="editInfoForm" (ngSubmit)="actionInfoForm()">
 				<div class="row">
 					<div class="col-sm">
 						<mat-form-field appearance="standard" class="w-100">
@@ -99,42 +99,63 @@
 					</div>
 				</div>
 
-				<div class="row my-2">
-					<div class="col d-flex align-items-center">
-						<mat-divider></mat-divider>
-					</div>
-					<div class="col">
-						<h2 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">Pessoa Jurídica</h2>
-						<h5 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">(Opcional)</h5>
-					</div>
-					<div class="col d-flex align-items-center">
-						<mat-divider></mat-divider>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>CNPJ</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
-					</div>
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>Razão Social</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
-					</div>
-				</div>
-
-				<form-endereco [showMap]="false"></form-endereco>
-
 				<div class="d-flex align-items-center justify-content-center my-3">
 					<button mat-raised-button color="primary" type="submit"
 						[disabled]="editInfoForm.invalid || editInfoForm.pristine">Atualizar</button>
 				</div>
 			</form>
 		</mat-card>
+
+		<mat-card class="my-2 mat-elevation-z2">
+
+			<div class="row m-2">
+				<div class="col d-flex align-items-center">
+					<mat-divider></mat-divider>
+				</div>
+				<div class="col">
+					<h2 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">Pessoa Jurídica</h2>
+					<h5 class="m-0 p-0 text-center font-weight-normal" style="color: gray;">(Opcional)</h5>
+				</div>
+				<div class="col d-flex align-items-center">
+					<mat-divider></mat-divider>
+				</div>
+			</div>
+
+			<form [formGroup]="juridicForm">
+				<div class="row">
+					<div class="col-sm">
+						<mat-form-field appearance="standard" class="w-100">
+							<mat-label>CNPJ</mat-label>
+							<input
+								matInput
+								formControlName="cnpj"
+								autocomplete="off"
+								maxlength="18"
+								(input)="formatField('cnpj', juridicForm, formatCNPJ)"
+								required />
+						</mat-form-field>
+					</div>
+					<div class="col-sm">
+						<mat-form-field appearance="standard" class="w-100">
+							<mat-label>Razão Social</mat-label>
+							<input matInput formControlName="razao_social" autocomplete="off" required />
+						</mat-form-field>
+					</div>
+				</div>
+	
+				<form-endereco [showMap]="false"></form-endereco>
+	
+				<div class="d-flex align-items-center justify-content-center my-3">
+					<button
+						mat-raised-button
+						color="primary"
+						type="submit"
+						[disabled]="juridicForm.invalid || juridicForm.pristine">Atualizar</button>
+				</div>
+			</form>
+
+		</mat-card>
+
 	</mat-tab>
 
 	<mat-tab>

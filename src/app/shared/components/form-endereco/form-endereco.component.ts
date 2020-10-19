@@ -81,11 +81,15 @@ export class FormEnderecoComponent implements OnInit {
         this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].nome);
         this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].nome);
         this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
-      }, err => {
-        this.snackBar.open("Ocorreu alguem problema, tente novamente mais tarde", 'OK', {duration: 5000, verticalPosition: 'top'});
+      }, (error) => {
+        this.snackBar.open(
+          "Ocorreu algum problema, tente novamente mais tarde",
+          "OK",
+          { duration: 5000, verticalPosition: "bottom" });
+        console.log(error);
       })
-    }, err => {
-      // console.log(err);
+    }, (error) => {
+      console.log(error);
     });
   }
 
