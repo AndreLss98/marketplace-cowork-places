@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { desformatCEP, formatCEP } from 'src/app/shared/constants/functions';
 
@@ -19,21 +19,41 @@ export class FormEnderecoComponent implements OnInit {
 
   @Input()
   public showMap: boolean = true;
+
+  @Input()
+  public original_form: FormGroup;
+
+  @Output('formChange')
+  public formChange = new EventEmitter();
   
-  public lngLatPlace;
   public estados;
   public distritos;
-  public enderecoForm: FormGroup;
+  public lngLatPlace;
+
+  public _enderecoForm: FormGroup;
+
+  get enderecoForm() {
+    return this._enderecoForm;
+  }
+
+  set enderecoForm(form) {
+    this._enderecoForm = form;
+    this.formChange.emit(this._enderecoForm);
+  }
 
   constructor(
     private snackBar: MatSnackBar,
     private mapService: MapsService,
     private ibgeService: IbgeService,
     private formBuilder: FormBuilder,
-    private cepService: ViacepService,
+    private cepService: ViacepService
   ) {
+    
+  }
+  
+  ngOnInit(): void {
 
-    this.enderecoForm = formBuilder.group({
+    this.enderecoForm = this.formBuilder.group({
       cep: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
       rua: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
       numero: [null, []],
@@ -41,25 +61,33 @@ export class FormEnderecoComponent implements OnInit {
       complemento: ['', [Validators.minLength(1), Validators.maxLength(250)]],
       estado: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
       cidade: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
-      latitude: [null, [Validators.required]],
-      longitude: [null, [Validators.required]],
+      latitude: [null, []],
+      longitude: [null, []]
     });
-  }
 
-  ngOnInit(): void {
+    this.enderecoForm.valueChanges.subscribe(() => {
+      console.log('O endereco form mudou');
+      // if (this.original_form) this.original_form.updateValueAndValidity();
+    });
+    
+    this.original_form.valueChanges.subscribe(() => {
+      console.log('O original form mudou');
+      this.validarCep();
+    });
 
-    this.ibgeService.getEstados().subscribe( response => {
+    this.ibgeService.getEstados().subscribe(response => {
       this.estados = response;
     });
   }
 
   public validarCep() {
-    this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value)).subscribe( response => {
+    this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value))
+    .subscribe( response => {
       this.lngLatPlace = null;
       this.enderecoForm.controls['estado'].enable();
       this.enderecoForm.controls['cidade'].enable();
 
-      if(response['erro'] === true){
+      if(response['erro'] === true) {
         this.enderecoForm.controls['cep'].setErrors({'notfound': true})
         return;
       }

@@ -121,7 +121,7 @@
 				</div>
 			</div>
 
-			<form [formGroup]="juridicForm">
+			<form [formGroup]="juridicForm" (ngSubmit)="actionJuridicForm()">
 				<div class="row">
 					<div class="col-sm">
 						<mat-form-field appearance="standard" class="w-100">
@@ -143,14 +143,18 @@
 					</div>
 				</div>
 	
-				<form-endereco [showMap]="false"></form-endereco>
+				<form-endereco
+					[original_form]="juridicForm"
+					(formChange)="bindingFormField('local', juridicForm, $event)"
+					[showMap]="false"></form-endereco>
 	
 				<div class="d-flex align-items-center justify-content-center my-3">
 					<button
 						mat-raised-button
 						color="primary"
 						type="submit"
-						[disabled]="juridicForm.invalid || juridicForm.pristine">Atualizar</button>
+						[disabled]="juridicForm.invalid || juridicForm.pristine"
+						>Atualizar</button>
 				</div>
 			</form>
 

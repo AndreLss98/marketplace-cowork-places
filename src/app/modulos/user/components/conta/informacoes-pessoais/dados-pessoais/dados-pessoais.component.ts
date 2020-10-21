@@ -63,7 +63,6 @@ export class DadosPessoaisComponent implements OnInit {
     public userService: UserService,
   ) {
     this.editInfoForm = formBuilder.group({
-      id: [null, [Validators.required]],
       cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]],
       numero_1: ['', [Validators.required]],
       numero_2: ['', []],
@@ -81,7 +80,15 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit() {
+    console.log('Aftet view init');
     if (this.userService.user_data) this.validateUserDatas();
+    console.log(this.userService.user_data);
+
+    this.resetJuridicForm();
   }
 
   private validateUserDatas() {
@@ -125,8 +132,13 @@ export class DadosPessoaisComponent implements OnInit {
     form.controls[field].setValue(formatFunction(form.controls[field].value));
   }
 
+  public bindingFormField(field: string, form: FormGroup, data: any) {
+    console.log('Chegou aqui');
+    form.controls[field] = data;
+  }
+
   public actionInfoForm() {
-    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'top' });
+    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'bottom' });
 
     let info = this.editInfoForm.value;
     info.data_nascimento = formatServerDate(info.data_nascimento.subtract(1, 'day').format());
@@ -138,16 +150,26 @@ export class DadosPessoaisComponent implements OnInit {
         ...info
       }
       this.resetInfoForm();
-      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'top' });
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
     }, (error) => {
       this.snack.dismiss();
-      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'top' });
+      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
+    });
+  }
+
+  public actionJuridicForm() {
+    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'bottom' });
+
+    this.userService.atualizarDadosJuridico(this.juridicForm.value).subscribe(response => {
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
+    }, (error) => {
+      this.snack.dismiss();
+      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
     });
   }
 
   private resetInfoForm() {
     this.editInfoForm.reset({
-      id: this.userService.user_data.id,
       cpf: this.userService.user_data.cpf,
       nome: this.userService.user_data.nome,
       email: this.userService.user_data.email,
@@ -158,9 +180,18 @@ export class DadosPessoaisComponent implements OnInit {
     });
 
     if (this.userService.user_data.cpf) {
-      this.editInfoForm.controls['cpf'].disable()
+      this.editInfoForm.controls['cpf'].disable();
     }
 
-    this.editInfoForm.markAsPristine();
+    // this.editInfoForm.markAsPristine();
+  }
+
+  private resetJuridicForm() {
+    console.log('Vai resetar o form');
+    this.juridicForm.reset({
+      cnpj: this.userService.user_data.pessoa_juridica.cnpj,
+      razao_social: this.userService.user_data.pessoa_juridica.razao_social,
+      local: this.userService.user_data.pessoa_juridica.local
+    });
   }
 }

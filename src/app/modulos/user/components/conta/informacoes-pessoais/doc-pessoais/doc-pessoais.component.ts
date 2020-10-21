@@ -40,7 +40,6 @@ export class DocPessoaisComponent implements OnInit {
           const temp = this.documentos.find(documento => documento.id === element.documento_id);
           if (temp) temp.files = [{src: element.url, success: true}]
         });
-        console.log(this.documentos);
       });
     });
   }
