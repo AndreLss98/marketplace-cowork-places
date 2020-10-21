@@ -16,7 +16,7 @@
         </div>
         
         <div class="d-flex justify-content-center mb-4">
-          <account-btn></account-btn>
+          <account-btn (action)="toggleSideMenu($event)"></account-btn>
         </div>
 
         <app-user-menu (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/user')"></app-user-menu>

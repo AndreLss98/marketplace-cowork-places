@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
@@ -13,6 +13,9 @@ import { LoginComponent } from 'src/app/shared/modal/login/login.component';
   styleUrls: ['./account-btn.component.scss']
 })
 export class AccountBtnComponent implements OnInit {
+
+  @Output()
+  public action = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -28,6 +31,7 @@ export class AccountBtnComponent implements OnInit {
   goTo(path: string, id?: number) {
     let queryParams: any = {};
     if (id) queryParams.tipo_id = id;
+    this.action.emit();
     this.router.navigate([path], { queryParams });
   }
 
