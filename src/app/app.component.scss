@@ -13,4 +13,10 @@ nav img.logo {
     background-color: white;
     padding: 0 2rem;
     box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
+
+    img.logo {
+        width: 20vw;
+        min-width: 120px;
+        max-width: 150px;
+    }
 }

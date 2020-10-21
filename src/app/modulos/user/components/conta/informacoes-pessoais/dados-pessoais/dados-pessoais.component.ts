@@ -74,8 +74,9 @@ export class DadosPessoaisComponent implements OnInit {
     });
 
     this.juridicForm = formBuilder.group({
-      cnpj: [null, [Validators.maxLength(18), Validators.required]],
-      razao_social: [null, [Validators.required]]
+      cnpj: [null, [Validators.maxLength(18), Validators.required, Validators.pattern('[0-9]{2}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4}\-[0-9]{2}')]],
+      razao_social: [null, [Validators.required]],
+      local: new FormGroup({})
     });
   }
 

@@ -1,12 +1,15 @@
 <ng-sidebar-container class="min-vh-100">
     <ng-sidebar #sidebar id="sidebar" [opened]="sidenavOpened">
         <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute"
-            (click)="toggleSideMenu()">close</mat-icon>
-        <img
-          routerLink="/home"
-          class="cursor-pointer my-2 d-block"
-          style="outline: none;"
-          src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu()" />
+            (click)="toggleSideMenu($event)">close</mat-icon>
+
+        <div class="d-flex justify-content-center">
+            <img
+              routerLink="/home"
+              class="cursor-pointer my-3 d-block logo"
+              style="outline: none;"
+              src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu($event)" />
+        </div>
 
         <div class="mb-2">
           <redes-sociais [columnMode]="false"></redes-sociais>
@@ -16,20 +19,20 @@
           <account-btn></account-btn>
         </div>
 
-        <app-user-menu (action)="toggleSideMenu()" *ngIf="router.url.includes('/user')"></app-user-menu>
-        <app-searchbox (action)="toggleSideMenu()" *ngIf="router.url.includes('/search')"></app-searchbox>
+        <app-user-menu (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/user')"></app-user-menu>
+        <app-searchbox (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/search')"></app-searchbox>
     </ng-sidebar>
 
-    <div ng-sidebar-content>
-        <div class="sticky-top shadow-sm bg-white">
-            <nav #nav class="navbar navbar-expand-lg navbar-light bg-white container-sm px-2">
+    <div ng-sidebar-content (click)="closeSideMenu()">
+        <div #nav class="sticky-top shadow-sm bg-white">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white container-sm px-2">
                 <a class="navbar-brand" routerLink="/home">
                     <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
                 </a>
                 <button
                     class="navbar-toggler"
                     type="button" data-toggle="collapse" aria-expanded="false"
-                    aria-label="Toggle navigation" (click)="toggleSideMenu()">
+                    aria-label="Toggle navigation" (click)="toggleSideMenu($event)">
                     <span class="navbar-toggler-icon"></span>
                 </button>
     

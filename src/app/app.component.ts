@@ -28,9 +28,15 @@ export class AppComponent {
     this.login.autoLogin();
   }
 
-  toggleSideMenu() {
+  toggleSideMenu(event?) {
+    if (event) event.stopPropagation();
+
     this.sidenavOpened = !this.sidenavOpened;
     !this.sidenavOpened? this.nav.nativeElement.classList.add('sticky-top') : this.nav.nativeElement.classList.remove('sticky-top');
+  }
+
+  closeSideMenu() {
+    if(this.sidenavOpened) this.toggleSideMenu();
   }
 
   comoFunciona() {
