@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { formatCPF, formatServerDate, formatTelefone, dateToMomentObject, formatCNPJ } from 'src/app/shared/constants/functions';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 const CUSTOM_DATE_FORMAT = {
   parse: {
@@ -61,6 +62,7 @@ export class DadosPessoaisComponent implements OnInit {
     public snack: MatSnackBar,
     public formBuilder: FormBuilder,
     public userService: UserService,
+    public loginService: LoginService
   ) {
     this.editInfoForm = formBuilder.group({
       cpf: ['', [Validators.required, Validators.pattern('[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}')]],
@@ -80,20 +82,19 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.loginService.userLoginEvent.subscribe(() => {
+      this.validateUserDatas();
+    });
   }
 
   ngAfterViewInit() {
-    console.log('Aftet view init');
-    if (this.userService.user_data) this.validateUserDatas();
-    console.log(this.userService.user_data);
-
-    this.resetJuridicForm();
+    this.validateUserDatas();
   }
-
+  
   private validateUserDatas() {
     this.imgUrl = this.userService.user_data.img_perfil;
     this.resetInfoForm();
+    this.resetJuridicForm();
   }
 
   public onFileSelected(event) {
@@ -135,6 +136,9 @@ export class DadosPessoaisComponent implements OnInit {
   public bindingFormField(field: string, form: FormGroup, data: any) {
     console.log('Chegou aqui');
     form.controls[field] = data;
+    setTimeout(() => {
+      this.resetJuridicForm();
+    }, 200)
   }
 
   public actionInfoForm() {
