@@ -1,17 +1,14 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { BancosService } from 'src/app/shared/service/bancos.service';
-import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
-import { DocumentosService } from 'src/app/shared/service/documentos.service';
-import { LoginService } from 'src/app/shared/service/login.service';
-import { UserService } from 'src/app/shared/service/user.service';
-import { environment } from 'src/environments/environment';
-import * as moment from 'moment';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
+import { BancosService } from 'src/app/shared/service/bancos.service';
+import { DocumentosService } from 'src/app/shared/service/documentos.service';
+import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.service';
 
 @Component({
   selector: 'app-dados-bancarios',
