@@ -26,14 +26,16 @@ export class UserComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    if (this.userService.user_data) {
-      this.userService.checkPermission().subscribe(() => {
-        this.isAdmin = true;
-        this.userService.isAdmin = true;
-      }, (error) => {
-        this.userService.isAdmin = false;
-        this.isAdmin = false;
-      });
-    }
+    this.login.userLoginEvent.subscribe(() => {
+      if (this.userService.user_data) {
+        this.userService.checkPermission().subscribe(() => {
+          this.isAdmin = true;
+          this.userService.isAdmin = true;
+        }, (error) => {
+          this.userService.isAdmin = false;
+          this.isAdmin = false;
+        });
+      }
+    })
   }
 }
