@@ -174,10 +174,6 @@ export class AnuncioFormComponent implements OnInit {
     form.controls[field].setValue(data);
   }
 
-  public bindingFormGroup(field, form, data) {
-    form.controls[field] = data;
-  }
-
   private configCaracteristicasForm() {
     let group = {};
 
