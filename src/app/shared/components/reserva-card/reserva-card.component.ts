@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
 import { addDays, diffDates, formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
-import { AlugavelService } from '../../service/alugavel.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 @Component({
   selector: 'reserva-card',

@@ -152,7 +152,7 @@ export class AnuncioFormComponent implements OnInit {
     this.valoresForm = this.formBuilder.group({
       valor: ['', []],
       valor_mes: ['', []],
-      taxa: [null, []]
+      taxa: ['0', []]
     });
 
     this.configTax();
