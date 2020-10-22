@@ -43,6 +43,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   public anuncio_id: number;
 
   @Input()
+  public qtd_maxima_reservas: number = 1;
+
+  @Input()
   public simulateMode: boolean = false;
 
   @Output('formValue')
@@ -124,7 +127,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   }
 
   addQtdReservas() {
-    this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value + 1);
+    if (this.intervalForm.controls['qtd_reservas'].value < this.qtd_maxima_reservas) {
+      this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value + 1);
+    }
   }
 
   removeQtdReservas() {
