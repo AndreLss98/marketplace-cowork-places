@@ -112,16 +112,16 @@
                 </div>
 
             <ng-container>
-                <div class="row d-flex justify-content-center">
-                    <div class="col-1">
+                <div class="row my-2 d-flex justify-content-center">
+                    <div class="col-2 col-md-1">
                         <button mat-icon-button color="warn" (click)="removeQtdReservas()" [disabled]="intervalForm.controls['qtd_reservas'].value <= 1">
                             <mat-icon>remove</mat-icon>
                         </button>
                     </div>
                     <div class="col-6 d-flex justify-content-center align-items-center">
-                        <p class="m-0 p-0">Quantidade de reservas</p>
+                        <p class="text-center m-0 p-0">Quantidade de reservas</p>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2 col-md-1">
                         <button mat-icon-button color="primary" (click)="addQtdReservas()" [disabled]="intervalForm.controls['qtd_reservas'].value >= qtd_maxima_reservas">
                             <mat-icon>add</mat-icon>
                         </button>
@@ -129,26 +129,26 @@
                 </div>
             </ng-container>
 
-                <div *ngIf="simulateMode" class="row">
-                    <div class="col d-flex justify-content-center">
-                        <p class="text-danger m-0 p-0">
-                            Valor final a ser repassado para o locador:
-                            {{
-                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria)
-                            }}
-                            -
-                            {{
-                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
-                                (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100 ))
-                            }}
-                            =
-                            {{
-                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
-                                ((valorMensal / 31) - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 ))) : valorDiaria - (valorDiaria * ((taxaMaxima - taxa) / 100 )))
-                            }}
-                        </p>
-                    </div>
+            <div *ngIf="simulateMode" class="row">
+                <div class="col d-flex justify-content-center">
+                    <p class="text-center text-danger m-0 p-0">
+                        Valor a ser repassado para o locador por dia:
+                        {{
+                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria)
+                        }}
+                        -
+                        {{
+                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                            (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100 ))
+                        }}
+                        =
+                        {{
+                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                            ((valorMensal / 31) - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 ))) : valorDiaria - (valorDiaria * ((taxaMaxima - taxa) / 100 )))
+                        }}
+                    </p>
                 </div>
+            </div>
             </ng-container>
         </form>
     </mat-card-content>
