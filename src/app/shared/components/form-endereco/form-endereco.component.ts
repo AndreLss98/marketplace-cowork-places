@@ -65,13 +65,15 @@ export class FormEnderecoComponent implements OnInit {
       longitude: [null, []]
     });
 
-    this.enderecoForm.valueChanges.subscribe(() => {
+    /* this.enderecoForm.valueChanges.subscribe(() => {
       // if (this.original_form) this.original_form.updateValueAndValidity();
-    });
+    }); */
     
-    this.original_form.valueChanges.subscribe(() => {
-      this.validarCep();
-    });
+    // if (this.original_form) {
+    //   this.original_form.valueChanges.subscribe(() => {
+    //     this.validarCep();
+    //   });
+    // }
 
     this.ibgeService.getEstados().subscribe(response => {
       this.estados = response;

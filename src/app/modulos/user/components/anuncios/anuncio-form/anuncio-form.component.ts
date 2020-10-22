@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 import { formatMoneyValue, desformatMoneyValue, formatCEP, stringValueToBoolean } from 'src/app/shared/constants/functions';
 
+import { UserService } from 'src/app/shared/service/user.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
@@ -58,17 +59,19 @@ export class AnuncioFormComponent implements OnInit {
   public caracteristicas = [];
   public enderecoForm: FormGroup;
   public documentosForm: FormGroup;
+  public cadastroTerceiroForm: FormGroup;
   public documentos = [];
   public valoresForm: FormGroup;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private matDialog: MatDialog,
+    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    public userService: UserService,
     private formBuilder: FormBuilder,
     private tiposService: TiposService,
-    private alugavelService: AlugavelService
+    private alugavelService: AlugavelService,
   ) {
     this.informacoesForm = formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
@@ -93,15 +96,22 @@ export class AnuncioFormComponent implements OnInit {
         .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
       
       let tempDocFormGroup = {
-        proprietario: new FormControl([null, [Validators.required]]),
-        pessoaJuridica: new FormControl([false, []])
+        proprietario: new FormControl(null, [Validators.required]),
+        pessoaJuridica: new FormControl(false, []),
+        cadastro_terceiro: new FormGroup({
+          cnpj: new FormControl('', []),
+          razao_social: new FormControl('', []),
+          cpf: new FormControl('', []),
+          nome: new FormControl('', []),
+          local: new FormGroup({})
+        })
       };
 
       this.documentos.map(doc => doc.id).forEach(id => {
         tempDocFormGroup[`${id}`] = new FormControl([null, []]);
       });
 
-      this.documentosForm  = new FormGroup(tempDocFormGroup);
+      this.documentosForm = new FormGroup(tempDocFormGroup);
     });
 
     this.caracteristicasForm = formBuilder.group({});
@@ -120,7 +130,14 @@ export class AnuncioFormComponent implements OnInit {
 
     this.documentosForm = formBuilder.group({
       proprietario: [null, [Validators.required]],
-      pessoaJuridica: [false, []]
+      pessoaJuridica: [false, []],
+      cadastro_terceiro: new FormGroup({
+        cnpj: new FormControl('', []),
+        razao_social: new FormControl('', []),
+        cpf: new FormControl('', []),
+        nome: new FormControl('', []),
+        local: new FormGroup({})
+      })
     });
 
     this.valoresForm = formBuilder.group({
@@ -128,6 +145,10 @@ export class AnuncioFormComponent implements OnInit {
       valor_mes: ['', []],
       taxa: [null, []]
     });
+  }
+
+  viewForm(form: FormGroup) {
+    console.log(form);
   }
 
   ngOnInit(): void {
@@ -149,6 +170,10 @@ export class AnuncioFormComponent implements OnInit {
 
   public bindingFormField(field, form: FormGroup, data: any) {
     form.controls[field].setValue(data);
+  }
+
+  public bindingFormGroup(field, form, data) {
+    form.controls[field] = data;
   }
 
   private configCaracteristicasForm() {

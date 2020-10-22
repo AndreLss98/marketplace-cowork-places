@@ -145,85 +145,104 @@
 				<div class="col-10">
 					<mat-form-field appearance="standard" class="w-100">
 						<mat-label>Você é o proprietário do objeto de anúncio ?</mat-label>
-						<mat-select formControlName="proprietario" matInput required>
+						<mat-select formControlName="proprietario" required>
 							<mat-option [value]="true">Sim</mat-option>
 							<mat-option [value]="false">Não</mat-option>
 						</mat-select>
 					</mat-form-field>
 				</div>
 			</div>
-			<div class="row justify-content-center">
-				<div class="col-10">
-					<mat-slide-toggle formControlName="pessoaJuridica">Usar dados de pessoa jurídica.</mat-slide-toggle>
-				</div>
-			</div>
 
-			<ng-container *ngIf="!documentosForm.controls['proprietario'].value">
-				<div class="row" *ngIf="documentosForm.controls['pessoaJuridica'].value; else PessoaFisica">
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>CNPJ</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
-					</div>
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>Razão Social</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
+			<ng-container *ngIf="documentosForm.controls['proprietario'].value !== null">
+				<div class="row justify-content-center"
+					*ngIf="(documentosForm.controls['proprietario'].value && userService.user_data.pessoa_juridica) || !documentosForm.controls['proprietario'].value">
+					<div class="col-10">
+						<mat-slide-toggle formControlName="pessoaJuridica">Usar dados de pessoa jurídica.</mat-slide-toggle>
 					</div>
 				</div>
 	
-				<form-endereco [showMap]="false"></form-endereco>
-			</ng-container>
-
-			<ng-template #PessoaFisica>
-				<div class="row">
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>CPF</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
+				<ng-container *ngIf="!documentosForm.controls['proprietario'].value">
+					<div class="row" *ngIf="documentosForm.controls['pessoaJuridica'].value; else PessoaFisica">
+						<div class="col-sm">
+							<mat-form-field appearance="standard" class="w-100" [formGroup]="documentosForm.controls['cadastro_terceiro']">
+								<mat-label>CNPJ</mat-label>
+								<input
+									matInput
+									formControlName="cnpj"
+									autocomplete="off" />
+							</mat-form-field>
+						</div>
+						<div class="col-sm">
+							<mat-form-field appearance="standard" class="w-100" [formGroup]="documentosForm.controls['cadastro_terceiro']">
+								<mat-label>Razão Social</mat-label>
+								<input
+									formControlName="razao_social"
+									matInput autocomplete="off" />
+							</mat-form-field>
+						</div>
 					</div>
-					<div class="col-sm">
-						<mat-form-field appearance="standard" class="w-100">
-							<mat-label>Nome</mat-label>
-							<input matInput autocomplete="off" required />
-						</mat-form-field>
+		
+					<form-endereco
+						(formChange)="bindingFormGroup('local', documentosForm.controls['cadastro_terceiro'], $event)"
+						[original_form]="documentosForm.controls['cadastro_terceiro']"
+						[showMap]="false"></form-endereco>
+				</ng-container>
+	
+				<ng-template #PessoaFisica>
+					<div class="row">
+						<div class="col-sm">
+							<mat-form-field appearance="standard" class="w-100" [formGroup]="documentosForm.controls['cadastro_terceiro']">
+								<mat-label>CPF</mat-label>
+								<input
+									matInput
+									formControlName="cpf"
+									autocomplete="off" />
+							</mat-form-field>
+						</div>
+						<div class="col-sm">
+							<mat-form-field appearance="standard" class="w-100" [formGroup]="documentosForm.controls['cadastro_terceiro']">
+								<mat-label>Nome</mat-label>
+								<input
+									matInput
+									formControlName="nome"
+									autocomplete="off" />
+							</mat-form-field>
+						</div>
 					</div>
-				</div>
-			</ng-template>
+				</ng-template>
 
-			<div class="row">
-				<div class="col">
-					<h4 class="text-center">Nós envie os documentos abaixo</h4>
-				</div>
-			</div>
-			<ng-container *ngFor="let documento of documentos">
-				<div class="row mb-2" *ngIf="!documento.exclusivo_locatario || !(documentosForm.controls['proprietario'].value && documento.exclusivo_locatario)">
+				<div class="row" *ngIf="documentos.length">
 					<div class="col">
-						<dropzone
-							[url]="sendDocsUrl"
-							[label]="documento.nome"
-							[single]="true"
-							[files]="documento.files"
-							[canDelete]="false"
-							[listFileTypes]="docsTypes"
-							[customFields]="[{ fieldName: 'tipo_alugavel_documento_id', value: documento.id }]"
-							(data)="bindingFormField(documento.id, documentosForm, $event)"></dropzone>
+						<h4 class="text-center">Nós envie os documentos abaixo</h4>
 					</div>
 				</div>
+				
+				<ng-container *ngFor="let documento of documentos">
+					<div class="row mb-2" *ngIf="!documento.exclusivo_locatario || !(documentosForm.controls['proprietario'].value && documento.exclusivo_locatario)">
+						<div class="col">
+							<dropzone
+								[url]="sendDocsUrl"
+								[label]="documento.nome"
+								[single]="true"
+								[files]="documento.files"
+								[canDelete]="false"
+								[listFileTypes]="docsTypes"
+								[customFields]="[{ fieldName: 'tipo_alugavel_documento_id', value: documento.id }]"
+								(data)="bindingFormField(documento.id, documentosForm, $event)"></dropzone>
+						</div>
+					</div>
+				</ng-container>
 			</ng-container>
 			<div class="d-flex justify-content-between mt-2">
 				<button mat-raised-button matStepperPrevious>Voltar</button>
-				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
+				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid" (click)="viewForm(documentosForm)">Próximo</button>
 			</div>
 		</form>
 	</mat-step>
 
 	<mat-step [stepControl]="enderecoForm">
 		<ng-template matStepLabel>Endereço</ng-template>
-		<form-endereco></form-endereco>
+		<!-- <form-endereco></form-endereco> -->
 		<div class="d-flex justify-content-between mt-2">
 			<button mat-raised-button matStepperPrevious>Voltar</button>
 			<button mat-raised-button color="primary" matStepperNext [disabled]="enderecoForm.invalid">Próximo</button>
