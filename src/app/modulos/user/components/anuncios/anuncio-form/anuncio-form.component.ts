@@ -76,6 +76,10 @@ export class AnuncioFormComponent implements OnInit {
 
   }
 
+  viewForm(form) {
+    console.log(form);
+  }
+
   ngOnInit(): void {
 
     this.informacoesForm = this.formBuilder.group({
@@ -103,13 +107,7 @@ export class AnuncioFormComponent implements OnInit {
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
         pessoaJuridica: new FormControl(false, []),
-        cadastro_terceiro: new FormGroup({
-          cnpj: new FormControl('', []),
-          razao_social: new FormControl('', []),
-          cpf: new FormControl('', []),
-          nome: new FormControl('', []),
-          local: new FormGroup({})
-        })
+        cadastro_terceiro: new FormGroup({})
       };
 
       this.documentos.map(doc => doc.id).forEach(id => {
@@ -119,19 +117,54 @@ export class AnuncioFormComponent implements OnInit {
       this.documentosForm = new FormGroup(tempDocFormGroup);
 
       this.documentosForm.controls['pessoaJuridica'].valueChanges.subscribe(() => {
-        if (this.documentosForm.controls['pessoaJuridica'].value) {
+        if (this.documentosForm.controls['pessoaJuridica'].value && !this.documentosForm.controls['proprietario'].value) {
           this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
           this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
           this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
-        } else {
+        } else if (!this.documentosForm.controls['pessoaJuridica'].value && !this.documentosForm.controls['proprietario'].value) {
           this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
           this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required])
         }
 
-        this.documentosForm.markAllAsTouched();
+        setTimeout(() => {
+          this.documentosForm.updateValueAndValidity();
+        }, 200);
+      });
+
+      this.documentosForm.controls['proprietario'].valueChanges.subscribe(() => {
+        if (this.documentosForm.controls['proprietario'].value) {
+          this.documentosForm.controls['cadastro_terceiro'] = new FormGroup({});
+        } else {
+          this.documentosForm.controls['cadastro_terceiro'] = new FormGroup({
+            cnpj: new FormControl('', []),
+            razao_social: new FormControl('', []),
+            cpf: new FormControl('', []),
+            nome: new FormControl('', []),
+            local: new FormGroup({})
+          });
+          if (this.documentosForm.controls['pessoaJuridica'].value) {
+            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
+            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
+            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
+            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
+          } else {
+            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
+            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
+            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
+            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required])
+          }
+  
+          setTimeout(() => {
+            this.documentosForm.updateValueAndValidity();
+          }, 200);
+        }
+
+        this.documentosForm.controls['cadastro_terceiro'].valueChanges.subscribe(() => {
+          this.documentosForm.updateValueAndValidity();
+        })
       });
     });
 
@@ -140,13 +173,7 @@ export class AnuncioFormComponent implements OnInit {
     this.documentosForm = this.formBuilder.group({
       proprietario: [null, [Validators.required]],
       pessoaJuridica: [false, []],
-      cadastro_terceiro: new FormGroup({
-        cnpj: new FormControl('', []),
-        razao_social: new FormControl('', []),
-        cpf: new FormControl('', []),
-        nome: new FormControl('', []),
-        local: new FormGroup({})
-      })
+      cadastro_terceiro: new FormGroup({})
     });
 
     this.valoresForm = this.formBuilder.group({
@@ -198,29 +225,33 @@ export class AnuncioFormComponent implements OnInit {
   public save() {
     let anuncio = this.buildAnuncioObject();
     this.isSending = true;
+    console.log(anuncio);
+    // this.alugavelService.createAlugavel(anuncio).subscribe(response => {
+    //   this.isSending = false;
+    //   const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
+    //     title: 'Parabéns',
+    //     message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
+    //     nameCloseBtn: 'Ok'
+    //   }, hasBackdrop: false});
 
-    this.alugavelService.createAlugavel(anuncio).subscribe(response => {
-      this.isSending = false;
-      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Parabéns',
-        message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
-        nameCloseBtn: 'Ok'
-      }, hasBackdrop: false});
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
+    //   });
+    // }, (error) => {
+    //   this.isSending = false;
+    //   this.matDialog.open(BasicModalComponent, { data: {
+    //     title: 'Aviso',
+    //     message: 'Algo deu errado enquanto Tentávamos salvar o seu anúncio, Por favor tente novamente.',
+    //     nameCloseBtn: 'Ok'
+    //   }});
+    //   console.log(error);
+    // }, () => {
+    //   this.isSending = false;
+    // });
 
-      dialogRef.afterClosed().subscribe(result => {
-        this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
-      });
-    }, (error) => {
+    setTimeout(() => {
       this.isSending = false;
-      this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Aviso',
-        message: 'Algo deu errado enquanto Tentávamos salvar o seu anúncio, Por favor tente novamente.',
-        nameCloseBtn: 'Ok'
-      }});
-      console.log(error);
-    }, () => {
-      this.isSending = false;
-    });
+    }, 5000);
   }
 
   public configEditForm() {
@@ -323,7 +354,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public addInfo(descricao: string) {
-    this.infoAdicionais.unshift({ descricao });
+    if (descricao) this.infoAdicionais.unshift({ descricao });
   }
 
   public removeInfo(index: number) {

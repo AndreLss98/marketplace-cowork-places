@@ -101,12 +101,19 @@
 				<mat-form-field appearance="standard" class="w-100">
 					<mat-label>Informação adicional</mat-label>
 					<div class="d-flex">
-						<input #infoAdicional matInput autocomplete="off" placeholder="Proibido fumar" type="text" required />
+						<input
+							#infoAdicional
+							matInput
+							autocomplete="off"
+							type="text"
+							placeholder="Proibido fumar"
+							(keyup.enter)="addInfo(infoAdicional.value); infoAdicional.value = ''"
+							required />
 						<button
 							mat-icon-button
 							color="primary"
-							[disabled]="!infoAdicional.value"
-							(click)="addInfo(infoAdicional.value); infoAdicional.value = ''">
+							(click)="addInfo(infoAdicional.value); infoAdicional.value = ''"
+							[disabled]="!infoAdicional.value">
 							<mat-icon matSuffix>add</mat-icon>
 						</button>
 					</div>
@@ -234,7 +241,7 @@
 				</ng-container>
 			</ng-container>
 			<div class="d-flex justify-content-between mt-2">
-				<button mat-raised-button matStepperPrevious>Voltar</button>
+				<button mat-raised-button matStepperPrevious (click)="viewForm(documentosForm)">Voltar</button>
 				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
 			</div>
 		</form>
