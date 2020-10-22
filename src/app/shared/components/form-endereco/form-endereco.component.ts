@@ -65,9 +65,9 @@ export class FormEnderecoComponent implements OnInit {
       longitude: [null, []]
     });
 
-    /* this.enderecoForm.valueChanges.subscribe(() => {
-      // if (this.original_form) this.original_form.updateValueAndValidity();
-    }); */
+    this.enderecoForm.valueChanges.subscribe(() => {
+      if (this.original_form) this.original_form.updateValueAndValidity();
+    });
     
     // if (this.original_form) {
     //   this.original_form.valueChanges.subscribe(() => {

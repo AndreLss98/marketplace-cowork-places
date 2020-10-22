@@ -183,7 +183,7 @@
 					</div>
 		
 					<form-endereco
-						(formChange)="bindingFormGroup('local', documentosForm.controls['cadastro_terceiro'], $event)"
+						(formChange)="documentosForm.get('cadastro_terceiro')['controls']['local'] = $event"
 						[original_form]="documentosForm.controls['cadastro_terceiro']"
 						[showMap]="false"></form-endereco>
 				</ng-container>
@@ -211,7 +211,7 @@
 					</div>
 				</ng-template>
 
-				<div class="row" *ngIf="documentos.length">
+				<div class="row mt-2" *ngIf="documentos.length">
 					<div class="col">
 						<h4 class="text-center">Nós envie os documentos abaixo</h4>
 					</div>
@@ -235,14 +235,16 @@
 			</ng-container>
 			<div class="d-flex justify-content-between mt-2">
 				<button mat-raised-button matStepperPrevious>Voltar</button>
-				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid" (click)="viewForm(documentosForm)">Próximo</button>
+				<button mat-raised-button color="primary" matStepperNext [disabled]="documentosForm.invalid">Próximo</button>
 			</div>
 		</form>
 	</mat-step>
 
 	<mat-step [stepControl]="enderecoForm">
 		<ng-template matStepLabel>Endereço</ng-template>
-		<!-- <form-endereco></form-endereco> -->
+		<form-endereco
+			[original_form]="enderecoForm"
+			(formChange)="enderecoForm = $event"></form-endereco>
 		<div class="d-flex justify-content-between mt-2">
 			<button mat-raised-button matStepperPrevious>Voltar</button>
 			<button mat-raised-button color="primary" matStepperNext [disabled]="enderecoForm.invalid">Próximo</button>

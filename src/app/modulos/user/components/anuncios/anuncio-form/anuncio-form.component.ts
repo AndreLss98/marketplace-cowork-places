@@ -73,14 +73,19 @@ export class AnuncioFormComponent implements OnInit {
     private tiposService: TiposService,
     private alugavelService: AlugavelService,
   ) {
-    this.informacoesForm = formBuilder.group({
+
+  }
+
+  ngOnInit(): void {
+
+    this.informacoesForm = this.formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo_id: [null, [Validators.required]],
       descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]],
       qtd_maxima_reservas: [1, [Validators.min(1), Validators.required]]
     });
 
-    this.imgsForm = formBuilder.group({
+    this.imgsForm = this.formBuilder.group({
       imgs: [[], [Validators.required]]
     });
 
@@ -112,23 +117,27 @@ export class AnuncioFormComponent implements OnInit {
       });
 
       this.documentosForm = new FormGroup(tempDocFormGroup);
+
+      this.documentosForm.controls['pessoaJuridica'].valueChanges.subscribe(() => {
+        if (this.documentosForm.controls['pessoaJuridica'].value) {
+          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
+          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
+          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
+          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
+        } else {
+          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
+          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
+          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
+          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required])
+        }
+
+        this.documentosForm.markAllAsTouched();
+      });
     });
 
-    this.caracteristicasForm = formBuilder.group({});
+    this.caracteristicasForm = this.formBuilder.group({});
 
-    this.enderecoForm = formBuilder.group({
-      cep: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
-      rua: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
-      numero: [null, []],
-      bairro: ['', [Validators.required]],
-      complemento: ['', [Validators.minLength(1), Validators.maxLength(250)]],
-      estado: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
-      cidade: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
-      latitude: [null, [Validators.required]],
-      longitude: [null, [Validators.required]],
-    });
-
-    this.documentosForm = formBuilder.group({
+    this.documentosForm = this.formBuilder.group({
       proprietario: [null, [Validators.required]],
       pessoaJuridica: [false, []],
       cadastro_terceiro: new FormGroup({
@@ -140,23 +149,16 @@ export class AnuncioFormComponent implements OnInit {
       })
     });
 
-    this.valoresForm = formBuilder.group({
+    this.valoresForm = this.formBuilder.group({
       valor: ['', []],
       valor_mes: ['', []],
       taxa: [null, []]
     });
-  }
 
-  viewForm(form: FormGroup) {
-    console.log(form);
-  }
-
-  ngOnInit(): void {
-    this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
-    this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
-    
-    if (this.router.url.includes('/edit')) this.configEditForm();
     this.configTax();
+    this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
+    this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
+    if (this.router.url.includes('/edit')) this.configEditForm();
   }
 
   private configTax() {
@@ -195,11 +197,6 @@ export class AnuncioFormComponent implements OnInit {
         this.caracteristicasForm.controls[key].setValue(Number(valor) || valor);
       });
     }
-  }
-
-  public onLocalChange(event) {
-    this.enderecoForm.controls['latitude'].setValue(event.lat);
-    this.enderecoForm.controls['longitude'].setValue(event.lng);
   }
 
   public save() {
