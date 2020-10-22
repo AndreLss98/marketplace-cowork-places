@@ -120,7 +120,7 @@ export class DadosPessoaisComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
         } else if (event.type === HttpEventType.Response) {
-          this.imgUrl = `${environment.apiUrl}/imgs/${event.body.image_name}`;
+          this.imgUrl = event.body.image_name;
           this.selectedFile = null;
         }
       }, (error) => {
@@ -134,7 +134,6 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   public bindingFormField(field: string, form: FormGroup, data: any) {
-    console.log('Chegou aqui');
     form.controls[field] = data;
     setTimeout(() => {
       this.resetJuridicForm();
@@ -186,16 +185,15 @@ export class DadosPessoaisComponent implements OnInit {
     if (this.userService.user_data.cpf) {
       this.editInfoForm.controls['cpf'].disable();
     }
-
-    // this.editInfoForm.markAsPristine();
   }
 
   private resetJuridicForm() {
-    console.log('Vai resetar o form');
     this.juridicForm.reset({
       cnpj: this.userService.user_data.pessoa_juridica.cnpj,
       razao_social: this.userService.user_data.pessoa_juridica.razao_social,
       local: this.userService.user_data.pessoa_juridica.local
     });
+
+    this.juridicForm.updateValueAndValidity();
   }
 }

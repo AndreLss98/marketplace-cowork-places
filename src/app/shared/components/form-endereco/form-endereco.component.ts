@@ -66,12 +66,10 @@ export class FormEnderecoComponent implements OnInit {
     });
 
     this.enderecoForm.valueChanges.subscribe(() => {
-      console.log('O endereco form mudou');
       // if (this.original_form) this.original_form.updateValueAndValidity();
     });
     
     this.original_form.valueChanges.subscribe(() => {
-      console.log('O original form mudou');
       this.validarCep();
     });
 
@@ -82,7 +80,7 @@ export class FormEnderecoComponent implements OnInit {
 
   public validarCep() {
     this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value))
-    .subscribe( response => {
+    .subscribe(response => {
       this.lngLatPlace = null;
       this.enderecoForm.controls['estado'].enable();
       this.enderecoForm.controls['cidade'].enable();
