@@ -137,7 +137,7 @@ export class DadosPessoaisComponent implements OnInit {
     form.controls[field] = data;
     setTimeout(() => {
       this.resetJuridicForm();
-    }, 200)
+    }, 1000)
   }
 
   public actionInfoForm() {
