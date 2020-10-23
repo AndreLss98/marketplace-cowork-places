@@ -59,7 +59,6 @@ export class AnuncioFormComponent implements OnInit {
   public caracteristicas = [];
   public enderecoForm: FormGroup;
   public documentosForm: FormGroup;
-  public cadastroTerceiroForm: FormGroup;
   public documentos = [];
   public valoresForm: FormGroup;
 
@@ -106,7 +105,7 @@ export class AnuncioFormComponent implements OnInit {
       
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
-        pessoaJuridica: new FormControl(false, []),
+        pessoajuridica: new FormControl(false, []),
         cadastro_terceiro: new FormGroup({})
       };
 
@@ -116,13 +115,13 @@ export class AnuncioFormComponent implements OnInit {
 
       this.documentosForm = new FormGroup(tempDocFormGroup);
 
-      this.documentosForm.controls['pessoaJuridica'].valueChanges.subscribe(() => {
-        if (this.documentosForm.controls['pessoaJuridica'].value && !this.documentosForm.controls['proprietario'].value) {
+      this.documentosForm.controls['pessoajuridica'].valueChanges.subscribe(() => {
+        if (this.documentosForm.controls['pessoajuridica'].value && !this.documentosForm.controls['proprietario'].value) {
           this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
           this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
           this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
-        } else if (!this.documentosForm.controls['pessoaJuridica'].value && !this.documentosForm.controls['proprietario'].value) {
+        } else if (!this.documentosForm.controls['pessoajuridica'].value && !this.documentosForm.controls['proprietario'].value) {
           this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
           this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
@@ -145,7 +144,7 @@ export class AnuncioFormComponent implements OnInit {
             nome: new FormControl('', []),
             local: new FormGroup({})
           });
-          if (this.documentosForm.controls['pessoaJuridica'].value) {
+          if (this.documentosForm.controls['pessoajuridica'].value) {
             this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
             this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
             this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
@@ -172,7 +171,7 @@ export class AnuncioFormComponent implements OnInit {
 
     this.documentosForm = this.formBuilder.group({
       proprietario: [null, [Validators.required]],
-      pessoaJuridica: [false, []],
+      pessoajuridica: [false, []],
       cadastro_terceiro: new FormGroup({})
     });
 
@@ -223,9 +222,10 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public save() {
-    let anuncio = this.buildAnuncioObject();
     this.isSending = true;
-    console.log(anuncio);
+
+    let anuncio = this.buildAnuncioObject();
+
     // this.alugavelService.createAlugavel(anuncio).subscribe(response => {
     //   this.isSending = false;
     //   const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
@@ -327,6 +327,23 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   private buildAnuncioObject(id?: number) {
+    const configCadastroTerceiro = () => {
+      let temp = {};
+      if (this.documentosForm.controls['pessoajuridica'].value) {
+        temp = {
+          cnpj: this.documentosForm.controls['cadastro_terceiro'].value['cnpj'],
+          razao_social: this.documentosForm.controls['cadastro_terceiro'].value['razao_social']
+        }
+      } else {
+        temp = {
+          cpf: this.documentosForm.controls['cadastro_terceiro'].value['cpf'],
+          nome: this.documentosForm.controls['cadastro_terceiro'].value['nome']
+        }
+      }
+
+      return { ...temp, local: this.documentosForm.controls['cadastro_terceiro'].value['local'] }
+    }
+
     let anuncio = {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
@@ -347,6 +364,7 @@ export class AnuncioFormComponent implements OnInit {
 
     anuncio.valor = desformatMoneyValue(anuncio.valor);
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
+    if (!this.documentosForm.controls['proprietario'].value) anuncio.cadastro_terceiro = configCadastroTerceiro()
 
     if (id) anuncio.id = id;
     console.log('Temp aluguel: ', anuncio);

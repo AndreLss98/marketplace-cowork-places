@@ -164,12 +164,12 @@
 				<div class="row justify-content-center"
 					*ngIf="(documentosForm.controls['proprietario'].value && userService.user_data.pessoa_juridica) || !documentosForm.controls['proprietario'].value">
 					<div class="col-10">
-						<mat-slide-toggle formControlName="pessoaJuridica">Usar dados de pessoa jurídica.</mat-slide-toggle>
+						<mat-slide-toggle formControlName="pessoajuridica">Usar dados de pessoa jurídica.</mat-slide-toggle>
 					</div>
 				</div>
 	
 				<ng-container *ngIf="!documentosForm.controls['proprietario'].value">
-					<div class="row" *ngIf="documentosForm.controls['pessoaJuridica'].value; else PessoaFisica">
+					<div class="row" *ngIf="documentosForm.controls['pessoajuridica'].value; else PessoaFisica">
 						<div class="col-sm">
 							<mat-form-field appearance="standard" class="w-100" [formGroup]="documentosForm.controls['cadastro_terceiro']">
 								<mat-label>CNPJ</mat-label>
@@ -340,7 +340,7 @@
 						enderecoForm.invalid || valoresForm.invalid">{{ editMode? 'Atualizar' : 'Publicar' }}</button>
 			</div>
 
-			<div *ngIf="isSending" class="d-flex justify-content-center">
+			<div *ngIf="isSending" class="mt-2 d-flex justify-content-center">
 				<mat-spinner></mat-spinner>
 			</div>
 		</form>
