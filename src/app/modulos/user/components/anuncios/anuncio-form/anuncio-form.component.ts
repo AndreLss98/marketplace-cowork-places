@@ -345,7 +345,11 @@ export class AnuncioFormComponent implements OnInit {
           nome: this.documentosForm.controls['cadastro_terceiro'].value['nome']
         }
       }
-
+      let tempLocal = this.documentosForm.controls['cadastro_terceiro'].value['local'];
+      delete tempLocal.latitude;
+      delete tempLocal.longitude;
+      tempLocal.pais = 'Brasil';
+      
       return { ...temp, local: this.documentosForm.controls['cadastro_terceiro'].value['local'] }
     }
 
