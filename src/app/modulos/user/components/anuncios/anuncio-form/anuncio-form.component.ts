@@ -62,6 +62,7 @@ export class AnuncioFormComponent implements OnInit {
   public documentos = [];
   public valoresForm: FormGroup;
 
+  public enviadoComSucesso: boolean = false;
   constructor(
     private router: Router,
     private matDialog: MatDialog,
@@ -75,12 +76,7 @@ export class AnuncioFormComponent implements OnInit {
 
   }
 
-  viewForm(form) {
-    console.log(form);
-  }
-
   ngOnInit(): void {
-
     this.informacoesForm = this.formBuilder.group({
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo_id: [null, [Validators.required]],
@@ -187,6 +183,18 @@ export class AnuncioFormComponent implements OnInit {
     if (this.router.url.includes('/edit')) this.configEditForm();
   }
 
+  ngOnDestroy() {
+    if (this.router.url.includes('/new') && !this.enviadoComSucesso) {
+      const imagens = this.imgsForm.controls['imgs'].value.map(element => element.img.id);
+      const documentos = Object.keys(this.documentosForm.value)
+        .filter(key => this.documentosForm.value[key][0])
+        .map(key => this.documentosForm.value[key][0].id);
+        
+      console.log(imagens, documentos);
+      this.alugavelService.clearFilesSendNotSaved(imagens, documentos)
+    }
+  }
+
   private configTax() {
     this.maxTax = this.route.snapshot.data['taxa'].taxa;
     this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
@@ -226,32 +234,29 @@ export class AnuncioFormComponent implements OnInit {
 
     let anuncio = this.buildAnuncioObject();
 
-    // this.alugavelService.createAlugavel(anuncio).subscribe(response => {
-    //   this.isSending = false;
-    //   const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
-    //     title: 'Parabéns',
-    //     message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
-    //     nameCloseBtn: 'Ok'
-    //   }, hasBackdrop: false});
-
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
-    //   });
-    // }, (error) => {
-    //   this.isSending = false;
-    //   this.matDialog.open(BasicModalComponent, { data: {
-    //     title: 'Aviso',
-    //     message: 'Algo deu errado enquanto Tentávamos salvar o seu anúncio, Por favor tente novamente.',
-    //     nameCloseBtn: 'Ok'
-    //   }});
-    //   console.log(error);
-    // }, () => {
-    //   this.isSending = false;
-    // });
-
-    setTimeout(() => {
+    this.alugavelService.createAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
-    }, 5000);
+      this.enviadoComSucesso = true;
+      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Parabéns',
+        message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
+        nameCloseBtn: 'Ok'
+      }, hasBackdrop: false});
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
+      });
+    }, (error) => {
+      this.isSending = false;
+      this.matDialog.open(BasicModalComponent, { data: {
+        title: 'Aviso',
+        message: 'Algo deu errado enquanto tentávamos salvar o seu anúncio, Por favor tente novamente.',
+        nameCloseBtn: 'Ok'
+      }});
+      console.log(error);
+    }, () => {
+      this.isSending = false;
+    });
   }
 
   public configEditForm() {

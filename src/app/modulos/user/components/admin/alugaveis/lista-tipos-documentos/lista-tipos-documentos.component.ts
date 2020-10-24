@@ -117,9 +117,9 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   private resetCreateForm() {
     this.createForm.reset({
       nome: '',
-      dono: false
+      exclusivo_locatario: false
     });
 
-    this.createForm.markAsPristine();
+    this.createForm.updateValueAndValidity();
   }
 }
