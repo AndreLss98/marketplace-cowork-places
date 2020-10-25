@@ -5,11 +5,11 @@
 
 <input #fileInput type="file" (change)="handleFiles($event.target.files)" hidden />
 
-<div class="row my-2" *ngFor="let file of files; let i = index">
-	<div class="col-4 col-lg-2 d-block">
+<div class="row" *ngFor="let file of files; let i = index">
+	<div class="col-sm-6 my-2 col-md-4 col-lg-3 col-xl-2 d-block">
 		<img-thumbnail [src]="file.src"></img-thumbnail>
 	</div>
-	<div class="col align-self-center">
+	<div class="col-2 my-2 align-self-center">
 		<p>
 			<span
 				*ngIf="(file.success && canDelete) || file.error"

@@ -111,6 +111,8 @@ export class AnuncioFormComponent implements OnInit {
 
       this.documentosForm = new FormGroup(tempDocFormGroup);
 
+      console.log("Esse veio daqui")
+
       this.documentosForm.controls['pessoajuridica'].valueChanges.subscribe(() => {
         if (this.documentosForm.controls['pessoajuridica'].value && !this.documentosForm.controls['proprietario'].value) {
           this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
@@ -180,6 +182,9 @@ export class AnuncioFormComponent implements OnInit {
     this.configTax();
     this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
+  }
+  
+  ngAfterViewInit() {
     if (this.router.url.includes('/edit')) this.configEditForm();
   }
 
@@ -262,6 +267,7 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
+    console.log(this.anuncio);
 
     this.anuncio.caracteristicas.forEach(carac => {
       if (carac.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) carac.valor = stringValueToBoolean(carac.valor);
@@ -270,6 +276,7 @@ export class AnuncioFormComponent implements OnInit {
     this.informacoesForm.controls['titulo'].setValue(this.anuncio.titulo);
     this.informacoesForm.controls['tipo_id'].setValue(this.anuncio.tipo.id);
     this.informacoesForm.controls['descricao'].setValue(this.anuncio.descricao);
+    this.informacoesForm.controls['qtd_maxima_reservas'].setValue(this.anuncio.qtd_maxima_reservas);
 
     this.imgsForm.controls['imgs'].setValue(this.anuncio.imagens.map(img => {
       return { img: { id: img.id, url: img.url } }
@@ -282,6 +289,7 @@ export class AnuncioFormComponent implements OnInit {
     this.infoAdicionais = this.anuncio.infos;
 
     this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
+    this.documentosForm.controls['pessoajuridica'].setValue(this.anuncio.pessoajuridica);
     
     this.anuncio.documentos.forEach(documento => {
       let doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
@@ -291,8 +299,18 @@ export class AnuncioFormComponent implements OnInit {
       }
     });
 
-    Object.keys(this.enderecoForm.value).forEach(key => {
-      this.enderecoForm.controls[key].setValue(this.anuncio.local[key]);
+    this.documentosForm.controls['cadastro_terceiro'].reset({
+      ...this.anuncio.cadastro_terceiro
+    });
+    
+    setTimeout(() => {
+      this.documentosForm.get('cadastro_terceiro')['controls']['local'].reset({
+        ...this.anuncio.cadastro_terceiro.local
+      });
+    }, 1000);
+
+    this.enderecoForm.reset({
+      ...this.anuncio.local
     });
 
     Object.keys(this.valoresForm.value).forEach(key => {
