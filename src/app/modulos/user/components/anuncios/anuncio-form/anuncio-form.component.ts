@@ -71,7 +71,7 @@ export class AnuncioFormComponent implements OnInit {
     public userService: UserService,
     private formBuilder: FormBuilder,
     private tiposService: TiposService,
-    private alugavelService: AlugavelService,
+    private alugavelService: AlugavelService
   ) {
 
   }
@@ -102,7 +102,8 @@ export class AnuncioFormComponent implements OnInit {
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
         pessoajuridica: new FormControl(false, []),
-        cadastro_terceiro: new FormGroup({})
+        cadastro_terceiro: new FormGroup({}),
+        aceite_condicoes: new FormControl(false, [Validators.requiredTrue])
       };
 
       this.documentos.map(doc => doc.id).forEach(id => {
@@ -111,19 +112,21 @@ export class AnuncioFormComponent implements OnInit {
 
       this.documentosForm = new FormGroup(tempDocFormGroup);
 
-      console.log("Esse veio daqui")
+      this.documentosForm.valueChanges.subscribe(() => {
+        this.checkDocs();
+      });
 
       this.documentosForm.controls['pessoajuridica'].valueChanges.subscribe(() => {
         if (this.documentosForm.controls['pessoajuridica'].value && !this.documentosForm.controls['proprietario'].value) {
-          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
-          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
-          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
-          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
+          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([]);
         } else if (!this.documentosForm.controls['pessoajuridica'].value && !this.documentosForm.controls['proprietario'].value) {
-          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
-          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
-          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
-          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required])
+          this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required]);
+          this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required]);
         }
 
         setTimeout(() => {
@@ -143,15 +146,15 @@ export class AnuncioFormComponent implements OnInit {
             local: new FormGroup({})
           });
           if (this.documentosForm.controls['pessoajuridica'].value) {
-            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required])
-            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required])
-            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([])
-            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([])
+            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([Validators.required]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([Validators.required]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([]);
           } else {
-            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([])
-            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([])
-            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required])
-            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required])
+            this.documentosForm.get('cadastro_terceiro')['controls']['cnpj'].setValidators([]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['razao_social'].setValidators([]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required]);
+            this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required]);
           }
   
           setTimeout(() => {
@@ -161,16 +164,16 @@ export class AnuncioFormComponent implements OnInit {
 
         this.documentosForm.controls['cadastro_terceiro'].valueChanges.subscribe(() => {
           this.documentosForm.updateValueAndValidity();
-        })
+        });
       });
     });
 
     this.caracteristicasForm = this.formBuilder.group({});
-
     this.documentosForm = this.formBuilder.group({
       proprietario: [null, [Validators.required]],
       pessoajuridica: [false, []],
-      cadastro_terceiro: new FormGroup({})
+      cadastro_terceiro: new FormGroup({}),
+      aceite_condicoes: [false, [Validators.requiredTrue]]
     });
 
     this.valoresForm = this.formBuilder.group({
@@ -179,9 +182,39 @@ export class AnuncioFormComponent implements OnInit {
       taxa: [0, []]
     });
 
+    this.documentosForm.valueChanges.subscribe(() => {
+      this.checkDocs();
+    });
+    
     this.configTax();
     this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
+  }
+
+  viewForm(form) {
+    console.log(form);
+  }
+
+  checkDocs() {
+    const docs = Object
+      .keys(this.documentosForm.value)
+      .map(key => Number(key))
+      .filter(key => key);
+    
+    let valid = true;
+    docs.forEach(key => {
+      if (!this.documentosForm.value[key][0]) valid = false;
+    });
+    
+    if (valid) {
+      this.documentosForm.controls['aceite_condicoes'].setValidators([]);
+    } else {
+      this.documentosForm.controls['aceite_condicoes'].setValidators([Validators.requiredTrue]);
+    }
+
+    setTimeout(() => {
+      this.documentosForm.controls['aceite_condicoes'].updateValueAndValidity();
+    }, 1000);
   }
   
   ngAfterViewInit() {

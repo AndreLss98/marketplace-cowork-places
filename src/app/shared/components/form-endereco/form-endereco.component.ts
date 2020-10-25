@@ -52,7 +52,6 @@ export class FormEnderecoComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
     this.enderecoForm = this.formBuilder.group({
       cep: ['', [Validators.minLength(10), Validators.maxLength(10), Validators.required]],
       rua: ['', [Validators.minLength(1), Validators.maxLength(200), Validators.required]],
