@@ -323,7 +323,7 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public update() {
-    let anuncio = this.buildAnuncioObject(this.anuncio.id);
+    let anuncio = this.buildAnuncioObject(this.anuncio.id, this.anuncio.cadastro_terceiro.id);
     this.isSending = true;
     this.alugavelService.updateAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
@@ -349,7 +349,7 @@ export class AnuncioFormComponent implements OnInit {
     });
   }
 
-  private buildAnuncioObject(id?: number) {
+  private buildAnuncioObject(id?: number, cadastro_terceiro_id?: number) {
     const configCadastroTerceiro = () => {
       let temp = {};
       if (this.documentosForm.controls['pessoajuridica'].value) {
@@ -374,7 +374,8 @@ export class AnuncioFormComponent implements OnInit {
     let anuncio = {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
-      local: {
+      pessoajuridica: this.documentosForm.controls['pessoajuridica'].value,
+      local: {  
         ...this.enderecoForm.value,
         pais: 'Brasil'
       },
@@ -394,7 +395,8 @@ export class AnuncioFormComponent implements OnInit {
     if (!this.documentosForm.controls['proprietario'].value) anuncio.cadastro_terceiro = configCadastroTerceiro()
 
     if (id) anuncio.id = id;
-    console.log('Temp aluguel: ', anuncio);
+    if (cadastro_terceiro_id) anuncio.cadastro_terceiro.id = cadastro_terceiro_id;
+    
     return anuncio;
   }
 
