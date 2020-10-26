@@ -81,7 +81,7 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
 
   create() {
     let temp = this.createForm.value;
-    if (temp.doc[0]['url']) temp.url_arq_exemplo = temp.doc[0]['url'];
+    if (temp.doc[0]) temp.url_arq_exemplo = temp.doc[0]['url'];
     delete temp.doc;
     
     this.isLoading = true;
