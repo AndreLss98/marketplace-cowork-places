@@ -63,10 +63,7 @@ export class UserService {
   }
 
   public verifyUserEmail(email: string) {
-    let params = new HttpParams();
-    let headers = new HttpHeaders();
-    params = params.append('email', email);
-    return this.http.post(environment.apiUrl + '/usuarios/email', { email: email });
+    return this.http.post(environment.apiUrl + '/usuarios/email', { email });
   }
 
   public validateEmail(token: string) {
