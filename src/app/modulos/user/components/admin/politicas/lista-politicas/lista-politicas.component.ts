@@ -8,8 +8,8 @@ import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
-import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
+import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
   selector: 'app-lista-politicas',

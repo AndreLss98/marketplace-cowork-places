@@ -2,6 +2,8 @@ import { translateBoolValue } from 'src/app/shared/constants/functions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { environment } from 'src/environments/environment';
+
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 import { TiposAlugaveisDocumentosService } from 'src/app/shared/service/tipos-alugaveis-documentos.service';
 import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
@@ -12,6 +14,8 @@ import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.
   styleUrls: ['./lista-tipos-documentos.component.scss']
 })
 export class ListaTiposDocumentosComponent extends BasicTableComponent implements OnInit {
+
+  public docsUrl = `${environment.apiUrl}/tipo-alugavel-documento/doc`;
 
   readonly docsTypes: acceptableFileType[] = [
     { mime_type: "application/pdf", nome: ".pdf"}
@@ -24,6 +28,8 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
 
   public tipoDocumento;
 
+  public tempFiles = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private tipoAlugavelDocumentosService: TiposAlugaveisDocumentosService
@@ -32,13 +38,15 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
 
     this.createForm = formBuilder.group({
       nome: ['', [Validators.maxLength(200), Validators.required]],
-      exclusivo_locatario: [false, [Validators.required]]
+      exclusivo_locatario: [false, [Validators.required]],
+      doc: [[], []]
     });
 
     this.updateForm = formBuilder.group({
       id: [null, [Validators.required]],
       nome: ['', [Validators.maxLength(200), Validators.required]],
-      exclusivo_locatario: [false, [Validators.required]]
+      exclusivo_locatario: [false, [Validators.required]],
+      doc: [[], []]
     });
   }
 
@@ -56,7 +64,7 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
         columnHeaderName: "Exclusivo Locatário",
         objectProperty: "exclusivo_locatario",
         formatFunction: translateBoolValue
-      },
+      }
     ];
 
     this.displayedColumns = ["id", "nome", "exclusivo", "actions"];
@@ -72,8 +80,12 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   }
 
   create() {
+    let temp = this.createForm.value;
+    if (temp.doc[0]['url']) temp.url_arq_exemplo = temp.doc[0]['url'];
+    delete temp.doc;
+    
     this.isLoading = true;
-    this.tipoAlugavelDocumentosService.save(this.createForm.value).subscribe(response => {
+    this.tipoAlugavelDocumentosService.save(temp).subscribe(response => {
       this.fetchAll();
       this.resetCreateForm();
     }, (error) => {
@@ -85,8 +97,12 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   }
 
   update() {
+    let temp = this.updateForm.value;
+    if (temp.doc[0]['url']) temp.url_arq_exemplo = temp.doc[0]['url'];
+    delete temp.doc;
+
     this.isLoading = true;
-    this.tipoAlugavelDocumentosService.update(this.updateForm.value.id, this.updateForm.value).subscribe(response => {
+    this.tipoAlugavelDocumentosService.update(temp.id, temp).subscribe(response => {
       this.tipoDocumento = null;
       this.fetchAll();
     }, (error) => {
@@ -99,11 +115,14 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
 
   select({ id }) {
     this.tipoDocumento = this.data.find(tipoDoc => tipoDoc.id === id);
+    console.log(this.tipoDocumento);
     this.updateForm.reset({
       id: this.tipoDocumento.id,
       nome: this.tipoDocumento.nome,
-      dono: this.tipoDocumento.dono
+      exclusivo_locatario: this.tipoDocumento.exclusivo_locatario
     });
+
+    this.tempFiles = this.tipoDocumento.url_arq_exemplo? [ { src: this.tipoDocumento.url_arq_exemplo, success: true } ] : [];
   }
 
   deletar({ id }) {
@@ -117,9 +136,19 @@ export class ListaTiposDocumentosComponent extends BasicTableComponent implement
   private resetCreateForm() {
     this.createForm.reset({
       nome: '',
-      exclusivo_locatario: false
+      exclusivo_locatario: false,
+      doc: []
     });
 
     this.createForm.updateValueAndValidity();
+  }
+
+  public bindingFormField(field, form: FormGroup, data: any) {
+    form.controls[field].setValue(data);
+    
+    setTimeout(() => {
+      form.markAsTouched();
+      form.markAllAsTouched();
+    }, 1000);
   }
 }
