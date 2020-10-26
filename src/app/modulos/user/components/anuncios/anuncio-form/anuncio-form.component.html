@@ -208,8 +208,10 @@
 								<mat-label>CPF</mat-label>
 								<input
 									matInput
+									maxlength="14"
+									autocomplete="off"
 									formControlName="cpf"
-									autocomplete="off" />
+									(input)="formatField('cpf', documentosForm.get('cadastro_terceiro'), formatCPF)" />
 							</mat-form-field>
 						</div>
 						<div class="col-sm">
@@ -245,25 +247,24 @@
 						</div>
 					</div>
 				</ng-container>
-			</ng-container>
-
-			<div class="row">
-				<div class="col">
-					<mat-checkbox
-						formControlName="aceite_condicoes" required>
-							Ciente de que devo enviar os documentos que faltam no prazo de no máximo de 30 dias.
+				
+				<div class="row">
+					<div class="col">
+						<mat-checkbox
+							formControlName="aceite_condicoes" required>
+								Ciente de que devo enviar os documentos que faltam no prazo de no máximo de 30 dias.
 						</mat-checkbox>
+					</div>
 				</div>
-			</div>
+			</ng-container>
 
 			<div class="d-flex justify-content-between mt-2">
 				<button mat-raised-button matStepperPrevious>Voltar</button>
 				<button
-					mat-raised-button
 					color="primary"
 					matStepperNext
-					[disabled]="documentosForm.invalid"
-					(click)="viewForm(documentosForm)">Próximo</button>
+					mat-raised-button
+					[disabled]="documentosForm.invalid">Próximo</button>
 			</div>
 		</form>
 	</mat-step>

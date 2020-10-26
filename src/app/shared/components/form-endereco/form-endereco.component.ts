@@ -7,6 +7,7 @@ import { desformatCEP, formatCEP } from 'src/app/shared/constants/functions';
 import { MapsService } from 'src/app/shared/service/maps.service';
 import { IbgeService } from 'src/app/shared/service/ibge.service';
 import { ViacepService } from 'src/app/shared/service/viacep.service';
+import { cep_regex } from '../../constants/regular_expressions';
 
 @Component({
   selector: 'form-endereco',
@@ -27,7 +28,9 @@ export class FormEnderecoComponent implements OnInit {
   public formChange = new EventEmitter();
   
   public estados;
-  public distritos;
+  public distritos: any = [
+    { nome: "Goiânia" }
+  ];
   public lngLatPlace;
 
   public _enderecoForm: FormGroup;
@@ -80,44 +83,46 @@ export class FormEnderecoComponent implements OnInit {
   }
 
   public validarCep() {
-    this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value))
-    .subscribe(response => {
-      this.lngLatPlace = null;
-      this.enderecoForm.controls['estado'].enable();
-      this.enderecoForm.controls['cidade'].enable();
-
-      if(response['erro'] === true) {
-        this.enderecoForm.controls['cep'].setErrors({'notfound': true})
-        return;
-      }
-
-      this.enderecoForm.controls['rua'].setValue(response['logradouro']);
-      this.enderecoForm.controls['bairro'].setValue(response['bairro']);
-      this.enderecoForm.controls['complemento'].enable();
-
-      this.mapService.getLatitudeLongitude(this.enderecoForm.controls['cep'].value).subscribe(response => {
-        this.lngLatPlace = {
-          latitude: response.results[0].geometry.location.lat,
-          longitude: response.results[0].geometry.location.lng
+    if (cep_regex.test(this.enderecoForm.controls['cep'].value)) {
+      this.cepService.validaCep(desformatCEP(this.enderecoForm.controls['cep'].value))
+      .subscribe(response => {
+        this.lngLatPlace = null;
+        this.enderecoForm.controls['estado'].enable();
+        this.enderecoForm.controls['cidade'].enable();
+  
+        if(response['erro'] === true) {
+          this.enderecoForm.controls['cep'].setErrors({'notfound': true})
+          return;
         }
+  
+        this.enderecoForm.controls['rua'].setValue(response['logradouro']);
+        this.enderecoForm.controls['bairro'].setValue(response['bairro']);
+        this.enderecoForm.controls['complemento'].enable();
+  
+        this.mapService.getLatitudeLongitude(this.enderecoForm.controls['cep'].value).subscribe(response => {
+          this.lngLatPlace = {
+            latitude: response.results[0].geometry.location.lat,
+            longitude: response.results[0].geometry.location.lng
+          }
+        }, (error) => {
+          console.log(error);
+        });
+  
+        this.ibgeService.getMunicipioPorId(response['ibge']).subscribe( data => {
+          this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].nome);
+          this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].nome);
+          this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
+        }, (error) => {
+          this.snackBar.open(
+            "Ocorreu algum problema, tente novamente mais tarde",
+            "OK",
+            { duration: 5000, verticalPosition: "bottom" });
+          console.log(error);
+        })
       }, (error) => {
         console.log(error);
       });
-
-      this.ibgeService.getMunicipioPorId(response['ibge']).subscribe( data => {
-        this.enderecoForm.controls['estado'].setValue(data['microrregiao']['mesorregiao']['UF'].nome);
-        this.enderecoForm.controls['cidade'].setValue(data['microrregiao'].nome);
-        this.distritos = [{id: data['microrregiao'].id, nome: data['microrregiao'].nome}]
-      }, (error) => {
-        this.snackBar.open(
-          "Ocorreu algum problema, tente novamente mais tarde",
-          "OK",
-          { duration: 5000, verticalPosition: "bottom" });
-        console.log(error);
-      })
-    }, (error) => {
-      console.log(error);
-    });
+    }
   }
 
   public loadDistritoByEstado() {

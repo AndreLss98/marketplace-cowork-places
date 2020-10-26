@@ -6,7 +6,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 import { environment } from 'src/environments/environment';
 import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
-import { formatMoneyValue, desformatMoneyValue, formatCEP, stringValueToBoolean } from 'src/app/shared/constants/functions';
+import {
+  formatCEP,
+  formatCPF,
+  formatMoneyValue,
+  desformatMoneyValue,
+  stringValueToBoolean,
+} from 'src/app/shared/constants/functions';
 
 import { UserService } from 'src/app/shared/service/user.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
@@ -45,6 +51,7 @@ export class AnuncioFormComponent implements OnInit {
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;
   readonly formatCEP = formatCEP;
+  readonly formatCPF = formatCPF;
 
   public tipos = [];
   public tipos_documentos = [];
@@ -238,7 +245,7 @@ export class AnuncioFormComponent implements OnInit {
     this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
   }
 
-  public formatField(field: string, form: FormGroup, formatFunction) {
+  public formatField(field: string, form, formatFunction) {
     form.controls[field].setValue(formatFunction(form.controls[field].value));
   }
 

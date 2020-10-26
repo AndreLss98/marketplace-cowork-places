@@ -74,7 +74,12 @@
 					<div class="col-sm">
 						<mat-form-field appearance="standard" class="w-100">
 							<mat-label>CPF</mat-label>
-							<input #cpf formControlName="cpf" maxlength="14" matInput
+							<input
+								#cpf
+								matInput
+								maxlength="14"
+								autocomplete="off"
+								formControlName="cpf"
 								(input)="formatField('cpf', editInfoForm, formatCPF)" />
 							<mat-hint *ngIf="!userService.user_data.cpf" class="text-danger">Informe o CPF.</mat-hint>
 						</mat-form-field>
