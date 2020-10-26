@@ -246,7 +246,9 @@
 								[listFileTypes]="docsTypes"
 								[customFields]="[{ fieldName: 'tipo_alugavel_documento_id', value: documento.id }]"
 								(data)="bindingFormField(documento.id, documentosForm, $event)"></dropzone>
-						</div>
+
+								<a class="my-2" *ngIf="documento.url_arq_exemplo" [href]="documento.url_arq_exemplo" target="_blank" download>Arquivo de exemplo</a>
+							</div>
 					</div>
 				</ng-container>
 				

@@ -107,6 +107,8 @@ export class AnuncioFormComponent implements OnInit {
       this.documentos = this.tipos_documentos
       .filter(tipo_doc => this.tipos
         .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
+
+      console.log(this.documentos)
       
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
