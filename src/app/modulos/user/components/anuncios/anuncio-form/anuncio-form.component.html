@@ -181,8 +181,10 @@
 								<mat-label>CNPJ</mat-label>
 								<input
 									matInput
+									maxlength="18"
+									autocomplete="off"
 									formControlName="cnpj"
-									autocomplete="off" />
+									(input)="formatField('cnpj', documentosForm.get('cadastro_terceiro'), formatCNPJ)" />
 							</mat-form-field>
 						</div>
 						<div class="col-sm">

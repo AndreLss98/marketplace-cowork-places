@@ -9,6 +9,7 @@ import { TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 import {
   formatCEP,
   formatCPF,
+  formatCNPJ,
   formatMoneyValue,
   desformatMoneyValue,
   stringValueToBoolean,
@@ -52,6 +53,7 @@ export class AnuncioFormComponent implements OnInit {
   readonly desformatMoneyValue = desformatMoneyValue;
   readonly formatCEP = formatCEP;
   readonly formatCPF = formatCPF;
+  readonly formatCNPJ = formatCNPJ;
 
   public tipos = [];
   public tipos_documentos = [];

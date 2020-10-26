@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 import { environment } from 'src/environments/environment';
 
+import {
+  formatCPF,
+  formatCNPJ,
+  formatTelefone,
+  formatServerDate,
+  dateToMomentObject,
+} from 'src/app/shared/constants/functions';
+
 import { UserService } from 'src/app/shared/service/user.service';
-import { formatCPF, formatServerDate, formatTelefone, dateToMomentObject, formatCNPJ } from 'src/app/shared/constants/functions';
 import { LoginService } from 'src/app/shared/service/login.service';
 
 const CUSTOM_DATE_FORMAT = {
