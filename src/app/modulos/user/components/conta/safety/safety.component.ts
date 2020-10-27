@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   templateUrl: './safety.component.html',
@@ -12,12 +13,13 @@ export class SafetyComponent implements OnInit {
 
   public alterarSenha: FormGroup;
 
-  public canSendEmail: boolean = false;
+  public canSendEmail: boolean = true;
 
   constructor(
     protected form: FormBuilder,
     protected snackBar: MatSnackBar,
     public userService: UserService,
+    private loginService: LoginService
   ) {
     this.alterarSenha = this.form.group({
       senha_antiga: ["", [Validators.required]],
@@ -27,7 +29,7 @@ export class SafetyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.canSendEmail = !this.userService.user_data.email_validado;
+
   }
 
   public validateConfirmPassword(group: FormGroup) {
@@ -51,6 +53,7 @@ export class SafetyComponent implements OnInit {
 
   public resendEmail() {
     this.canSendEmail = false;
+    
     this.userService.resendEmail().subscribe(response => {
       this.snackBar.open("Email enviado com sucesso, confira sua caixa de email!", "Ok", { duration: 3000 });
     }, (error) => {
