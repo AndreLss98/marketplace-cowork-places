@@ -85,9 +85,6 @@ const routes: Routes = [
       },
       {
         path: 'anuncios/locacoes',
-        resolve: {
-          alugueis: AnunciosLocacoesResolverService
-        },
         component: LocacoesComponent,
       },
       {
