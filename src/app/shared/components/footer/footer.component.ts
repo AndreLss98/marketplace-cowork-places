@@ -33,8 +33,7 @@ export class FooterComponent implements OnInit {
   }
 
   viewPolitica(url) {
-    console.log('Essa é a url do arquivo: ', url);
-    this.router.navigateByUrl(`about?url=${url}`);
+    window.open(`/about?url=${url}`, "_blank");
   }
 
   openFeedback(){
