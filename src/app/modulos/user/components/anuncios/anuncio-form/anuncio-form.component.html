@@ -26,11 +26,20 @@
 			</div>
 
 			<div class="row">
-				<div class="col">
+				<div class="col-sm">
 					<mat-form-field appearance="standard" class="w-100">
 						<mat-label>Quantidade máxima de reservas simultâneas</mat-label>
 						<input matInput formControlName="qtd_maxima_reservas" min="1" type="number" step="1"/>
 					</mat-form-field>
+				</div>
+
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Público Alvo</mat-label>
+						<mat-select formControlName="publico_alvo" multiple>
+						  <mat-option *ngFor="let pubAlvo of publicoAlvo" [value]="pubAlvo.id">{{pubAlvo.nome}}</mat-option>
+						</mat-select>
+					  </mat-form-field>
 				</div>
 			</div>
 

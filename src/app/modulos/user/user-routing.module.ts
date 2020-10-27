@@ -28,6 +28,7 @@ import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-r
 import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
 import { TiposAlugavelDocumentosResolverService } from './resolvers/tipos-alugavel-documentos-resolver.service';
+import { PublicoAlvoResolverService } from './resolvers/publico-alvo-resolver.service';
 
 const routes: Routes = [
   {
@@ -68,7 +69,8 @@ const routes: Routes = [
           anuncio: DetalhesAlugavelResolverService,
           tipos: TiposResolverService,
           taxa: TaxaResolverService,
-          tipos_documentos: TiposAlugavelDocumentosResolverService
+          tipos_documentos: TiposAlugavelDocumentosResolverService,
+          publico_alvo: PublicoAlvoResolverService
         }
       },
       {
@@ -76,7 +78,8 @@ const routes: Routes = [
         resolve: {
           tipos: TiposResolverService,
           taxa: TaxaResolverService,
-          tipos_documentos: TiposAlugavelDocumentosResolverService
+          tipos_documentos: TiposAlugavelDocumentosResolverService,
+          publico_alvo: PublicoAlvoResolverService
         },
         component: AnuncioFormComponent
       },

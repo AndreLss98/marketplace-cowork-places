@@ -18,6 +18,7 @@ import {
 import { UserService } from 'src/app/shared/service/user.service';
 import { TiposService } from 'src/app/shared/service/tipos.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+import { PublicAlvoService } from 'src/app/shared/service/public-alvo.service';
 
 import { acceptableFileType } from 'src/app/shared/components/dropzone/dropzone.component';
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
@@ -70,6 +71,7 @@ export class AnuncioFormComponent implements OnInit {
   public documentosForm: FormGroup;
   public documentos = [];
   public valoresForm: FormGroup;
+  public publicoAlvo = [];
 
   public enviadoComSucesso: boolean = false;
   constructor(
@@ -80,7 +82,8 @@ export class AnuncioFormComponent implements OnInit {
     public userService: UserService,
     private formBuilder: FormBuilder,
     private tiposService: TiposService,
-    private alugavelService: AlugavelService
+    private alugavelService: AlugavelService,
+    public publicAlvoService: PublicAlvoService
   ) {
 
   }
@@ -90,7 +93,8 @@ export class AnuncioFormComponent implements OnInit {
       titulo: ['', [Validators.minLength(1), Validators.maxLength(40), Validators.required]],
       tipo_id: [null, [Validators.required]],
       descricao: ['', [Validators.minLength(1), Validators.maxLength(500), Validators.required]],
-      qtd_maxima_reservas: [1, [Validators.min(1), Validators.required]]
+      qtd_maxima_reservas: [1, [Validators.min(1), Validators.required]],
+      publico_alvo: [null, []]
     });
 
     this.imgsForm = this.formBuilder.group({
@@ -196,6 +200,7 @@ export class AnuncioFormComponent implements OnInit {
     });
     
     this.configTax();
+    this.publicoAlvo = this.route.snapshot.data['publico_alvo'];
     this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
   }
@@ -233,7 +238,6 @@ export class AnuncioFormComponent implements OnInit {
         .filter(key => this.documentosForm.value[key][0])
         .map(key => this.documentosForm.value[key][0].id);
         
-      console.log(imagens, documentos);
       this.alugavelService.clearFilesSendNotSaved(imagens, documentos)
     }
   }
@@ -253,7 +257,7 @@ export class AnuncioFormComponent implements OnInit {
 
   private configCaracteristicasForm() {
     let group = {};
-    console.log(this.caracteristicas)
+
     this.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) {
         group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, [ Validators.required ]);
@@ -305,7 +309,8 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-    console.log(this.anuncio);
+
+    this.informacoesForm.controls['publico_alvo'].setValue(this.anuncio.publico_alvo);
 
     this.anuncio.caracteristicas.forEach(carac => {
       if (carac.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) carac.valor = stringValueToBoolean(carac.valor);
@@ -361,8 +366,9 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public update() {
-    let anuncio = this.buildAnuncioObject(this.anuncio.id, this.anuncio.cadastro_terceiro.id);
+    let anuncio = this.anuncio.cadastro_terceiro? this.buildAnuncioObject(this.anuncio.id, this.anuncio.cadastro_terceiro.id) : this.buildAnuncioObject(this.anuncio.id);
     this.isSending = true;
+
     this.alugavelService.updateAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
       const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
