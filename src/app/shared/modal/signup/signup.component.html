@@ -147,12 +147,14 @@
     <mat-step [stepControl]="confirmar">
         <ng-template matStepLabel>Finalizar</ng-template>
         <form [formGroup]="confirmar">
-            <div class="d-flex flex-column">
-                <mat-checkbox required formControlName="termo_servico">Eu aceito e dou meu consentimento quanto a <a
-                    href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e
-                    Segurança</a>.</mat-checkbox>
+            <div class="d-flex justify-content-center">
+                <re-captcha formControlName="recaptcha"></re-captcha>
             </div>
-            <re-captcha formControlName="recaptcha"></re-captcha>
+
+            <div class="d-flex flex-column mt-3">
+                <mat-checkbox required formControlName="termo_servico">Eu aceito e dou meu consentimento quanto a todas as políticas da plataforma.</mat-checkbox>
+            </div>
+
             <button
                 class="w-100 my-2"
                 type="submit"
