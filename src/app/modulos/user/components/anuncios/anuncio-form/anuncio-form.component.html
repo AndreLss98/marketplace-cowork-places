@@ -71,7 +71,7 @@
 		<ng-template matStepLabel>Características</ng-template>
 		<div class="row">
 			<ng-container *ngFor="let caracteristica of caracteristicas">
-				<div *ngIf="caracteristica.tipo_campo.tipo !== 'binario'" class="col-sm">
+				<div *ngIf="caracteristica.tipo_campo.tipo !== 'binario' && caracteristica.tipo_campo.tipo !== 'intervalo'" class="col-sm">
 					<ng-container [ngSwitch]="caracteristica.tipo_campo.tipo" [formGroup]="caracteristicasForm">
 						<mat-form-field *ngSwitchCase="'numerico'" appearance="standard" class="w-100">
 							<mat-label>{{ caracteristica.nome }}</mat-label>
@@ -94,13 +94,34 @@
 			</ng-container>
 		</div>
 
-		<div class="row">
-			<ng-container *ngFor="let caracteristica of caracteristicas" [formGroup]="caracteristicasForm">
-				<div *ngIf="caracteristica.tipo_campo.tipo === 'binario'" class="col-sm">
-					<mat-checkbox [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
+		<ng-container *ngFor="let caracteristica of caracteristicas">
+			<ng-container *ngIf="caracteristica.tipo_campo.tipo === 'intervalo'">
+				<div class="row my-2">
+					<div class="col" [formGroup]="caracteristicasForm">
+						<mat-label class="mb-2">{{ caracteristica.nome }}</mat-label>
+						<mat-slider
+							min="0"
+							thumbLabel
+							class="w-100"
+							tickInterval="1"
+							[formControlName]="caracteristica.id"
+							[max]="caracteristica.tipo_campo.propriedades.max"
+							[step]="caracteristica.tipo_campo.propriedades.step"
+							[standard]="caracteristica.tipo_campo.propriedades.standard"></mat-slider>
+					</div>
 				</div>
 			</ng-container>
-		</div>
+		</ng-container>
+
+		<ng-container *ngFor="let caracteristica of caracteristicas">
+			<ng-container *ngIf="caracteristica.tipo_campo.tipo === 'binario'">
+				<div class="row">
+					<div class="col-sm" [formGroup]="caracteristicasForm">
+						<mat-checkbox [formControlName]="caracteristica.id">{{ caracteristica.nome }}</mat-checkbox>
+					</div>
+				</div>
+			</ng-container>
+		</ng-container>
 
 		<div class="row">
 			<div class="col">

@@ -195,12 +195,14 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   private resetJuridicForm() {
-    this.juridicForm.reset({
-      cnpj: this.userService.user_data.pessoa_juridica.cnpj,
-      razao_social: this.userService.user_data.pessoa_juridica.razao_social,
-      local: this.userService.user_data.pessoa_juridica.local
-    });
-
-    this.juridicForm.updateValueAndValidity();
+    if (this.userService.user_data.pessoa_juridica) {
+      this.juridicForm.reset({
+        cnpj: this.userService.user_data.pessoa_juridica.cnpj,
+        razao_social: this.userService.user_data.pessoa_juridica.razao_social,
+        local: this.userService.user_data.pessoa_juridica.local
+      });
+      
+      this.juridicForm.updateValueAndValidity();
+    }
   }
 }

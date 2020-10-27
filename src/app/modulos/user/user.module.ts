@@ -29,6 +29,7 @@ import { UserMenuComponent } from 'src/app/shared/components/sidemenu/components
 import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.component';
 import { SearchboxComponent } from 'src/app/shared/components/sidemenu/components/searchbox/searchbox.component';
 import { ListaTiposDocumentosComponent } from './components/admin/alugaveis/lista-tipos-documentos/lista-tipos-documentos.component';
+import { ListaPublicAlvoComponent } from './components/admin/alugaveis/lista-public-alvo/lista-public-alvo.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { ListaTiposDocumentosComponent } from './components/admin/alugaveis/list
     ListaTiposAlugaveisComponent,
     ListaCaracteristicasAlugaveisComponent,
     ListaTiposDocumentosComponent,
+    ListaPublicAlvoComponent,
   ],
   imports: [
     CommonModule,

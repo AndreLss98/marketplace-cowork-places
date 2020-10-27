@@ -107,8 +107,6 @@ export class AnuncioFormComponent implements OnInit {
       this.documentos = this.tipos_documentos
       .filter(tipo_doc => this.tipos
         .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
-
-      console.log(this.documentos)
       
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
@@ -202,10 +200,6 @@ export class AnuncioFormComponent implements OnInit {
     this.tipos = this.route.snapshot.data['tipos'].filter(tipo => tipo.disponivel);
   }
 
-  viewForm(form) {
-    console.log(form);
-  }
-
   checkDocs() {
     const docs = Object
       .keys(this.documentosForm.value)
@@ -259,7 +253,7 @@ export class AnuncioFormComponent implements OnInit {
 
   private configCaracteristicasForm() {
     let group = {};
-
+    console.log(this.caracteristicas)
     this.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) {
         group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, [ Validators.required ]);
