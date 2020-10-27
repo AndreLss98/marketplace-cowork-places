@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
 import { UserService } from 'src/app/shared/service/user.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   templateUrl: './meus-alugueis.component.html',
@@ -11,19 +12,21 @@ import { UserService } from 'src/app/shared/service/user.service';
 export class MeusAlugueisComponent implements OnInit {
 
   private alugueis;
-  // public em_processamento = [];
   public ativos = [];
   public inativos = [];
   public cancelados = [];
 
   constructor(
     private route : ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    this.alugueis = this.route.snapshot.data.alugueis;
-    this.processaAlugueis();
+    this.fetchAll();
+    this.loginService.userLoginEvent.subscribe(() => {
+      this.fetchAll();
+    })
   }
 
   private processaAlugueis(){
@@ -46,5 +49,12 @@ export class MeusAlugueisComponent implements OnInit {
       this.cancelados = [];
       this.processaAlugueis();
     })
+  }
+
+  private fetchAll() {
+    this.userService.getAlugueis().subscribe(response => {
+      this.alugueis = response;
+      this.processaAlugueis();
+    });
   }
 }

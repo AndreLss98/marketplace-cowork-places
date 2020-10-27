@@ -46,7 +46,7 @@ export class LocacoesComponent implements OnInit {
   }
 
   fetchAll() {
-    this.userService.getAlugueis().subscribe(response => {
+    this.userService.getAlugueis(true).subscribe(response => {
       this.alugueis = response;
       this.processaAlugueis();
     });

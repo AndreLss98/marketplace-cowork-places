@@ -103,11 +103,8 @@ const routes: Routes = [
       },
       {
         path: 'alugueis',
-        resolve: {
-          alugueis: AlugueisMeusalugueisResolverService
-        },
         component: MeusAlugueisComponent
-      },
+      }
     ]
   },
 ];
