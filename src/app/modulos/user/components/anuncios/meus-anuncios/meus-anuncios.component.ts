@@ -4,7 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { highlightItem } from 'src/app/shared/interface/interface';
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
+import { UserService } from 'src/app/shared/service/user.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   selector: 'app-meus-anuncios',
@@ -22,10 +24,14 @@ export class MeusAnunciosComponent implements OnInit {
   constructor(
     private router: Router,
     private alugavel: AlugavelService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
     this.carregaAlugavel();
+    this.loginService.userLoginEvent.subscribe(() => {
+      this.carregaAlugavel();
+    })
   }
 
   editSpace(id) {
