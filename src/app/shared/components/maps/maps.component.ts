@@ -27,11 +27,13 @@ export class MapsComponent implements OnInit {
   }
 
   private initMap() {
-    let mapOptions: google.maps.MapOptions = {
+    let mapOptions = {
       zoom: 17,
       center: this.default_center,
       fullscreenControl: false,
       mapTypeControl: false,
+      zoomControl: true,
+      gestureHandling: "cooperative"
     };
 
     if (this.lngLatPlace) {
@@ -54,7 +56,7 @@ export class MapsComponent implements OnInit {
     }
   }
 
-  private generateMap(mapOptions: google.maps.MapOptions) {
+  private generateMap(mapOptions) {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.initMarker(mapOptions.center, this.map);
   }

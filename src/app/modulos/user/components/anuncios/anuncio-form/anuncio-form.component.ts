@@ -262,9 +262,9 @@ export class AnuncioFormComponent implements OnInit {
 
     this.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) {
-        group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, [ Validators.required ]);
+        group[caracteristica.id] = new FormControl(caracteristica.tipo_campo.propriedades.standard, []);
       } else {
-        group[caracteristica.id] = new FormControl('', [ Validators.required ]);
+        group[caracteristica.id] = new FormControl('', []);
       }
     });
 
