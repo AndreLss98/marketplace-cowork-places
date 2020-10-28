@@ -70,7 +70,6 @@ export class SpacesComponent implements OnInit {
     this.alugaveisService.anuncio.valor = Number(this.alugaveisService.anuncio.valor);
     this.alugaveisService.anuncio.valor_mes = Number(this.alugaveisService.anuncio.valor_mes);
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
-    console.log(this.route.snapshot.data['espaco'])
     
     this.route.params.subscribe(routeParams => {
       this.alugaveisService.getById(Number(routeParams.id)).subscribe(response => {

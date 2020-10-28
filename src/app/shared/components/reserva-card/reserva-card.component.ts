@@ -121,9 +121,13 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   public rangeFilter = (date: Date | null): boolean => {
     const intervalorReservado = this.diasReservados.find(
-      range => date.getTime() >= range.data_entrada.getTime() &&  date.getTime() <= range.data_saida.getTime());
+      range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
     
-      return intervalorReservado? false : true;
+    // if (this.intervalForm.controls['entrada'].value && !this.valorDiaria) {
+      
+    // }
+
+    return intervalorReservado? false : true;
   }
 
   addQtdReservas() {
