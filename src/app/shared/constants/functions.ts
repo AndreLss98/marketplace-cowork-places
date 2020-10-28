@@ -27,12 +27,14 @@ export function diffDates(date1: Date, date2: Date) {
 }
 
 export function formatMoneyValue(value) {
-    if (typeof value === "string") {
+    if (typeof value === "string" && value.startsWith('R$')) {
         value = value
             .replace(/(R\$\s)/, '')
             .replace(/\./g, '')
             .replace(/,/, '.');
 
+        value = Number(value);
+    } else if (typeof value === "string") {
         value = Number(value);
     }
 

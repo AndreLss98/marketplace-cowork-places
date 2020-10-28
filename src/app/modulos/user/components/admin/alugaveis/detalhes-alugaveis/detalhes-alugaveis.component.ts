@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 import { formatMoneyValue, translateBoolValue } from 'src/app/shared/constants/functions';
-import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
+import { ALUGAVEL_STATUS, USUARIO_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-detalhes-alugaveis',
@@ -44,6 +44,10 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data['alugavel'];
+    
+    this.alugavel.valor = Number(this.alugavel.valor);
+    this.alugavel.valor_mes = Number(this.alugavel.valor_mes);
+    
     this.alugavel.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = translateBoolValue(caracteristica.valor);
     });
