@@ -44,7 +44,7 @@
                     <div class="col">
                         <p>
                             {{
-                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
+                                formatMoneyValue(valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
                                 valorMensal / 31 : valorDiaria)
                             }} x
                             {{
@@ -64,7 +64,7 @@
                                 this.intervalForm.controls['qtd_reservas'].value
                             }} x
                             {{
-                                formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
+                                formatMoneyValue(valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
                                 totalNoValorMensal(qtdDias(), valorMensal) : totalNoValorDiaria(qtdDias(), valorDiaria))
                             }}</p>
                     </div>
@@ -82,7 +82,7 @@
                                 this.intervalForm.controls['qtd_reservas'].value
                             }} x
                             {{
-                                formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                                formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && valorMensal?
                                 valorMensal / 31 : valorDiaria)))
                             }}</p>
                     </div>
@@ -104,7 +104,7 @@
                         <p class="text-right">
                             {{
                                 formatMoneyValue(
-                                    valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
+                                    valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && valorMensal?
                                     this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorMensal / 31))):
                                     this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorDiaria(qtdDias(), calcularDiaria(valorDiaria, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorDiaria))))
                             }}</p>

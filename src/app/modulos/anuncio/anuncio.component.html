@@ -36,6 +36,7 @@
                     [valorDiaria]="alugaveisService.anuncio.valor"
                     [valorMensal]="alugaveisService.anuncio.valor_mes"
                     [taxa]="alugaveisService.anuncio.taxa"
+                    [qtd_maxima_reservas]="alugaveisService.anuncio.qtd_maxima_reservas"
                     [anuncio_id]="alugaveisService.anuncio.id"></reserva-card>
                 <div class="mt-2">
                     <div class="row">
@@ -161,7 +162,7 @@
     </div>
     <div *ngIf="alugaveisService.maisAnunciosDoAnunciante.length" class="d-flex flex-column pt-3 border-top">
         <h2>Mais anúncios desse locador</h2>
-        <div class="d-flex py-2 pl-2 mr-n2 flex-row back-verde-escuro flex-wrap justify-content-start">
+        <div class="d-flex py-2 pl-2 mx-n2 flex-row back-verde-escuro flex-wrap justify-content-start">
             <card-item-alugavel class="ml-2"
                 *ngFor="let espaco of alugaveisService.maisAnunciosDoAnunciante"
                 [data]="espaco"></card-item-alugavel>
