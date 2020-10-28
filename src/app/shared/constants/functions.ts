@@ -1,12 +1,10 @@
 import * as moment from 'moment';
-
 export function formatDate(date: any) {
     if (typeof date === "string") date = new Date(date);
     const day = date.getDate() + 1 < 10? `0${date.getDate() + 1}`: date.getDate() + 1;
     const month = date.getMonth() + 1 < 10? `0${date.getMonth() + 1}`: date.getMonth() + 1;
     return `${day}/${month}/${date.getFullYear()}`;
 }
-
 export function formatServerDate(date: any) {
     if (typeof date === "string") date = new Date(date);
     const day = date.getDate() + 1 < 10? `0${date.getDate() + 1}`: date.getDate() + 1;
@@ -29,12 +27,19 @@ export function diffDates(date1: Date, date2: Date) {
 }
 
 export function formatMoneyValue(value) {
-    if (typeof value === "number") value = value.toFixed(2);
-    return value
-        .replace(/R\$ /, '')
-        .replace(/\./g, ',')
-        .replace(/^([0-9])/, 'R$ $1')
-        .replace(/(R\$ [0-9]+,[0-9]{2})./, '$1');
+    if (typeof value === "string") {
+        value = value
+            .replace(/(R\$\s)/, '')
+            .replace(/\./g, '')
+            .replace(/,/, '.');
+
+        value = Number(value);
+        return value
+        .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        .replace(/(\,[0-9]{2})/, '');
+    }
+
+    return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
 
 export function desformatMoneyValue(value) {
