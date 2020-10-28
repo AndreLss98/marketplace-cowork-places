@@ -13,6 +13,7 @@ import {
   formatMoneyValue,
   desformatMoneyValue,
   stringValueToBoolean,
+  formatFieldMoneyValue
 } from 'src/app/shared/constants/functions';
 
 import { UserService } from 'src/app/shared/service/user.service';
@@ -52,6 +53,7 @@ export class AnuncioFormComponent implements OnInit {
 
   readonly formatMoneyValue = formatMoneyValue;
   readonly desformatMoneyValue = desformatMoneyValue;
+  readonly formatFieldMoneyValue = formatFieldMoneyValue;
   readonly formatCEP = formatCEP;
   readonly formatCPF = formatCPF;
   readonly formatCNPJ = formatCNPJ;
@@ -309,7 +311,7 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-
+    console.log(this.anuncio)
     this.informacoesForm.controls['publico_alvo'].setValue(this.anuncio.publico_alvo);
 
     this.anuncio.caracteristicas.forEach(carac => {
@@ -358,7 +360,10 @@ export class AnuncioFormComponent implements OnInit {
 
     Object.keys(this.valoresForm.value).forEach(key => {
       if (key === 'valor' || key === 'valor_mes') {
-        this.valoresForm.controls[key].setValue(formatMoneyValue(this.anuncio[key]));
+        this.valoresForm.controls[key]
+          .setValue(Number(this.anuncio[key])
+          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+          .replace(/(\,[0-9]{2})/, ''));
       } else {
         this.valoresForm.controls[key].setValue(this.anuncio[key]);
       }

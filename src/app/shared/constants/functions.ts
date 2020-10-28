@@ -34,12 +34,24 @@ export function formatMoneyValue(value) {
             .replace(/,/, '.');
 
         value = Number(value);
-        return value
-        .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
-        .replace(/(\,[0-9]{2})/, '');
     }
 
     return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+}
+
+export function formatFieldMoneyValue(value) {
+    if (typeof value === "string") {
+        value = value
+            .replace(/(R\$\s)/, '')
+            .replace(/\./g, '')
+            .replace(/,/, '.');
+
+        value = Number(value);
+    }
+
+    return value
+        .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        .replace(/(\,[0-9]{2})/, '');
 }
 
 export function desformatMoneyValue(value) {
