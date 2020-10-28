@@ -61,19 +61,23 @@
         </div>
     </mat-card-content>
 
-    <div class="d-flex justify-content-between py-1 px-2 cursor-pointer" (click)="goToSpace()" *ngIf="desformatMoneyValue(data.valor); else mensal">
-        <span class="font-weight-bold">INVESTIMENTO/DIA</span>
-        <span>
-            {{formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor))}}
-        </span>
+    <div>
+        <h3 class="text-center font-weight-bold m-0">Investimento</h3>
+    </div>
+
+    <div class="py-1 px-2 cursor-pointer" (click)="goToSpace()">
+        <div class="d-flex justify-content-between" *ngIf="desformatMoneyValue(data.valor)">
+            <span class="font-weight-bold">Diária</span>
+            <span>
+                {{formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor))}}
+            </span>
+        </div>
+    
+        <div class="d-flex justify-content-between" *ngIf="desformatMoneyValue(data.valor_mes)">
+            <span class="font-weight-bold">Mensalidade</span>
+            <span>
+                {{formatMoneyValue(calcularDiaria(data.valor_mes, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor_mes))}}
+            </span>
+        </div>
     </div>
 </mat-card>
-
-<ng-template #mensal>
-    <div class="d-flex justify-content-between py-1 px-2 cursor-pointer" (click)="goToSpace()">
-        <span class="font-weight-bold">INVESTIMENTO/MÊS</span>
-        <span>
-            {{formatMoneyValue(calcularDiaria(data.valor_mes / 31, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor_mes / 31))}}
-        </span>
-    </div>
-</ng-template>
