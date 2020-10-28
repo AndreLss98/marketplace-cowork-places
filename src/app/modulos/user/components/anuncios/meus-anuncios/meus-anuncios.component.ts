@@ -4,9 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { highlightItem } from 'src/app/shared/interface/interface';
 import { ALUGAVEL_STATUS } from 'src/app/shared/constants/constants';
 
-import { UserService } from 'src/app/shared/service/user.service';
-import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { LoginService } from 'src/app/shared/service/login.service';
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 @Component({
   selector: 'app-meus-anuncios',
@@ -43,7 +42,7 @@ export class MeusAnunciosComponent implements OnInit {
     if (status === 'approved') {
       update = 'removed'
     } else if (status === 'removed') {
-      update = 'waiting'
+      update = 'approved'
     }
 
     this.alugavel.alterAvaible(id, update).subscribe(res => {
