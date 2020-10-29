@@ -38,13 +38,15 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     });
 
     this.editForm = formBuilder.group({
+      id: [null],
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
       icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       caracteristicas: [null, [Validators.required]],
       documentos: [null, [Validators.required]],
-      id: [null]
+      chamado: ['', [Validators.minLength(1), Validators.maxLength(100), Validators.required]],
+      desc_chamado: ['', [Validators.minLength(1), Validators.maxLength(100)]]
     });
 
     this.createForm = formBuilder.group({
@@ -54,6 +56,8 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
       caracteristicas: [null, [Validators.required]],
       documentos: [null, [Validators.required]],
+      chamado: ['', [Validators.minLength(1), Validators.maxLength(100), Validators.required]],
+      desc_chamado: ['', [Validators.minLength(1), Validators.maxLength(100)]]
     });
   }
 
@@ -85,13 +89,15 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
   public select(event) {
     this.tipo = this.data.find(element => element.id === event.id);
     this.editForm.reset({
-      disponivel: this.tipo.disponivel,
+      id: this.tipo.id,
       nome: this.tipo.nome,
       icone: this.tipo.icone,
       descricao: this.tipo.descricao,
-      caracteristicas: this.tipo.caracteristicas,
+      disponivel: this.tipo.disponivel,
       documentos: this.tipo.documentos,
-      id: this.tipo.id
+      caracteristicas: this.tipo.caracteristicas,
+      chamado: this.tipo.chamado,
+      desc_chamado: this.tipo.desc_chamado
     });
   }
 

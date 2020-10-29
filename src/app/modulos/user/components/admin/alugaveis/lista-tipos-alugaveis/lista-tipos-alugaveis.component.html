@@ -38,6 +38,34 @@
       <div class="row">
         <div class="col">
           <mat-form-field appearance="standard">
+            <mat-label>Chamado</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="chamado"
+              placeholder="Ex.: Escolha onde trabalhar!"
+              maxlength="100" />
+            <mat-hint>Texto utilizado na home como chamado para o tipo de anúncio.</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Descrição chamado</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="desc_chamado"
+              placeholder="Ex.: Mesas compartilhadas com serviços que facilitam sua vida."
+              maxlength="100" />
+            <mat-hint>Texto utilizado logo abaixo do chamado para uma melhor descrição.</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
             <mat-label>Descrição</mat-label>
             <input formControlName="descricao" matInput type="text" placeholder="Descrição" maxlength="256">
             <mat-hint>Descrição utilizada para criar o produto na PayPal</mat-hint>
@@ -109,6 +137,34 @@
             <mat-hint>
                 <a href="https://material.io/resources/icons/?style=baseline" target="_blank">Lista de ícones</a>
             </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Chamado</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="chamado"
+              placeholder="Ex.: Escolha onde trabalhar!"
+              maxlength="100" />
+            <mat-hint>Texto utilizado na home como chamado para o tipo de anúncio.</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="standard">
+            <mat-label>Descrição chamado</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="desc_chamado"
+              placeholder="Ex.: Mesas compartilhadas com serviços que facilitam sua vida."
+              maxlength="100" />
+            <mat-hint>Texto utilizado logo abaixo do chamado para uma melhor descrição.</mat-hint>
           </mat-form-field>
         </div>
       </div>
