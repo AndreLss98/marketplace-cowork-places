@@ -5,7 +5,7 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label *ngIf="!readOnly">Selecione o período</mat-label>
-                        <mat-date-range-input [min]="minDate" [rangePicker]="picker" [dateFilter]="rangeFilter">
+                        <mat-date-range-input #rangeInput [min]="minDate" [rangePicker]="picker" [dateFilter]="validateRangeFn">
                           <input #entrada
                             matStartDate
                             disabled="true"
@@ -64,8 +64,9 @@
                                 this.intervalForm.controls['qtd_reservas'].value
                             }} x
                             {{
-                                formatMoneyValue(valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
-                                totalNoValorMensal(qtdDias(), valorMensal) : totalNoValorDiaria(qtdDias(), valorDiaria))
+                                formatMoneyValue(
+                                    valorDiaria == 0 || (valorMensal != 0 && qtdDias() >= 31)?
+                                    totalNoValorMensal(qtdDias(), valorMensal) : totalNoValorDiaria(qtdDias(), valorDiaria))
                             }}</p>
                     </div>
                 </div>

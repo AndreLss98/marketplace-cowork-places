@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
 import { addDays, diffDates, formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
@@ -56,6 +56,10 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   private diasReservados = [];
 
+  public validateRangeFn = (date: Date | null): boolean => {
+    return true;
+  };
+
   constructor(
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
@@ -65,17 +69,20 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     this.intervalForm = formBuilder.group({
       entrada: [addDays(new Date(), 2), [Validators.required]],
       saida: [addDays(new Date(), 2), [Validators.required]],
-      qtd_reservas: [this.qtd_maxima_reservas, [Validators.min(1), Validators.max(this.reservasMaxima)]]
+      qtd_reservas: [1, [Validators.min(1), Validators.max(this.reservasMaxima)]]
     });
 
     this.intervalForm.valueChanges.subscribe(() => {
-      this.valorMensal = desformatMoneyValue(this.valorMensal)
+      this.valorMensal = desformatMoneyValue(this.valorMensal);
+      this.valorDiaria = desformatMoneyValue(this.valorDiaria);
+      
       const emitObject = {
         formValid: this.intervalForm.valid,
         interval: this.intervalForm.value,
         total: this.qtdDias() >= 31 && this.valorMensal?
         this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))):
-        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria)))
+        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria))),
+        qtd_reservas: this.intervalForm.controls['qtd_maxima_reservas']
       };
       this.formChangeEvent.emit(emitObject);
     });
@@ -100,7 +107,32 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    
+  }
+
   public validateRange() {
+    console.log('Foi chamado esse aqui')
+
+    this.validateRangeFn = (date: Date | null): boolean => {
+        const intervaloReservado = this.diasReservados.find(
+          range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
+        
+          let mensal = false;
+        let isMultiplo = false;
+      
+        if (this.intervalForm.controls['entrada'].value && !this.intervalForm.controls['saida'].value && this.valorDiaria == 0) {
+          mensal = true;
+        }
+      
+        if (mensal) {
+          const qtdDias = diffDates(this.intervalForm.controls['entrada'].value, date);
+          isMultiplo = qtdDias % 31  === 0;
+        }
+      
+        return intervaloReservado || (mensal && !isMultiplo)? false : true;
+      }
+
     if (this.intervalForm.controls['saida'].value) {
       const conflictRange = this.diasReservados.find(range => range.data_entrada.getTime() > this.intervalForm.controls['entrada'].value.getTime() && range.data_entrada.getTime() < this.intervalForm.controls['saida'].value.getTime());
       if (conflictRange) {
@@ -117,17 +149,6 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
 
   public qtdMeses() {
     return Math.floor(this.qtdDias() / 31);
-  }
-
-  public rangeFilter = (date: Date | null): boolean => {
-    const intervalorReservado = this.diasReservados.find(
-      range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
-    
-    // if (this.intervalForm.controls['entrada'].value && !this.valorDiaria) {
-      
-    // }
-
-    return intervalorReservado? false : true;
   }
 
   addQtdReservas() {
