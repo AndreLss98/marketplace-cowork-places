@@ -2,9 +2,8 @@
 
 mat-card {
     padding: 0;
-    min-width: 280px;
+    width: 320px;
     height: 520px;
-    max-width: 320px;
     border-radius: 15px;
 }
 
@@ -21,4 +20,10 @@ img {
 
 ion-icon {
     font-size: 1.1rem;
+}
+
+@media (max-width: 400px) {
+    mat-card {
+        width: 280px;
+    }
 }

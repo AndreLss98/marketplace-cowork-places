@@ -33,17 +33,17 @@
         <div class="d-flex flex-wrap justify-content-around mt-3">
             <ng-container *ngFor="let caracteristica of data.caracteristicas">
                 <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                    <div
+                    <div [matTooltip]="caracteristica.nome"
                         *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
                         <ion-icon [name]="caracteristica.icone"></ion-icon>
-                        <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                        <p class="p-0 m-0 text-truncate" style="max-width: 100px">{{ caracteristica.nome }}</p>
                     </div>
                     
                     <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
                         <ion-icon [name]="caracteristica.icone"></ion-icon>
-                        <p class="p-0 m-0">
+                        <p class="p-0 m-0 text-truncate">
                             <span>{{ caracteristica.valor }}</span>
                             <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
                         </p>
@@ -52,7 +52,7 @@
                     <div *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
                         class="d-flex flex-column align-items-center justify-content-center">
                         <ion-icon [name]="caracteristica.icone"></ion-icon>
-                        <p class="p-0 m-0">
+                        <p class="p-0 m-0 text-truncate">
                             <span>{{ caracteristica.valor }} </span>
                         </p>
                     </div>

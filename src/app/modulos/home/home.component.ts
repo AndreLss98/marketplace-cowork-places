@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
 
     this.highlights.getMostUsed().subscribe(response => {
       this.mostUsed = response;
-      console.log(response);
     });
   }
 
