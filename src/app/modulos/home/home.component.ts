@@ -9,6 +9,7 @@ import {
 } from 'src/app/shared/constants/constants';
 
 import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
+import { HighlightService } from 'src/app/shared/service/highlight.service';
 
 @Component({
   selector: 'home',
@@ -24,17 +25,25 @@ export class HomeComponent implements OnInit {
   public searchTitle = HOME_TEXT.searchTitle;
   public searchContent = HOME_TEXT.searchContent;
 
+  public mostUsed = [];
+
   myControl = new FormControl();
   options: any = [];
 
   constructor(
     private router: Router,
-    private alugaveisService: AlugaveisService
+    private highlights: HighlightService,
+    private alugaveisService: AlugaveisService,
   ) { }
 
   ngOnInit(): void {
     this.alugaveisService.getCidades().subscribe(response => {
       this.options = response.map(resp => resp.cidade);
+    });
+
+    this.highlights.getMostUsed().subscribe(response => {
+      this.mostUsed = response;
+      console.log(response);
     });
   }
 

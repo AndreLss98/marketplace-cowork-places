@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { HighlightService } from 'src/app/shared/service/highlight.service';
 
@@ -13,6 +13,9 @@ export class HighlightComponent implements OnInit {
   public rooms = [];
   public spaces = [];
 
+  @Input()
+  public tipo_id: number;
+
   constructor(
     public highlights: HighlightService
   ) {
@@ -24,7 +27,7 @@ export class HighlightComponent implements OnInit {
   }
 
   private fetchAlugaveis(quantity: number) {
-    this.highlights.getSome(quantity).subscribe(response => {
+    this.highlights.getSome(quantity, this.tipo_id).subscribe(response => {
       this.rooms = response.results;
     });
   }

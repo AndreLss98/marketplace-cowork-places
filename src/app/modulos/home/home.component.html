@@ -111,7 +111,7 @@
             </div>
         </ng-template>
         
-        <highlights></highlights>
+        <highlights *ngFor="let highlight of mostUsed" [tipo_id]="highlight.tipo_id"></highlights>
         
         <div id="videosContainer">
             <div class="row mx-1 h-100">
