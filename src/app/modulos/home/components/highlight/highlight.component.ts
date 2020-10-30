@@ -14,7 +14,7 @@ export class HighlightComponent implements OnInit {
   public spaces = [];
 
   @Input()
-  public tipo_id: number;
+  public tipo;
 
   constructor(
     public highlights: HighlightService
@@ -27,7 +27,7 @@ export class HighlightComponent implements OnInit {
   }
 
   private fetchAlugaveis(quantity: number) {
-    this.highlights.getSome(quantity, this.tipo_id).subscribe(response => {
+    this.highlights.getSome(quantity, this.tipo.id).subscribe(response => {
       this.rooms = response.results;
     });
   }
