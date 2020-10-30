@@ -441,6 +441,7 @@ export class AnuncioFormComponent implements OnInit {
 
     anuncio.valor = desformatMoneyValue(anuncio.valor);
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
+    
     if (!this.documentosForm.controls['proprietario'].value) anuncio.cadastro_terceiro = configCadastroTerceiro()
 
     if (id) anuncio.id = id;

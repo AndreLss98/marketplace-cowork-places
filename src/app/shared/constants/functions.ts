@@ -58,7 +58,10 @@ export function formatFieldMoneyValue(value) {
 
 export function desformatMoneyValue(value) {
     if (typeof(value) === "number") return value;
-    return Number(value.replace(/[R$\s]/g, '').replace(/[,]/g, '.'));
+    return Number(value
+        .replace(/(R\$\s)/g, '')
+        .replace(/\./g, '')
+        .replace(/[,]/g, '.'));
 }
 
 export function formatCEP(value: string) {
