@@ -18,11 +18,12 @@ import { ContaBancariaService } from 'src/app/shared/service/conta-bancaria.serv
 export class DadosBancariosComponent implements OnInit {
 
   public editBankAccountForm: FormGroup;
+  public editBankAccountJuridicForm: FormGroup;
   public filteredBanks: Observable<string[]>;
+  public filteredJuridicBanks: Observable<string[]>;
   public bancos: any = [];
   public bankAccountTypes = ['Conta Corrente', 'Conta Poupança'];
   public editDadosBancarios = false;
-
   constructor(
     public snack: MatSnackBar,
     public login: LoginService,
@@ -38,15 +39,26 @@ export class DadosBancariosComponent implements OnInit {
       agencia: ["", Validators.required],
       numero: ["", Validators.required]
     });
+
+    this.editBankAccountJuridicForm = formBuilder.group({
+      banco: [null, Validators.required],
+      tipo: ["", Validators.required],
+      agencia: ["", Validators.required],
+      numero: ["", Validators.required]
+    });
   }
   ngOnInit(): void {
     if (this.userService.user_data) this.validateUserDatas();
-
     this.bancoService.getAll().subscribe(response => {
       this.bancos = response;
     });
 
     this.filteredBanks = this.editBankAccountForm.controls.banco.valueChanges.pipe(
+      startWith(''),
+      map(value => this.bankFilter(value))
+    );
+
+    this.filteredJuridicBanks = this.editBankAccountJuridicForm.controls.banco.valueChanges.pipe(
       startWith(''),
       map(value => this.bankFilter(value))
     );
@@ -72,6 +84,11 @@ export class DadosBancariosComponent implements OnInit {
     }, (error) => {
       this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'top' });
     });
+  }
+
+  public actionBankAccountJuridicForm() {
+    this.snack.open('Salvando ...', '', { verticalPosition: 'top', duration: 3000 });
+    console.log(this.editBankAccountJuridicForm.value);
   }
 
   private resetBankAccountForm() {

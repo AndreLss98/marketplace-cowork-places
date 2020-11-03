@@ -1,4 +1,7 @@
 <mat-card class="mat-elevation-z2 my-2">
+  <mat-card-header>
+    <mat-card-title>Pessoa Física</mat-card-title>
+  </mat-card-header>
   <mat-card-content>
     <form [formGroup]="editBankAccountForm" (ngSubmit)="actionBankAccountForm()">
       <div class="row">
@@ -40,6 +43,58 @@
       <div class="d-flex align-items-center justify-content-center my-3">
         <button mat-raised-button color="primary" type="submit"
           [disabled]="editBankAccountForm.invalid || editBankAccountForm.pristine">
+          Atualizar dados Bancários
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="userService.user_data.pessoa_juridica" class="mat-elevation-z2 mb-2">
+  <mat-card-header>
+    <mat-card-title>Pessoa Jurídica</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="editBankAccountJuridicForm" (ngSubmit)="actionBankAccountJuridicForm()">
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="standard" class="w-100 example-full-width">
+            <mat-label>Banco</mat-label>
+            <input type="text" matInput formControlName="banco" [matAutocomplete]="auto" placeholder="Banco">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let bank of filteredJuridicBanks | async" [value]="bank">{{ bank }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="standard" class="w-100">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="tipo" required>
+              <mat-option *ngFor="let type of bankAccountTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="standard" class="w-100">
+            <mat-label>Agência</mat-label>
+            <input matInput formControlName="agencia" placeholder="Agência sem dígito" required />
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="standard" class="w-100">
+            <mat-label>Número da conta</mat-label>
+            <input matInput formControlName="numero" placeholder="Conta com o dígito" required />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-center my-3">
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="editBankAccountJuridicForm.invalid || editBankAccountJuridicForm.pristine">
           Atualizar dados Bancários
         </button>
       </div>
