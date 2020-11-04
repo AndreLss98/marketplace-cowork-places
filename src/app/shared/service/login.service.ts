@@ -81,7 +81,7 @@ export class LoginService {
   autoLogin() {
     this.refresh.refreshToken().subscribe(response => {
       this.login(response);
-    }, (error) => {})
+    }, (error) => {});
   }
 
   public verifySession() {

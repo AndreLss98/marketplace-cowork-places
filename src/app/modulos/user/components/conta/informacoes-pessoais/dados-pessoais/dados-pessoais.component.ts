@@ -168,10 +168,11 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   public actionJuridicForm() {
-    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'bottom' });
+    this.snack.open('Salvando...', 'OK', { verticalPosition: 'bottom' });
 
     this.userService.atualizarDadosJuridico(this.juridicForm.value).subscribe(response => {
       this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
+      this.loginService.autoLogin();
     }, (error) => {
       this.snack.dismiss();
       this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
