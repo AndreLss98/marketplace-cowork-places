@@ -34,6 +34,7 @@ export class DadosBancariosComponent implements OnInit {
     private contaBancariaService: ContaBancariaService
   ) {
     this.editBankAccountForm = formBuilder.group({
+      id: [null, []],
       banco: [null, Validators.required],
       tipo: ["", Validators.required],
       agencia: ["", Validators.required],
@@ -65,9 +66,12 @@ export class DadosBancariosComponent implements OnInit {
   }
 
   private validateUserDatas() {
-    if (this.userService.user_data.conta_bancaria) {
+    if (this.userService.user_data.conta_bancaria)
       this.resetBankAccountForm();
-    }
+
+    if (this.userService.user_data.pessoa_juridica
+        && this.userService.user_data.pessoa_juridica.conta_bancaria)
+          this.resetBankAccountJuridicForm();
   }
 
   private bankFilter(value: string): string[] {
@@ -76,27 +80,49 @@ export class DadosBancariosComponent implements OnInit {
   }
 
   public actionBankAccountForm() {
-    this.snack.open('Salvando ...', 'OK', { verticalPosition: 'top' });
+    this.snack.open('Salvando ...', '', { verticalPosition: 'bottom', duration: 2000 });
+
     this.contaBancariaService.updateOrSaveAccount(this.editBankAccountForm.value, this.bancos).subscribe((response: any) => {
       this.userService.user_data.conta_bancaria = response;
       this.resetBankAccountForm();
-      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'top' });
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
     }, (error) => {
-      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'top' });
+      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
     });
   }
 
   public actionBankAccountJuridicForm() {
-    this.snack.open('Salvando ...', '', { verticalPosition: 'top', duration: 3000 });
+    this.snack.open('Salvando ...', '', { verticalPosition: 'bottom', duration: 3000 });
     console.log(this.editBankAccountJuridicForm.value);
+
+    this.contaBancariaService.updateOrSaveAccount(this.editBankAccountJuridicForm.value, this.bancos, true)
+    .subscribe((response: any) => {
+      this.userService.user_data.pessoa_juridica.conta_bancaria = response;
+      // this.resetBankAccountForm();
+      this.snack.open('Salvo com sucesso!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
+    }, (error) => {
+      this.snack.open('Ocorreu algum erro!', 'OK', { duration: 2000, verticalPosition: 'bottom' });
+    });
   }
 
   private resetBankAccountForm() {
     this.editBankAccountForm.reset({
+      id: this.userService.user_data.conta_bancaria.id,
       banco: this.userService.user_data.conta_bancaria.banco,
       tipo: this.userService.user_data.conta_bancaria.tipo,
       agencia: this.userService.user_data.conta_bancaria.agencia,
       numero: this.userService.user_data.conta_bancaria.numero,
+    });
+  }
+
+  private resetBankAccountJuridicForm() {
+
+    this.editBankAccountJuridicForm.reset({
+      id: this.userService.user_data.pessoa_juridica.conta_bancaria.id,
+      banco: this.userService.user_data.pessoa_juridica.conta_bancaria.banco,
+      tipo: this.userService.user_data.pessoa_juridica.conta_bancaria.tipo,
+      agencia: this.userService.user_data.pessoa_juridica.conta_bancaria.agencia,
+      numero: this.userService.user_data.pessoa_juridica.conta_bancaria.numero,
     });
   }
 }
