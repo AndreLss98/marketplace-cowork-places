@@ -1,8 +1,10 @@
-import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
-import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { Component, OnInit } from '@angular/core';
+
 import { UserService } from 'src/app/shared/service/user.service';
+
+import { ALUGUEL_STATUS } from 'src/app/shared/constants/constants';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   templateUrl: './locacoes.component.html',
@@ -17,12 +19,15 @@ export class LocacoesComponent implements OnInit {
 
   constructor(
     private route : ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
-    this.alugueis = this.route.snapshot.data.alugueis;
-    this.processaAlugueis();
+    this.fetchAll();
+    this.loginService.userLoginEvent.subscribe(() => {
+      this.fetchAll();
+    })
   }
   private processaAlugueis() {
     this.ativos = this.alugueis.filter(contrato => contrato.status === ALUGUEL_STATUS.ACTIVE.value);
@@ -36,6 +41,13 @@ export class LocacoesComponent implements OnInit {
       this.ativos = [];
       this.inativos = [];
       this.cancelados = [];
+      this.processaAlugueis();
+    });
+  }
+
+  fetchAll() {
+    this.userService.getAlugueis(true).subscribe(response => {
+      this.alugueis = response;
       this.processaAlugueis();
     });
   }

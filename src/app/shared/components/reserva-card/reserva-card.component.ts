@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { Financeiro } from 'src/app/shared/classes/financeiro';
-import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/functions';
+import { addDays, diffDates, formatMoneyValue, desformatMoneyValue } from 'src/app/shared/constants/functions';
+
+import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 @Component({
   selector: 'reserva-card',
@@ -11,16 +14,24 @@ import { addDays, diffDates, formatMoneyValue } from 'src/app/shared/constants/f
 })
 export class ReservaCardComponent extends Financeiro implements OnInit {
 
-  private maxTax: number;
-
   readonly diffDates = diffDates;
   readonly formatMoneyValue = formatMoneyValue;
+  readonly desformatMoneyValue = desformatMoneyValue;
+
+  @Input()
+  public readOnly: boolean = false;
+
+  @Input()
+  public readInterval;
 
   @Input('taxa')
-  public taxa: number;
+  public taxa: number = 0;
 
   @Input('taxaMaxima')
   public taxaMaxima: number;
+
+  @Input('reservasMaxima')
+  public reservasMaxima: number;
 
   @Input('valorDiaria')
   public valorDiaria: number;
@@ -28,36 +39,108 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   @Input('valorMensal')
   public valorMensal: number;
 
+  @Input('anuncio_id')
+  public anuncio_id: number;
+
+  @Input()
+  public qtd_maxima_reservas: number = 1;
+
+  @Input()
+  public simulateMode: boolean = false;
+
   @Output('formValue')
   public formChangeEvent = new EventEmitter();
 
   public intervalForm: FormGroup;
   public minDate = addDays(new Date(), 2);
 
+  private diasReservados = [];
+
+  public validateRangeFn = (date: Date | null): boolean => {
+    return true;
+  };
+
   constructor(
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
+    private alugavelService: AlugavelService,
   ) {
     super();
     this.intervalForm = formBuilder.group({
-      entrada: ['', [Validators.required]],
-      saida: ['', [Validators.required]],
+      entrada: [addDays(new Date(), 2), [Validators.required]],
+      saida: [addDays(new Date(), 2), [Validators.required]],
+      qtd_reservas: [1, [Validators.min(1), Validators.max(this.reservasMaxima)]]
     });
 
     this.intervalForm.valueChanges.subscribe(() => {
-      this.formChangeEvent.emit({
+      this.valorMensal = desformatMoneyValue(this.valorMensal);
+      this.valorDiaria = desformatMoneyValue(this.valorDiaria);
+      
+      const emitObject = {
         formValid: this.intervalForm.valid,
         interval: this.intervalForm.value,
         total: this.qtdDias() >= 31 && this.valorMensal?
         this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))):
-        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria)))
-      });
+        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria))),
+        qtd_reservas: this.intervalForm.controls['qtd_maxima_reservas']
+      };
+      this.formChangeEvent.emit(emitObject);
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.readInterval) {
+      this.intervalForm.reset(this.readInterval);
+    }
+
+    if (this.anuncio_id) this.alugavelService.getDiasReservados(this.anuncio_id).subscribe(response => {
+      this.diasReservados = response;
+      for (let reserved of this.diasReservados) {
+        reserved.data_entrada = new Date(reserved.data_entrada);
+        reserved.data_entrada.setDate(reserved.data_entrada.getDate() + 1);
+        reserved.data_entrada.setHours(0, 0, 0);
+
+        reserved.data_saida = new Date(reserved.data_saida);
+        reserved.data_saida.setDate(reserved.data_saida.getDate() + 1);
+        reserved.data_saida.setHours(0, 0, 0);
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    
+  }
 
   public validateRange() {
+    console.log('Foi chamado esse aqui')
 
+    this.validateRangeFn = (date: Date | null): boolean => {
+        const intervaloReservado = this.diasReservados.find(
+          range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
+        
+          let mensal = false;
+        let isMultiplo = false;
+      
+        if (this.intervalForm.controls['entrada'].value && !this.intervalForm.controls['saida'].value && this.valorDiaria == 0) {
+          mensal = true;
+        }
+      
+        if (mensal) {
+          const qtdDias = diffDates(this.intervalForm.controls['entrada'].value, date);
+          isMultiplo = qtdDias % 31  === 0;
+        }
+      
+        return intervaloReservado || (mensal && !isMultiplo)? false : true;
+      }
+
+    if (this.intervalForm.controls['saida'].value) {
+      const conflictRange = this.diasReservados.find(range => range.data_entrada.getTime() > this.intervalForm.controls['entrada'].value.getTime() && range.data_entrada.getTime() < this.intervalForm.controls['saida'].value.getTime());
+      if (conflictRange) {
+        this.intervalForm.controls['entrada'].setValue(null);
+        this.intervalForm.controls['saida'].setValue(null);
+        this.snackBar.open('Intervalo inválido', 'Ok', { duration: 4000 });
+      }
+    }
   }
 
   public qtdDias() {
@@ -68,4 +151,15 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     return Math.floor(this.qtdDias() / 31);
   }
 
+  addQtdReservas() {
+    if (this.intervalForm.controls['qtd_reservas'].value < this.qtd_maxima_reservas) {
+      this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value + 1);
+    }
+  }
+
+  removeQtdReservas() {
+    if (this.intervalForm.controls['qtd_reservas'].value > 1) {
+      this.intervalForm.controls['qtd_reservas'].setValue(this.intervalForm.controls['qtd_reservas'].value - 1);
+    }
+  }
 }

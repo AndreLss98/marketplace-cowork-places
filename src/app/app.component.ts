@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { UserService } from './shared/service/user.service';
 import { LoginService } from './shared/service/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +11,46 @@ import { LoginService } from './shared/service/login.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  readonly SUPPORT_PHONE = environment.supportPhone;
   title = 'placeet';
+
+  @ViewChild('nav', { static: false })
+  private nav: ElementRef;
 
   public sidenavOpened = false;
 
   constructor(
-    private login: LoginService,
-    public userService: UserService
+    public router: Router,
+    public login: LoginService,
+    public userService: UserService,
   ) {
     this.login.autoLogin();
+  }
+
+  toggleSideMenu(event?) {
+    if (event) event.stopPropagation();
+
+    this.sidenavOpened = !this.sidenavOpened;
+    !this.sidenavOpened? this.nav.nativeElement.classList.add('sticky-top') : this.nav.nativeElement.classList.remove('sticky-top');
+  }
+
+  closeSideMenu() {
+    if(this.sidenavOpened) this.toggleSideMenu();
+  }
+
+  comoFunciona() {
+    if (!this.router.url.includes('/home')) {
+      this.router.navigate(['/home']).then(() => {
+        setTimeout(() => {
+          var el = document.getElementById('comoFunciona');
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      })
+    } else {
+      var el = document.getElementById('comoFunciona');
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }
 

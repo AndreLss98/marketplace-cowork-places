@@ -1,6 +1,5 @@
 <mat-card *ngIf="aluguel ? aluguel : emptyContrato">
     <mat-card-title>
-
         <!--locador-->
         <div *ngIf="aluguel.locador">
             <div class="d-flex flex-row justify-content-around">
@@ -50,7 +49,7 @@
 
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-column flex-wrap data">
-                <span class="itemTitle">{{aluguel.alugavel.titulo+":"}}</span>
+                <span class="itemTitle font-weight-bold">{{aluguel.alugavel.titulo+":"}}</span>
                 <a id="link" class="content" [routerLink]="['/spaces/' + aluguel.alugavel.id]">Ver anúncio</a>
             </div>
 
@@ -66,14 +65,14 @@
 
         <div class="endereco">
 
-            <!-- <span class="content">
+            <span class="content">
                 {{aluguel.alugavel.local.rua}},
                 {{aluguel.alugavel.local.numero ? aluguel.alugavel.local.numero : ''}}
                 {{aluguel.alugavel.local.bairro}}
                 {{aluguel.alugavel.local.complemento != '' ? ', ' + aluguel.alugavel.local.complemento:''}}
             </span>
             <span class="content">{{aluguel.alugavel.local.cidade}} - {{aluguel.alugavel.local.estado}}</span>
-            -->
+           
         </div>
 
         <div class="d-flex flex-row justify-content-between">
@@ -84,7 +83,7 @@
 
             <div class="d-flex flex-column flex-wrap data">
                 <span class="itemTitle">Valor total:</span>
-                <span class="content">R$ {{aluguel.valor}}</span>
+                <span class="content">{{ formatMoneyValue(aluguel.valor) }}</span>
             </div>
         </div>
 

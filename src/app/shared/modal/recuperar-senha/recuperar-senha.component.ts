@@ -29,11 +29,11 @@ export class RecuperarSenhaComponent implements OnInit {
 
   onSubmit() {
     this.userService.recoverPassword(this.form.value).subscribe(response => {
-      this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
+      this.snackBar.open('Email enviado', 'Ok', { duration: 3000, verticalPosition: "top" });
       this.matDialog.closeAll();
     }, (error) => {
       console.log(error);
-      this.snackBar.open('Email enviado', 'Ok', { duration: 3000 });
+      this.snackBar.open('Email enviado', 'Ok', { duration: 3000, verticalPosition: "top" });
     }, () => {
       this.matDialog.closeAll();
     });

@@ -1,16 +1,16 @@
-<mat-tab-group class="w-100 pt-4" mat-align-tabs="center">
+<mat-tab-group class="w-100 pt-1" mat-align-tabs="center">
     <mat-tab [label]="'Aprovados ('+ espacos_aprovados.length + ')'">
         <div class="d-flex flex-row flex-wrap justify-content-center">
-            <div class="p-1">
+            <div class="p-2">
                 <mat-card class="customCard cursor-pointer" routerLink="/user/anuncios/new" style="outline: none;">
                     <div class="d-flex h-100 align-items-center
                         justify-content-center flex-column">
                         <mat-icon>add</mat-icon>
-                        <span>Adicionar um espaço</span>
+                        <span>Adicionar anúncio</span>
                     </div>
                 </mat-card>
             </div>
-            <div class="position-relative p-1" *ngFor="let aprovados of
+            <div class="position-relative p-2" *ngFor="let aprovados of
                 espacos_aprovados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu" [matMenuTriggerData]="{id: aprovados.id, status: aprovados.status}" class="position-absolute" style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -22,7 +22,7 @@
 
     <mat-tab [label]="'Em avaliação ('+ espacos_em_avaliacao.length + ')'">
         <div class="d-flex flex-row flex-wrap justify-content-center" *ngIf="espacos_em_avaliacao && espacos_em_avaliacao.length > 0; else emptyAvaliacao">
-            <div class="position-relative p-1" *ngFor="let aguardando of espacos_em_avaliacao">
+            <div class="position-relative p-2" *ngFor="let aguardando of espacos_em_avaliacao">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu" [matMenuTriggerData]="{id: aguardando.id, status:aguardando.status}" class="position-absolute"
                     style="top: 5px; right: 5px; z-index: 99; outline: none;">
                     <mat-icon>more_vert</mat-icon>
@@ -34,7 +34,7 @@
 
     <mat-tab [label]="'Reprovados ('+ espacos_reprovados.length + ')'">
         <div class="d-flex flex-row flex-wrap justify-content-center" *ngIf="espacos_reprovados && espacos_reprovados.length; else emptyReprovados">
-            <div class="position-relative p-1" *ngFor="let reprovados of espacos_reprovados">
+            <div class="position-relative p-2" *ngFor="let reprovados of espacos_reprovados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu" [matMenuTriggerData]="{id: reprovados.id, status: reprovados.status}"
                 
                     class="position-absolute"
@@ -56,7 +56,7 @@
     <mat-tab [label]="'Desativados ('+ espacos_desativados.length + ')'">
         <div class="d-flex flex-row flex-wrap justify-content-center"
             *ngIf="espacos_desativados && espacos_desativados.length > 0; else emptyDesativados">
-            <div class="position-relative p-1" *ngFor="let removidos of
+            <div class="position-relative p-2" *ngFor="let removidos of
                 espacos_desativados">
                 <button type="button" mat-mini-fab [matMenuTriggerFor]="menu" [matMenuTriggerData]="{id: removidos.id, status:
                     removidos.status}" class="position-absolute"
@@ -83,25 +83,15 @@
     </ng-template>
 </mat-menu>
 
-
 <!-- <Templates caso algum dos demais esteja vazio -->
 <ng-template #emptyAvaliacao>
-    <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-        <a class="icon fa fa-bullhorn fa-4x"></a>
-        <h1 style="opacity: 30%;">Não há anúncios em avaliação.</h1>
-    </div>
+    <empty-page-message [message]="'Não há anúncios em avaliação.'" [classIcone]="'fa-bullhorn'"></empty-page-message>
 </ng-template>
 
 <ng-template #emptyReprovados>
-    <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-        <a class="icon fa fa-bullhorn fa-4x"></a>
-        <h1 style="opacity: 30%;">Não há anúncios reprovados.</h1>
-    </div>
+    <empty-page-message [message]="'Não há anúncios reprovados.'" [classIcone]="'fa-bullhorn'"></empty-page-message>
 </ng-template>
 
 <ng-template #emptyDesativados>
-    <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-        <a class="icon fa fa-bullhorn fa-4x"></a>
-        <h1 style="opacity: 30%;">Não há anúncios desativados.</h1>
-    </div>
+    <empty-page-message [message]="'Não há anúncios desativados.'" [classIcone]="'fa-bullhorn'"></empty-page-message>
 </ng-template>

@@ -1,6 +1,7 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -47,7 +48,7 @@ export class UserService {
     this._isAdmin = value;
   }
 
-  public cadastroValidado(){
+  public cadastroValidado() {
     if(
       !this.user_data ||
       !this.user_data.cpf ||
@@ -62,10 +63,7 @@ export class UserService {
   }
 
   public verifyUserEmail(email: string) {
-    let params = new HttpParams();
-    let headers = new HttpHeaders();
-    params = params.append('email', email);
-    return this.http.post(environment.apiUrl + '/usuarios/email', { email: email });
+    return this.http.post(environment.apiUrl + '/usuarios/email', { email });
   }
 
   public validateEmail(token: string) {
@@ -98,6 +96,13 @@ export class UserService {
   public atualizarDadosPessoais(usuario) {
     delete usuario.id;
     return this.http.put<any>(`${environment.apiUrl}/usuarios/`, usuario);
+  }
+
+  public atualizarDadosJuridico(usuario) {
+    delete usuario.local.latitude;
+    delete usuario.local.longitude;
+    usuario.local.pais = 'Brasil';
+    return this.http.put<any>(`${environment.apiUrl}/usuarios/dados-juridicos`, usuario);
   }
 
   public updatePassword(update) {

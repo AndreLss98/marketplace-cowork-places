@@ -4,8 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about.component';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent },
-  { path: ':nome', component: AboutComponent, pathMatch: 'full' }
+  { path: '', component: AboutComponent }
 ];
 
 @NgModule({

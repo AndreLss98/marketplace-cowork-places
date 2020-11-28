@@ -1,49 +1,70 @@
-<div class="sair">
-    <span (click)="loginService.logoutServer()" >Sair</span>
-</div>
-<div class="menu">
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Conta</span>
+<div id="content">
+    <div class="mb-3">
+        <div class="d-flex align-items-center">
+            <ion-icon name="person-outline"></ion-icon>
+            <h3 class="m-0 ml-1">Conta</h3>
         </div>
-        <div class="menuItemContent">
-            <span matBadge="!" matBadgeColor="warn" [matBadgeHidden]="userService.cadastroValidado()"
-                matBadgeOverlap="false" routerLink="/user/conta/info">Informações Pessoais</span>
-            <span  routerLink="/user/conta/safety">Login e Segurança</span>
+        <mat-divider class="mb-2"></mat-divider>
+
+        <div class="d-flex flex-column pl-3">
+            <h4
+                class="mx-0 mb-1"
+                (click)="onAction()"
+                matBadgeOverlap="false" routerLink="/user/conta/info">Informações Pessoais</h4>
+            <h4
+                class="mx-0 mb-1"
+                (click)="onAction()"
+                routerLink="/user/conta/safety">Login e Segurança</h4>
         </div>
     </div>
 
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Aluguéis</span>
+    <div class="mb-3">
+        <div class="d-flex align-items-center">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <h3 class="m-0 ml-1">Aluguéis</h3>
         </div>
-        <div class="menuItemContent">
-            <span routerLink="/user/alugueis"> Meus aluguéis</span>
-            <span routerLink="/user/espacossalvos">Espaços salvos</span>
+        <mat-divider class="mb-2"></mat-divider>
+
+        <div class="d-flex flex-column pl-3">
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/alugueis"> Meus Aluguéis</h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/espacossalvos">Espaços Salvos</h4>
         </div>
     </div>
 
-    <div class="menuItem">
-        <div class="menuItemTitle">
-            <span>Anúncios</span>
+    <div class="mb-3">
+        <div class="d-flex align-items-center">
+            <ion-icon name="megaphone-outline"></ion-icon>
+            <h3 class="m-0 ml-1">Anúncios</h3>
         </div>
-        <div class="menuItemContent">
-            <span routerLink="/user/anuncios/meusanuncios"> Meus anúncios </span>
-            <span routerLink="/user/anuncios/locacoes"> Locações </span>
+        <mat-divider class="mb-2"></mat-divider>
+
+        <div class="d-flex flex-column pl-3">
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/anuncios/meusanuncios"> Meus Anúncios </h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/anuncios/locacoes"> Locações </h4>
         </div>
     </div>
 
-    <div class="menuItem" *ngIf="userService.isAdmin">
-        <div class="menuItemTitle">
-            <span>Administrador</span>
+    <div *ngIf="userService.isAdmin" class="mb-3">
+        <div class="d-flex align-items-center">
+            <ion-icon name="construct-outline"></ion-icon>
+            <h3 class="m-0 ml-1">Administrador</h3>
         </div>
-        <div class="menuItemContent">
-            <span routerLink="/user/usuarios"> Usuários </span>
-            <span routerLink="/user/anuncios"> Anúncios </span>
-            <span routerLink="/user/contratos"> Contratos </span>
-            <span routerLink="/user/feedbacks"> Feedback </span>
-            <span routerLink="/user/politicas"> Politicas </span>
-            <!-- <span routerLink="/user/questionario"> Questionário </span> -->
+        <mat-divider class="mb-2"></mat-divider>
+
+        <div class="d-flex flex-column pl-3">
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/usuarios"> Usuários </h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/anuncios"> Anúncios </h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/contratos"> Contratos </h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/feedbacks"> Feedback </h4>
+            <h4 class="mx-0 mb-1" (click)="onAction()" routerLink="/user/politicas"> Políticas </h4>
+        </div>
+    </div>
+
+    <div>
+        <mat-divider class="mb-2"></mat-divider>
+        <div class="d-flex align-items-center" (click)="loginService.logoutServer()">
+            <ion-icon name="power-outline"></ion-icon>
+            <h4 class="m-0 ml-1 pt-1">Sair</h4>
         </div>
     </div>
 </div>

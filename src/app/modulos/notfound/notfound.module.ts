@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { NotfoundRoutingModule } from './notfound-routing.module';
 import { NotfoundComponent } from './notfound.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [NotfoundComponent],
   imports: [
     CommonModule,
-    NotfoundRoutingModule
+    SharedModule,
+    NotfoundRoutingModule,
   ]
 })
 export class NotfoundModule { }

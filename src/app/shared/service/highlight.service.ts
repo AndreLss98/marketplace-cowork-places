@@ -82,4 +82,8 @@ export class HighlightService {
       console.log('Error: ', error);
     });
   }
+
+  public getMostUsed() {
+    return this.http.get<any>(`${environment.apiUrl}/alugaveis/most-used`);
+  }
 }

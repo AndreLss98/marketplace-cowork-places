@@ -1,6 +1,6 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from 'src/app/shared/modal/login/login.component';
 
 import { environment } from 'src/environments/environment';
-import { formatDate, stringValueToBoolean, diffDates, formatServerDate } from 'src/app/shared/constants/functions';
+import { stringValueToBoolean, diffDates } from 'src/app/shared/constants/functions';
 import { ENUM_ALUGAVEL_CARACTERISTICAS, ALUGAVEL_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 import { UserService } from 'src/app/shared/service/user.service';
@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/shared/service/login.service';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 import { CheckoutService } from 'src/app/shared/service/checkout.service';
 import { FavoritosService } from 'src/app/shared/service/favoritos.service';
+import { AlugaveisService } from 'src/app/shared/service/alugaveis.service';
 
 @Component({
   selector: 'app-spaces',
@@ -31,7 +32,7 @@ import { FavoritosService } from 'src/app/shared/service/favoritos.service';
 export class SpacesComponent implements OnInit {
 
   readonly TIPOS_CAMPOS = TIPOS_CAMPOS;
-
+  readonly SUPPORT_PHONE = environment.supportPhone;
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   public max_taxa;
@@ -39,7 +40,6 @@ export class SpacesComponent implements OnInit {
   public backUrl = environment.apiUrl;
 
   public anuncio;
-  public maisEspacosDoLocador = [];
 
   public view = 'photos';
 
@@ -57,30 +57,43 @@ export class SpacesComponent implements OnInit {
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     public userService: UserService,
-    private formBuilder: FormBuilder,
     private checkoutService: CheckoutService,
     private alugavelService: AlugavelService,
+    public alugaveisService: AlugaveisService,
     private favoritoService: FavoritosService,
   ) {
     
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data);
-    this.anuncio = this.route.snapshot.data['espaco'];
+    this.alugaveisService.anuncio = this.route.snapshot.data['espaco'];
+    this.alugaveisService.anuncio.valor = Number(this.alugaveisService.anuncio.valor);
+    this.alugaveisService.anuncio.valor_mes = Number(this.alugaveisService.anuncio.valor_mes);
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
-
-    this.configCaracteristicas();
-
-
-    this.alugavelService.getAllByUser(this.anuncio.anunciante_id).subscribe(response => {
-      this.maisEspacosDoLocador = response.filter(anuncio => anuncio.id !== this.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.value);
+    
+    this.route.params.subscribe(routeParams => {
+      this.alugaveisService.getById(Number(routeParams.id)).subscribe(response => {
+        this.alugaveisService.anuncio = response;
+      }, (error) => {
+        console.log(error);
+      }, () => {
+        this.configComponent();
+      });
     });
   }
 
   ngAfterViewInit() {
-    const topo = document.getElementById("sidebar");
-    topo.scrollIntoView({ behavior: 'auto' });
+  
+  }
+
+  private configComponent() {
+
+    this.configCaracteristicas();
+
+    this.alugavelService.getAllByUser(this.alugaveisService.anuncio.anunciante_id).subscribe(response => {
+      this.alugaveisService.maisAnunciosDoAnunciante = response
+        .filter(anuncio => anuncio.id !== this.alugaveisService.anuncio.id && anuncio.status === ALUGAVEL_STATUS.APPROVED.value);
+    });
   }
 
   public favoritar() {
@@ -91,9 +104,7 @@ export class SpacesComponent implements OnInit {
     this.favoritoService.favoritar(this.anuncio.id).subscribe(res => {
       this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
     }, err => {
-      this.favoritoService.desfavoritar(this.anuncio.id).subscribe( response => {
-        this.snackBar.open('Removido dos espaços salvos', 'OK', {duration: 1000});
-      })
+      this.snackBar.open('Espaço já está salvo', 'OK', {duration: 1000});
     });
   }
 
@@ -101,17 +112,13 @@ export class SpacesComponent implements OnInit {
     if(!this.login.checkLogedIn()) return this.matDialog.open(LoginComponent);
 
     this.checkoutService.reserva = {
-      dias_reservados: {
-        data_entrada: formatServerDate(this.intervalData.interval.entrada),
-        data_saida: formatServerDate(this.intervalData.interval.saida)
-      },
-      valor: this.intervalData.total,
-      alugavel_id: this.anuncio.id
+      max_taxa: this.max_taxa,
+      anuncio: this.alugaveisService.anuncio,
+      ...this.intervalData
     }
 
-    if (diffDates(this.intervalData.entrada, this.intervalData.entrada) + 1) {
+    if ((diffDates(this.intervalData.interval.entrada, this.intervalData.interval.saida) + 1) <= 31) {
       this.checkoutService.checkout(this.checkoutService.reserva).subscribe(response => {
-        this.checkoutService.reserva.titulo = this.anuncio.titulo;
         this.checkoutService.reserva.id = response.id;
         this.router.navigate(['/checkout']);
       }, (error) => {
@@ -123,16 +130,11 @@ export class SpacesComponent implements OnInit {
         this.checkoutService.reserva.id = response.id;
         this.router.navigate(['/checkout']);
       }, (error) => {
-        console.log("Aluguel error: ", error);
+        console.log("Aluguel recorrente error: ", error);
       });
     }
   }
 
-
-  /**
- * Retorna um array com os nomes dos icones, para as estrelas da avalição
- * pode ser star, star_half, star_outline
- */
   public countStars(n: number): string[] {
     let array = [];
     let j = 0;
@@ -154,10 +156,17 @@ export class SpacesComponent implements OnInit {
   }
 
   public configCaracteristicas() {
-    this.anuncio.caracteristicas.forEach(caracteristica => {
+    this.alugaveisService.anuncio.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
+      
+      if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
+        caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
+      }
     });
-    this.caracteristicasComIcone = this.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
-    this.caracteristicasSemIcone = this.anuncio.caracteristicas.filter(caracteristica => !caracteristica.icone);
+    this.caracteristicasComIcone = this.alugaveisService.anuncio.caracteristicas.filter(caracteristica => caracteristica.icone);
+
+    this.caracteristicasSemIcone = this.alugaveisService.anuncio.caracteristicas
+      .filter(caracteristica => !caracteristica.icone)
+      .filter(caracteristica => caracteristica.valor);
   }
 }

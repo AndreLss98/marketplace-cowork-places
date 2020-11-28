@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'img-circular',
@@ -23,7 +22,7 @@ export class ImgCircularComponent implements OnInit {
     if (img && img.startsWith('https://') && img.includes('/AAAAAAAAAAI')) {
       this.imgUrl = '';
     } else if (img && !img.startsWith('https://') && !img.startsWith('file://')) {
-      this.imgUrl = `${environment.apiUrl}/imgs/${img}`;
+      this.imgUrl = img;
     }
   }
 }

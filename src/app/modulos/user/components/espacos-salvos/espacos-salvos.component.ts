@@ -2,6 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 
 import { FavoritosService } from 'src/app/shared/service/favoritos.service';
+import { LoginService } from 'src/app/shared/service/login.service';
 
 @Component({
   selector: 'app-espacos-salvos',
@@ -13,14 +14,18 @@ export class EspacosSalvosComponent implements OnInit {
   public favoritos = [];
 
   constructor(
+    private snack: MatSnackBar,
+    private loginService: LoginService,
     private favoritosService: FavoritosService,
-    private snack: MatSnackBar
   ) {
 
   }
 
   ngOnInit(): void {
     this.carregarFavoritos();
+    this.loginService.userLoginEvent.subscribe(() => {
+      this.carregarFavoritos();
+    });
   }
 
   public removerFavoritos(id) {
@@ -32,7 +37,6 @@ export class EspacosSalvosComponent implements OnInit {
 
   public carregarFavoritos() {
     this.favoritosService.getAll().subscribe(response => {
-      console.log('Favoritos: ', response);
       this.favoritos = response;
     })
   }

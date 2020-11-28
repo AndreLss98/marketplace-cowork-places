@@ -1,165 +1,175 @@
-<div class="ml-sm-2 mr-2 ml-lg-0 overflow-hidden min-vh-100" style="max-width: 100%;">
-    <h1 class="font-weight-bold">{{anuncio.titulo}}</h1>
-    <h4>{{anuncio.tipo.nome}}</h4>
-    
-    <div class="row">
-        <div class="col-lg col-xl-8">
-            <maps
-                *ngIf="view === 'maps'"
-                [lngLatPlace]="{ latitude: anuncio.local.latitude, longitude: anuncio.local.longitude }"
-                [static]="true"></maps>
-    
-            <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide mw-100" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#spacesCarousel" *ngFor="let image of anuncio.imagens; let i = index" data-slide-to="index" [class.active]="i === 0" ></li>
-                </ol>
-    
-                <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let image of anuncio.imagens; let i = index" [class.active]="i === 0">
-                        <img [src]="backUrl + '/imgs/' + image.url" class="d-block w-100" />
-                    </div>
-                </div>
-    
-                <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    
-        <div class="col-lg col-xl-4">
-            <reserva-card
-                (formValue)="intervalData = $event"
-                [taxaMaxima]="max_taxa"
-                [valorDiaria]="anuncio.valor"
-                [valorMensal]="anuncio.valor_mes"
-                [taxa]="anuncio.taxa"></reserva-card>
-            <div class="mt-2">
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <button
-                            class="px-5 py-1"
-                            mat-raised-button
-                            type="button"
-                            color="primary"
-                            (click)="checkout()"
-                            [disabled]="!intervalData?.formValid || anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
-                    </div>
-                </div>
-    
-                <div class="row mt-2">
-                    <div class="col d-flex justify-content-around">
-                        <div class="d-flex flex-column align-items-center">
-                            <button mat-fab color="primary" class="mb-1" (click)="favoritar()">
-                                <mat-icon>favorite</mat-icon>
-                            </button>
-                            Salvar
-                        </div>
-    
-                        <div class="d-flex flex-column align-items-center">
-                            <button mat-fab color="primary" class="mb-1" (click)="view = view === 'maps'? 'photos' : 'maps' ">
-                                <mat-icon>{{ view === 'maps'? 'insert_photo' : 'location_on' }}</mat-icon>
-                            </button>
-                            {{ view === 'maps'? 'Fotos' : 'Localização' }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <mat-card class="my-2">
+<div class="mx-2 mt-2" *ngIf="alugaveisService.anuncio">
+    <div class="overflow-hidden min-vh-100" style="max-width: 100%;">
+        <h4>{{alugaveisService.anuncio.tipo.nome}}</h4>
+        <h1 class="font-weight-bold">{{alugaveisService.anuncio.titulo}}</h1>
         <div class="row">
-            <div class="col-md d-flex align-items-center">
-                <h1 class="m-0">{{ anuncio.local.rua }} {{ anuncio.local.cidade }} - {{ anuncio.local.estado }}</h1>
-            </div>
-            <div class="col-md d-flex justify-content-end">
-                <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
-                    <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                        <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="mx-2">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.nome }}</p>
-                        </div>
+            <div class="col-lg col-xl-8">
+                <maps
+                    *ngIf="view === 'maps'"
+                    [lngLatPlace]="{
+                        latitude: alugaveisService.anuncio.local.latitude,
+                        longitude: alugaveisService.anuncio.local.longitude
+                    }"
+                    [static]="true"></maps>
         
-                        <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="mx-2">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
+                <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="imgContainer">
+                        <div class="carousel-item" [class.active]="i == 0" *ngFor="let image of alugaveisService.anuncio.imagens; let i = index">
+                            <img [src]="image.url" class="d-block w-100" alt="imagem do anúncio">
                         </div>
-
-                        <div *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="mx-2">
-                            <mat-icon >{{caracteristica.icone}}</mat-icon>
-                            <p class="p-0 m-0">{{ caracteristica.valor }}</p>
-                        </div>
-                    </ng-container>
-                </ng-container>
+                    </div>
+                    <a class="carousel-control-prev" href="#spacesCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#spacesCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
-        </div>    
-    </mat-card>
-    
-    <div class="row mw-100">
-        <div class="col">
-            <div class="d-flex flex-column">
-                <h2 class="font-weight-bold">Descrição do proprietário</h2>
-                <h3 style="word-wrap: break-word;">{{ anuncio.descricao }}</h3>
+        
+            <div class="col-lg col-xl-4">
+                <reserva-card
+                    (formValue)="intervalData = $event"
+                    [taxaMaxima]="max_taxa"
+                    [valorDiaria]="alugaveisService.anuncio.valor"
+                    [valorMensal]="alugaveisService.anuncio.valor_mes"
+                    [taxa]="alugaveisService.anuncio.taxa"
+                    [qtd_maxima_reservas]="alugaveisService.anuncio.qtd_maxima_reservas"
+                    [anuncio_id]="alugaveisService.anuncio.id"></reserva-card>
+                <div class="mt-2">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button
+                                class="px-5 py-1"
+                                mat-raised-button
+                                type="button"
+                                color="primary"
+                                (click)="checkout()"
+                                [disabled]="!intervalData?.formValid || alugaveisService.anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
+                        </div>
+                    </div>
+        
+                    <div class="row mt-2">
+                        <div class="col d-flex justify-content-around">
+                            <div class="d-flex flex-column align-items-center">
+                                <button mat-fab color="primary" class="mb-1" (click)="favoritar()">
+                                    <mat-icon>favorite</mat-icon>
+                                </button>
+                                Salvar
+                            </div>
+        
+                            <div class="d-flex flex-column align-items-center">
+                                <button mat-fab color="primary" class="mb-1" (click)="view = view === 'maps'? 'photos' : 'maps' ">
+                                    <mat-icon>{{ view === 'maps'? 'insert_photo' : 'location_on' }}</mat-icon>
+                                </button>
+                                {{ view === 'maps'? 'Fotos' : 'Localização' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="row mw-100" *ngIf="caracteristicasSemIcone.length">
+    
+        <mat-card class="my-2">
+            <div class="row">
+                <div class="col-md d-flex align-items-center justify-content-center justify-content-md-end">
+                    <h1 class="m-0">{{ alugaveisService.anuncio.local.rua }}, {{ alugaveisService.anuncio.local.bairro }}, {{ alugaveisService.anuncio.local.cidade }} - {{ alugaveisService.anuncio.local.estado }}</h1>
+                </div>
+    
+                <div class="col-md d-flex justify-content-center justify-content-md-end">
+                    <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
+                        <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
+                            <div [matTooltip]="caracteristica.nome"
+                                *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
+                                class="mx-2 d-flex flex-column align-items-center justify-content-center">
+                                <ion-icon [name]="caracteristica.icone"></ion-icon>
+                                <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                            </div>
+            
+                            <div [matTooltip]="caracteristica.nome"
+                                *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
+                                class="mx-2 d-flex flex-column align-items-center justify-content-center">
+                                <ion-icon [name]="caracteristica.icone"></ion-icon>
+                                <p class="p-0 m-0">
+                                    <span>{{ caracteristica.valor }} </span>
+                                    <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
+                                </p>
+                            </div>
+    
+                            <div [matTooltip]="caracteristica.nome"
+                                *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome"
+                                class="mx-2 d-flex flex-column align-items-center justify-content-center">
+                                <ion-icon [name]="caracteristica.icone"></ion-icon>
+                                <p class="p-0 m-0">{{ caracteristica.valor }}</p>
+                            </div>
+    
+                            <div [matTooltip]="caracteristica.nome"
+                                *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
+                                class="mx-2 d-flex flex-column align-items-center justify-content-center">
+                                <ion-icon [name]="caracteristica.icone"></ion-icon>
+                                <p class="p-0 m-0">{{ caracteristica.valor }}</p>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+    
+            </div>    
+        </mat-card>
+        
+        <h2 class="font-weight-bold">Descrição do proprietário</h2>
         <div class="row">
             <div class="col">
-                <h2 class="font-weight-bold">Mais caracteristicas</h2>
+                <h3 style="word-wrap: break-word;">{{ alugaveisService.anuncio.descricao }}</h3>
             </div>
         </div>
-
-        <div class="row" *ngFor="let caracteristica of caracteristicasComIcone">
+    
+        <div class="row" *ngIf="caracteristicasSemIcone.length">
             <div class="col">
-                <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                    <p *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="p-0 m-0">{{ caracteristica.nome }}</p>
-    
-                    <p *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="p-0 m-0">
-                        {{ caracteristica.nome }}:
-                         {{ caracteristica.valor }}
-                    </p>
-
-                    <p *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="p-0 m-0">
-                        {{ caracteristica.nome }}:
-                         {{ caracteristica.valor }}
-                    </p>
-                </ng-container>
-            </div>
-        </div>
-    </div>
-    
-    <div *ngIf="anuncio.infos.length" class="row mt-2">
-        <div class="col">
-            <div class="d-flex flex-column">
-                <h2 class="font-weight-bold">Informações adicionais</h2>
+                <h2 class="font-weight-bold">Mais características</h2>
                 <ul>
-                    <li *ngFor="let info of anuncio.infos">
-                        <h3>{{ info.descricao }}</h3>
+                    <li *ngFor="let caracteristica of caracteristicasSemIcone">
+                        <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
+                            <p *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="p-0 m-0">{{ caracteristica.nome }}</p>
+            
+                            <p *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="p-0 m-0">
+                                {{ caracteristica.nome }}: {{ caracteristica.valor }}
+                            </p>
+            
+                            <p *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="p-0 m-0">
+                                {{ caracteristica.nome }}: {{ caracteristica.valor }}
+                            </p>
+                        </ng-container>
                     </li>
                 </ul>
             </div>
         </div>
+        
+        <div *ngIf="alugaveisService.anuncio.infos.length" class="row">
+            <div class="col">
+                <h2 class="font-weight-bold">Informações adicionais</h2>
+                <ul>
+                    <li *ngFor="let info of alugaveisService.anuncio.infos">
+                        <p class="m-0 p-0">{{ info.descricao }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
     </div>
-    
-</div>
-<div>
-    <a
-        [href]="'https://api.whatsapp.com/send?phone=55556296611324&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20duvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F'+anuncio.id"
-        target="_blank"
-        style="font-size: 1rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
-</div>
-<div *ngIf="maisEspacosDoLocador.length" class="d-flex flex-column border-top">
-    <h2>Mais espaços desse anunciante</h2>
-    <div class="d-flex py-2 pl-2 flex-row back-verde-escuro flex-wrap justify-content-start">
-        <card-item-alugavel
-            *ngFor="let espaco of maisEspacosDoLocador"
-            [data]="espaco"></card-item-alugavel>
+    <div class="mb-2">
+        <a
+            [href]="'https://api.whatsapp.com/send?phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F' + alugaveisService.anuncio.id"
+            target="_blank"
+            style="font-size: .7rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
+    </div>
+    <div *ngIf="alugaveisService.maisAnunciosDoAnunciante.length" class="d-flex flex-column pt-3 border-top">
+        <h2>Mais anúncios desse locador</h2>
+        <div class="d-flex py-2 pl-2 mx-n2 flex-row back-verde-escuro flex-wrap justify-content-start">
+            <card-item-alugavel class="ml-2"
+                *ngFor="let espaco of alugaveisService.maisAnunciosDoAnunciante"
+                [data]="espaco"></card-item-alugavel>
+        </div>
     </div>
 </div>

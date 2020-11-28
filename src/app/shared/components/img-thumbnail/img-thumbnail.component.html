@@ -1,3 +1,9 @@
-<div id="img-container">
-    <img [src]="src"  class="h-100 w-100 p-1" style="max-height: 250px; max-width: 250px;" />
-</div>
+<a [href]="src" target="_blank">
+    <div id="img-container">
+        <img
+            *ngIf="!isDoc"
+            [src]="src"
+            class="h-100 w-100 p-1" />
+        <mat-icon *ngIf="isDoc" style="font-size: 2rem;">description</mat-icon>
+    </div>
+</a>

@@ -8,6 +8,24 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class AlugaveisService {
 
+  private _anuncio;
+  get anuncio() {
+    return this._anuncio;
+  }
+
+  set anuncio(anuncio) {
+    this._anuncio = anuncio;
+  }
+
+  private _maisAnunciosDoAnunciante = [];
+  get maisAnunciosDoAnunciante() {
+    return this._maisAnunciosDoAnunciante;
+  }
+
+  set maisAnunciosDoAnunciante(anuncios) {
+    this._maisAnunciosDoAnunciante = anuncios;
+  }
+
   constructor(private http: HttpClient) {
 
   }

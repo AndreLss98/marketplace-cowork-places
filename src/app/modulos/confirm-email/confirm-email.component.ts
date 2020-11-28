@@ -1,5 +1,5 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from 'src/app/shared/service/user.service';
 
@@ -15,8 +15,9 @@ export class ConfirmEmailComponent implements OnInit {
   public message: string = 'Email sendo verificado!';
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
   ) {
     
   }
@@ -29,9 +30,13 @@ export class ConfirmEmailComponent implements OnInit {
           this.loading = false;
           this.validate = true;
           this.message = 'Email validado!';
+          setTimeout(() => {
+            this.router.navigateByUrl('/home', { replaceUrl: true });
+          }, 3000);
         }, error => {
           this.loading = false;
           this.message = 'Erro ao validar email!';
+          console.log(error);
         });
       }
     });

@@ -1,140 +1,142 @@
-<div class="d-flex ml-5 mb-1" style="max-width: 350px;">
-    <p
-        class="m-0"
-        style="font-size: 2.9em; line-height: 1.7rem; z-index: 2;">{{infoTopTitle}}</p>
-</div>
-
-<div class="position-relative">
-    <div class="column pl-5 py-5" id="searchContainer">
-        <div class="d-flex">
-            <p class="font-weight-bold m-0" style="font-size: 1.15rem; line-height: 1.1rem;">{{searchTitle}}</p >
-        </div>
-
-        <div class="search-input w-100 my-3" style="max-height: 50px; height: 7vh;">
-            <div class="d-flex position-relative w-75" style="height: 100%;">
-                <mat-icon class="position-absolute" color="dark" style="top: 1.5vh; left: 0.7rem;">search</mat-icon>
-                <input
-                    #cidade
-                    type="text"
-                    name="city"
-                    list="cityname"
-                    class="rounded-pill pl-5 flex-grow-1"
-                    style="height: 100%; max-width: 500px;"
-                    placeholder="Digite a cidade para ver as opções disponíveis" />
-                <datalist id="cityname">
-                    <option [value]="option" *ngFor="let option of options">
-                </datalist>
-                <button
-                    style="height: 100%;"
-                    class="btn btn-dark px-4 text-center rounded-pill"
-                    (click)="search(cidade.value)">Buscar</button>
-            </div>
-        </div>
-        <div class="d-flex expanded">
-            <p class="m-0" style="font-size: .7rem;">{{searchContent}}</p>
-        </div>
-    </div>
-
-    <img src="assets/imgs/home/casal-min.png"
-        class="hide position-absolute"
-        style="height: 150%; bottom: 0px; right: 0;">
-</div>
-
-<div class="d-flex bg-dark pl-5 pb-5 text-white overflow-hidden" id="comoFunciona">
-    <img src="assets/imgs/home/como_funciona-min.png" class="h-100 ml-n5 mb-n5 mr-2 hide" />
-    <div class="flex-fill">
-        <p class="titulo mt-5 font-weight-bold" style="font-size: 1.15rem;">Como funciona</p>
-        <div class="row mt-4">
-            <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[0]}"></ng-container>
-            </div>
-            <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[1]}"></ng-container>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[2]}"></ng-container>
-            </div>
-            <div class="col-sm mb-2 d-flex align-items-start">
-                <ng-container
-                    [ngTemplateOutlet]="itemComoFunciona"
-                    [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[3]}"></ng-container>
-            </div>
-        </div>
-    </div>
-</div>
-
-<ng-template #itemComoFunciona let-text="text">
-    <img class="mr-2" src="assets/svg/check_circle.svg">
-    <span>{{text}}</span>
-</ng-template>
-
-<div id="infoMiddle" class="ml-5 mt-5">
-    <div class="container pl-0">
-        <p class="font-weight-bold" style="font-size: 1.15rem;">Mais praticidade para a sua rotina.</p>
-        <div class="row mt-4">
-            <div class="col-sm mb-2 d-flex align-items-center">
-                <ng-container
-                    [ngTemplateOutlet]="itemInfoMiddle"
-                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[0]}"></ng-container>
-            </div>
-            <div class="col-sm mb-2 d-flex align-items-center">
-                <ng-container
-                    [ngTemplateOutlet]="itemInfoMiddle"
-                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[1]}"></ng-container>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm mb-2 d-flex align-items-center">
-                <ng-container
-                    [ngTemplateOutlet]="itemInfoMiddle"
-                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[2]}"></ng-container>
-            </div>
-            <div class="col-sm mb-2 d-flex align-items-center">
-                <ng-container
-                    [ngTemplateOutlet]="itemInfoMiddle"
-                    [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[3]}"></ng-container>
-            </div>
-        </div>
-    </div>
-</div>
-
-<ng-template  #itemInfoMiddle let-info="info">
-    <img [src]="'assets/svg/' + info.icon" class="h-100 mr-2">
-    <div class="d-flex flex-column">
-        <p class="font-weight-bold" style="font-size: .8rem;">{{info.title}}</p>
-        <p>{{info.text}}</p>
-    </div>
-</ng-template>
-
-<div id="highlights" class="my-5 pb-5">
-    <highlights></highlights>
-</div>
-
-<div id="videosContainer">
-    <div class="row mx-1 h-100">
-        <div class="col-xl mb-5 h-100">
-            <div class="anunciar">
-                <p class="font-weight-bold m-0 py-2 pl-2" style="font-size: 1rem;">Como anunciar na plataforma.</p>
-            </div>
-            <iframe
-                class="h-100 w-100"
-                src="https://www.youtube.com/embed/5NheRGtlAVo?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
-                frameborder="0">
-            </iframe>
-        </div>
+<div class="d-flex">
+    <redes-sociais class="pl-3 mt-5 d-none d-lg-block" [columnMode]="true"></redes-sociais>
     
-        <div class="col-xl mb-5 h-100">
-            <div class="alugar">
-                <p class="font-weight-bold m-0 py-2 pl-2" style="font-size: 1rem;">Como alugar na plataforma.</p>
+    <div class="ml-2 mt-5 flex-fill">
+        <div class="d-flex ml-5 mb-1" style="max-width: 550px;">
+            <p class="m-0" style="font-size: 2.5em; line-height: 1.7rem; z-index: 2;">{{infoTopTitle}}</p>
+        </div>
+        
+        <div class="position-relative">
+            <div class="column pl-5 py-5" id="searchContainer">
+                <div class="d-flex">
+                    <p class="font-weight-bold m-0" style="font-size: 1.15rem; line-height: 1.1rem;">{{searchTitle}}</p >
+                </div>
+        
+                <div class="search-input w-100 my-3" style="max-height: 50px; height: 7vh;">
+                    <div class="d-flex position-relative w-75" style="height: 100%;">
+                        <mat-icon class="position-absolute" color="dark" style="top: 1.5vh; left: 0.7rem;">search</mat-icon>
+                        <input
+                            #cidade
+                            type="text"
+                            name="city"
+                            list="cityname"
+                            class="rounded-pill pl-5 flex-grow-1"
+                            style="height: 100%; max-width: 500px;"
+                            placeholder="Digite a cidade para ver as opções disponíveis" />
+                        <datalist id="cityname">
+                            <option [value]="option" *ngFor="let option of options">
+                        </datalist>
+                        <button
+                            style="height: 100%;"
+                            class="btn btn-dark px-4 text-center rounded-pill"
+                            (click)="search(cidade.value)">Buscar</button>
+                    </div>
+                </div>
+                <div class="d-flex expanded">
+                    <p class="m-0" style="font-size: .7rem;">{{searchContent}}</p>
+                </div>
             </div>
-            <iframe
-                class="h-100 w-100"
-                src="https://www.youtube.com/embed/NalPePFsiKQ?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
-                frameborder="0">
-            </iframe>
+        
+            <img src="assets/imgs/home/casal-min.png"
+                class="hide position-absolute"
+                style="height: 150%; bottom: 0px; right: 0;">
+        </div>
+        
+        <div class="d-flex bg-dark pl-5 pb-5 pr-2 text-white overflow-hidden" id="comoFunciona">
+            <img src="assets/imgs/home/como_funciona-min.png" class="h-100 ml-n5 mb-n5 mr-2 hide" />
+            <div class="flex-fill">
+                <p class="titulo mt-5 font-weight-bold" style="font-size: 1.15rem;">Como funciona</p>
+                <div class="row mt-4">
+                    <div class="col-sm mb-2 d-flex align-items-start">
+                        <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[0]}"></ng-container>
+                    </div>
+                    <div class="col-sm mb-2 d-flex align-items-start">
+                        <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[1]}"></ng-container>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm mb-2 d-flex align-items-start">
+                        <ng-container [ngTemplateOutlet]="itemComoFunciona" [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[2]}"></ng-container>
+                    </div>
+                    <div class="col-sm mb-2 d-flex align-items-start">
+                        <ng-container
+                            [ngTemplateOutlet]="itemComoFunciona"
+                            [ngTemplateOutletContext]="{text:HOME_COMO_FUNCIONA[3]}"></ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <ng-template #itemComoFunciona let-text="text">
+            <img class="mr-2" src="assets/svg/check_circle.svg">
+            <span>{{text}}</span>
+        </ng-template>
+        
+        <div id="infoMiddle" class="ml-5 my-5">
+            <div class="container pl-0">
+                <p class="font-weight-bold" style="font-size: 1.15rem;">Mais praticidade para a sua rotina.</p>
+                <div class="row mt-4">
+                    <div class="col-sm mb-2 d-flex align-items-center">
+                        <ng-container
+                            [ngTemplateOutlet]="itemInfoMiddle"
+                            [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[0]}"></ng-container>
+                    </div>
+                    <div class="col-sm mb-2 d-flex align-items-center">
+                        <ng-container
+                            [ngTemplateOutlet]="itemInfoMiddle"
+                            [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[1]}"></ng-container>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-sm mb-2 d-flex align-items-center">
+                        <ng-container
+                            [ngTemplateOutlet]="itemInfoMiddle"
+                            [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[2]}"></ng-container>
+                    </div>
+                    <div class="col-sm mb-2 d-flex align-items-center">
+                        <ng-container
+                            [ngTemplateOutlet]="itemInfoMiddle"
+                            [ngTemplateOutletContext]="{info:HOME_INFO_MIDDLE[3]}"></ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <ng-template  #itemInfoMiddle let-info="info">
+            <img [src]="'assets/svg/' + info.icon" class="h-100 mr-2">
+            <div class="d-flex flex-column">
+                <p class="font-weight-bold" style="font-size: .8rem;">{{info.title}}</p>
+                <p>{{info.text}}</p>
+            </div>
+        </ng-template>
+        
+        <highlights *ngFor="let highlight of mostUsed" [tipo]="highlight"></highlights>
+        
+        <div id="videosContainer">
+            <div class="row mx-1 h-100">
+                <div class="col-xl mb-5 h-100">
+                    <div class="anunciar">
+                        <p class="font-weight-bold m-0 py-2 pl-2" style="font-size: 1rem;">Como anunciar na plataforma.</p>
+                    </div>
+                    <iframe
+                        class="h-100 w-100"
+                        src="https://www.youtube.com/embed/5NheRGtlAVo?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            
+                <div class="col-xl mb-5 h-100">
+                    <div class="alugar">
+                        <p class="font-weight-bold m-0 py-2 pl-2" style="font-size: 1rem;">Como alugar na plataforma.</p>
+                    </div>
+                    <iframe
+                        class="h-100 w-100"
+                        src="https://www.youtube.com/embed/NalPePFsiKQ?autoplay=0&modestbranding=1&showinfo=0&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&controls=0"
+                        frameborder="0">
+                    </iframe>
+                </div>
+            </div>
         </div>
     </div>
 </div>

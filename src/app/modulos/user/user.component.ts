@@ -26,6 +26,14 @@ export class UserComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.checkAdminPermission();
+
+    this.login.userLoginEvent.subscribe(() => {
+      this.checkAdminPermission();
+    });
+  }
+
+  checkAdminPermission() {
     if (this.userService.user_data) {
       this.userService.checkPermission().subscribe(() => {
         this.isAdmin = true;

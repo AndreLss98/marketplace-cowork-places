@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SpacesComponent } from './anuncio.component';
@@ -13,6 +13,7 @@ import { SpacesRoutingModule } from './anuncio-routing.module';
     SharedModule,
     CommonModule,
     SpacesRoutingModule
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AnuncioModule { }

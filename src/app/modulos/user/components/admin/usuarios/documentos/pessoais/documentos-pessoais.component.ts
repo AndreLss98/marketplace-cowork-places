@@ -73,7 +73,7 @@ export class DocumentosPessoaisComponent extends BasicTableComponent {
 
   public updateDocument() {
     this.documentosService.update(this.editForm.value.id, this.editForm.value).subscribe(response => {
-      this.documento;
+      this.documento = null;
       this.fetchAll();
     });
   }

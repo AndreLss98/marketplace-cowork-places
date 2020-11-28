@@ -1,0 +1,31 @@
+<button
+    mat-raised-button
+    class="my-2 my-sm-0 outline-primary rounded-pill"
+    type="button" [ngbPopover]="popContent"
+    container="body"
+    triggers="manual" placement="bottom-right"
+    #p="ngbPopover" (click)="openModalOrOpenPopover(p)">
+    {{ login.logged_status ? "Olá, " + userService.user_data.nome : "Entrar" }}
+</button>
+
+<ng-template #popContent>
+    <div id="popover">
+      <mat-list>
+        <mat-list-item class="list-item" (click)="goTo('/user/conta/info')">
+          <span class="font-weight-bold">Minha Conta</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/espacossalvos')">
+          <span class="font-weight-bold">Salvos</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/alugueis')">
+          <span class="font-weight-bold">Aluguéis</span>
+        </mat-list-item>
+        <mat-list-item class="list-item" (click)="goTo('/user/anuncios/meusanuncios')">
+          <span class="font-weight-bold">Anúncios</span>
+        </mat-list-item>
+        <mat-list-item (click)="this.login.logoutServer()">
+          <span class="text-danger">Sair</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+</ng-template>

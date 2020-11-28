@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { translateBoolValue } from 'src/app/shared/constants/functions';
 
@@ -9,6 +9,7 @@ import { CaracteristicasService } from 'src/app/shared/service/caracteristicas.s
 
 import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
+import { TiposAlugaveisDocumentosService } from 'src/app/shared/service/tipos-alugaveis-documentos.service';
 
 
 @Component({
@@ -27,28 +28,36 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private tiposServive: TiposService,
-    private caracteristicasService: CaracteristicasService
+    public caracteristicasService: CaracteristicasService,
+    public tipoAlugavelDocumento: TiposAlugaveisDocumentosService
   ) {
     super();
 
     this.caracteristicasService.getAll().subscribe(response => {
-      this.caracteristicas = response;
+      this.caracteristicas = this.caracteristicasService.caracteristicas = response;
     });
 
     this.editForm = formBuilder.group({
+      id: [null],
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
-      icone: ["", [Validators.required]],
+      icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
-      id: [null]
+      caracteristicas: [null, [Validators.required]],
+      documentos: [null, [Validators.required]],
+      chamado: ['', [Validators.minLength(1), Validators.maxLength(100), Validators.required]],
+      desc_chamado: ['', [Validators.minLength(1), Validators.maxLength(100)]]
     });
 
     this.createForm = formBuilder.group({
       disponivel: [false, [Validators.required]],
       nome: ["", [Validators.required]],
-      icone: ["", [Validators.required]],
+      icone: ["", []],
       descricao: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
-      caracteristicas: [null, [Validators.required]]
+      caracteristicas: [null, [Validators.required]],
+      documentos: [null, [Validators.required]],
+      chamado: ['', [Validators.minLength(1), Validators.maxLength(100), Validators.required]],
+      desc_chamado: ['', [Validators.minLength(1), Validators.maxLength(100)]]
     });
   }
 
@@ -68,7 +77,7 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
       }
     ];
     this.displayedColumns = ["nome", "disponibilidade", "actions"];
-    this.actions = { editar: false, excluir: true, visualizar: false };
+    this.actions = { editar: true, excluir: true, visualizar: false };
   }
 
   private fetchAll() {
@@ -80,24 +89,28 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
   public select(event) {
     this.tipo = this.data.find(element => element.id === event.id);
     this.editForm.reset({
-      disponivel: this.tipo.disponivel,
+      id: this.tipo.id,
       nome: this.tipo.nome,
       icone: this.tipo.icone,
       descricao: this.tipo.descricao,
-      id: this.tipo.id
+      disponivel: this.tipo.disponivel,
+      documentos: this.tipo.documentos,
+      caracteristicas: this.tipo.caracteristicas,
+      chamado: this.tipo.chamado,
+      desc_chamado: this.tipo.desc_chamado
     });
   }
 
   public update() {
-    if (this.editForm.status === "VALID") {
-      let updateType = this.editForm.value;
-      const id = updateType.id;
-      delete updateType.id;
-      this.tiposServive.update(id, updateType).subscribe((response) => {
-        this.fetchAll();
-        this.tipo = null;
-      });
-    }
+    let update = this.editForm.value;
+    const id = update.id;
+    delete update.id;
+    this.tiposServive.update(id, update).subscribe((response) => {
+      this.fetchAll();
+      this.tipo = null;
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   public create() {
@@ -107,6 +120,10 @@ export class ListaTiposAlugaveisComponent extends BasicTableComponent implements
         disponivel: false,
         nome: "",
         icone: ""
+      });
+    }, (error) => {
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "Ocorreu um erro ao criar o tipo de anúncio." }
       });
     });
   }

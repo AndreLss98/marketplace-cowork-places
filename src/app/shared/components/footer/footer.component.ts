@@ -5,6 +5,8 @@ import { UserService } from 'src/app/shared/service/user.service';
 import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
 import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feedback-modal.component';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -13,22 +15,28 @@ import { FeedbackModalComponent } from 'src/app/shared/modal/feedback-modal/feed
 })
 export class FooterComponent implements OnInit {
 
+  readonly SUPPORT_PHONE = environment.supportPhone;
+
   public politicas = [];
 
   constructor(
+    private router: Router,
     private matDialog: MatDialog,
     public userService: UserService,
-    private politicasService: PoliticasService,
+    public politicasService: PoliticasService,
   ) { }
 
   ngOnInit(): void {
     this.politicasService.getAll().subscribe((response: any) => {
-      this.politicas = response.filter(politica => politica.aprovado);
+      this.politicasService.politicas = response;
     });
+  }
+
+  viewPolitica(url) {
+    window.open(`/about?url=${url}`, "_blank");
   }
 
   openFeedback(){
     this.matDialog.open(FeedbackModalComponent);
   }
-
 }

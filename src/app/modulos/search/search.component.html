@@ -1,29 +1,23 @@
-<div id="topo">
-	<div class="d-md-none d-flex justify-content-center pb-3">
-		<button class="px-5" mat-button mat-raised-button color="primary" type="button">
-			<div class="d-flex flex-column justify-content-center align-items-center">
-				<span>Filtros</span>
-				<mat-icon>keyboard_arrow_down</mat-icon>
+<div class="d-flex">
+	<app-searchbox class="pl-2 pt-3 shadow d-none d-lg-block"></app-searchbox>
+
+	<div class="min-vh-100 mt-3 flex-fill">	
+		<div class="search-body">
+			<div class="d-flex w-100" id="searchHighlight"
+				*ngIf="highlightService.searched && highlightService.searched.length > 0; else emptySearch"
+				class="d-flex justify-content-center flex-wrap min-vh-100">
+				<card-item-alugavel class="mx-2" *ngFor="let space of highlightService.searched" [data]="space">
+				</card-item-alugavel>
 			</div>
-		</button>
-	</div>
-	
-	<div class="search-body">
-		<div class="d-flex" id="searchHighlight"
-			*ngIf="highlightService.searched && highlightService.searched.length > 0; else emptySearch"
-			class="d-flex justify-content-center flex-wrap min-vh-100">
-			<card-item-alugavel class="mx-2" *ngFor="let space of highlightService.searched" [data]="space">
-			</card-item-alugavel>
 		</div>
+		
+		<ng-template #emptySearch>
+			<div class="d-flex flex-column justify-content-center align-items-center mt-sm-5 mt-md-0 w-100">
+				<i class="icon fa fa-search fa-4x"></i>
+				<h1 style="opacity: 30%;" class="text-center">
+					Não encontramos nenhum resultado para sua busca.
+				</h1>
+			</div>
+		</ng-template>
 	</div>
-	
-	<ng-template #emptySearch>
-		<div class="d-flex flex-column justify-content-center align-items-center empty" style="margin-top: 150px;">
-			<a class="icon fa fa-search fa-4x"></a>
-			<h1 style="opacity: 30%;">
-				Não encontramos nenhum
-				resultado para sua busca.
-			</h1>
-		</div>
-	</ng-template>
 </div>

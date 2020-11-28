@@ -1,0 +1,116 @@
+<basic-table
+	[data]="data"
+	[tableColumns]="tableColumns"
+	[displayedColumns]="displayedColumns"
+	[actions]="actions"
+	(editar)="select($event)"
+	(deletar)="deletar($event)"></basic-table>
+
+<mat-card *ngIf="!tipoDocumento" class="mx-4 mb-1">
+	<mat-card-header>
+		<mat-card-title>Novo Tipo de Documento</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+		<form [formGroup]="createForm" (ngSubmit)="create()">
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Nome</mat-label>
+						<input
+							matInput
+							formControlName="nome"
+							autocomplete="off"
+							placeholder="Nome"
+							maxlength="200"
+							required />
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm">
+					<mat-slide-toggle formControlName="exclusivo_locatario">Exclusivo para o não dono do objeto/serviço do anúncio.</mat-slide-toggle>
+				</div>
+			</div>
+
+			<div class="row mt-2" *ngIf="!isLoading">
+				<div class="col">
+					<dropzone
+						[url]="docsUrl"
+						[label]="'Arquivo de Exemplo'"
+						[listFileTypes]="docsTypes"
+						[single]="true"
+						(data)="bindingFormField('doc', createForm, $event)"></dropzone>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-end mt-2">
+				<button *ngIf="!isLoading; else loading"
+					mat-flat-button
+					color="primary"
+					type="submit"
+					[disabled]="createForm.invalid || createForm.pristine">Criar</button>
+			</div>
+		</form>
+	</mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="tipoDocumento" class="mx-4 mb-1">
+	<mat-card-header>
+		<mat-card-title>Editar Tipo de Documento</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+		<form [formGroup]="updateForm" (ngSubmit)="update()">
+			<div class="row">
+				<div class="col-sm">
+					<mat-form-field appearance="standard" class="w-100">
+						<mat-label>Nome</mat-label>
+						<input
+							matInput
+							formControlName="nome"
+							autocomplete="off"
+							placeholder="Nome"
+							maxlength="200"
+							required />
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm">
+					<mat-slide-toggle formControlName="exclusivo_locatario">Exclusivo para o não dono do objeto/serviço do anúncio</mat-slide-toggle>
+				</div>
+			</div>
+
+			<div class="row mt-2">
+				<div class="col">
+					<dropzone
+						[url]="docsUrl"
+						[label]="'Arquivo de Exemplo'"
+						[listFileTypes]="docsTypes"
+						[files]="tempFiles"
+						[single]="true"
+						(data)="bindingFormField('doc', updateForm, $event)"></dropzone>
+				</div>
+			</div>
+
+			<div class="d-flex justify-content-between mt-2">
+				<button
+					mat-raised-button
+					type="button"
+					(click)="tipoDocumento = null">Cancelar</button>
+				<button *ngIf="!isLoading; else loading"
+					mat-flat-button
+					color="primary"
+					type="submit"
+					[disabled]="updateForm.invalid">Atualizar</button>
+			</div>
+		</form>
+	</mat-card-content>
+</mat-card>
+
+<ng-template #loading>
+	<mat-spinner [diameter]="40"></mat-spinner>
+</ng-template>

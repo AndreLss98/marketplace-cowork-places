@@ -27,8 +27,8 @@ import { DetalhesAlugavelResolverService } from './resolvers/detalhes-alugavel-r
 import { DetalhesContratoResolverService } from './resolvers/detalhes-contrato-resolver.service';
 import { AnunciosLocacoesResolverService } from './resolvers/anuncios-locacoes-resolver.service';
 import { AlugueisMeusalugueisResolverService } from './resolvers/alugueis-meusalugueis-resolver.service';
-
-import { EditarAnuncioGuard } from './guard/editar-anuncio.guard';
+import { TiposAlugavelDocumentosResolverService } from './resolvers/tipos-alugavel-documentos-resolver.service';
+import { PublicoAlvoResolverService } from './resolvers/publico-alvo-resolver.service';
 
 const routes: Routes = [
   {
@@ -68,23 +68,23 @@ const routes: Routes = [
         resolve: {
           anuncio: DetalhesAlugavelResolverService,
           tipos: TiposResolverService,
-          taxa: TaxaResolverService
+          taxa: TaxaResolverService,
+          tipos_documentos: TiposAlugavelDocumentosResolverService,
+          publico_alvo: PublicoAlvoResolverService
         }
-        // canActivate: [EditarAnuncioGuard]
       },
       {
         path: 'anuncios/new',
         resolve: {
           tipos: TiposResolverService,
-          taxa: TaxaResolverService
+          taxa: TaxaResolverService,
+          tipos_documentos: TiposAlugavelDocumentosResolverService,
+          publico_alvo: PublicoAlvoResolverService
         },
         component: AnuncioFormComponent
       },
       {
         path: 'anuncios/locacoes',
-        resolve: {
-          alugueis: AnunciosLocacoesResolverService
-        },
         component: LocacoesComponent,
       },
       {
@@ -103,11 +103,8 @@ const routes: Routes = [
       },
       {
         path: 'alugueis',
-        resolve: {
-          alugueis: AlugueisMeusalugueisResolverService
-        },
         component: MeusAlugueisComponent
-      },
+      }
     ]
   },
 ];

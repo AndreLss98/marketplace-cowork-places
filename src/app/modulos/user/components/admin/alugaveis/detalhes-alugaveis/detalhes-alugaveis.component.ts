@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { AlugavelService } from 'src/app/shared/service/alugavel.service';
 
 import { formatMoneyValue, translateBoolValue } from 'src/app/shared/constants/functions';
-import { ALUGAVEL_STATUS, ENUM_ALUGAVEL_CARACTERISTICAS, USUARIO_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
+import { ALUGAVEL_STATUS, USUARIO_STATUS, TIPOS_CAMPOS } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-detalhes-alugaveis',
@@ -44,6 +44,10 @@ export class DetalhesAlugaveisComponent implements OnInit {
 
   ngOnInit(): void {
     this.alugavel = this.route.snapshot.data['alugavel'];
+    
+    this.alugavel.valor = Number(this.alugavel.valor);
+    this.alugavel.valor_mes = Number(this.alugavel.valor_mes);
+    
     this.alugavel.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = translateBoolValue(caracteristica.valor);
     });
@@ -51,16 +55,19 @@ export class DetalhesAlugaveisComponent implements OnInit {
   }
 
   statusChange() {
-    this.snack.open("Salvando ...", '', {verticalPosition: 'top'})
+    this.snack.open("Salvando ...", '');
+
     this.alugavel.status = this.statusForm.value.status;
     this.alugavel.observacao = this.statusForm.value.observacao;
+
     this.alugavelService.alterStatus(this.alugavel.id, this.statusForm.value).subscribe(response => {
       this.resetStatusForm()
-      this.snack.open("Salvo com sucesso!", 'OK', {verticalPosition: 'top', duration: 4000})
+      this.snack.open("Salvo com sucesso!", 'OK', {duration: 4000})
     }, (error) => {
-      this.snack.open("Ocorreu um erro!", 'OK', {verticalPosition: 'top', duration: 2000})
+      console.log(error);
+      this.snack.open("Ocorreu um erro!", 'OK', {duration: 2000})
       this.alugavel.disponivel = !this.alugavel.disponivel;
-    })
+    });
   }
 
   private resetStatusForm() {

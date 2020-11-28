@@ -16,7 +16,7 @@
                     (focus)="inputFocus('senha')">
                 <mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessagePassword()}}</mat-error>
             </mat-form-field>
-            <div class="alert alert-danger row d-flex justify-content-center" *ngIf="loginError">
+            <div class="row alert alert-danger mx-2" *ngIf="loginError">
                 <span class="text-center">{{errorMessage}}</span>
             </div>
 

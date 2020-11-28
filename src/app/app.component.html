@@ -1,40 +1,59 @@
 <ng-sidebar-container class="min-vh-100">
     <ng-sidebar #sidebar id="sidebar" [opened]="sidenavOpened">
         <mat-icon style="top: 5px; right: 10px;" class="cursor-pointer position-absolute"
-            (click)="sidenavOpened = false">close</mat-icon>
-        <img routerLink="/home" class="cursor-pointer my-4 d-block" style="outline: none;"
-            src="assets/imgs/logo/logo_preta.svg">
-        <app-sidemenu></app-sidemenu>
+            (click)="toggleSideMenu($event)">close</mat-icon>
+
+        <div class="d-flex justify-content-center">
+            <img
+              routerLink="/home"
+              class="cursor-pointer my-3 d-block logo"
+              style="outline: none;"
+              src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu($event)" />
+        </div>
+
+        <div class="mb-2">
+          <redes-sociais [columnMode]="false"></redes-sociais>
+        </div>
+        
+        <div class="d-flex justify-content-center mb-4">
+          <account-btn (action)="toggleSideMenu($event)"></account-btn>
+        </div>
+
+        <app-user-menu (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/user')"></app-user-menu>
+        <app-searchbox (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/search')"></app-searchbox>
     </ng-sidebar>
 
-    <div ng-sidebar-content>
-        <nav class="navbar navbar-expand-md navbar-light bg-white">
-            <a class="navbar-brand" routerLink="/home">
-                <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg" loading="lazy">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-                aria-label="Toggle navigation" (click)="sidenavOpened = !sidenavOpened">
-                <span class="navbar-toggler-icon"></span></button>
-
-            <div class="collapse navbar-collapse justify-content-end social-menu">
-                <ul>
-                    <li><a href="https://www.youtube.com/channel/UCeseYreNBZEnCSeGCxwSr3g"><i
-                                class="fa fa-youtube-play"></i></a></li>
-                    <li><a href="https://www.facebook.com/Placeet-Servi%C3%A7os-Digitais-101746731492537"><i
-                                class="fa fa-facebook"></i></a></li>
-                    <li><a href="https://www.instagram.com/placeet_"><i class="fa fa-instagram"></i></a></li>
-                    <li><a href="https://www.linkedin.com/company/placeet-servi%C3%A7os-digitais"><i
-                                class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="d-block d-md-flex">
-            <app-sidemenu class="ml-3 d-none d-md-block"></app-sidemenu>
-            <div class="flex-fill">
-                <router-outlet></router-outlet>
-            </div>
+    <div ng-sidebar-content (click)="closeSideMenu()">
+        <div #nav class="sticky-top shadow-sm bg-white">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white container-sm px-2">
+                <a class="navbar-brand" routerLink="/home">
+                    <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button" data-toggle="collapse" aria-expanded="false"
+                    aria-label="Toggle navigation" (click)="toggleSideMenu($event)">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link cursor-pointer" (click)="comoFunciona()">Como Funciona</a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            target="_blank"
+                            [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'">Ajuda</a>
+                        </li>
+                    </ul>
+                    <account-btn></account-btn>
+                </div>
+            </nav>
         </div>
+        <router-outlet></router-outlet>
         <app-footer></app-footer>
-        <app-feedback-button *ngIf="userService.user_data != undefined"></app-feedback-button>
+        <app-feedback-button *ngIf="userService.user_data"></app-feedback-button>
     </div>
 </ng-sidebar-container>

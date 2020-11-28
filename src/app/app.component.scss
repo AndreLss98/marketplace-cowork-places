@@ -1,99 +1,22 @@
 nav img.logo {
     width: 20vw;
-    min-width: 150px;
-    max-width: 300px;
+    min-width: 120px;
+    max-width: 150px;
 }
 
-a.nav-link img {
-    max-width: 25px;
-    max-height: 25px;
+.nav-link {
+    font-size: .7rem !important;
 }
 
 ::ng-deep .ng-sidebar {
     z-index: 5 !important;
     background-color: white;
     padding: 0 2rem;
-    box-shadow: 0 0 .9rem rgba(0, 0, 0, .5);
-}
+    box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
 
-@media (max-width: 1124px) {
-    .social-menu ul {
-        margin-left: 39.5% !important;
+    img.logo {
+        width: 20vw;
+        min-width: 120px;
+        max-width: 150px;
     }
-}
-
-@media (max-width: 1054px) {
-    .social-menu ul {
-        margin-left: 38% !important;
-    }
-}
-
-@media (max-width: 1030px) {
-    .social-menu ul {
-        margin-left: 37% !important;
-    }
-}
-
-@media (max-width: 902px) {
-    .social-menu ul {
-        margin-left: 36% !important;
-    }
-}
-
-@media (max-width: 815px) {
-    .social-menu ul {
-        margin-left: 35% !important;
-    }
-}
-
-
-.social-menu ul {
-    position: absolute;
-    top: 50%;
-    left: 49%;
-    transform: translate(-50%, -50%);
-    padding: 0;
-    margin-left: 42%;
-    display: flex;
-}
-.social-menu ul li {
-    list-style: none;
-    margin: 0 5px;
-}
-.social-menu ul li .fa {
-    color: #000000;
-    font-size: 25px;
-    line-height: 50px;
-    transition: .5s;
-}
-.social-menu ul li:hover {
-    a i{
-        color: #ffffff;
-    }
-}
-.social-menu ul li a {
-    position: relative;
-    display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: white;
-    text-align: center;
-    transition: 0.5s;
-    transform: translate(0,0px);
-}
-.social-menu ul li a:hover {
-    transform: rotate(0deg) skew(0deg) translate(0, -10px);
-}
-.social-menu ul li:nth-child(1) a:hover {
-    background-color: #cd201f;
-}
-.social-menu ul li:nth-child(2) a:hover {
-    background-color: #3b5999;
-}
-.social-menu ul li:nth-child(3) a:hover {
-    background-color: #e4405f;
-}
-.social-menu ul li:nth-child(4) a:hover {
-    background-color: #0077B5;
 }

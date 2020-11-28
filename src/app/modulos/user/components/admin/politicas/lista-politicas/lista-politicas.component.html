@@ -10,7 +10,7 @@
 <div id="cards-container">
     <mat-card *ngIf="!politica;" class="card">
         <mat-card-header class="d-flex justify-content-center">
-            <mat-card-title style="font-size: 18px;">Nova Politica</mat-card-title>
+            <mat-card-title style="font-size: 18px;">Nova Política</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="saveForm" (ngSubmit)="create()">
@@ -24,18 +24,16 @@
                     <input #fileInput style="display: none;" type="file" autocomplete="off" (change)="changeFileSelected($event)" />
                     <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required autocomplete="off"/>
                 </mat-form-field>
-                    <table class="d-flex justify-content-center">
-                        <td>
-                            <button mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
-                        </td>
-                    </table>
+                <div class="d-flex justify-content-center">
+                    <button *ngIf="!isLoading; else loading" mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>
 
     <mat-card *ngIf="politica;" class="card">
         <mat-card-header class="d-flex justify-content-center">
-            <mat-card-title style="font-size: 18px;">Atualizar Politica</mat-card-title>
+            <mat-card-title style="font-size: 18px;">Atualizar Política</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form [formGroup]="editForm" (ngSubmit)="update()">
@@ -59,7 +57,7 @@
                     <mat-checkbox formControlName="aprovado">Aprovado</mat-checkbox>
                 </div>
 
-                <div class="d-flex justify-content-around">
+                <div *ngIf="!isLoading; else loading" class="d-flex justify-content-around">
                     <button  mat-flat-button (click)="cancelar()" >Cancelar</button>
                     <button  mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || editForm.pristine">Atualizar</button>
                 </div>
@@ -69,3 +67,7 @@
         </mat-card-content>
     </mat-card>
 </div>
+
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,12 +1,14 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { translateBoolValue } from 'src/app/shared/constants/functions';
 
 import { PoliticasService } from 'src/app/shared/service/politicas.service';
 
+import { BasicModalComponent } from 'src/app/shared/modal/basic-modal/basic-modal.component';
 import { BasicTableComponent } from 'src/app/shared/components/basic-table/basic-table.component';
 
 @Component({
@@ -21,9 +23,11 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   public politica;
   public saveForm: FormGroup;
   public editForm: FormGroup;
+  public isLoading: boolean = false;
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private politicasService: PoliticasService,
   ) {
@@ -67,6 +71,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   private fetchAll() {
     this.politicasService.getAll().subscribe((response: any) => {
       this.data = response;
+      this.politicasService.politicas = response;
     });
   }
 
@@ -85,6 +90,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   }
 
   public create() {
+    this.isLoading = true;
     this.politicasService.save(this.saveForm.value, this.selectedFile).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress) {
         //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
@@ -93,11 +99,17 @@ export class ListaPoliticasComponent extends BasicTableComponent {
         this.resetSaveForm();
       }
     }, (error) => {
-      //console.log('Save error: ', error);
+      console.log('Save error: ', error);
+      this.dialog.open(BasicModalComponent, {
+        data: { title: "Aviso!", message: "Ocorreu um erro ao criar nova política." }
+      });
+    }, () => {
+      this.isLoading = false;
     });
   }
 
   public update() {
+    this.isLoading = true;
     this.politicasService.update(this.editForm.value, this.updateFile).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress) {
         //console.log("Upload progress: ", Math.round(event.loaded / event.total * 100) + "%")
@@ -108,6 +120,8 @@ export class ListaPoliticasComponent extends BasicTableComponent {
       }
     }, (error) => {
       //console.log('Update error: ', error);
+    }, () => {
+      this.isLoading = false;
     });
   }
 
@@ -115,7 +129,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
     this.saveForm.reset({
       nome: "",
       arquivo: ""
-    })
+    });
   }
 
   public edit(event) {
@@ -123,7 +137,7 @@ export class ListaPoliticasComponent extends BasicTableComponent {
     this.editForm.reset({
       id: this.politica.id,
       nome: this.politica.nome,
-      arquivo: this.politica.sluq,
+      arquivo: this.politica.url.substr(this.politica.url.lastIndexOf('/') + 1),
       versao: this.politica.versao,
       aprovado: this.politica.aprovado
     });
@@ -140,11 +154,11 @@ export class ListaPoliticasComponent extends BasicTableComponent {
   }
 
   public visualizar(event) {
-    const { sluq } = this.data.find(element => element.id === event.id);
-    this.router.navigateByUrl(`/about/${sluq}`) ;
+    const { url } = this.data.find(element => element.id === event.id);
+    this.router.navigateByUrl(`/about?url=${url}`) ;
   }
 
   public cancelar(){
-    this.politica=null;
+    this.politica = null;
   }
 }

@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { timeout } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import * as moment from 'moment';
 
@@ -18,6 +18,9 @@ import { RefreshTokenService } from './refresh-token.service';
   providedIn: 'root'
 })
 export class LoginService {
+
+  @Output()
+  public userLoginEvent = new EventEmitter();
 
   private silent_refresh;
   private _user_token: string;
@@ -37,7 +40,7 @@ export class LoginService {
     return this.userToken ? true : false;
   }
 
-  public login(response: authUser){
+  public login(response: authUser) {
     this.userToken = response.token;
     this.user.user_data = response.user
     this.expires_at = response.expires_at;
@@ -50,12 +53,11 @@ export class LoginService {
       this.autoLogin();
     }, (this.expires_at - moment().unix() - 5) * 1000);
     addEventListener('storage', this.logoutLocal)
+    this.userLoginEvent.emit();
   }
 
   public logoutLocal(event?) {
-    if (event && event.key === 'logout') {
-      console.log(location.pathname = "/home");
-    }
+    if (event && event.key === 'logout') { }
   }
 
   public logoutServer() {
@@ -79,7 +81,7 @@ export class LoginService {
   autoLogin() {
     this.refresh.refreshToken().subscribe(response => {
       this.login(response);
-    }, (error) => {})
+    }, (error) => {});
   }
 
   public verifySession() {
@@ -91,7 +93,7 @@ export class LoginService {
     return this.http.post<authUser>(`${environment.apiUrl}/auth` , { email, senha }).pipe(timeout(10000));
   }
 
-  public signInWithGoogle(){
+  public signInWithGoogle() {
     window.location.href = environment.apiUrl + '/auth/google';
   }
 

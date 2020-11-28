@@ -2,7 +2,7 @@
     <div id="Carousel{{data.id}}" class="carousel slide">
         <div class="carousel-inner">
             <div class="carousel-item" [class.active]="i === 0" *ngFor="let image of data.imagens; let i= index">
-                <img mat-card-image [src]="backUrl + '/imgs/' + image.url" class="carouselImage">
+                <img mat-card-image [src]="image.url" class="carouselImage">
             </div>
         </div>
         <a class="carousel-control-prev" href="#Carousel{{data.id}}"
@@ -18,11 +18,11 @@
     </div>
 
     <mat-card-header class="cursor-pointer" (click)="goToSpace()">
-        <mat-card-title>{{ data.titulo }}</mat-card-title>
         <mat-card-subtitle>{{ data.tipo.nome }}</mat-card-subtitle>
+        <mat-card-title>{{ data.titulo }}</mat-card-title>
     </mat-card-header>
 
-    <mat-card-content class="w-100 pl-1 flex-fill cursor-pointer" (click)="goToSpace()">
+    <mat-card-content *ngIf="data.local" class="w-100 pl-1 flex-fill cursor-pointer" (click)="goToSpace()">
         <div style="display: flex; align-items: flex-end;">
             <mat-icon>location_on</mat-icon>
             <span>
@@ -30,25 +30,56 @@
                 {{data.local.estado}}
             </span>
         </div>
-        <div class="d-flex flex-wrap justify-content-around mt-1">
+        <div class="d-flex flex-wrap justify-content-around mt-3">
             <ng-container *ngFor="let caracteristica of data.caracteristicas">
                 <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                    <div *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome">
-                        <mat-icon >{{caracteristica.icone}}</mat-icon>
-                        <p class="p-0 m-0">{{ caracteristica.nome }}</p>
+                    <div [matTooltip]="caracteristica.nome"
+                        *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
+                        class="d-flex flex-column align-items-center justify-content-center">
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
+                        <p class="p-0 m-0 text-truncate" style="max-width: 100px">{{ caracteristica.nome }}</p>
                     </div>
                     
-                    <div *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome">
-                        <mat-icon >{{caracteristica.icone}}</mat-icon>
-                        <p class="p-0 m-0">{{ caracteristica.valor }}</p>
+                    <div [matTooltip]="caracteristica.nome"
+                        *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
+                        class="d-flex flex-column align-items-center justify-content-center">
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
+                        <p class="p-0 m-0 text-truncate">
+                            <span>{{ caracteristica.valor }}</span>
+                            <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
+                        </p>
+                    </div>
+
+                    <div [matTooltip]="caracteristica.nome"
+                        *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
+                        class="d-flex flex-column align-items-center justify-content-center">
+                        <ion-icon [name]="caracteristica.icone"></ion-icon>
+                        <p class="p-0 m-0 text-truncate">
+                            <span>{{ caracteristica.valor }} </span>
+                        </p>
                     </div>
                 </ng-container>
             </ng-container>
         </div>
     </mat-card-content>
 
-    <div class="d-flex justify-content-between py-1 px-2 cursor-pointer" (click)="goToSpace()">
-        <span class="font-weight-bold">INVESTIMENTO/DIA</span>
-        <span>{{ formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor)) }}</span>
+    <div>
+        <h3 class="text-center font-weight-bold m-0">Investimento</h3>
+    </div>
+
+    <div class="py-1 px-2 cursor-pointer" (click)="goToSpace()">
+        <div class="d-flex justify-content-between" *ngIf="desformatMoneyValue(data.valor)">
+            <span class="font-weight-bold">Diária</span>
+            <span>
+                {{formatMoneyValue(calcularDiaria(data.valor, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor))}}
+            </span>
+        </div>
+    
+        <div class="d-flex justify-content-between" *ngIf="desformatMoneyValue(data.valor_mes)">
+            <span class="font-weight-bold">Mensalidade</span>
+            <span>
+                {{formatMoneyValue(calcularDiaria(data.valor_mes, data.taxa, taxaTotal) + calcularTaxa(taxaTotal, data.valor_mes))}}
+            </span>
+        </div>
     </div>
 </mat-card>

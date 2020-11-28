@@ -1,6 +1,7 @@
-import { UserService } from 'src/app/shared/service/user.service';
+import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AlugueisMeusalugueisResolverService implements Resolve<any> {
     private userService: UserService
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve() {
     return this.userService.getAlugueis();
   }
 }

@@ -8,6 +8,16 @@ import { environment } from 'src/environments/environment';
 })
 export class CaracteristicasService {
 
+  private _caracteristicas = [];
+
+  get caracteristicas() {
+    return this._caracteristicas;
+  }
+
+  set caracteristicas(caracteristicas) {
+    this._caracteristicas = caracteristicas;
+  }
+
   constructor(
     private http: HttpClient
   ) {
@@ -26,5 +36,9 @@ export class CaracteristicasService {
     const {id} = caracteristica;
     delete caracteristica.id;
     return this.http.put(`${environment.apiUrl}/caracteristicas/${id}`, caracteristica);
+  }
+
+  public delete(id) {
+    return this.http.delete(`${environment.apiUrl}/caracteristicas/${id}`);
   }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { SearchResolver } from './modulos/search/resolver/searchResolver.resolve';
 
@@ -38,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
+  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top', preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule],
   providers: [
     UserGuard,

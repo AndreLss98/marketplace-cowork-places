@@ -1,24 +1,32 @@
-import { NgModule } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MapsComponent } from './components/maps/maps.component';
 import { HeaderComponent } from './components/header/header.component';
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { DropzoneComponent } from './components/dropzone/dropzone.component';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { MdViewerComponent } from './components/md-viewer/md-viewer.component';
 import { BasicModalComponent } from './modal/basic-modal/basic-modal.component';
+import { AccountBtnComponent } from './components/account-btn/account-btn.component';
 import { BasicTableComponent } from './components/basic-table/basic-table.component';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 import { ImgCircularComponent } from './components/img-circular/img-circular.component';
 import { ReservaCardComponent } from './components/reserva-card/reserva-card.component';
+import { FormEnderecoComponent } from './components/form-endereco/form-endereco.component';
+import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
 import { ImgThumbnailComponent } from './components/img-thumbnail/img-thumbnail.component';
 import { PageableTableComponent } from './components/pageable-table/pageable-table.component';
+import { UserMenuComponent } from './components/sidemenu/components/user-menu/user-menu.component';
+import { SearchboxComponent } from './components/sidemenu/components/searchbox/searchbox.component';
 import { CancelDialogComponent } from './components/contrato/cancel-dialog/cancel-dialog.component';
 import { FormCreateFieldComponent } from './components/form-create-field/form-create-field.component';
 import { QuestionAnsweredComponent } from './components/question-answered/question-answered.component';
 import { CardItemAlugavelComponent } from './components/card-item-alugavel/card-item-alugavel.component';
+import { EmptyPageMessageComponent } from './components/empty-page-message/empty-page-message.component';
 import { FilterPageableTableComponent } from './components/filter-pageable-table/filter-pageable-table.component';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +35,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRadioModule } from '@angular/material/radio';
@@ -65,19 +74,28 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DropzoneComponent,
     MdViewerComponent,
     ContratoComponent,
+    UserMenuComponent,
+    SidemenuComponent,
+    SearchboxComponent,
+    AccountBtnComponent,
     BasicModalComponent,
     BasicTableComponent,
     ImgCircularComponent,
     ReservaCardComponent,
+    RedesSociaisComponent,
+    ConfirmModalComponent,
+    FormEnderecoComponent,
     CancelDialogComponent,
+    ImgThumbnailComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
+    EmptyPageMessageComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
-    FilterPageableTableComponent,
-    ImgThumbnailComponent,
+    FilterPageableTableComponent
   ],
   imports: [
+    NgbModule,
     FormsModule,
     CommonModule,
     RouterModule,
@@ -126,17 +144,25 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MdViewerComponent,
     ContratoComponent,
     DropzoneComponent,
+    UserMenuComponent,
+    SidemenuComponent,
+    SearchboxComponent,
     BasicModalComponent,
     BasicTableComponent,
     ReactiveFormsModule,
+    AccountBtnComponent,
     ImgCircularComponent,
     ReservaCardComponent,
     CancelDialogComponent,
+    RedesSociaisComponent,
+    ConfirmModalComponent,
     ImgThumbnailComponent,
+    FormEnderecoComponent,
     PageableTableComponent,
     FormCreateFieldComponent,
     QuestionAnsweredComponent,
     CardItemAlugavelComponent,
+    EmptyPageMessageComponent,
     FilterPageableTableComponent,
 
     MatBadgeModule,
@@ -175,6 +201,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class SharedModule { }

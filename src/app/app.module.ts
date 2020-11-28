@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { SidebarModule } from 'ng-sidebar';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxImageCompressService } from 'ngx-image-compress';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,10 +34,6 @@ import { FeedbackModalComponent } from './shared/modal/feedback-modal/feedback-m
 import { RecuperarSenhaComponent } from './shared/modal/recuperar-senha/recuperar-senha.component';
 import { FeedbackButtonComponent } from './shared/components/feedback-button/feedback-button.component';
 
-import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
-import { UserMenuComponent } from './shared/components/sidemenu/components/user-menu/user-menu.component';
-import { SearchboxComponent } from './shared/components/sidemenu/components/searchbox/searchbox.component';
-
 import { AuthInterceptorService } from './shared/service/authInterceptor.service';
 
 registerLocaleData(localePt);
@@ -50,12 +45,10 @@ registerLocaleData(localePt);
     FooterComponent,
     SignupComponent,
     QuestionComponent,
-    UserMenuComponent,
-    SearchboxComponent,
+
     FeedbackModalComponent,
     RecuperarSenhaComponent,
     FeedbackButtonComponent,
-    SidemenuComponent
   ],
   imports: [
     NgbModule,
@@ -73,7 +66,6 @@ registerLocaleData(localePt);
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    NgxImageCompressService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
@@ -91,6 +83,7 @@ registerLocaleData(localePt);
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent, SignupComponent, RecuperarSenhaComponent],
-  exports: []
+  exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
