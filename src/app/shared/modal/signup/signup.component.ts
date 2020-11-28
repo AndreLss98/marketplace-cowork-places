@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
 
   @ViewChild('signupStepper') stepper: MatStepper;
   public input_nascimento;
-
+  public cpfValido: boolean = false;
   public loader: boolean = false;
   public editavel: boolean = true;
   matcher = new MyErrorStateMatcher();
@@ -139,6 +139,55 @@ export class SignupComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
+  public verificaCpf(group: FormGroup) {
+    let cpf = group.controls.cpf.value;
+    cpf = cpf.replace(/[^\d]+/g, '');
+
+    if (cpf == '') {
+      this.cpfValido = false;
+      return false;
+    }
+
+    // Elimina CPFs invalidos conhecidos    
+    if (cpf.length != 11 ||
+      cpf == "00000000000" ||
+      cpf == "11111111111" ||
+      cpf == "22222222222" ||
+      cpf == "33333333333" ||
+      cpf == "44444444444" ||
+      cpf == "55555555555" ||
+      cpf == "66666666666" ||
+      cpf == "77777777777" ||
+      cpf == "88888888888" ||
+      cpf == "99999999999") {
+      this.cpfValido = false;
+      return false;
+    }
+    // Valida 1o digito 
+    let add = 0;
+    for (let i = 0; i < 9; i++)
+      add += parseInt(cpf.charAt(i)) * (10 - i);
+    let rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+      rev = 0;
+    if (rev != parseInt(cpf.charAt(9))) {
+      this.cpfValido = false;
+      return false;
+    }
+    // Valida 2o digito 
+    add = 0;
+    for (let i = 0; i < 10; i++)
+      add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+      rev = 0;
+    if (rev != parseInt(cpf.charAt(10))) {
+      this.cpfValido = false;
+      return false;
+    } this.cpfValido = true;
+    return true;
+  }
+
   public checkAge() {
     let nascimento = this.segundoPasso.controls.data_nascimento.value;
     let age = moment().diff(nascimento, 'years')
@@ -192,9 +241,9 @@ export class SignupComponent implements OnInit {
           }, error => {
             this.editavel = true;
             this.loader = false;
-            if(error.error.item) {
-              this.snack.open( "Esse "+ error.error.item + " já foi cadastrado!", 'OK', { duration: 2000 });
-            }else{
+            if (error.error.item) {
+              this.snack.open("Esse " + error.error.item + " já foi cadastrado!", 'OK', { duration: 2000 });
+            } else {
               this.snack.open("Ocorreu um erro!", 'OK', { duration: 2000 });
             }
           });
@@ -241,10 +290,10 @@ export class SignupComponent implements OnInit {
   public formatarCPF(cpf: string) {
     let formatted = cpf;
     formatted = formatted.replace(/\D/g, "")
-    .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
-    .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
-    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
-    .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
+      .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
+      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
     this.segundoPasso.controls['cpf'].setValue(formatted);
   }
 }

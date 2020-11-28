@@ -14,12 +14,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button
-                class="my-2"
-                mat-button
-                mat-raised-button
-                color="primary"
-                (click)="nextStep(signupStepper)">Proximo</button>
+            <button class="my-2" mat-button mat-raised-button color="primary"
+                [disabled]="primeiroPasso.valid ? false : true" (click)="nextStep(signupStepper)">Proximo</button>
         </form>
     </mat-step>
 
@@ -47,8 +43,9 @@
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>CPF</mat-label>
                         <input #cpf matInput type="text" name="cpf" maxlength="14" formControlName="cpf"
-                            (keyup)=formatarCPF(cpf.value) required />
+                            (keyup)=formatarCPF(cpf.value);verificaCpf(segundoPasso) required />
                         <mat-error>Preencha o campo corretamente!</mat-error>
+                        <mat-error *ngIf="!cpfValido">Digite um CPF válido!</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
@@ -58,19 +55,16 @@
                             formControlName="data_nascimento" required (dateChange)='checkAge()'
                             [errorStateMatcher]="data_nascimento.touched ? matcher : null">
                         <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
-                        <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18 anos!
+                        <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18
+                            anos!
                         </mat-error>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
                     </mat-form-field>
                 </div>
             </div>
-            <button
-                class="my-2"
-                mat-button
-                mat-raised-button
-                color="primary"
-                type="button"
+            <button class="my-2" mat-button mat-raised-button color="primary" type="button"
+                [disabled]="cpfValido && segundoPasso.valid ? false : true"
                 (click)="nextStep(signupStepper)">Proximo</button>
         </form>
     </mat-step>
@@ -82,27 +76,23 @@
                 <div class="col-sm">
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Telefone 1</mat-label>
-                        <input matInput type="tel" name="phone" autocomplete="tel-national" placeholder="(62) 99999-9999"
-                            minlength="14" maxlength="15" formControlName="tel1" required (keyup)="formatarFone('tel1')">
+                        <input matInput type="tel" name="phone" autocomplete="tel-national"
+                            placeholder="(62) 99999-9999" minlength="14" maxlength="15" formControlName="tel1" required
+                            (keyup)="formatarFone('tel1')">
                         <mat-error>Preencha o campo corretamente!</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Telefone 2</mat-label>
-                        <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999" minlength="14"
-                            maxlength="15" formControlName="tel2" (keyup)="formatarFone('tel2')">
+                        <input matInput type="tel" autocomplete="tel-national" placeholder="(62) 9999-9999"
+                            minlength="14" maxlength="15" formControlName="tel2" (keyup)="formatarFone('tel2')">
                         <mat-error>Preencha o campo corretamente!</mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            <button
-                class="my-2"
-                mat-button
-                mat-raised-button
-                color="primary"
-                type="button"
-                (click)="nextStep(signupStepper)">Proximo</button>
+            <button class="my-2" mat-button mat-raised-button color="primary" type="button"
+                [disabled]="terceiroPasso.valid ? false : true" (click)="nextStep(signupStepper)">Proximo</button>
         </form>
     </mat-step>
 
@@ -135,12 +125,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <button
-                class="my-2"
-                mat-button
-                mat-raised-button
-                color="primary"
-                type="submit">Finalizar cadastro</button>
+            <button class="my-2" mat-button mat-raised-button color="primary" type="submit"
+                [disabled]="quartoPasso.valid ? false : true">Finalizar cadastro</button>
         </form>
     </mat-step>
 
@@ -149,16 +135,14 @@
         <form [formGroup]="confirmar">
             <div class="d-flex flex-column">
                 <mat-checkbox required formControlName="termo_servico">Eu aceito e dou meu consentimento quanto a <a
-                    href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e
-                    Segurança</a>.</mat-checkbox>
+                        href="/about/politica_privacidade.md" target="_blank">Política de Privacidade e
+                        Segurança</a>.</mat-checkbox>
             </div>
             <re-captcha formControlName="recaptcha"></re-captcha>
-            <button
-                class="w-100 my-2"
-                type="submit"
-                mat-button mat-raised-button
-                color="accent"
-                (click)="nextStep(signupStepper)">Concordar e concluir</button>
+            <button class="w-100 my-2" type="submit" mat-button mat-raised-button color="accent"
+                (click)="nextStep(signupStepper)"
+                [disabled]="termo_servico.valid && recaptcha.valid ? false : true">Concordar e
+                concluir</button>
             <div class="w-100 mb-2" *ngIf="loader">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
