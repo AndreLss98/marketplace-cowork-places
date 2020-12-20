@@ -48,6 +48,9 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   @Input()
   public simulateMode: boolean = false;
 
+  @Input('publico_alvo')
+  public publico_alvo: any[];
+
   @Output('formValue')
   public formChangeEvent = new EventEmitter();
 
@@ -75,13 +78,13 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
     this.intervalForm.valueChanges.subscribe(() => {
       this.valorMensal = desformatMoneyValue(this.valorMensal);
       this.valorDiaria = desformatMoneyValue(this.valorDiaria);
-      
+
       const emitObject = {
         formValid: this.intervalForm.valid,
         interval: this.intervalForm.value,
-        total: this.qtdDias() >= 31 && this.valorMensal?
-        this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))):
-        this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria))),
+        total: this.qtdDias() >= 31 && this.valorMensal ?
+          this.total(this.totalNoValorMensal(this.qtdDias(), this.calcularDiaria(this.valorMensal, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorMensal / 31))) :
+          this.total(this.totalNoValorDiaria(this.qtdDias(), this.calcularDiaria(this.valorDiaria, this.taxa, this.taxaMaxima)), this.totalTaxas(this.qtdDias(), this.calcularTaxa(this.taxaMaxima, this.valorDiaria))),
         qtd_reservas: this.intervalForm.controls['qtd_maxima_reservas']
       };
       this.formChangeEvent.emit(emitObject);
@@ -108,30 +111,30 @@ export class ReservaCardComponent extends Financeiro implements OnInit {
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   public validateRange() {
     console.log('Foi chamado esse aqui')
 
     this.validateRangeFn = (date: Date | null): boolean => {
-        const intervaloReservado = this.diasReservados.find(
-          range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
-        
-          let mensal = false;
-        let isMultiplo = false;
-      
-        if (this.intervalForm.controls['entrada'].value && !this.intervalForm.controls['saida'].value && this.valorDiaria == 0) {
-          mensal = true;
-        }
-      
-        if (mensal) {
-          const qtdDias = diffDates(this.intervalForm.controls['entrada'].value, date);
-          isMultiplo = qtdDias % 31  === 0;
-        }
-      
-        return intervaloReservado || (mensal && !isMultiplo)? false : true;
+      const intervaloReservado = this.diasReservados.find(
+        range => date.getTime() >= range.data_entrada.getTime() && date.getTime() <= range.data_saida.getTime());
+
+      let mensal = false;
+      let isMultiplo = false;
+
+      if (this.intervalForm.controls['entrada'].value && !this.intervalForm.controls['saida'].value && this.valorDiaria == 0) {
+        mensal = true;
       }
+
+      if (mensal) {
+        const qtdDias = diffDates(this.intervalForm.controls['entrada'].value, date);
+        isMultiplo = qtdDias % 31 === 0;
+      }
+
+      return intervaloReservado || (mensal && !isMultiplo) ? false : true;
+    }
 
     if (this.intervalForm.controls['saida'].value) {
       const conflictRange = this.diasReservados.find(range => range.data_entrada.getTime() > this.intervalForm.controls['entrada'].value.getTime() && range.data_entrada.getTime() < this.intervalForm.controls['saida'].value.getTime());

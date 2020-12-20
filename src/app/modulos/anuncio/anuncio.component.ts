@@ -36,7 +36,7 @@ export class SpacesComponent implements OnInit {
   public CARACTERISTICAS = ENUM_ALUGAVEL_CARACTERISTICAS;
 
   public max_taxa;
-  
+
   public backUrl = environment.apiUrl;
 
   public anuncio;
@@ -45,7 +45,7 @@ export class SpacesComponent implements OnInit {
 
   public caracteristicasComIcone = [];
   public caracteristicasSemIcone = [];
-
+  public imgUrl;
   public intervalData;
 
   public reservaForm: FormGroup;
@@ -62,7 +62,7 @@ export class SpacesComponent implements OnInit {
     public alugaveisService: AlugaveisService,
     private favoritoService: FavoritosService,
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -70,12 +70,13 @@ export class SpacesComponent implements OnInit {
     this.alugaveisService.anuncio.valor = Number(this.alugaveisService.anuncio.valor);
     this.alugaveisService.anuncio.valor_mes = Number(this.alugaveisService.anuncio.valor_mes);
     this.max_taxa = Number(this.route.snapshot.data['taxa'].taxa);
-    
+
     this.route.params.subscribe(routeParams => {
       this.alugaveisService.getById(Number(routeParams.id)).subscribe(response => {
         this.alugaveisService.anuncio = response;
-      }, (error) => {
-        console.log(error);
+        console.log(response);
+
+        this.imgUrl = response.anunciante_img;
       }, () => {
         this.configComponent();
       });
@@ -83,7 +84,7 @@ export class SpacesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-  
+
   }
 
   private configComponent() {
@@ -98,18 +99,18 @@ export class SpacesComponent implements OnInit {
 
   public favoritar() {
     if (this.anuncio.anunciante_id === this.userService.user_data.id) {
-      this.snackBar.open('Você é o proprietário desse anúncio', 'OK', {duration: 1000});
+      this.snackBar.open('Você é o proprietário desse anúncio', 'OK', { duration: 1000 });
       return;
     }
     this.favoritoService.favoritar(this.anuncio.id).subscribe(res => {
-      this.snackBar.open('Adicionado aos espaços salvos', 'OK', {duration: 1000});
+      this.snackBar.open('Adicionado aos espaços salvos', 'OK', { duration: 1000 });
     }, err => {
-      this.snackBar.open('Espaço já está salvo', 'OK', {duration: 1000});
+      this.snackBar.open('Espaço já está salvo', 'OK', { duration: 1000 });
     });
   }
 
   public checkout() {
-    if(!this.login.checkLogedIn()) return this.matDialog.open(LoginComponent);
+    if (!this.login.checkLogedIn()) return this.matDialog.open(LoginComponent);
 
     this.checkoutService.reserva = {
       max_taxa: this.max_taxa,
@@ -158,7 +159,7 @@ export class SpacesComponent implements OnInit {
   public configCaracteristicas() {
     this.alugaveisService.anuncio.caracteristicas.forEach(caracteristica => {
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.BINARIO.nome) caracteristica.valor = stringValueToBoolean(caracteristica.valor);
-      
+
       if (caracteristica.tipo_campo.tipo === TIPOS_CAMPOS.SELECAO.nome) {
         caracteristica.valor = caracteristica.tipo_campo.propriedades.possibilidades.find(possibilidade => possibilidade.id === Number(caracteristica.valor)).valor;
       }

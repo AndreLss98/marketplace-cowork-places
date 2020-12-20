@@ -4,17 +4,15 @@
         <h1 class="font-weight-bold">{{alugaveisService.anuncio.titulo}}</h1>
         <div class="row">
             <div class="col-lg col-xl-8">
-                <maps
-                    *ngIf="view === 'maps'"
-                    [lngLatPlace]="{
+                <maps *ngIf="view === 'maps'" [lngLatPlace]="{
                         latitude: alugaveisService.anuncio.local.latitude,
                         longitude: alugaveisService.anuncio.local.longitude
-                    }"
-                    [static]="true"></maps>
-        
+                    }" [static]="true"></maps>
+
                 <div *ngIf="view !== 'maps'" id="spacesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="imgContainer">
-                        <div class="carousel-item" [class.active]="i == 0" *ngFor="let image of alugaveisService.anuncio.imagens; let i = index">
+                        <div class="carousel-item" [class.active]="i == 0"
+                            *ngFor="let image of alugaveisService.anuncio.imagens; let i = index">
                             <img [src]="image.url" class="d-block w-100" alt="imagem do anúncio">
                         </div>
                     </div>
@@ -28,29 +26,23 @@
                     </a>
                 </div>
             </div>
-        
+
             <div class="col-lg col-xl-4">
-                <reserva-card
-                    (formValue)="intervalData = $event"
-                    [taxaMaxima]="max_taxa"
-                    [valorDiaria]="alugaveisService.anuncio.valor"
-                    [valorMensal]="alugaveisService.anuncio.valor_mes"
+                <reserva-card (formValue)="intervalData = $event" [taxaMaxima]="max_taxa"
+                    [valorDiaria]="alugaveisService.anuncio.valor" [valorMensal]="alugaveisService.anuncio.valor_mes"
                     [taxa]="alugaveisService.anuncio.taxa"
                     [qtd_maxima_reservas]="alugaveisService.anuncio.qtd_maxima_reservas"
-                    [anuncio_id]="alugaveisService.anuncio.id"></reserva-card>
+                    [anuncio_id]="alugaveisService.anuncio.id" [publico_alvo]="alugaveisService.anuncio.publico_alvo">
+                </reserva-card>
                 <div class="mt-2">
                     <div class="row">
                         <div class="col d-flex justify-content-center">
-                            <button
-                                class="px-5 py-1"
-                                mat-raised-button
-                                type="button"
-                                color="primary"
+                            <button class="px-5 py-1" mat-raised-button type="button" color="primary"
                                 (click)="checkout()"
                                 [disabled]="!intervalData?.formValid || alugaveisService.anuncio.anunciante_id === userService?.user_data?.id">RESERVAR</button>
                         </div>
                     </div>
-        
+
                     <div class="row mt-2">
                         <div class="col d-flex justify-content-around">
                             <div class="d-flex flex-column align-items-center">
@@ -59,9 +51,10 @@
                                 </button>
                                 Salvar
                             </div>
-        
+
                             <div class="d-flex flex-column align-items-center">
-                                <button mat-fab color="primary" class="mb-1" (click)="view = view === 'maps'? 'photos' : 'maps' ">
+                                <button mat-fab color="primary" class="mb-1"
+                                    (click)="view = view === 'maps'? 'photos' : 'maps' ">
                                     <mat-icon>{{ view === 'maps'? 'insert_photo' : 'location_on' }}</mat-icon>
                                 </button>
                                 {{ view === 'maps'? 'Fotos' : 'Localização' }}
@@ -71,42 +64,41 @@
                 </div>
             </div>
         </div>
-    
+
         <mat-card class="my-2">
             <div class="row">
                 <div class="col-md d-flex align-items-center justify-content-center justify-content-md-end">
-                    <h1 class="m-0">{{ alugaveisService.anuncio.local.rua }}, {{ alugaveisService.anuncio.local.bairro }}, {{ alugaveisService.anuncio.local.cidade }} - {{ alugaveisService.anuncio.local.estado }}</h1>
+                    <h1 class="m-0">{{ alugaveisService.anuncio.local.rua }},
+                        {{ alugaveisService.anuncio.local.bairro }}, {{ alugaveisService.anuncio.local.cidade }} -
+                        {{ alugaveisService.anuncio.local.estado }}</h1>
                 </div>
-    
+
                 <div class="col-md d-flex justify-content-center justify-content-md-end">
                     <ng-container *ngFor="let caracteristica of caracteristicasComIcone">
                         <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
-                            <div [matTooltip]="caracteristica.nome"
-                                *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
+                            <div [matTooltip]="caracteristica.nome" *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome"
                                 class="mx-2 d-flex flex-column align-items-center justify-content-center">
                                 <ion-icon [name]="caracteristica.icone"></ion-icon>
                                 <p class="p-0 m-0">{{ caracteristica.nome }}</p>
                             </div>
-            
-                            <div [matTooltip]="caracteristica.nome"
-                                *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
+
+                            <div [matTooltip]="caracteristica.nome" *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome"
                                 class="mx-2 d-flex flex-column align-items-center justify-content-center">
                                 <ion-icon [name]="caracteristica.icone"></ion-icon>
                                 <p class="p-0 m-0">
                                     <span>{{ caracteristica.valor }} </span>
-                                    <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida }}</span>
+                                    <span *ngIf="caracteristica.unidade_medida">{{ caracteristica.unidade_medida
+                                        }}</span>
                                 </p>
                             </div>
-    
-                            <div [matTooltip]="caracteristica.nome"
-                                *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome"
+
+                            <div [matTooltip]="caracteristica.nome" *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome"
                                 class="mx-2 d-flex flex-column align-items-center justify-content-center">
                                 <ion-icon [name]="caracteristica.icone"></ion-icon>
                                 <p class="p-0 m-0">{{ caracteristica.valor }}</p>
                             </div>
-    
-                            <div [matTooltip]="caracteristica.nome"
-                                *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
+
+                            <div [matTooltip]="caracteristica.nome" *ngSwitchCase="TIPOS_CAMPOS.SELECAO.nome"
                                 class="mx-2 d-flex flex-column align-items-center justify-content-center">
                                 <ion-icon [name]="caracteristica.icone"></ion-icon>
                                 <p class="p-0 m-0">{{ caracteristica.valor }}</p>
@@ -114,17 +106,22 @@
                         </ng-container>
                     </ng-container>
                 </div>
-    
-            </div>    
+
+            </div>
         </mat-card>
-        
+
         <h2 class="font-weight-bold">Descrição do proprietário</h2>
         <div class="row">
+            <div class="col">
+                <img-circular class="d-inline-block" [firstLetter]="userService.user_data.nome[0]" [imgUrl]="imgUrl">
+                </img-circular>
+                <input hidden #imgInput type="file">
+            </div>
             <div class="col">
                 <h3 style="word-wrap: break-word;">{{ alugaveisService.anuncio.descricao }}</h3>
             </div>
         </div>
-    
+
         <div class="row" *ngIf="caracteristicasSemIcone.length">
             <div class="col">
                 <h2 class="font-weight-bold">Mais características</h2>
@@ -132,20 +129,21 @@
                     <li *ngFor="let caracteristica of caracteristicasSemIcone">
                         <ng-container *ngIf="caracteristica.valor" [ngSwitch]="caracteristica.tipo_campo.tipo">
                             <p *ngSwitchCase="TIPOS_CAMPOS.BINARIO.nome" class="p-0 m-0">{{ caracteristica.nome }}</p>
-            
+
                             <p *ngSwitchCase="TIPOS_CAMPOS.NUMERICO.nome" class="p-0 m-0">
                                 {{ caracteristica.nome }}: {{ caracteristica.valor }}
                             </p>
-            
+
                             <p *ngSwitchCase="TIPOS_CAMPOS.TEXTO_SIMPLES.nome" class="p-0 m-0">
                                 {{ caracteristica.nome }}: {{ caracteristica.valor }}
                             </p>
+
                         </ng-container>
                     </li>
                 </ul>
             </div>
         </div>
-        
+
         <div *ngIf="alugaveisService.anuncio.infos.length" class="row">
             <div class="col">
                 <h2 class="font-weight-bold">Informações adicionais</h2>
@@ -153,22 +151,22 @@
                     <li *ngFor="let info of alugaveisService.anuncio.infos">
                         <p class="m-0 p-0">{{ info.descricao }}</p>
                     </li>
+                    <li *ngFor="let info of alugaveisService.anuncio.infos">
+                        <p class="m-0 p-0">{{ info }}</p>
+                    </li>
                 </ul>
             </div>
         </div>
-        
+
     </div>
     <div class="mb-2">
-        <a
-            [href]="'https://api.whatsapp.com/send?phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F' + alugaveisService.anuncio.id"
-            target="_blank"
-            style="font-size: .7rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
+        <a [href]="'https://api.whatsapp.com/send?phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida%20sobre%20o%20an%C3%BAncio%20placeet.com%2Fspaces%2F' + alugaveisService.anuncio.id"
+            target="_blank" style="font-size: .7rem;">Ainda tem alguma dúvida? Deixe sua pergunta ao locador</a>
     </div>
     <div *ngIf="alugaveisService.maisAnunciosDoAnunciante.length" class="d-flex flex-column pt-3 border-top">
         <h2>Mais anúncios desse locador</h2>
         <div class="d-flex py-2 pl-2 mx-n2 flex-row back-verde-escuro flex-wrap justify-content-start">
-            <card-item-alugavel class="ml-2"
-                *ngFor="let espaco of alugaveisService.maisAnunciosDoAnunciante"
+            <card-item-alugavel class="ml-2" *ngFor="let espaco of alugaveisService.maisAnunciosDoAnunciante"
                 [data]="espaco"></card-item-alugavel>
         </div>
     </div>

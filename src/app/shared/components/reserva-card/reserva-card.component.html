@@ -5,19 +5,12 @@
                 <div class="col-sm">
                     <mat-form-field appearance="standard" class="w-100">
                         <mat-label *ngIf="!readOnly">Selecione o período</mat-label>
-                        <mat-date-range-input #rangeInput [min]="minDate" [rangePicker]="picker" [dateFilter]="validateRangeFn">
-                          <input #entrada
-                            matStartDate
-                            disabled="true"
-                            formControlName="entrada"
-                            placeholder="Entrada" />
-                          <input #saida
-                            matEndDate
-                            disabled="true"
-                            placeholder="Saída"
-                            formControlName="saida"
-                            (dateInput)="validateRange()"
-                            [disabled]="readOnly"/>
+                        <mat-date-range-input #rangeInput [min]="minDate" [rangePicker]="picker"
+                            [dateFilter]="validateRangeFn">
+                            <input #entrada matStartDate disabled="true" formControlName="entrada"
+                                placeholder="Entrada" />
+                            <input #saida matEndDate disabled="true" placeholder="Saída" formControlName="saida"
+                                (dateInput)="validateRange()" [disabled]="readOnly" />
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker [disabled]="readOnly"></mat-date-range-picker>
@@ -35,6 +28,21 @@
             </ng-container>
 
             <ng-container *ngIf="intervalForm.valid && (valorDiaria || valorMensal)">
+                <ng-container>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="standard" class="w-100">
+                                <select matNativeControl style="text-align-last: center;">
+                                    <option hidden>Público alvo</option>
+                                    <option *ngFor="let publico_alvo of publico_alvo" disabled>
+                                        {{publico_alvo.nome}}
+                                    </option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </ng-container>
+
                 <div class="row">
                     <div class="col">
                         <h4 class="font-weight-bold">Diárias</h4>
@@ -44,29 +52,30 @@
                     <div class="col">
                         <p>
                             {{
-                                formatMoneyValue(valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && desformatMoneyValue(valorMensal) !== 0?
-                                valorMensal / 31 : valorDiaria)
+                            formatMoneyValue(valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 &&
+                            desformatMoneyValue(valorMensal) !== 0?
+                            valorMensal / 31 : valorDiaria)
                             }} x
                             {{
-                                qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : ''
+                            qtdMeses()? qtdMeses() > 1? qtdMeses() + ' meses' : qtdMeses() + ' mes' : ''
                             }}
                             {{
-                                qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''
+                            qtdMeses() && qtdDias() - qtdMeses() * 31? ' e ' : ''
                             }}
                             {{
-                                qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1?
-                                qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : ''
+                            qtdDias() - qtdMeses() * 31? qtdDias() - qtdMeses() * 31 > 1?
+                            qtdDias() - qtdMeses() * 31 + ' dias' : qtdDias() - qtdMeses() * 31 + ' dia' : ''
                             }}</p>
                     </div>
                     <div class="col">
                         <p class="text-right">
                             {{
-                                this.intervalForm.controls['qtd_reservas'].value
+                            this.intervalForm.controls['qtd_reservas'].value
                             }} x
                             {{
-                                formatMoneyValue(
-                                    valorDiaria == 0 || (valorMensal != 0 && qtdDias() >= 31)?
-                                    totalNoValorMensal(qtdDias(), valorMensal) : totalNoValorDiaria(qtdDias(), valorDiaria))
+                            formatMoneyValue(
+                            valorDiaria == 0 || (valorMensal != 0 && qtdDias() >= 31)?
+                            totalNoValorMensal(qtdDias(), valorMensal) : totalNoValorDiaria(qtdDias(), valorDiaria))
                             }}</p>
                     </div>
                 </div>
@@ -80,16 +89,17 @@
                     <div class="col">
                         <p class="text-right">
                             {{
-                                this.intervalForm.controls['qtd_reservas'].value
+                            this.intervalForm.controls['qtd_reservas'].value
                             }} x
                             {{
-                                formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && valorMensal?
-                                valorMensal / 31 : valorDiaria)))
+                            formatMoneyValue(totalTaxas(qtdDias(), calcularTaxa(taxa, valorMensal && (valorDiaria == 0
+                            || !valorDiaria) || qtdDias() >= 31 && valorMensal?
+                            valorMensal / 31 : valorDiaria)))
                             }}</p>
                     </div>
                 </div>
             </ng-container>
-            
+
             <div class="row justify-content-center">
                 <div class="col-8">
                     <mat-divider class="border-primary"></mat-divider>
@@ -104,52 +114,61 @@
                     <div class="col">
                         <p class="text-right">
                             {{
-                                formatMoneyValue(
-                                    valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && valorMensal?
-                                    this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorMensal(qtdDias(), calcularDiaria(valorMensal, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorMensal / 31))):
-                                    this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorDiaria(qtdDias(), calcularDiaria(valorDiaria, taxa, taxaMaxima)), totalTaxas(qtdDias(), calcularTaxa(taxaMaxima, valorDiaria))))
+                            formatMoneyValue(
+                            valorMensal && (valorDiaria == 0 || !valorDiaria) || qtdDias() >= 31 && valorMensal?
+                            this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorMensal(qtdDias(),
+                            calcularDiaria(valorMensal, taxa, taxaMaxima)), totalTaxas(qtdDias(),
+                            calcularTaxa(taxaMaxima, valorMensal / 31))):
+                            this.intervalForm.controls['qtd_reservas'].value * total(totalNoValorDiaria(qtdDias(),
+                            calcularDiaria(valorDiaria, taxa, taxaMaxima)), totalTaxas(qtdDias(),
+                            calcularTaxa(taxaMaxima, valorDiaria))))
                             }}</p>
                     </div>
                 </div>
 
-            <ng-container>
-                <div class="row my-2 d-flex justify-content-center">
-                    <div class="col-2 col-md-1">
-                        <button mat-icon-button color="warn" (click)="removeQtdReservas()" [disabled]="intervalForm.controls['qtd_reservas'].value <= 1">
-                            <mat-icon>remove</mat-icon>
-                        </button>
+                <ng-container>
+                    <div class="row my-2 d-flex justify-content-center">
+                        <div class="col-2 col-md-1">
+                            <button mat-icon-button color="warn" (click)="removeQtdReservas()"
+                                [disabled]="intervalForm.controls['qtd_reservas'].value <= 1">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <p class="text-center m-0 p-0">Quantidade de reservas</p>
+                        </div>
+                        <div class="col-2 col-md-1">
+                            <button mat-icon-button color="primary" (click)="addQtdReservas()"
+                                [disabled]="intervalForm.controls['qtd_reservas'].value >= qtd_maxima_reservas">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-6 d-flex justify-content-center align-items-center">
-                        <p class="text-center m-0 p-0">Quantidade de reservas</p>
-                    </div>
-                    <div class="col-2 col-md-1">
-                        <button mat-icon-button color="primary" (click)="addQtdReservas()" [disabled]="intervalForm.controls['qtd_reservas'].value >= qtd_maxima_reservas">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </ng-container>
+                </ng-container>
 
-            <div *ngIf="simulateMode" class="row">
-                <div class="col d-flex justify-content-center">
-                    <p class="text-center text-danger m-0 p-0">
-                        Valor a ser repassado para o locador por dia:
-                        {{
-                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal? valorMensal / 31 : valorDiaria)
-                        }}
-                        -
-                        {{
+                <div *ngIf="simulateMode" class="row">
+                    <div class="col d-flex justify-content-center">
+                        <p class="text-center text-danger m-0 p-0">
+                            Valor a ser repassado para o locador por dia:
+                            {{
+                            formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal? valorMensal
+                            / 31 : valorDiaria)
+                            }}
+                            -
+                            {{
                             formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
-                            (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100 ))
-                        }}
-                        =
-                        {{
+                            (valorMensal / 31) * ((taxaMaxima - taxa) / 100 ) : valorDiaria * ((taxaMaxima - taxa) / 100
+                            ))
+                            }}
+                            =
+                            {{
                             formatMoneyValue(valorMensal && !valorDiaria || qtdDias() >= 31 && valorMensal?
-                            ((valorMensal / 31) - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 ))) : valorDiaria - (valorDiaria * ((taxaMaxima - taxa) / 100 )))
-                        }}
-                    </p>
+                            ((valorMensal / 31) - ((valorMensal / 31) * ((taxaMaxima - taxa) / 100 ))) : valorDiaria -
+                            (valorDiaria * ((taxaMaxima - taxa) / 100 )))
+                            }}
+                        </p>
+                    </div>
                 </div>
-            </div>
             </ng-container>
         </form>
     </mat-card-content>
