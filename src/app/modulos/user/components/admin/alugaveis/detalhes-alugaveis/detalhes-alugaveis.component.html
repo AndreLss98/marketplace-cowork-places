@@ -1,7 +1,25 @@
 <mat-card>
-    <mat-card-title>{{ alugavel.titulo}}</mat-card-title>
+    <div class="d-flex align-items-center justify-content-center my-2">
+        <img-circular class="d-inline-block" [firstLetter]="userService.user_data.nome[0]" [imgUrl]="imgUrl"
+            (click)="viewUserDetails(alugavel.anunciante_id)">
+        </img-circular>
+    </div>
+    <div class="row m-2">
+        <div class="col d-flex align-items-center">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="col">
+            <h2 class="m-0 p-0 text-center font-weight-normal nome" style="color: gray; cursor: pointer;"
+                (click)="viewUserDetails(alugavel.anunciante_id)">
+                {{userService.user_data.nome}} {{userService.user_data.sobrenome}}
+            </h2>
+        </div>
+        <div class="col d-flex align-items-center">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <mat-card-title style="padding-top: 40px;">{{ alugavel.titulo}}</mat-card-title>
     <mat-card-subtitle>{{ alugavel.tipo.nome }}</mat-card-subtitle>
-
     <form [formGroup]="statusForm" (ngSubmit)="statusChange()">
         <mat-form-field appearance="standard">
             <mat-label>Status Alugável</mat-label>
@@ -28,8 +46,8 @@
         <h4 class="font-weight-bold">Descrição:</h4>
         <span style="overflow-wrap: break-word;">{{alugavel.descricao}}</span>
         <div style="overflow: auto;">
-            <mat-tab-group disablePagination mat-align-tabs="center">
-                <mat-tab [label]="'Valor'" >
+            <mat-tab-group disablePagination mat-align-tabs="center" style="padding-top: 3%;">
+                <mat-tab [label]="'Valor'">
                     <div class="container d-flex justify-content-around">
                         <table>
                             <div class="row">
@@ -39,7 +57,7 @@
                                         <div class="content">{{ formatMoneyValue(alugavel.valor) }}</div>
                                     </mat-card>
                                 </div>
-    
+
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Valor Mensal</mat-card-title>
@@ -57,7 +75,7 @@
                         </table>
                     </div>
                 </mat-tab>
-    
+
                 <mat-tab [label]="'Endereço'">
                     <div class="container d-flex justify-content-around">
                         <table>
@@ -68,8 +86,8 @@
                                         <div class="content">{{alugavel.local.rua}}</div>
                                     </mat-card>
                                 </div>
-    
-    
+
+
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Número</mat-card-title>
@@ -84,8 +102,8 @@
                                         <div class="content">{{alugavel.local.complemento}}</div>
                                     </mat-card>
                                 </div>
-    
-    
+
+
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Bairro</mat-card-title>
@@ -100,7 +118,7 @@
                                         <div class="content">{{alugavel.local.cep}}</div>
                                     </mat-card>
                                 </div>
-    
+
                                 <div class="col-lg d-flex justify-content-around">
                                     <mat-card class="cardInfo">
                                         <mat-card-title class="title">Cidade</mat-card-title>
@@ -126,26 +144,28 @@
                         </table>
                     </div>
                 </mat-tab>
-    
-                <mat-tab [label]="'Caracteristicas'" *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
+
+                <mat-tab [label]="'Caracteristicas'"
+                    *ngIf="alugavel.caracteristicas && alugavel.caracteristicas.length > 0">
                     <mat-card-content>
                         <mat-table [dataSource]="alugavel.caracteristicas">
                             <ng-container matColumnDef="caracteristica">
-                                <mat-header-cell *matHeaderCellDef style="font-weight: 900;"> <b>Característica</b> </mat-header-cell>
+                                <mat-header-cell *matHeaderCellDef style="font-weight: 900;"> <b>Característica</b>
+                                </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
                             </ng-container>
-    
+
                             <ng-container matColumnDef="valor">
                                 <mat-header-cell *matHeaderCellDef><b> Valor</b> </mat-header-cell>
                                 <mat-cell *matCellDef="let element">{{element.valor}}</mat-cell>
                             </ng-container>
-    
+
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                         </mat-table>
                     </mat-card-content>
                 </mat-tab>
-    
+
                 <mat-tab [label]="'Imagens'" *ngIf="alugavel.imagens && alugavel.imagens.length">
                     <mat-card-content>
                         <div id="imgContent" class="w-100 mt-2 d-flex flex-row flex-wrap justify-content-around">
@@ -163,20 +183,18 @@
                                 <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
                                 <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
                             </ng-container>
-    
+
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                                 <mat-cell *matCellDef="let element">
-                                        <a
-                                            target="_blank"
-                                            [href]="backURL + 'docs/' + element.url">
-                                            <button mat-icon-button>
-                                                <mat-icon>visibility</mat-icon>
-                                            </button>
-                                        </a>
+                                    <a target="_blank" [href]="backURL + 'docs/' + element.url">
+                                        <button mat-icon-button>
+                                            <mat-icon>visibility</mat-icon>
+                                        </button>
+                                    </a>
                                 </mat-cell>
                             </ng-container>
-    
+
                             <mat-header-row *matHeaderRowDef="displayedDocumentsColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedDocumentsColumns;"></mat-row>
                         </mat-table>
