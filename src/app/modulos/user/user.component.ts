@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
           this.isAdmin = false;
         });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   }
