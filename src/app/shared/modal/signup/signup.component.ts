@@ -125,7 +125,7 @@ export class SignupComponent implements OnInit {
       // termo_privacidae: this.termo_privacidae,
       termo_servico: this.termo_servico,
       recaptcha: this.recaptcha
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -161,6 +161,7 @@ export class SignupComponent implements OnInit {
       cpf == "88888888888" ||
       cpf == "99999999999") {
       this.cpfValido = false;
+      group.get('cpf').setErrors({});
       return false;
     }
     // Valida 1o digito 
@@ -172,6 +173,7 @@ export class SignupComponent implements OnInit {
       rev = 0;
     if (rev != parseInt(cpf.charAt(9))) {
       this.cpfValido = false;
+      group.get('cpf').setErrors({});
       return false;
     }
     // Valida 2o digito 
@@ -183,17 +185,21 @@ export class SignupComponent implements OnInit {
       rev = 0;
     if (rev != parseInt(cpf.charAt(10))) {
       this.cpfValido = false;
+      group.get('cpf').setErrors({});
       return false;
-    } this.cpfValido = true;
+    }
+    this.cpfValido = true;
     return true;
   }
 
   public checkAge() {
-    let nascimento = this.segundoPasso.controls.data_nascimento.value;
-    let age = moment().diff(nascimento, 'years')
+    let age = moment().diff(this.segundoPasso.get('data_nascimento').value, 'years')
 
     if (age < 18) {
-      this.segundoPasso.setErrors({ age: true })
+      this.segundoPasso.get('data_nascimento').setErrors({ age: true }, { emitEvent: true });
+      setTimeout(() => {
+        console.log(this.segundoPasso)
+      }, 2000)
     }
   }
 

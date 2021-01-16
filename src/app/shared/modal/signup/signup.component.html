@@ -43,7 +43,7 @@
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>CPF</mat-label>
                         <input #cpf matInput type="text" name="cpf" maxlength="14" formControlName="cpf"
-                            (keyup)=formatarCPF(cpf.value);verificaCpf(segundoPasso) required />
+                            (keyup)="formatarCPF(cpf.value); verificaCpf(segundoPasso)" required />
                         <mat-error>Preencha o campo corretamente!</mat-error>
                         <mat-error *ngIf="!cpfValido">Digite um CPF válido!</mat-error>
                     </mat-form-field>
@@ -52,11 +52,12 @@
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Data de nascimento</mat-label>
                         <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
-                            formControlName="data_nascimento" required (dateChange)='checkAge()'
-                            [errorStateMatcher]="data_nascimento.touched ? matcher : null">
-                        <mat-error *ngIf="!segundoPasso.hasError('age')">Selecione uma data válida!</mat-error>
-                        <mat-error *ngIf="segundoPasso.hasError('age')">Para se cadastrar é preciso ser maior de 18
-                            anos!
+                            formControlName="data_nascimento" required (dateChange)='checkAge()'>
+                        <mat-error *ngIf="!segundoPasso.get('data_nascimento').hasError('age')">
+                            Selecione uma data válida!
+                        </mat-error>
+                        <mat-error *ngIf="segundoPasso.get('data_nascimento').hasError('age')">
+                            Para se cadastrar é preciso ser maior de 18 anos!
                         </mat-error>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker startView="multi-year" #picker disabled="false" format></mat-datepicker>
