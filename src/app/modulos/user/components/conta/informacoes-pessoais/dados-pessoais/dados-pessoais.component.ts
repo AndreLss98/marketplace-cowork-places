@@ -89,13 +89,17 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginService.userLoginEvent.subscribe(() => {
-      this.validateUserDatas();
-    });
+
   }
 
   ngAfterViewInit() {
-    if (this.userService.user_data) this.validateUserDatas();
+    setTimeout(() => {
+      this.loginService.userLoginEvent.subscribe(() => {
+        this.validateUserDatas();
+      });
+      
+      if (this.userService.user_data) this.validateUserDatas();
+    })
   }
   
   private validateUserDatas() {
