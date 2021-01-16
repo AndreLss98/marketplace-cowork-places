@@ -33,7 +33,7 @@ import { Passos_signup as Passos, emailPattern } from 'src/app/shared/constants/
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { SignupService } from 'src/app/shared/service/signup.service';
-import { formatCPF } from '../../constants/functions';
+import { formatCPF, validateCPF } from '../../constants/functions';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -140,59 +140,6 @@ export class SignupComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  public verificaCpf(group: FormGroup) {
-    let cpf = group.controls.cpf.value;
-    cpf = cpf.replace(/[^\d]+/g, '');
-
-    if (cpf == '') {
-      this.cpfValido = false;
-      return false;
-    }
-
-    // Elimina CPFs invalidos conhecidos    
-    if (cpf.length != 11 ||
-      cpf == "00000000000" ||
-      cpf == "11111111111" ||
-      cpf == "22222222222" ||
-      cpf == "33333333333" ||
-      cpf == "44444444444" ||
-      cpf == "55555555555" ||
-      cpf == "66666666666" ||
-      cpf == "77777777777" ||
-      cpf == "88888888888" ||
-      cpf == "99999999999") {
-      this.cpfValido = false;
-      group.get('cpf').setErrors({});
-      return false;
-    }
-    // Valida 1o digito 
-    let add = 0;
-    for (let i = 0; i < 9; i++)
-      add += parseInt(cpf.charAt(i)) * (10 - i);
-    let rev = 11 - (add % 11);
-    if (rev == 10 || rev == 11)
-      rev = 0;
-    if (rev != parseInt(cpf.charAt(9))) {
-      this.cpfValido = false;
-      group.get('cpf').setErrors({});
-      return false;
-    }
-    // Valida 2o digito 
-    add = 0;
-    for (let i = 0; i < 10; i++)
-      add += parseInt(cpf.charAt(i)) * (11 - i);
-    rev = 11 - (add % 11);
-    if (rev == 10 || rev == 11)
-      rev = 0;
-    if (rev != parseInt(cpf.charAt(10))) {
-      this.cpfValido = false;
-      group.get('cpf').setErrors({});
-      return false;
-    }
-    this.cpfValido = true;
-    return true;
-  }
-
   public checkAge() {
     let age = moment().diff(this.segundoPasso.get('data_nascimento').value, 'years')
 
@@ -296,5 +243,7 @@ export class SignupComponent implements OnInit {
 
   public formatarCPF(cpf: string) {
     this.segundoPasso.controls['cpf'].setValue(formatCPF(cpf));
+    this.cpfValido = validateCPF(cpf);
+    if (!this.cpfValido) this.segundoPasso.get('cpf').setErrors({ invalid: true }, { emitEvent: true });
   }
 }
