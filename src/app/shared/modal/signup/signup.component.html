@@ -44,15 +44,19 @@
                         <mat-label>CPF</mat-label>
                         <input #cpf matInput type="text" name="cpf" maxlength="14" formControlName="cpf"
                             (keyup)="formatarCPF(cpf.value)" required />
-                        <mat-error>Preencha o campo corretamente!</mat-error>
-                        <mat-error *ngIf="!cpfValido">Digite um CPF válido!</mat-error>
+                        <mat-error *ngIf="segundoPasso.get('cpf').hasError('invalid')">Digite um CPF válido!</mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-sm">
                     <mat-form-field appearance="legacy" class="w-100">
                         <mat-label>Data de nascimento</mat-label>
-                        <input style="color: black;" matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy"
-                            formControlName="data_nascimento" required (dateChange)='checkAge()'>
+                        <input style="color: black;" matInput
+                            (dateChange)='checkAge()'
+                            [max]="maxAge"
+                            [matDatepicker]="picker"
+                            placeholder="dd/mm/yyyy"
+                            formControlName="data_nascimento"
+                            required >
                         <mat-error *ngIf="!segundoPasso.get('data_nascimento').hasError('age')">
                             Selecione uma data válida!
                         </mat-error>
@@ -65,7 +69,7 @@
                 </div>
             </div>
             <button class="my-2" mat-button mat-raised-button color="primary" type="button"
-                [disabled]="cpfValido && segundoPasso.valid ? false : true"
+                [disabled]="segundoPasso.invalid ? true : false"
                 (click)="nextStep(signupStepper)">Proximo</button>
         </form>
     </mat-step>

@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
 
   @ViewChild('signupStepper') stepper: MatStepper;
   public input_nascimento;
-  public cpfValido: boolean = false;
+  public maxAge: Date = new Date();
   public loader: boolean = false;
   public editavel: boolean = true;
   matcher = new MyErrorStateMatcher();
@@ -145,9 +145,6 @@ export class SignupComponent implements OnInit {
 
     if (age < 18) {
       this.segundoPasso.get('data_nascimento').setErrors({ age: true }, { emitEvent: true });
-      setTimeout(() => {
-        console.log(this.segundoPasso)
-      }, 2000)
     }
   }
 
@@ -243,7 +240,6 @@ export class SignupComponent implements OnInit {
 
   public formatarCPF(cpf: string) {
     this.segundoPasso.controls['cpf'].setValue(formatCPF(cpf));
-    this.cpfValido = validateCPF(cpf);
-    if (!this.cpfValido) this.segundoPasso.get('cpf').setErrors({ invalid: true }, { emitEvent: true });
+    if (!validateCPF(cpf)) this.segundoPasso.get('cpf').setErrors({ invalid: true }, { emitEvent: true });
   }
 }
