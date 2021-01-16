@@ -35,13 +35,17 @@ export class UserComponent implements OnInit {
 
   checkAdminPermission() {
     if (this.userService.user_data) {
-      this.userService.checkPermission().subscribe(() => {
-        this.isAdmin = true;
-        this.userService.isAdmin = true;
-      }, (error) => {
-        this.userService.isAdmin = false;
-        this.isAdmin = false;
-      });
+      try {
+        this.userService.checkPermission().subscribe(() => {
+          this.isAdmin = true;
+          this.userService.isAdmin = true;
+        }, (error) => {
+          this.userService.isAdmin = false;
+          this.isAdmin = false;
+        });
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

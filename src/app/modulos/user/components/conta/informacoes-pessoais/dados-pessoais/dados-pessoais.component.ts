@@ -97,7 +97,7 @@ export class DadosPessoaisComponent implements OnInit {
       this.loginService.userLoginEvent.subscribe(() => {
         this.validateUserDatas();
       });
-      
+
       if (this.userService.user_data) this.validateUserDatas();
     })
   }

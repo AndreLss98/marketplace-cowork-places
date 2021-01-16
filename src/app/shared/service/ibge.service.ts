@@ -13,23 +13,23 @@ export class IbgeService {
     private http:HttpClient
   ) { }
 
-  getEstados(){
+  getEstados() {
     return this.http.get(this.baseUrl + 'estados?orderBy=nome');
   }
 
-  getCidadesPorEstado(uf:number){
+  getCidadesPorEstado(uf:number) {
     return this.http.get(this.baseUrl + 'estados/' + uf + '/distritos?orderBy=nome');
   }
 
-  getMunicipioPorId(id):Observable<any>{
+  getMunicipioPorId(id):Observable<any> {
     return this.http.get<any>(this.baseUrl + 'municipios/' + id);
   }
 
-  getCidadePorId(id):Observable<any>{
+  getCidadePorId(id):Observable<any> {
     return this.http.get<any>(this.baseUrl + 'distritos/' + id);
   }
 
-  getEstadoPorId(id):Observable<any>{
+  getEstadoPorId(id):Observable<any> {
     return this.http.get<any>(this.baseUrl + 'estados/' + id);
   }
 }
