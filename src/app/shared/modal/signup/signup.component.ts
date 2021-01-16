@@ -33,6 +33,7 @@ import { Passos_signup as Passos, emailPattern } from 'src/app/shared/constants/
 import { UserService } from 'src/app/shared/service/user.service';
 import { LoginService } from 'src/app/shared/service/login.service';
 import { SignupService } from 'src/app/shared/service/signup.service';
+import { formatCPF } from '../../constants/functions';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -294,12 +295,6 @@ export class SignupComponent implements OnInit {
   }
 
   public formatarCPF(cpf: string) {
-    let formatted = cpf;
-    formatted = formatted.replace(/\D/g, "")
-      .replace(/([0-9]{3})([0-9]{1})/, "$1.$2")
-      .replace(/([0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1.$2")
-      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3})([0-9]{1})/, "$1-$2")
-      .replace(/([0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2})(.)/, "$1");
-    this.segundoPasso.controls['cpf'].setValue(formatted);
+    this.segundoPasso.controls['cpf'].setValue(formatCPF(cpf));
   }
 }
