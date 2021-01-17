@@ -1,8 +1,19 @@
 <div class="container-fluid" style="background-color: white">
-    <div
-        id="markdown" 
-        markdown
-        [src]="url"
-        class="text-justify py-5"
-        style="color: rgb(70, 70, 70)"></div>
+    <div class="row">
+        <div class="col-2">
+            <mat-list>
+                <mat-list-item *ngFor="let politica of politicas">
+                    <a class="cursor-pointer" (click)="navigateInside(politica.url)">{{ politica.nome }}</a>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div class="col">
+            <div
+                id="markdown" 
+                markdown
+                [src]="url? url : politicas[0].url"
+                class="text-justify py-5"
+                style="color: rgb(70, 70, 70)"></div>
+        </div>
+    </div>
 </div>
