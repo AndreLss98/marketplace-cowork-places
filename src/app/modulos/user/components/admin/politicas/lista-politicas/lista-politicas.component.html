@@ -22,7 +22,7 @@
                 <mat-form-field appearance="legacy">
                     <mat-label>Arquivo</mat-label>
                     <input #fileInput style="display: none;" type="file" autocomplete="off" (change)="changeFileSelected($event)" />
-                    <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required autocomplete="off"/>
+                    <input #fakeInput formControlName="arquivo" matInput placeholder="Selecionar" (focus)="fileInput.click(); fakeInput.blur()" required autocomplete="off"/>
                 </mat-form-field>
                 <div class="d-flex justify-content-center">
                     <button *ngIf="!isLoading; else loading" mat-flat-button color="primary" type="submit" [disabled]="saveForm.invalid || saveForm.pristine">Criar</button>
@@ -45,7 +45,7 @@
                 <mat-form-field appearance="legacy">
                     <mat-label>Arquivo</mat-label>
                     <input #fileInput style="display: none;" type="file" (change)="updateFileSelected($event)" />
-                    <input formControlName="arquivo" matInput placeholder="Selecionar" (click)="fileInput.click()" required />
+                    <input #fakeInput formControlName="arquivo" matInput placeholder="Selecionar" (focus)="fileInput.click(); fakeInput.blur()" required />
                 </mat-form-field>
 
                 <mat-form-field appearance="legacy">
