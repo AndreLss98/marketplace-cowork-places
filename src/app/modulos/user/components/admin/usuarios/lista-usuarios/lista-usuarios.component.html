@@ -1,17 +1,14 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Usuários">
-        <filter-pageable-table class="w-100"
-            [data]="data"
-            [tableColumns]="tableColumns"
-            [displayedColumns]="displayedColumns"
-            [actions]="actions"
-            [pager]="pager"
-            [formFields]="formFields"
-            (visualizar)="viewUserDetails($event)"
-            (pageEvent)="pagerEvent($event)"
+        <filter-pageable-table class="w-100" [data]="data" [tableColumns]="tableColumns"
+            [displayedColumns]="displayedColumns" [actions]="actions" [pager]="pager" [formFields]="formFields"
+            (visualizar)="viewUserDetails($event)" (pageEvent)="pagerEvent($event)"
             (filterChanges)="onFilterChanges($event)"></filter-pageable-table>
     </mat-tab>
     <mat-tab label="Documentos Pessoais">
         <documentos-pessoais></documentos-pessoais>
+    </mat-tab>
+    <mat-tab label="Permissões">
+        <permissoes></permissoes>
     </mat-tab>
 </mat-tab-group>

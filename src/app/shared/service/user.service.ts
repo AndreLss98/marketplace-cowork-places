@@ -49,17 +49,17 @@ export class UserService {
   }
 
   public cadastroValidado() {
-    if(
+    if (
       !this.user_data ||
       !this.user_data.cpf ||
       !this.user_data.email_validado ||
       !this.user_data.data_nascimento ||
       !this.user_data.data_nascimento ||
       !this.user_data.numero_1 ||
-      !this.user_data.conta_bancaria 
-      )   return false;
+      !this.user_data.conta_bancaria
+    ) return false;
 
-      return true;
+    return true;
   }
 
   public verifyUserEmail(email: string) {
@@ -76,10 +76,10 @@ export class UserService {
 
   public getAll(page: number, pageSize: number, fitlers = {}) {
     const params =
-    new HttpParams()
-    .set('page', page.toString())
-    .set('limit', pageSize.toString())
-    .set('filters', JSON.stringify(fitlers));
+      new HttpParams()
+        .set('page', page.toString())
+        .set('limit', pageSize.toString())
+        .set('filters', JSON.stringify(fitlers));
 
     return this.http.get<any>(`${environment.apiUrl}/usuarios`, { params });
   }
@@ -118,6 +118,10 @@ export class UserService {
   }
 
   public getAlugueis(locacoes?): Observable<any> {
-    return this.http.get<any>(environment.apiUrl + '/usuarios/alugueis' + `${locacoes? '?locacoes=true':''}`);
+    return this.http.get<any>(environment.apiUrl + '/usuarios/alugueis' + `${locacoes ? '?locacoes=true' : ''}`);
+  }
+
+  public updatePerfil(usuario) {
+    return this.http.put<any>(`${environment.apiUrl}/usuarios/alter-perfil`, usuario);
   }
 }

@@ -1,0 +1,38 @@
+<basic-table class="w-100" [data]="data" [tableColumns]="tableColumns" [displayedColumns]="displayedColumns"
+    [actions]="actions" [pager]="pager" (pageEvent)="pagerEvent($event)" (editar)="select($event)">
+</basic-table>
+
+<mat-card class="mx-4 mb-1">
+    <mat-card-header>
+        <mat-card-title>Editar permissão</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="editForm" (ngSubmit)="update()">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Nome</mat-label>
+                        <input formControlName="nome" matInput autocomplete="off" placeholder="Nome" maxlength="100" />
+                    </mat-form-field>
+                </div>
+                <div class="col-sm">
+                    <mat-form-field appearance="standard" class="w-100">
+                        <mat-label>Perfil</mat-label>
+                        <mat-select formControlName="perfil_id">
+                            <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">{{perfil.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button mat-flat-button type="button" (click)="usuario = null">Cancelar</button>
+
+                <button mat-flat-button color="primary" type="submit"
+                    [disabled]="editForm.invalid ||editForm.pristine">Atualizar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<pre>{{editForm.value | json}}</pre>

@@ -30,6 +30,7 @@ import { SidemenuComponent } from 'src/app/shared/components/sidemenu/sidemenu.c
 import { SearchboxComponent } from 'src/app/shared/components/sidemenu/components/searchbox/searchbox.component';
 import { ListaTiposDocumentosComponent } from './components/admin/alugaveis/lista-tipos-documentos/lista-tipos-documentos.component';
 import { ListaPublicAlvoComponent } from './components/admin/alugaveis/lista-public-alvo/lista-public-alvo.component';
+import { PermissoesComponent } from './components/admin/usuarios/permissoes/permissoes.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ListaPublicAlvoComponent } from './components/admin/alugaveis/lista-pub
     ListaCaracteristicasAlugaveisComponent,
     ListaTiposDocumentosComponent,
     ListaPublicAlvoComponent,
+    PermissoesComponent
   ],
   imports: [
     CommonModule,
@@ -68,6 +70,6 @@ import { ListaPublicAlvoComponent } from './components/admin/alugaveis/lista-pub
     SidemenuComponent,
     SearchboxComponent,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UserModule { }
