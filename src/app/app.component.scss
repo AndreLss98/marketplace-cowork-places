@@ -20,3 +20,53 @@ nav img.logo {
         max-width: 150px;
     }
 }
+
+.texto{
+    background: #25d366;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    border-radius: 30px;
+}
+
+.cta-whatsapp{
+	transition: all 0.3s ease;
+    position: fixed;
+    bottom: 0;
+    display: block;
+    right: 0;
+    margin: 10px;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-weight: 500;
+    z-index: 99;
+    &:hover{
+    	transition: all 0.3s;
+    	opacity: 0.8
+    }
+}
+.floating {
+	animation-iteration-count:infinite;
+	animation-duration: 1.3s;
+	animation-name: floating-float, floating;
+	}
+	@keyframes floating {
+	 0% {
+	   -webkit-transform: translateY(-8px);
+	   transform: translateY(-8px);
+	 }
+	 50% {
+	   -webkit-transform: translateY(-4px);
+	   transform: translateY(-4px);
+	 }
+	 100% {
+	   -webkit-transform: translateY(-8px);
+	   transform: translateY(-8px);
+	 }
+	}
+	@keyframes floating-float {
+	 100% {
+	   -webkit-transform: translateY(-8px);
+	   transform: translateY(-8px);
+	 }
+}

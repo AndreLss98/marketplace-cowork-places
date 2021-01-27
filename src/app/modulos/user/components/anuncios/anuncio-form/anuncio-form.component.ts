@@ -45,7 +45,7 @@ export class AnuncioFormComponent implements OnInit {
     { mime_type: 'image/jpg', nome: '.jpg' },
     { mime_type: 'image/png', nome: '.png' },
     { mime_type: 'image/jpeg', nome: '.jpeg' },
-    { mime_type: "application/pdf", nome: '.pdf'}
+    { mime_type: "application/pdf", nome: '.pdf' }
   ];
 
   public editMode: boolean = false;
@@ -105,15 +105,15 @@ export class AnuncioFormComponent implements OnInit {
 
     this.informacoesForm.controls['tipo_id'].valueChanges.subscribe(() => {
       this.tiposService.getAllCaracteristicasByTipo(this.informacoesForm.controls['tipo_id'].value)
-      .subscribe(response => {
-        this.caracteristicas = response;
-        this.configCaracteristicasForm();
-      });
+        .subscribe(response => {
+          this.caracteristicas = response;
+          this.configCaracteristicasForm();
+        });
 
       this.documentos = this.tipos_documentos
-      .filter(tipo_doc => this.tipos
-        .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
-      
+        .filter(tipo_doc => this.tipos
+          .find(tipo => tipo.id === this.informacoesForm.controls['tipo_id'].value).documentos.includes(tipo_doc.id));
+
       let tempDocFormGroup = {
         proprietario: new FormControl(null, [Validators.required]),
         pessoajuridica: new FormControl(false, []),
@@ -171,7 +171,7 @@ export class AnuncioFormComponent implements OnInit {
             this.documentosForm.get('cadastro_terceiro')['controls']['cpf'].setValidators([Validators.required]);
             this.documentosForm.get('cadastro_terceiro')['controls']['nome'].setValidators([Validators.required]);
           }
-  
+
           setTimeout(() => {
             this.documentosForm.updateValueAndValidity();
           }, 200);
@@ -200,7 +200,7 @@ export class AnuncioFormComponent implements OnInit {
     this.documentosForm.valueChanges.subscribe(() => {
       this.checkDocs();
     });
-    
+
     this.configTax();
     this.publicoAlvo = this.route.snapshot.data['publico_alvo'];
     this.tipos_documentos = this.route.snapshot.data['tipos_documentos'];
@@ -212,12 +212,12 @@ export class AnuncioFormComponent implements OnInit {
       .keys(this.documentosForm.value)
       .map(key => Number(key))
       .filter(key => key);
-    
+
     let valid = true;
     docs.forEach(key => {
       if (!this.documentosForm.value[key][0]) valid = false;
     });
-    
+
     if (valid) {
       this.documentosForm.controls['aceite_condicoes'].setValidators([]);
     } else {
@@ -228,7 +228,7 @@ export class AnuncioFormComponent implements OnInit {
       this.documentosForm.controls['aceite_condicoes'].updateValueAndValidity();
     }, 1000);
   }
-  
+
   ngAfterViewInit() {
     if (this.router.url.includes('/edit')) this.configEditForm();
   }
@@ -239,14 +239,14 @@ export class AnuncioFormComponent implements OnInit {
       const documentos = Object.keys(this.documentosForm.value)
         .filter(key => this.documentosForm.value[key][0])
         .map(key => this.documentosForm.value[key][0].id);
-        
+
       this.alugavelService.clearFilesSendNotSaved(imagens, documentos)
     }
   }
 
   private configTax() {
     this.maxTax = this.route.snapshot.data['taxa'].taxa;
-    this.thumbsTaxs = [0, this.maxTax/2, this.maxTax]
+    this.thumbsTaxs = [0, this.maxTax / 2, this.maxTax]
   }
 
   public formatField(field: string, form, formatFunction) {
@@ -286,22 +286,26 @@ export class AnuncioFormComponent implements OnInit {
     this.alugavelService.createAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
       this.enviadoComSucesso = true;
-      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Parabéns',
-        message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
-        nameCloseBtn: 'Ok'
-      }, hasBackdrop: false});
+      const dialogRef = this.matDialog.open(BasicModalComponent, {
+        data: {
+          title: 'Parabéns',
+          message: 'O cadastro foi realizado com sucesso, aguarde a aprovação do seu anúncio',
+          nameCloseBtn: 'Ok'
+        }, hasBackdrop: false
+      });
 
       dialogRef.afterClosed().subscribe(result => {
         this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
       });
     }, (error) => {
       this.isSending = false;
-      this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Aviso',
-        message: 'Algo deu errado enquanto tentávamos salvar o seu anúncio, Por favor tente novamente.',
-        nameCloseBtn: 'Ok'
-      }});
+      this.matDialog.open(BasicModalComponent, {
+        data: {
+          title: 'Aviso',
+          message: 'Algo deu errado enquanto tentávamos salvar o seu anúncio, Por favor tente novamente.',
+          nameCloseBtn: 'Ok'
+        }
+      });
       console.log(error);
     }, () => {
       this.isSending = false;
@@ -311,7 +315,6 @@ export class AnuncioFormComponent implements OnInit {
   public configEditForm() {
     this.editMode = true;
     this.anuncio = this.route.snapshot.data['anuncio'];
-    console.log(this.anuncio)
     this.informacoesForm.controls['publico_alvo'].setValue(this.anuncio.publico_alvo);
 
     this.anuncio.caracteristicas.forEach(carac => {
@@ -335,7 +338,7 @@ export class AnuncioFormComponent implements OnInit {
 
     this.documentosForm.controls['proprietario'].setValue(this.anuncio.proprietario);
     this.documentosForm.controls['pessoajuridica'].setValue(this.anuncio.pessoajuridica);
-    
+
     this.anuncio.documentos.forEach(documento => {
       let doc = this.documentos.find(doc => doc.id === documento.tipo_alugavel_documento_id);
       if (doc) {
@@ -347,7 +350,7 @@ export class AnuncioFormComponent implements OnInit {
     this.documentosForm.controls['cadastro_terceiro'].reset({
       ...this.anuncio.cadastro_terceiro
     });
-    
+
     setTimeout(() => {
       this.documentosForm.get('cadastro_terceiro')['controls']['local'].reset({
         ...this.anuncio.cadastro_terceiro.local
@@ -362,8 +365,8 @@ export class AnuncioFormComponent implements OnInit {
       if (key === 'valor' || key === 'valor_mes') {
         this.valoresForm.controls[key]
           .setValue(Number(this.anuncio[key])
-          .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
-          .replace(/(\,[0-9]{2})/, ''));
+            .toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+            .replace(/(\,[0-9]{2})/, ''));
       } else {
         this.valoresForm.controls[key].setValue(this.anuncio[key]);
       }
@@ -371,27 +374,31 @@ export class AnuncioFormComponent implements OnInit {
   }
 
   public update() {
-    let anuncio = this.anuncio.cadastro_terceiro? this.buildAnuncioObject(this.anuncio.id, this.anuncio.cadastro_terceiro.id) : this.buildAnuncioObject(this.anuncio.id);
+    let anuncio = this.anuncio.cadastro_terceiro ? this.buildAnuncioObject(this.anuncio.id, this.anuncio.cadastro_terceiro.id) : this.buildAnuncioObject(this.anuncio.id);
     this.isSending = true;
 
     this.alugavelService.updateAlugavel(anuncio).subscribe(response => {
       this.isSending = false;
-      const dialogRef = this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Parabéns',
-        message: 'O cadastro foi atualizado com sucesso, aguarde a aprovação do seu anúncio',
-        nameCloseBtn: 'Ok'
-      }, hasBackdrop: false});
+      const dialogRef = this.matDialog.open(BasicModalComponent, {
+        data: {
+          title: 'Parabéns',
+          message: 'O cadastro foi atualizado com sucesso, aguarde a aprovação do seu anúncio',
+          nameCloseBtn: 'Ok'
+        }, hasBackdrop: false
+      });
 
       dialogRef.afterClosed().subscribe(result => {
         this.router.navigate(['/user/anuncios/meusanuncios'], { replaceUrl: true });
       });
     }, (error) => {
       this.isSending = false;
-      this.matDialog.open(BasicModalComponent, { data: {
-        title: 'Aviso',
-        message: 'Algo deu errado enquanto Tentávamos atualizar o seu anúncio, Por favor tente novamente.',
-        nameCloseBtn: 'Ok'
-      }});
+      this.matDialog.open(BasicModalComponent, {
+        data: {
+          title: 'Aviso',
+          message: 'Algo deu errado enquanto Tentávamos atualizar o seu anúncio, Por favor tente novamente.',
+          nameCloseBtn: 'Ok'
+        }
+      });
       console.log(error);
     }, () => {
       this.isSending = false;
@@ -416,7 +423,7 @@ export class AnuncioFormComponent implements OnInit {
       delete tempLocal.latitude;
       delete tempLocal.longitude;
       tempLocal.pais = 'Brasil';
-      
+
       return { ...temp, local: this.documentosForm.controls['cadastro_terceiro'].value['local'] }
     }
 
@@ -424,7 +431,7 @@ export class AnuncioFormComponent implements OnInit {
       ...this.informacoesForm.value,
       proprietario: this.documentosForm.controls['proprietario'].value,
       pessoajuridica: this.documentosForm.controls['pessoajuridica'].value,
-      local: {  
+      local: {
         ...this.enderecoForm.value,
         pais: 'Brasil'
       },
@@ -441,12 +448,12 @@ export class AnuncioFormComponent implements OnInit {
 
     anuncio.valor = desformatMoneyValue(anuncio.valor);
     anuncio.valor_mes = desformatMoneyValue(anuncio.valor_mes);
-    
+
     if (!this.documentosForm.controls['proprietario'].value) anuncio.cadastro_terceiro = configCadastroTerceiro()
 
     if (id) anuncio.id = id;
     if (cadastro_terceiro_id) anuncio.cadastro_terceiro.id = cadastro_terceiro_id;
-    
+
     return anuncio;
   }
 

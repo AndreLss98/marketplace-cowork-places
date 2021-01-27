@@ -4,19 +4,16 @@
             (click)="toggleSideMenu($event)">close</mat-icon>
 
         <div class="d-flex justify-content-center">
-            <img
-              routerLink="/home"
-              class="cursor-pointer my-3 d-block logo"
-              style="outline: none;"
-              src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu($event)" />
+            <img routerLink="/home" class="cursor-pointer my-3 d-block logo" style="outline: none;"
+                src="assets/imgs/logo/logo_preta.svg" (click)="toggleSideMenu($event)" />
         </div>
 
         <div class="mb-2">
-          <redes-sociais [columnMode]="false"></redes-sociais>
+            <redes-sociais [columnMode]="false"></redes-sociais>
         </div>
-        
+
         <div class="d-flex justify-content-center mb-4">
-          <account-btn (action)="toggleSideMenu($event)"></account-btn>
+            <account-btn (action)="toggleSideMenu($event)"></account-btn>
         </div>
 
         <app-user-menu (action)="toggleSideMenu($event)" *ngIf="router.url.includes('/user')"></app-user-menu>
@@ -29,23 +26,20 @@
                 <a class="navbar-brand" routerLink="/home">
                     <img class="logo d-block" src="assets/imgs/logo/logo_preta.svg">
                 </a>
-                <button
-                    class="navbar-toggler"
-                    type="button" data-toggle="collapse" aria-expanded="false"
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                     aria-label="Toggle navigation" (click)="toggleSideMenu($event)">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-    
+
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link cursor-pointer" (click)="comoFunciona()">Como Funciona</a>
                         </li>
-    
+
                         <li class="nav-item">
-                            <a class="nav-link"
-                            target="_blank"
-                            [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'">Ajuda</a>
+                            <a class="nav-link" target="_blank"
+                                [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'">Ajuda</a>
                         </li>
                     </ul>
                     <account-btn></account-btn>
@@ -53,6 +47,14 @@
             </nav>
         </div>
         <router-outlet></router-outlet>
+        <a aria-label="Whatsapp" rel="noreferrer"
+            [href]="'https://api.whatsapp.com/send?l=pt-BR&phone=' + SUPPORT_PHONE + '&text=Ol%C3%A1%20gostaria%20de%20tirar%20uma%20dúvida!'"
+            class="cta-whatsapp floating" target="_blank">
+            <a class="texto">
+                Fale conosco pelo whatsapp!
+            </a>
+            <img src="https://i.ibb.co/VgSspjY/whatsapp-button.png" alt="botão whatsapp">
+        </a>
         <app-footer></app-footer>
         <app-feedback-button *ngIf="userService.user_data"></app-feedback-button>
     </div>
