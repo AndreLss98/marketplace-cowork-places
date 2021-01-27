@@ -21,12 +21,20 @@ nav img.logo {
     }
 }
 
+@media (min-width: 630px) {
 .texto{
     background: #25d366;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     padding: 10px 15px;
     border-radius: 30px;
+  }
 }
+
+@media (max-width: 630px) {
+  .texto{
+    display: none;
+    }
+  }
 
 .cta-whatsapp{
 	transition: all 0.3s ease;
